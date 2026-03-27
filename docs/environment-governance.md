@@ -163,6 +163,16 @@ Additional governed keysets (same registry file):
 - Retention policy knobs: `OPENUI_MCP_CACHE_RETENTION_DAYS` + `OPENUI_MCP_CACHE_MAX_BYTES`.
 - Full cleanup: `npm run repo:clean` (resets runtime log/cache/build roots and purges registered artifact/evidence directories declared in `contracts/runtime/path-registry.json`).
 - Retention-only cleanup: `npm run clean:runtime -- --cache-retention-only` (only prunes expired or oversized cache files).
+- Space-governance reporting is separate from cleanup:
+  - `npm run repo:space:report` writes snapshots under `.runtime-cache/reports/space-governance/`
+  - `npm run repo:space:check` is the front-door repo-local gate and enforces hard-fail pollution plus unknown heavy non-canonical runtime subtree rules from `contracts/runtime/space-governance.json`
+  - `npm run repo:space:verify` reports which `verificationCandidates` are currently eligible for controlled repo-local cleanup
+  - `npm run repo:space:clean:dry-run` only enumerates repo-local allowlist targets and must not target shared layers
+- Security and release evidence reporting is separate from runtime operation:
+  - `npm run security:evidence:final` writes final repo-side evidence summaries under `.runtime-cache/reports/security/`
+  - `npm run governance:remote:review` writes remote canonical review summaries under `.runtime-cache/reports/release-readiness/`
+- Space-governance hard rule: repo-local runtime truth remains `.runtime-cache/*`; shared layers such as Docker, `~/.npm`, `~/.cache/pre-commit`, and Playwright browser caches stay outside repo-local cleanup scope unless separately approved as machine-level maintenance.
+- Tool cache hard rule: pre-commit and Go tooling caches must resolve outside the workspace; only canonical repo-local runtime evidence remains under `.runtime-cache/*`.
 
 ## Operational Examples
 
@@ -228,6 +238,8 @@ Default output paths:
 
 - `.runtime-cache/env-governance/report.json`
 - `.runtime-cache/env-governance/report.md`
+- CI inventory snapshots also live under `.runtime-cache/env-governance/`
+  so the runtime-governance gate does not flag them as an unregistered subtree.
 
 GitHub Actions uploads both files as artifact `env-governance-<run_id>-<run_attempt>`.
 

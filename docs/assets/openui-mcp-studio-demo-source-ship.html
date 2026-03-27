@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>OpenUI MCP Studio Demo - Ship</title>
+		<style>
+			:root {
+				color-scheme: light;
+				font-family:
+					"SF Pro Display",
+					"Segoe UI",
+					Arial,
+					sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				background: linear-gradient(135deg, #f4ecff 0%, #e8def9 100%);
+				color: #0f172a;
+			}
+
+			.canvas {
+				width: 1280px;
+				height: 720px;
+				padding: 34px;
+				display: grid;
+				grid-template-columns: 360px minmax(0, 1fr);
+				gap: 26px;
+			}
+
+			.panel {
+				padding: 30px 28px 32px;
+				border-radius: 32px;
+				background: rgba(255, 255, 255, 0.9);
+				border: 1px solid rgba(15, 23, 42, 0.08);
+				box-shadow: 0 22px 60px rgba(155, 93, 229, 0.16);
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+
+			.kicker {
+				display: inline-flex;
+				width: fit-content;
+				padding: 10px 16px;
+				border-radius: 999px;
+				background: rgba(155, 93, 229, 0.14);
+				color: #7f3fd1;
+				font-size: 16px;
+				font-weight: 700;
+				letter-spacing: 0.01em;
+			}
+
+			.chip {
+				display: inline-flex;
+				width: fit-content;
+				margin-top: 18px;
+				padding: 11px 18px;
+				border-radius: 999px;
+				background: #9b5de5;
+				color: white;
+				font-size: 24px;
+				font-weight: 700;
+			}
+
+			.header {
+				display: flex;
+				flex-direction: column;
+				gap: 18px;
+			}
+
+			h1,
+			p {
+				margin: 0;
+			}
+
+			h1 {
+				font-size: 46px;
+				line-height: 1.05;
+				letter-spacing: -0.04em;
+			}
+
+			p {
+				font-size: 22px;
+				line-height: 1.45;
+				color: #485b77;
+			}
+
+			.points {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+			}
+
+			.point {
+				padding: 14px 16px;
+				border-radius: 18px;
+				background: rgba(15, 23, 42, 0.05);
+				font-size: 17px;
+				font-weight: 700;
+				color: #122038;
+			}
+
+			.copy {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+			}
+
+			.frame {
+				border-radius: 32px;
+				overflow: hidden;
+				border: 1px solid rgba(15, 23, 42, 0.08);
+				box-shadow: 0 32px 90px rgba(155, 93, 229, 0.14);
+				background: rgba(255, 255, 255, 0.96);
+				padding: 16px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+				object-position: center top;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="canvas">
+			<section class="panel">
+				<div class="header">
+					<div class="kicker">OpenUI MCP Studio demo</div>
+					<div class="chip">3. Ship</div>
+					<div class="copy">
+						<h1>Keep gates in the loop before calling the result done.</h1>
+						<p>
+							Ship decisions stay connected to smoke, visual, UI/UX, and
+							release-readiness evidence instead of a one-shot output.
+						</p>
+					</div>
+				</div>
+
+				<div class="points">
+					<div class="point">Release work stays visible beside active lanes</div>
+					<div class="point">No bottom overlay hides the proof surface</div>
+					<div class="point">The frame still points at the real workbench</div>
+				</div>
+			</section>
+			<div class="frame">
+				<img
+					src="./openui-mcp-studio-workbench.png"
+					alt="OpenUI MCP Studio ship workbench"
+				/>
+			</div>
+		</main>
+	</body>
+</html>

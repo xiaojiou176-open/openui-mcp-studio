@@ -7,6 +7,8 @@ This document explains the repository-side release and public-safe gates.
 ```bash
 npm run release:readiness:check
 npm run release:public-safe:check
+npm run security:evidence:final
+npm run governance:remote:review
 npm run governance:remote-evidence:check:strict
 npm run governance:history-hygiene:check
 ```
@@ -20,7 +22,13 @@ npm run governance:history-hygiene:check
   - is the canonical repository-side public-safe verdict
   - requires strict authoritative run evidence
   - requires strict remote governance evidence
-  - requires classified history hygiene
+  - requires zero-findings canonical history hygiene
+- `npm run security:evidence:final`
+  - writes repo-side final evidence summaries for heuristic PII and ScanCode keyfile review
+  - does not replace formal DLP, privacy review, or legal sign-off
+- `npm run governance:remote:review`
+  - writes a remote canonical review summary plus fresh mirror audit outputs
+  - does not imply upstream repositories are also history-clean
 
 ## Remote Governance Boundary
 
@@ -47,7 +55,9 @@ Current-tree checks are not a substitute for full-history scanning.
 
 - `npm run governance:history-hygiene:check` refreshes the raw history report
   first when the report artifact is missing
-- classified history findings are different from rewritten-history proof
+- the default clean repository state is expected to produce zero findings
+- temporary upstream tracking refs are outside the canonical release surface and
+  must be removed or isolated before claiming the clone is history-clean again
 - public visibility does not waive this requirement
 
 ## Release Evidence Inputs

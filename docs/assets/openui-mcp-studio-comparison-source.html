@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>OpenUI MCP Studio Comparison</title>
+		<style>
+			:root {
+				color-scheme: light;
+				font-family:
+					"SF Pro Display",
+					"Segoe UI",
+					Arial,
+					sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				background:
+					radial-gradient(circle at top center, rgba(47, 109, 246, 0.15), transparent 24%),
+					linear-gradient(180deg, #f7f9fc 0%, #eef4fb 100%);
+				color: #0f172a;
+			}
+
+			.canvas {
+				width: 1440px;
+				height: 880px;
+				padding: 42px;
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			}
+
+			.eyebrow {
+				width: fit-content;
+				padding: 10px 16px;
+				border-radius: 999px;
+				background: rgba(47, 109, 246, 0.12);
+				color: #234dbf;
+				font-size: 18px;
+				font-weight: 700;
+			}
+
+			h1 {
+				margin: 0;
+				font-size: 50px;
+				line-height: 1.04;
+				letter-spacing: -0.04em;
+			}
+
+			p {
+				margin: 0;
+				font-size: 22px;
+				line-height: 1.42;
+				color: #4b5d78;
+				max-width: 980px;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: separate;
+				border-spacing: 14px;
+				table-layout: fixed;
+			}
+
+			th,
+			td {
+				padding: 18px 18px;
+				border-radius: 20px;
+				background: rgba(255, 255, 255, 0.92);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+				vertical-align: top;
+			}
+
+			th {
+				font-size: 24px;
+				text-align: left;
+				letter-spacing: -0.03em;
+			}
+
+			td {
+				font-size: 19px;
+				line-height: 1.38;
+				color: #3f516c;
+			}
+
+			.highlight {
+				background: linear-gradient(180deg, #eef5ff 0%, #ffffff 100%);
+				border-color: rgba(47, 109, 246, 0.32);
+			}
+
+			.good {
+				color: #0d8b6f;
+				font-weight: 700;
+			}
+
+			.bad {
+				color: #d14343;
+				font-weight: 700;
+			}
+
+			.metric {
+				display: inline-block;
+				margin-top: 8px;
+				padding: 7px 11px;
+				border-radius: 999px;
+				background: rgba(15, 23, 42, 0.06);
+				font-size: 15px;
+				font-weight: 700;
+				color: #0f172a;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="canvas">
+			<div class="eyebrow">Why it feels different</div>
+			<h1>Not just another code generator, and not just another demo repo.</h1>
+			<p>
+				The point of OpenUI MCP Studio is not only to produce UI. It is to
+				make the path from brief to reviewable delivery visible enough to
+				evaluate and reuse.
+			</p>
+
+			<table>
+				<thead>
+					<tr>
+						<th>Evaluation question</th>
+						<th>Pure code generator</th>
+						<th>Generic UI demo repo</th>
+						<th class="highlight">OpenUI MCP Studio</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Can I start from a real brief?</td>
+						<td><span class="good">Yes</span><br /><span class="metric">Fast output</span></td>
+						<td><span class="bad">Usually no</span></td>
+						<td class="highlight"><span class="good">Yes</span><br /><span class="metric">Prompt to UI workflow</span></td>
+					</tr>
+					<tr>
+						<td>Does it apply files into the workspace?</td>
+						<td><span class="bad">Often partial</span></td>
+						<td><span class="bad">Not the point</span></td>
+						<td class="highlight"><span class="good">Yes</span><br /><span class="metric">Apply step included</span></td>
+					</tr>
+					<tr>
+						<td>Can I inspect a real proof surface?</td>
+						<td><span class="bad">Often weak</span></td>
+						<td><span class="good">Yes</span><br /><span class="metric">Looks nice</span></td>
+						<td class="highlight"><span class="good">Yes</span><br /><span class="metric">apps/web as proof target</span></td>
+					</tr>
+					<tr>
+						<td>Are quality gates part of the story?</td>
+						<td><span class="bad">Usually no</span></td>
+						<td><span class="bad">Usually shallow</span></td>
+						<td class="highlight"><span class="good">Yes</span><br /><span class="metric">Smoke, visual, UI/UX, release</span></td>
+					</tr>
+					<tr>
+						<td>Can I explain why I trust the result?</td>
+						<td><span class="bad">Harder</span></td>
+						<td><span class="bad">Mostly visual trust</span></td>
+						<td class="highlight"><span class="good">Yes</span><br /><span class="metric">Evidence plus proof surface</span></td>
+					</tr>
+				</tbody>
+			</table>
+		</main>
+	</body>
+</html>

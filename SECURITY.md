@@ -87,3 +87,5 @@ Important boundary:
 - public repository visibility does not waive this requirement
 - `security:oss:audit` adds repo-local TruffleHog, git-secrets, and ScanCode keyfile coverage on top of the history audit
 - `security:pii:audit` is a separate heuristic tracked-content sweep for email addresses and phone-like contact data; it complements secret scanning but does not replace legal/privacy review
+- `.github/workflows/codeql.yml` is the repository-owned CodeQL entrypoint for
+  GitHub code-scanning alerts

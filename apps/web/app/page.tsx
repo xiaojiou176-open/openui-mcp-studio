@@ -52,7 +52,7 @@ import {
   type WorkspaceTab
 } from "./workbench-data";
 
-function statusFilterIcon(filter: StatusFilter): JSX.Element {
+function statusFilterIcon(filter: StatusFilter) {
   switch (filter) {
     case "active":
       return <Clock3 className="h-4 w-4 text-muted-foreground" aria-hidden="true" />;
@@ -504,7 +504,7 @@ export default function Page() {
                 <Label id="status-filter-label">Filter</Label>
                 <RadioGroup
                   value={statusFilter}
-                  onValueChange={(value) => setStatusFilter(value as StatusFilter)}
+                  onValueChange={(value: string) => setStatusFilter(value as StatusFilter)}
                   className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4"
                   aria-labelledby="status-filter-label"
                   data-testid="status-filter-group"
@@ -530,7 +530,7 @@ export default function Page() {
 
           <Tabs
             value={activeTab}
-            onValueChange={(value) => setActiveTab(value as WorkspaceTab)}
+            onValueChange={(value: string) => setActiveTab(value as WorkspaceTab)}
             className="space-y-4"
             data-testid="workspace-tabs"
           >
@@ -833,7 +833,7 @@ export default function Page() {
         <DialogContent
           data-testid="create-draft-dialog"
           aria-describedby="create-draft-description"
-          onCloseAutoFocus={(event) => {
+          onCloseAutoFocus={(event: Event) => {
             const trigger = lastDialogTriggerRef.current;
             if (!trigger) {
               return;
@@ -882,7 +882,7 @@ export default function Page() {
               <Label id="draft-surface-label">Surface</Label>
               <RadioGroup
                 value={draftKind}
-                onValueChange={(value) => setDraftKind(value as DraftKind)}
+                onValueChange={(value: string) => setDraftKind(value as DraftKind)}
                 className="gap-3"
                 aria-labelledby="draft-surface-label"
                 data-testid="draft-surface-group"

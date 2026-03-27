@@ -20,10 +20,14 @@ These commands are the repository front desk.
 
 | Command | What it proves | What it does not prove |
 | --- | --- | --- |
-| `npm run repo:doctor` | current repository health across identity, language, tracked-surface hygiene, runtime, evidence, upstream, and release-readiness inputs | not a replacement for the full CI gate |
+| `npm run demo:ship` | one reproducible ship result from the real `openui_ship_react_page` tool | not a replacement for smoke, UI/UX, or release gates |
+| `npm run repo:doctor` | current repository health across identity, language, tracked-surface hygiene, runtime, repo-local space governance, evidence, upstream, and release-readiness inputs | not a replacement for the full CI gate |
+| `npm run repo:space:report` | current repo-local disk footprint, runtime canonical vs non-canonical split, and shared-layer defer map | not authorization to delete anything by itself |
+| `npm run repo:space:check` | front-door repo-local space-governance gate: no hard-fail pollution and no unknown heavy non-canonical runtime subtree above threshold | not a replacement for runtime/evidence/public-safe gates |
+| `npm run repo:space:verify` | current `verificationCandidates` cleanup eligibility across existence, canonicality, active refs, and rebuild-path knowledge | not permission to delete outside the controlled repo-local workflow |
 | `npm run repo:verify:fast` | fast structural truth for identity, English-only tracked docs, tracked-surface hygiene, runtime, evidence, and docs alignment | not a replacement for authoritative container parity |
 | `npm run repo:verify:full` | local authoritative container-parity path | not proof of trusted remote CI supply-chain closure by itself |
-| `npm run repo:upstream:check` | upstream inventory, compatibility, patch governance, and post-fetch history hygiene | not approval for whole-repo merge or rebase |
+| `npm run repo:upstream:check` | upstream inventory, compatibility, patch governance, post-fetch history hygiene, and a non-blocking clone-local sync-preflight readout | not approval for whole-repo merge or rebase, and not proof that the current clone already has `upstream` attached |
 | `npm run release:public-safe:check` | strict repository-side public-safe verdict across release evidence, remote governance, and history hygiene | does not rotate credentials or rewrite Git history |
 
 ## Security Entrypoints
@@ -35,7 +39,16 @@ These commands are the repository front desk.
 | `npm run security:git-secrets:history` | alternate history secret scan | not a replacement for gitleaks history audit |
 | `npm run security:scancode:keyfiles` | package, license, email, and URL scan across legal and manifest keyfiles | not a full legal review |
 | `npm run security:pii:audit` | heuristic tracked-text scan for email addresses and phone-like contact fields | not a formal DLP or privacy review |
+| `npm run security:evidence:final` | consolidated repo-side PII + ScanCode final evidence pack under `.runtime-cache/reports/security/` | not a replacement for formal DLP or legal sign-off |
 | `npm run security:oss:audit` | repo-local security bundle across all of the commands above | not automatic remediation |
+| `npm run governance:remote:review` | remote canonical review plus fresh mirror audit summary | not proof that upstream repositories are also clean |
+
+## Platform Security Surface
+
+- GitHub secret scanning, push protection, private vulnerability reporting, and
+  CodeQL code scanning must stay enabled on the canonical public repository.
+- `.github/workflows/codeql.yml` is the repository-owned CodeQL entrypoint for
+  GitHub code-scanning alerts.
 
 ## Docs Truth Rules
 
@@ -43,14 +56,98 @@ These commands are the repository front desk.
 - The minimal docs profile keeps only the essential tracked guides.
 - No tracked generated markdown docs are required in this profile.
 - `docs:check` must stay green after docs are reduced.
+- `docs:check` is the deterministic front-door docs lane.
+- `docs:check:strict` is reserved for release or explicit manual governance
+  review when manual-fact and proof-pack evidence need to be revalidated.
 
 ## CI And Execution Truth
 
 - Mainline CI uses host orchestration plus container execution for the main
   quality gate.
+- Containerized CI jobs resolve their canonical image from
+  `.github/ci-image.lock.json`; when that lock rotates, the workflow and lock
+  file must stay in sync.
+- If the locked digest stops pulling, rotate it from a fresh `Build CI Image`
+  artifact instead of leaving PRs pinned to a dead GHCR reference.
+- GitHub Actions jobs that execute through the locked CI container also require
+  `packages: read` permission so the workflow token can pull the GHCR image
+  declared in `.github/ci-image.lock.json`.
+- Workflow steps that run commands inside the CI container must pass any
+  required PR or push range environment variables through explicitly, or commit
+  range tooling inside the container will drift from the outer GitHub workflow
+  context.
+- The shared `run-in-ci-container` composite action is part of that contract:
+  if PR or push range variables are needed inside the container, the action must
+  explicitly carry them through as action inputs instead of assuming ambient env
+  inheritance.
+- Branch-aware CI helper steps must also tolerate missing GitHub branch-name
+  env inside the container bridge. If `GITHUB_REF_NAME` or `GITHUB_HEAD_REF`
+  are absent, non-branch-specific checks should skip cleanly instead of
+  crashing under `set -u`.
+- Branch-aware container logic should prefer a repo-local helper script over a
+  multiline shell snippet embedded directly in the `run-in-ci-container`
+  `command:` string. That keeps quoting predictable across the container bridge
+  and avoids turning shell parsing drift into the primary CI blocker.
+- Containerized pre-commit helpers must invoke `python3 -m venv` explicitly,
+  because the locked CI image does not guarantee a bare `python` shim.
+- The `Pre-commit Gate` is intentionally host-runner based: the all-files
+  pre-commit path currently needs a host compiler toolchain for the `oxipng`
+  Rust hook, while the locked CI container remains the source of truth for the
+  downstream main quality gate.
+- Repository-wide `biome check --write` runs may reflow `package.json` together
+  with test and fixture files as part of tracked formatting hygiene; treat that
+  as a docs-synced governance change instead of silently reclassifying it as a
+  dependency semantics change.
+- Always-run evidence generation and uploads in CI are advisory
+  evidence-preservation steps. Missing prerequisites such as a missing
+  `summary.json` after an earlier hard-gate failure must skip cleanly instead of
+  becoming the primary blocker or masking the first real error.
+- The CI env inventory artifact is part of that governed evidence surface.
+  Keep CI inventory snapshots under `.runtime-cache/env-governance/` so they
+  stay inside the registered tool-metadata surface instead of tripping
+  runtime-governance as an unknown runtime root.
+- Gemini-backed UI/UX review must stay off the default hard-blocking hot path.
+  Keep deterministic checks such as lint, typecheck, smoke/e2e, contract gates,
+  and explicit a11y assertions as blockers; treat `uiux:audit:strict:gate` as
+  advisory unless you are running a release or manual review lane on purpose.
+- Local `pre-commit` and `pre-push` stay in the deterministic lane.
+  Do not require `GEMINI_API_KEY` just to run repo-front-door hygiene, staged
+  docs checks, lint, typecheck, or the fast local gate profile.
+- The CI `required_env_hard_gate` should protect live-capable lanes, not the
+  default PR front door.
+  Ordinary PR and push paths should keep running deterministic workflow/docs/test
+  gates even when no live Gemini credential is being exercised in that lane;
+  manual maintenance lanes should opt into the key only when explicitly
+  dispatched.
+- The live Gemini hard gate also stays off the default PR hot path.
+  Keep it manual-only behind `workflow_dispatch` plus an explicit
+  `run_live_gemini` opt-in, rather than auto-running on `main`, `release/*`, or
+  scheduled coverage lanes.
+- Gemini-backed maintenance workflows stay manual-only as well.
+  Mutation, quality-trend, and weekly env audit remain available for explicit
+  operator review, but they should not auto-run on a time-based schedule in the
+  canonical default posture.
+- Mutation full runs also stay off the default `ci:gate` hot path.
+  Keep them in explicit manual workflows or release-depth review lanes instead
+  of making every routine PR pay the highest-cost verification bill.
+- Docs co-change classification also stays off the default blocking lane.
+  Keep routine docs checks deterministic, and reserve strict docs evidence
+  checks for the release/manual path.
+- Commit message range validation is intentionally host-runner based: it depends
+  on GitHub event range variables and should not rely on extra container env
+  bridging just to resolve `from` / `to`.
+- Keep the host-runner commitlint job syntactically simple: once it no longer
+  uses the container action, remove any leftover `with:` block so
+  `workflow_dispatch` remains parseable on fresh branches.
 - External readonly validation remains report-only and stays separate from the
   default blocking path.
 - Long-running tasks must keep heartbeat output and preserve run-scoped evidence.
+- Space governance is a separate maintenance lane:
+  - `repo:space:report` writes machine-readable snapshots under `.runtime-cache/reports/space-governance/`
+  - `repo:space:check` is now part of the front-door governance path through `repo:doctor`, `repo:verify:fast`, and `governance:final:check`
+  - `repo:space:check` fails on hard-fail pollution such as literal `$HOME/`, repo-local Go caches, and repo-local pre-commit tool homes, plus unknown heavy non-canonical runtime subtrees
+  - `repo:space:verify` reports whether `verificationCandidates` are currently eligible for controlled cleanup
+  - `repo:space:clean:dry-run` is allowlist-only and must not target shared layers or the `.runtime-cache` root
 
 ## Tracked-Surface Rules
 
