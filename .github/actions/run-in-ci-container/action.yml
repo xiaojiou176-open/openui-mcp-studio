@@ -57,6 +57,7 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ github.token }}
+        OPENUI_CI_ALLOW_LOCAL_BOOTSTRAP: "1"
         INPUT_IMAGE: ${{ inputs.image }}
         INPUT_GEMINI_API_KEY: ${{ inputs.gemini_api_key }}
         INPUT_COMMAND: ${{ inputs.command }}

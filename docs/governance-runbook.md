@@ -69,6 +69,11 @@ These commands are the repository front desk.
   file must stay in sync.
 - If the locked digest stops pulling, rotate it from a fresh `Build CI Image`
   artifact instead of leaving PRs pinned to a dead GHCR reference.
+- GitHub-hosted workflows that execute through the shared
+  `run-in-ci-container` action also keep a governed local-bootstrap fallback
+  enabled. If the locked digest becomes temporarily unavailable, the action may
+  build the tracked Dockerfile locally to keep deterministic governance and lint
+  lanes runnable while the canonical lock rotation is being repaired.
 - GitHub Actions jobs that execute through the locked CI container also require
   `packages: read` permission so the workflow token can pull the GHCR image
   declared in `.github/ci-image.lock.json`.
