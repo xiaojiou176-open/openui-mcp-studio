@@ -1,0 +1,15 @@
+{
+	"version": 1,
+	"manager": "patch-package",
+	"patches": [],
+	"requiredFields": [
+		"file",
+		"reason",
+		"retirementCondition",
+		"rollback",
+		"upstreamIssue",
+		"owner",
+		"validatedBy",
+		"createdAt"
+	]
+}

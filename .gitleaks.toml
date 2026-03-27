@@ -1,0 +1,29 @@
+title = "openui-mcp-ui-generator gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allow only the committed secrets baseline and explicit non-secret dummy values."
+commits = [
+  "b6bc5f5f1205bfd40a968e15269e683fcab65572",
+]
+paths = [
+  '''^(?:\./)?\.secrets\.baseline$''',
+  '''^backend/openui/eval/svg_annotator\.html$''',
+]
+regexes = [
+  '''^(?:token-value|apikey-value|password-value|secret-value|generic-key-value|nested-token-value|list-secret-value|top-secret-value)$''',
+]
+
+[[rules]]
+id = "gemini-api-key-contextual"
+description = "Detect Gemini/Google AI Studio API keys in API-key assignment or header contexts."
+regex = '''(?i)(?:gemini|generativelanguage|google\s*ai|x-goog-api-key|api[_-]?key)[^\n]{0,40}[:=]\s*['"]?(AIza[0-9A-Za-z_-]{35})['"]?'''
+secretGroup = 1
+keywords = [
+  "gemini",
+  "generativelanguage",
+  "x-goog-api-key",
+  "AIza",
+]

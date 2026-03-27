@@ -1,0 +1,66 @@
+{
+	"version": 1,
+	"rootResponsibilities": [
+		".devcontainer",
+		".githooks",
+		".github",
+		"apps",
+		"contracts",
+		"docs",
+		"ops",
+		"packages",
+		"services",
+		"tests",
+		"tooling"
+	],
+	"modules": [
+		{
+			"id": "apps-web",
+			"path": "apps/web",
+			"role": "product-frontend",
+			"readme": "apps/web/README.md"
+		},
+		{
+			"id": "services-mcp-server",
+			"path": "services/mcp-server",
+			"role": "protocol-and-orchestration",
+			"readme": "services/mcp-server/README.md"
+		},
+		{
+			"id": "services-gemini-sidecar",
+			"path": "services/gemini-sidecar",
+			"role": "python-runtime-adapter",
+			"readme": "services/gemini-sidecar/README.md"
+		},
+		{
+			"id": "packages-contracts",
+			"path": "packages/contracts",
+			"role": "shared-contracts",
+			"readme": "packages/contracts/README.md"
+		},
+		{
+			"id": "packages-shared-runtime",
+			"path": "packages/shared-runtime",
+			"role": "shared-runtime-substrate",
+			"readme": "packages/shared-runtime/README.md"
+		},
+		{
+			"id": "packages-runtime-observability",
+			"path": "packages/runtime-observability",
+			"role": "runtime-observability",
+			"readme": "packages/runtime-observability/README.md"
+		},
+		{
+			"id": "tooling-root",
+			"path": "tooling",
+			"role": "governance-and-automation",
+			"readme": "tooling/README.md"
+		},
+		{
+			"id": "ops-ci-container",
+			"path": "ops/ci-container",
+			"role": "container-runtime-entrypoint",
+			"readme": "ops/ci-container/README.md"
+		}
+	]
+}
