@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "mode": "synthetic-equivalent",
+  "scope": "stdio-mcp-server",
+  "rationale": "The service is non-browser stdio MCP; user-facing latency is represented by synthetic smoke/e2e and runtime telemetry.",
+  "sampleWindowDays": 7,
+  "metrics": [
+    {
+      "name": "synthetic_first_response_ms_p95",
+      "target": 6000
+    },
+    {
+      "name": "synthetic_end_to_end_ms_p95",
+      "target": 12000
+    },
+    {
+      "name": "synthetic_error_rate",
+      "target": 0.01
+    }
+  ],
+  "evidenceSources": [
+    "npm run smoke:e2e",
+    "npm run test:e2e:resilience",
+    ".runtime-cache/runs/<run_id>/summary.json"
+  ]
+}
