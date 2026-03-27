@@ -114,4 +114,6 @@ This repository is not responsible for:
 ## Support Model
 
 Contributions are reviewed on a best-effort basis. Large architectural changes
-should start with a design discussion before implementation.
+should start with a design discussion before implementation. Use GitHub
+Discussions for early ideas and issue tracker entries for confirmed repository
+bugs or workflow failures.

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>OpenUI MCP Studio Visitor Paths</title>
+		<style>
+			:root {
+				color-scheme: light;
+				font-family:
+					"SF Pro Display",
+					"Segoe UI",
+					Arial,
+					sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				background:
+					radial-gradient(circle at top center, rgba(47, 109, 246, 0.12), transparent 22%),
+					linear-gradient(180deg, #f8fafe 0%, #eef4fb 100%);
+				color: #0f172a;
+			}
+
+			.canvas {
+				width: 1440px;
+				height: 820px;
+				padding: 52px;
+				display: flex;
+				flex-direction: column;
+				gap: 26px;
+			}
+
+			.eyebrow {
+				width: fit-content;
+				padding: 10px 16px;
+				border-radius: 999px;
+				background: rgba(47, 109, 246, 0.12);
+				color: #234dbf;
+				font-size: 18px;
+				font-weight: 700;
+			}
+
+			h1 {
+				margin: 0;
+				font-size: 54px;
+				line-height: 1.05;
+				letter-spacing: -0.04em;
+			}
+
+			p {
+				margin: 0;
+				font-size: 24px;
+				line-height: 1.5;
+				color: #4b5d78;
+				max-width: 980px;
+			}
+
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 22px;
+				margin-top: 8px;
+			}
+
+			.card {
+				padding: 24px 24px 26px;
+				border-radius: 24px;
+				background: rgba(255, 255, 255, 0.94);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+				display: flex;
+				flex-direction: column;
+				gap: 14px;
+			}
+
+			.icon {
+				width: 52px;
+				height: 52px;
+				border-radius: 16px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 22px;
+				font-weight: 800;
+				color: white;
+			}
+
+			.icon-1 { background: #2f6df6; }
+			.icon-2 { background: #0d8b6f; }
+			.icon-3 { background: #9b5de5; }
+
+			h2 {
+				margin: 0;
+				font-size: 30px;
+				line-height: 1.12;
+				letter-spacing: -0.03em;
+			}
+
+			.card p {
+				font-size: 21px;
+				color: #4b5d78;
+			}
+
+			.path {
+				margin-top: auto;
+				padding: 12px 14px;
+				border-radius: 14px;
+				background: rgba(15, 23, 42, 0.05);
+				font-size: 18px;
+				font-weight: 700;
+				color: #11223c;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="canvas">
+			<div class="eyebrow">Choose your path</div>
+			<h1>Start in the right place, depending on what you need in the next minute.</h1>
+			<p>
+				OpenUI MCP Studio now has different public routes for different kinds
+				of visitors, so you do not have to read the whole repo in order to
+				find your answer.
+			</p>
+
+			<section class="grid">
+				<article class="card">
+					<div class="icon icon-1">A</div>
+					<h2>First-time visitor</h2>
+					<p>
+						You want to know what the repository does, whether it looks real,
+						and whether it is worth starring or revisiting later.
+					</p>
+					<div class="path">README -> Demo Proof -> Discussions</div>
+				</article>
+				<article class="card">
+					<div class="icon icon-2">B</div>
+					<h2>Evaluator</h2>
+					<p>
+						You want to decide if the workflow is convincing enough to try,
+						compare, or show to teammates.
+					</p>
+					<div class="path">Evaluator Checklist -> Proof FAQ -> repo:doctor</div>
+				</article>
+				<article class="card">
+					<div class="icon icon-3">C</div>
+					<h2>Maintainer</h2>
+					<p>
+						You want to keep the repo healthy and make sure the public story
+						stays aligned with the runtime and governance truth.
+					</p>
+					<div class="path">Public Surface Guide -> Docs Index -> Release assets</div>
+				</article>
+			</section>
+		</main>
+	</body>
+</html>

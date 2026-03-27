@@ -2,17 +2,25 @@
 
 ## Where to Ask for Help
 
+Use GitHub Discussions for:
+
+- setup questions
+- workflow ideas
+- comparison questions
+- show-and-tell posts
+
 Use the repository issue tracker for:
 
 - bug reports
 - reproducible build or verification failures
 - documentation corrections
-- questions about supported commands or workflows
+- confirmed problems with supported commands or workflows
 
 Before opening an issue, check:
 
 - `README.md`
 - `docs/index.md`
+- `docs/proof-and-faq.md`
 - `docs/governance-runbook.md`
 - `docs/testing.md`
 - `docs/release-readiness.md`

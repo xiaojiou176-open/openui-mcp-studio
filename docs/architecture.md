@@ -53,6 +53,9 @@ This repository is a long-lived productized fork.
 - keep upstream visible
 - use selective port as the default route
 - do not treat whole-repo merge as the normal maintenance path
+- do not assume every local clone keeps `upstream` attached between sync passes
+- treat clone-local sync readiness as a separate question from repo-wide
+  upstream policy health
 
 ## Failure Boundaries
 

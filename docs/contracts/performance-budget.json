@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "service": "openui-mcp-ui-generator",
+  "service": "openui-mcp-studio",
   "generatedAt": "2026-03-03",
   "window": "7d",
   "budgets": [

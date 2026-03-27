@@ -6,8 +6,8 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "UIUX Generator",
-  description: "Generate polished UI and UX deliverables from natural language prompts.",
+  title: "OpenUI MCP Studio Proof Workbench",
+  description: "Review the default proof target for OpenUI MCP Studio before you trust a generated UI workflow.",
 };
 
 type RootLayoutProps = {

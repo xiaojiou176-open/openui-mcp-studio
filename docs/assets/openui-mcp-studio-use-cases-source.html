@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>OpenUI MCP Studio Use Cases</title>
+		<style>
+			:root {
+				color-scheme: light;
+				font-family:
+					"SF Pro Display",
+					"Segoe UI",
+					Arial,
+					sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				background:
+					radial-gradient(circle at top left, rgba(155, 93, 229, 0.14), transparent 26%),
+					linear-gradient(180deg, #f8f7fc 0%, #eef3fb 100%);
+				color: #0f172a;
+			}
+
+			.canvas {
+				width: 1440px;
+				height: 840px;
+				padding: 52px;
+				display: flex;
+				flex-direction: column;
+				gap: 26px;
+			}
+
+			.eyebrow {
+				width: fit-content;
+				padding: 10px 16px;
+				border-radius: 999px;
+				background: rgba(155, 93, 229, 0.12);
+				color: #8a3fd1;
+				font-size: 18px;
+				font-weight: 700;
+			}
+
+			h1 {
+				margin: 0;
+				font-size: 54px;
+				line-height: 1.05;
+				letter-spacing: -0.04em;
+			}
+
+			p {
+				margin: 0;
+				font-size: 24px;
+				line-height: 1.5;
+				color: #4b5d78;
+				max-width: 980px;
+			}
+
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 22px;
+				margin-top: 6px;
+			}
+
+			.card {
+				padding: 24px 24px 26px;
+				border-radius: 24px;
+				background: rgba(255, 255, 255, 0.94);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+				display: flex;
+				flex-direction: column;
+				gap: 14px;
+			}
+
+			.icon {
+				width: 50px;
+				height: 50px;
+				border-radius: 16px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 24px;
+				font-weight: 800;
+				color: white;
+			}
+
+			.icon-1 { background: #2f6df6; }
+			.icon-2 { background: #0d8b6f; }
+			.icon-3 { background: #9b5de5; }
+
+			h2 {
+				margin: 0;
+				font-size: 30px;
+				line-height: 1.12;
+				letter-spacing: -0.03em;
+			}
+
+			.card p {
+				font-size: 21px;
+				color: #4b5d78;
+			}
+
+			.list {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				margin-top: auto;
+			}
+
+			.item {
+				padding: 10px 12px;
+				border-radius: 14px;
+				background: rgba(15, 23, 42, 0.05);
+				font-size: 18px;
+				font-weight: 700;
+				color: #122038;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="canvas">
+			<div class="eyebrow">Use cases that feel concrete</div>
+			<h1>Three reasons people keep this repository bookmarked.</h1>
+			<p>
+				OpenUI MCP Studio is most useful when you want to evaluate or explain
+				a full brief-to-review flow, not just generate another bundle of
+				frontend code.
+			</p>
+
+			<section class="grid">
+				<article class="card">
+					<div class="icon icon-1">1</div>
+					<h2>Evaluate AI-assisted UI delivery</h2>
+					<p>
+						Use it when you want to see whether a natural-language brief can
+						turn into a reviewable React and shadcn workflow.
+					</p>
+					<div class="list">
+						<div class="item">Prompt to UI proof</div>
+						<div class="item">apps/web as visible target</div>
+					</div>
+				</article>
+				<article class="card">
+					<div class="icon icon-2">2</div>
+					<h2>Compare trust, not just output</h2>
+					<p>
+						Use it when you care about what happens after generation: apply,
+						smoke, visual review, and release readiness.
+					</p>
+					<div class="list">
+						<div class="item">Quality gates stay visible</div>
+						<div class="item">Evidence beats hand-waving</div>
+					</div>
+				</article>
+				<article class="card">
+					<div class="icon icon-3">3</div>
+					<h2>Show the workflow to other people</h2>
+					<p>
+						Use it when you need a repository that is easier to demo, explain,
+						and revisit later instead of a one-shot experiment.
+					</p>
+					<div class="list">
+						<div class="item">Release assets and demo proof</div>
+						<div class="item">Discussions ready for public use</div>
+					</div>
+				</article>
+			</section>
+		</main>
+	</body>
+</html>

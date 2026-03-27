@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>OpenUI MCP Studio Trust Stack</title>
+		<style>
+			:root {
+				color-scheme: light;
+				font-family:
+					"SF Pro Display",
+					"Segoe UI",
+					Arial,
+					sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				background:
+					radial-gradient(circle at top right, rgba(13, 139, 111, 0.16), transparent 24%),
+					linear-gradient(180deg, #f7f9fc 0%, #eef4fb 100%);
+				color: #0f172a;
+			}
+
+			.canvas {
+				width: 1440px;
+				height: 760px;
+				padding: 52px;
+				display: flex;
+				flex-direction: column;
+				gap: 28px;
+			}
+
+			.eyebrow {
+				width: fit-content;
+				padding: 10px 16px;
+				border-radius: 999px;
+				background: rgba(13, 139, 111, 0.12);
+				color: #0d8b6f;
+				font-size: 18px;
+				font-weight: 700;
+			}
+
+			h1 {
+				margin: 0;
+				font-size: 56px;
+				line-height: 1.05;
+				letter-spacing: -0.04em;
+			}
+
+			p {
+				margin: 0;
+				font-size: 24px;
+				line-height: 1.5;
+				color: #4b5d78;
+				max-width: 980px;
+			}
+
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 22px;
+				margin-top: 8px;
+			}
+
+			.card {
+				padding: 24px 24px 26px;
+				border-radius: 24px;
+				background: rgba(255, 255, 255, 0.92);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+			}
+
+			h2 {
+				margin: 0 0 10px;
+				font-size: 28px;
+				line-height: 1.15;
+				letter-spacing: -0.03em;
+			}
+
+			.card p {
+				font-size: 21px;
+				color: #485b77;
+			}
+
+			.badge {
+				display: inline-block;
+				margin-top: 14px;
+				padding: 9px 12px;
+				border-radius: 999px;
+				background: rgba(15, 23, 42, 0.06);
+				font-size: 17px;
+				font-weight: 700;
+				color: #0f172a;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="canvas">
+			<div class="eyebrow">Why trust the public story</div>
+			<h1>Trust is not a promise here. It is a stack of visible checks.</h1>
+			<p>
+				OpenUI MCP Studio is designed to make “why should I believe this?”
+				easier to answer with proof surfaces, repeatable checks, and public
+				routing.
+			</p>
+
+			<section class="grid">
+				<article class="card">
+					<h2>1. Real proof surface</h2>
+					<p>
+						`apps/web` is treated as the default proof target, so the public
+						story points at a real UI surface rather than a concept sketch.
+					</p>
+					<div class="badge">apps/web as proof target</div>
+				</article>
+				<article class="card">
+					<h2>2. Quality gates stay in the loop</h2>
+					<p>
+						Smoke, visual, UI/UX, and release-readiness checks keep the
+						repository from acting like generated output is automatically done.
+					</p>
+					<div class="badge">Smoke + visual + UI/UX + readiness</div>
+				</article>
+				<article class="card">
+					<h2>3. Public routing is explicit</h2>
+					<p>
+						README, docs, releases, and discussions all tell the same story,
+						so new visitors are not forced to decode the repository from raw
+						file structure alone.
+					</p>
+					<div class="badge">README + docs + release + discussions</div>
+				</article>
+				<article class="card">
+					<h2>4. Governance is visible, not buried</h2>
+					<p>
+						The repo still exposes runtime, contracts, and safety rules, but
+						as trust evidence rather than the first thing a new visitor has to
+						read.
+					</p>
+					<div class="badge">Governance as evidence, not clutter</div>
+				</article>
+			</section>
+		</main>
+	</body>
+</html>
