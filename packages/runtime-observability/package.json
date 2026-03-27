@@ -1,0 +1,10 @@
+{
+	"name": "@openui/runtime-observability",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./cache-retention": "./src/cache-retention.ts",
+		"./redact": "./src/redact.ts",
+		"./run-context": "./src/run-context.ts"
+	}
+}
