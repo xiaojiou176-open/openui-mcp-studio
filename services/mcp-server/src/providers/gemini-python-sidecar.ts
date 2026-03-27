@@ -393,7 +393,7 @@ export class GeminiPythonSidecarBridge {
 		timeoutMs: number = this.options.requestTimeoutMs,
 		context: { requestId?: string } = {},
 	): Promise<T> {
-		const requestId = context.requestId?.trim() || undefined;
+		const requestId = context.requestId?.trim() || "sidecar_runtime";
 
 		if (!this.child) {
 			await this.start();

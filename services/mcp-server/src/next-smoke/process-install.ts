@@ -1,7 +1,7 @@
 import { spawn } from "node:child_process";
+import { createRequire } from "node:module";
 import path from "node:path";
 import { buildChildEnvFromAllowlist } from "../../../../packages/shared-runtime/src/child-env.js";
-import { pathExists } from "../../../../packages/shared-runtime/src/runtime-ops.js";
 import { type LogTailBuffer, normalizeReason } from "./logging.js";
 import { getNpmCommand } from "./process-command.js";
 import {
@@ -15,18 +15,15 @@ export async function ensureDependenciesInstalled(input: {
 	timeoutMs: number;
 	requiredPackages: readonly string[];
 }): Promise<{ ok: boolean; detail: string }> {
-	const missingPackages: string[] = [];
-	for (const packageName of input.requiredPackages) {
-		const packagePath = path.resolve(
-			input.cwd,
-			"node_modules",
-			packageName,
-			"package.json",
-		);
-		if (!(await pathExists(packagePath))) {
-			missingPackages.push(packageName);
+	const requireFromRoot = createRequire(path.resolve(input.cwd, "package.json"));
+	const missingPackages = input.requiredPackages.filter((packageName) => {
+		try {
+			requireFromRoot.resolve(`${packageName}/package.json`);
+			return false;
+		} catch {
+			return true;
 		}
-	}
+	});
 
 	if (missingPackages.length === 0) {
 		return {

@@ -399,9 +399,7 @@ describe("gitleaks allowlist hardening", () => {
 		const config = await fs.readFile(gitleaksConfigPath, "utf8");
 		const paths = parseTripleQuotedTomlArray(config, "paths");
 
-		expect(paths).toEqual([
-			"^(?:\\./)?\\.secrets\\.baseline$",
-		]);
+		expect(paths).toEqual(["^(?:\\./)?\\.secrets\\.baseline$"]);
 	});
 
 	it("allowlists only explicit dummy values instead of broad wildcard patterns", async () => {

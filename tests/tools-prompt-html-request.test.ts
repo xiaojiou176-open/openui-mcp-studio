@@ -123,7 +123,9 @@ describe("prompt->html request helper wiring", () => {
 				},
 			});
 
-		const { registerConvertTools } = await import("../services/mcp-server/src/tools/convert.js");
+		const { registerConvertTools } = await import(
+			"../services/mcp-server/src/tools/convert.js"
+		);
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
 
@@ -214,7 +216,9 @@ describe("prompt->html request helper wiring", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 

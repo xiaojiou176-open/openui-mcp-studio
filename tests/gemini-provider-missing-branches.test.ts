@@ -36,11 +36,16 @@ async function loadProviderWithBridgeMock(
 		public async stop(): Promise<void> {}
 	}
 
-	vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-		GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-	}));
+	vi.doMock(
+		"../services/mcp-server/src/providers/gemini-python-sidecar.js",
+		() => ({
+			GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
+		}),
+	);
 
-	const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
 	return { provider, calls };
 }
 
@@ -56,7 +61,9 @@ afterEach(async () => {
 		process.env.OPENUI_TIMEOUT_MS = ORIGINAL_OPENUI_TIMEOUT_MS;
 	}
 	vi.restoreAllMocks();
-	const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
 	await provider.resetGeminiProviderForTests();
 	vi.resetModules();
 });
@@ -88,11 +95,16 @@ describe("gemini provider missing branches", () => {
 			public async stop(): Promise<void> {}
 		}
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-			GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-python-sidecar.js",
+			() => ({
+				GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
+			}),
+		);
 
-		const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const provider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		await provider.completeWithGemini({ prompt: "first call" }, RESOLUTION);
 		await provider.completeWithGemini({ prompt: "second call" }, RESOLUTION);
 
@@ -121,11 +133,16 @@ describe("gemini provider missing branches", () => {
 			public async stop(): Promise<void> {}
 		}
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-			GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-python-sidecar.js",
+			() => ({
+				GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
+			}),
+		);
 
-		const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const provider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		await provider.completeWithGemini(
 			{ prompt: "startup timeout cap" },
 			RESOLUTION,

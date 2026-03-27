@@ -78,7 +78,11 @@ OPENUI_TIMEOUT_MS=45000
 			"utf8",
 		),
 		fs.writeFile(path.join(rootDir, ".env.example"), envExampleRaw, "utf8"),
-		fs.writeFile(path.join(rootDir, "services", "mcp-server", "src", "runtime.ts"), runtimeRaw, "utf8"),
+		fs.writeFile(
+			path.join(rootDir, "services", "mcp-server", "src", "runtime.ts"),
+			runtimeRaw,
+			"utf8",
+		),
 		fs.writeFile(
 			path.join(rootDir, "docs", "environment-governance.md"),
 			`<!-- NON_CONTRACT_REGISTRY:START -->
@@ -426,13 +430,13 @@ OPENUI_EXTRA=1
 				currentDate: "2026-01-01",
 			});
 			expect(result.ok).toBe(false);
-				expect(
-					result.issues.some((issue) =>
-						issue.includes(
-							`Permanently banned env key ${permanentlyBannedGoogleApiKey} referenced in services/mcp-server/src/runtime.ts:2`,
-						),
+			expect(
+				result.issues.some((issue) =>
+					issue.includes(
+						`Permanently banned env key ${permanentlyBannedGoogleApiKey} referenced in services/mcp-server/src/runtime.ts:2`,
 					),
-				).toBe(true);
+				),
+			).toBe(true);
 		} finally {
 			await fs.rm(rootDir, { recursive: true, force: true });
 		}
@@ -466,13 +470,13 @@ OPENUI_EXTRA=1
 				currentDate: "2026-01-01",
 			});
 			expect(result.ok).toBe(false);
-				expect(
-					result.issues.some((issue) =>
-						issue.includes(
-							`Permanently banned env key ${permanentlyBannedGoogleApiKey} referenced in docs/env-deprecation-history.md:1`,
-						),
+			expect(
+				result.issues.some((issue) =>
+					issue.includes(
+						`Permanently banned env key ${permanentlyBannedGoogleApiKey} referenced in docs/env-deprecation-history.md:1`,
 					),
-				).toBe(true);
+				),
+			).toBe(true);
 		} finally {
 			await fs.rm(rootDir, { recursive: true, force: true });
 		}
@@ -500,7 +504,9 @@ OPENUI_EXTRA=1
 
 		expect(plan.shouldRun).toBe(true);
 		expect(plan.reason).toContain("env-related staged changes detected");
-		expect(plan.matchedFiles).toEqual(["packages/contracts/src/env-contract.ts"]);
+		expect(plan.matchedFiles).toEqual([
+			"packages/contracts/src/env-contract.ts",
+		]);
 	});
 
 	it("keeps ci mode strict even without staged files", () => {

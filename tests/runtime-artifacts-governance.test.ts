@@ -20,53 +20,92 @@ describe("runtime artifacts governance", () => {
 		);
 		try {
 			await writeJson(
+				path.join(rootDir, "contracts", "runtime", "path-registry.json"),
+				{
+					version: 1,
+					forbiddenTopLevelDirectories: [],
+					forbiddenRepoRuntimeDirectories: [],
+					categories: {},
+					cleanPolicy: {
+						resetOnClean: [],
+						purgeOnClean: [],
+						retentionOnly: [],
+					},
+					pathExpectations: [
+						{
+							path: "playwright.config.ts",
+							mustInclude: [".runtime-cache/runs", "artifacts/playwright"],
+							mustExclude: [],
+						},
+						{
+							path: ".github/workflows/ci.yml",
+							mustInclude: [".runtime-cache/runs/**/artifacts/playwright/**"],
+							mustExclude: [],
+						},
+					],
+				},
+			);
+			await writeFile(
+				path.join(rootDir, "playwright.config.ts"),
+				'export default { outputDir: ".runtime-cache/runs/demo/artifacts/other" };\n',
+			);
+			await writeFile(
+				path.join(rootDir, ".github", "workflows", "ci.yml"),
+				"path: .runtime-cache/artifacts/playwright/**\n",
+			);
+
+			const result = await runRuntimeGovernanceCheck({ rootDir });
+
+			expect(result.ok).toBe(false);
+			expect(result.errors).toEqual(
+				expect.arrayContaining([
+					expect.stringContaining("missing required runtime path"),
+				]),
+			);
+		} finally {
+			await fs.rm(rootDir, { recursive: true, force: true });
+		}
+	});
+
+	it("accepts env governance runtime subtrees for CI inventory snapshots", async () => {
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-runtime-env-inventory-"),
+		);
+		try {
+			await writeJson(
+				path.join(rootDir, "contracts", "runtime", "path-registry.json"),
+				{
+					version: 1,
+					runtimeSurface: ".runtime-cache",
+					forbiddenTopLevelDirectories: [],
+					forbiddenRepoRuntimeDirectories: [],
+					categories: {
+						toolMeta: {
+							paths: [".runtime-cache/env-governance"],
+						},
+					},
+					cleanPolicy: {
+						resetOnClean: [],
+						purgeOnClean: [],
+						retentionOnly: [],
+					},
+					pathExpectations: [],
+				},
+			);
+			await writeJson(
 				path.join(
 					rootDir,
-					"contracts",
-					"runtime",
-					"path-registry.json",
+					".runtime-cache",
+					"env-governance",
+					"ci-env-inventory.json",
 				),
-					{
-						version: 1,
-						forbiddenTopLevelDirectories: [],
-						forbiddenRepoRuntimeDirectories: [],
-						categories: {},
-						cleanPolicy: {
-							resetOnClean: [],
-							purgeOnClean: [],
-							retentionOnly: [],
-						},
-						pathExpectations: [
-							{
-								path: "playwright.config.ts",
-								mustInclude: [".runtime-cache/runs", "artifacts/playwright"],
-								mustExclude: [],
-							},
-							{
-								path: ".github/workflows/ci.yml",
-								mustInclude: [".runtime-cache/runs/**/artifacts/playwright/**"],
-								mustExclude: [],
-							},
-						],
-					},
-					);
-				await writeFile(
-					path.join(rootDir, "playwright.config.ts"),
-					'export default { outputDir: ".runtime-cache/runs/demo/artifacts/other" };\n',
-				);
-					await writeFile(
-						path.join(rootDir, ".github", "workflows", "ci.yml"),
-						"path: .runtime-cache/artifacts/playwright/**\n",
-					);
+				{ generatedAt: "2026-03-26T12:00:00.000Z" },
+			);
 
-				const result = await runRuntimeGovernanceCheck({ rootDir });
+			const result = await runRuntimeGovernanceCheck({ rootDir });
 
-				expect(result.ok).toBe(false);
-				expect(result.errors).toEqual(
-					expect.arrayContaining([
-						expect.stringContaining("missing required runtime path"),
-					]),
-				);
+			expect(result.ok).toBe(true);
+			expect(result.errors).toEqual([]);
 		} finally {
 			await fs.rm(rootDir, { recursive: true, force: true });
 		}

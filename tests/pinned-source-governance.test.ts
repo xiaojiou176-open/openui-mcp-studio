@@ -20,7 +20,8 @@ describe("pinned source governance", () => {
 			await writeJson(path.join(rootDir, ".github", "ci-image.lock.json"), {
 				version: 1,
 				imageRepo: "ghcr.io/example/repo",
-				digest: "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+				digest:
+					"sha256:1111111111111111111111111111111111111111111111111111111111111111",
 				bootstrap: { dockerfile: ".devcontainer/Dockerfile", context: "." },
 			});
 			await writeFile(

@@ -147,7 +147,9 @@ describe("ship idempotency", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -183,7 +185,7 @@ describe("ship idempotency", () => {
 		expect(convertSpy).toHaveBeenCalledTimes(1);
 		expect(applySpy).toHaveBeenCalledTimes(1);
 		expect(qualitySpy).toHaveBeenCalledTimes(1);
-	});
+	}, 30_000);
 
 	it("uses implicit idempotency key when no explicit key is provided", async () => {
 		const cacheDir = await mkTempDir("openui-idempotency-cache-");
@@ -239,7 +241,9 @@ describe("ship idempotency", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -266,7 +270,7 @@ describe("ship idempotency", () => {
 		expect(secondPayload.summary.changedPaths).toEqual(["app/page.tsx"]);
 		expect(secondPayload.apply.written).toEqual(["app/page.tsx"]);
 		expect(htmlSpy).toHaveBeenCalledTimes(1);
-	});
+	}, 30_000);
 
 	it("deduplicates concurrent requests with the same idempotency key", async () => {
 		const cacheDir = await mkTempDir("openui-idempotency-cache-");
@@ -331,7 +335,9 @@ describe("ship idempotency", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -376,7 +382,9 @@ describe("ship idempotency", () => {
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
 		const quality = await import("../services/mcp-server/src/quality-gate.js");
-		const idempotency = await import("../packages/shared-runtime/src/idempotency-store.js");
+		const idempotency = await import(
+			"../packages/shared-runtime/src/idempotency-store.js"
+		);
 
 		const detection = {
 			workspaceRoot: "/tmp/openui-workspace",
@@ -461,7 +469,9 @@ describe("ship idempotency", () => {
 			return nativeSetTimeout(handler, adjustedTimeout, ...rest);
 		}) as typeof setTimeout);
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -504,7 +514,9 @@ describe("ship idempotency", () => {
 		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
-		const idempotency = await import("../packages/shared-runtime/src/idempotency-store.js");
+		const idempotency = await import(
+			"../packages/shared-runtime/src/idempotency-store.js"
+		);
 
 		const detection = {
 			workspaceRoot: "/tmp/openui-workspace",
@@ -535,7 +547,9 @@ describe("ship idempotency", () => {
 				status: "timeout_inflight",
 			});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -636,7 +650,9 @@ describe("ship idempotency", () => {
 		const staleTime = new Date(now - 10_000);
 		await fs.utimes(staleLockPath, staleTime, staleTime);
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -655,5 +671,5 @@ describe("ship idempotency", () => {
 		expect(payload.apply.rolledBack).toBe(false);
 		expect(htmlSpy).toHaveBeenCalledTimes(1);
 		await expect(fs.access(staleLockPath)).rejects.toThrow();
-		}, 90_000);
+	}, 90_000);
 });

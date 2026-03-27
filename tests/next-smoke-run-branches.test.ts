@@ -102,9 +102,9 @@ describe("next-smoke run branches", () => {
 	});
 
 	it("returns skipped steps when target selection fails", async () => {
-			const run = await loadRunWithMocks({
-				chooseRoot: vi.fn(async () => ({
-					validation: {
+		const run = await loadRunWithMocks({
+			chooseRoot: vi.fn(async () => ({
+				validation: {
 					ok: false,
 					reason: "missing package.json",
 					root: "/missing",
@@ -120,9 +120,9 @@ describe("next-smoke run branches", () => {
 	});
 
 	it("returns skipped build/start/probe when dependency install fails", async () => {
-			const run = await loadRunWithMocks({
-				chooseRoot: vi.fn(async () => ({
-					validation: { ok: true, root: "/ok", reason: "ok" },
+		const run = await loadRunWithMocks({
+			chooseRoot: vi.fn(async () => ({
+				validation: { ok: true, root: "/ok", reason: "ok" },
 			})),
 			ensureDependenciesInstalled: vi.fn(async () => ({
 				ok: false,
@@ -137,9 +137,9 @@ describe("next-smoke run branches", () => {
 	});
 
 	it("returns start-failed probe when start step has no child", async () => {
-			const run = await loadRunWithMocks({
-				chooseRoot: vi.fn(async () => ({
-					validation: { ok: true, root: "/ok", reason: "ok" },
+		const run = await loadRunWithMocks({
+			chooseRoot: vi.fn(async () => ({
+				validation: { ok: true, root: "/ok", reason: "ok" },
 			})),
 			startServerStep: vi.fn(async () => ({
 				step: {
@@ -164,9 +164,9 @@ describe("next-smoke run branches", () => {
 	});
 
 	it("marks start as failed when cleanup fails after successful probe", async () => {
-			const run = await loadRunWithMocks({
-				chooseRoot: vi.fn(async () => ({
-					validation: { ok: true, root: "/ok", reason: "ok" },
+		const run = await loadRunWithMocks({
+			chooseRoot: vi.fn(async () => ({
+				validation: { ok: true, root: "/ok", reason: "ok" },
 			})),
 			terminateChildProcess: vi.fn(async () => ({
 				ok: false,

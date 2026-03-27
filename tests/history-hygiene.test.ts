@@ -23,7 +23,9 @@ async function writeJson(filePath: string, value: unknown) {
 
 afterEach(async () => {
 	await Promise.all(
-		tempRoots.splice(0).map((dir) => fs.rm(dir, { recursive: true, force: true })),
+		tempRoots
+			.splice(0)
+			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
 });
 
@@ -34,7 +36,8 @@ describe("history hygiene check", () => {
 			path.join(root, "tooling", "contracts", "history-hygiene.contract.json"),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/history-audit/gitleaks-history.json",
+				reportPath:
+					".runtime-cache/reports/history-audit/gitleaks-history.json",
 				summaryExpectation: {
 					totalFindings: 0,
 					byRule: {},
@@ -43,7 +46,13 @@ describe("history hygiene check", () => {
 			},
 		);
 		await writeJson(
-			path.join(root, ".runtime-cache", "reports", "history-audit", "gitleaks-history.json"),
+			path.join(
+				root,
+				".runtime-cache",
+				"reports",
+				"history-audit",
+				"gitleaks-history.json",
+			),
 			[],
 		);
 
@@ -64,7 +73,8 @@ describe("history hygiene check", () => {
 			path.join(root, "tooling", "contracts", "history-hygiene.contract.json"),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/history-audit/gitleaks-history.json",
+				reportPath:
+					".runtime-cache/reports/history-audit/gitleaks-history.json",
 				summaryExpectation: {
 					totalFindings: 3,
 					byRule: {
@@ -96,9 +106,19 @@ describe("history hygiene check", () => {
 			},
 		);
 		await writeJson(
-			path.join(root, ".runtime-cache", "reports", "history-audit", "gitleaks-history.json"),
+			path.join(
+				root,
+				".runtime-cache",
+				"reports",
+				"history-audit",
+				"gitleaks-history.json",
+			),
 			[
-				{ RuleID: "generic-api-key", File: "frontend/src/lib/html.ts", Commit: "abc" },
+				{
+					RuleID: "generic-api-key",
+					File: "frontend/src/lib/html.ts",
+					Commit: "abc",
+				},
 				{
 					RuleID: "generic-api-key",
 					File: "backend/openui/dist/assets/index-a.js",
@@ -131,7 +151,8 @@ describe("history hygiene check", () => {
 			path.join(root, "tooling", "contracts", "history-hygiene.contract.json"),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/history-audit/gitleaks-history.json",
+				reportPath:
+					".runtime-cache/reports/history-audit/gitleaks-history.json",
 				summaryExpectation: {
 					totalFindings: 1,
 					byRule: {
@@ -153,7 +174,13 @@ describe("history hygiene check", () => {
 			},
 		);
 		await writeJson(
-			path.join(root, ".runtime-cache", "reports", "history-audit", "gitleaks-history.json"),
+			path.join(
+				root,
+				".runtime-cache",
+				"reports",
+				"history-audit",
+				"gitleaks-history.json",
+			),
 			[
 				{
 					RuleID: "generic-api-key",

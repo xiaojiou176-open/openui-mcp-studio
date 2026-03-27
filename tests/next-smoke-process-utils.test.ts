@@ -62,7 +62,7 @@ afterEach(async () => {
 
 describe("next-smoke process utils", () => {
 	it("builds nominal/skip commands", () => {
-		expect(getNominalCommand("build")).toBe("next build");
+		expect(getNominalCommand("build")).toBe("next build --webpack");
 
 		const command = getCommandForStep({ step: "start", cwd: "/tmp/app" });
 		expect(command.command).toBe("next start");

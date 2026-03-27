@@ -55,7 +55,9 @@ describe("tools/shared branch coverage extras", () => {
 	});
 
 	it("resolveShadcnStyleGuide falls back to detection + default style guide", async () => {
-		const pathDetection = await import("../services/mcp-server/src/path-detection.js");
+		const pathDetection = await import(
+			"../services/mcp-server/src/path-detection.js"
+		);
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		const detection = {
@@ -107,5 +109,71 @@ describe("tools/shared branch coverage extras", () => {
 				},
 			}),
 		).rejects.toThrow("Model JSON does not match files schema");
+	});
+
+	it("convertHtmlToReactShadcn rejects absolute output paths", async () => {
+		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const shared = await import("../services/mcp-server/src/tools/shared.js");
+
+		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(
+			JSON.stringify({
+				files: [
+					{
+						path: "/tmp/app/page.tsx",
+						content: "export default function Page() { return null; }",
+					},
+				],
+			}),
+		);
+
+		await expect(
+			shared.convertHtmlToReactShadcn({
+				html: "<main>Hello</main>",
+				pagePath: "app/page.tsx",
+				componentsDir: "components/generated",
+				detection: {
+					workspaceRoot: "/tmp/workspace",
+					source: "default",
+					uiImportBase: "@/components/ui",
+					uiDir: "components/ui",
+					componentsImportBase: "@/components",
+					componentsDir: "components",
+					evidence: ["fixture"],
+				},
+			}),
+		).rejects.toThrow("Invalid generated file path: /tmp/app/page.tsx");
+	});
+
+	it("convertHtmlToReactShadcn rejects path traversal output paths", async () => {
+		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const shared = await import("../services/mcp-server/src/tools/shared.js");
+
+		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(
+			JSON.stringify({
+				files: [
+					{
+						path: "../escape/page.tsx",
+						content: "export default function Page() { return null; }",
+					},
+				],
+			}),
+		);
+
+		await expect(
+			shared.convertHtmlToReactShadcn({
+				html: "<main>Hello</main>",
+				pagePath: "app/page.tsx",
+				componentsDir: "components/generated",
+				detection: {
+					workspaceRoot: "/tmp/workspace",
+					source: "default",
+					uiImportBase: "@/components/ui",
+					uiDir: "components/ui",
+					componentsImportBase: "@/components",
+					componentsDir: "components",
+					evidence: ["fixture"],
+				},
+			}),
+		).rejects.toThrow("Invalid generated file path: ../escape/page.tsx");
 	});
 });

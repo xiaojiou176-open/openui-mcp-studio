@@ -1,12 +1,13 @@
 import { describe, expect, it } from "vitest";
+import packageJson from "../package.json";
 import {
-	DOCTOR_CHECKS,
 	buildDoctorPayload,
+	DOCTOR_CHECKS,
 	runRepoDoctorCli,
 } from "../tooling/cli/repo-doctor.mjs";
 import {
-	VERIFY_FAST_STEPS,
 	runRepoVerifyFastCli,
+	VERIFY_FAST_STEPS,
 } from "../tooling/cli/repo-verify-fast.mjs";
 
 function createBufferWriter() {
@@ -26,25 +27,26 @@ function createBufferWriter() {
 
 describe("repo governance entrypoints", () => {
 	it("keeps repo:verify:fast aligned with the expanded structural governance sweep", async () => {
-			expect(VERIFY_FAST_STEPS).toEqual([
-				["npm", "run", "-s", "governance:identity-alignment:check"],
-				["npm", "run", "-s", "governance:language-boundary:check"],
-				["npm", "run", "-s", "governance:tracked-surface:check"],
-				["npm", "run", "-s", "governance:open-source-surface:check"],
-				["npm", "run", "-s", "governance:remote-evidence:check"],
-				["npm", "run", "-s", "governance:ssot:check"],
+		expect(VERIFY_FAST_STEPS).toEqual([
+			["npm", "run", "-s", "governance:identity-alignment:check"],
+			["npm", "run", "-s", "governance:language-boundary:check"],
+			["npm", "run", "-s", "governance:tracked-surface:check"],
+			["npm", "run", "-s", "governance:open-source-surface:check"],
+			["npm", "run", "-s", "governance:remote-evidence:check"],
+			["npm", "run", "-s", "governance:ssot:check"],
 			["npm", "run", "-s", "governance:module-readme:check"],
 			["npm", "run", "-s", "governance:topology:check"],
 			["npm", "run", "-s", "governance:root:check"],
 			["npm", "run", "-s", "governance:root-pristine:check"],
-				["npm", "run", "-s", "governance:runtime:check"],
-				["npm", "run", "-s", "governance:runtime-layout:check"],
-				["npm", "run", "-s", "governance:cache-lifecycle:check"],
-				["npm", "run", "-s", "governance:deps:check"],
-				["npm", "run", "-s", "governance:history-hygiene:check"],
-				["npm", "run", "-s", "governance:log-schema:check"],
-				["npm", "run", "-s", "governance:evidence:check"],
-				["npm", "run", "-s", "governance:run-correlation:check"],
+			["npm", "run", "-s", "governance:runtime:check"],
+			["npm", "run", "-s", "governance:runtime-layout:check"],
+			["npm", "run", "-s", "governance:cache-lifecycle:check"],
+			["npm", "run", "-s", "governance:space:check"],
+			["npm", "run", "-s", "governance:deps:check"],
+			["npm", "run", "-s", "governance:history-hygiene:check"],
+			["npm", "run", "-s", "governance:log-schema:check"],
+			["npm", "run", "-s", "governance:evidence:check"],
+			["npm", "run", "-s", "governance:run-correlation:check"],
 		]);
 
 		const executed = [];
@@ -84,12 +86,12 @@ describe("repo governance entrypoints", () => {
 	});
 
 	it("keeps repo:doctor aligned with the expanded governance front-desk summary", async () => {
-			expect(DOCTOR_CHECKS.map((check) => check.id)).toEqual([
-				"identityAlignment",
-				"languageBoundary",
-				"trackedSurfaceHygiene",
-				"openSourceSurface",
-				"remoteGovernanceEvidence",
+		expect(DOCTOR_CHECKS.map((check) => check.id)).toEqual([
+			"identityAlignment",
+			"languageBoundary",
+			"trackedSurfaceHygiene",
+			"openSourceSurface",
+			"remoteGovernanceEvidence",
 			"ssot",
 			"moduleReadme",
 			"topology",
@@ -99,6 +101,7 @@ describe("repo governance entrypoints", () => {
 			"runtime",
 			"runtimeLayout",
 			"cacheLifecycle",
+			"spaceGovernance",
 			"logSchema",
 			"evidence",
 			"runCorrelation",
@@ -108,12 +111,48 @@ describe("repo governance entrypoints", () => {
 		]);
 	});
 
+	it("keeps package front-door scripts aligned with space-governance gates", () => {
+		expect(packageJson.scripts["governance:space:check"]).toBe(
+			"node tooling/check-space-governance.mjs && node tooling/check-space-path-sources.mjs",
+		);
+		expect(packageJson.scripts["repo:space:check"]).toBe(
+			"npm run -s governance:space:check",
+		);
+		expect(packageJson.scripts["repo:space:verify"]).toBe(
+			"node tooling/space-verify-candidates.mjs",
+		);
+		expect(packageJson.scripts["repo:space:clean"]).toBe(
+			"node tooling/space-clean.mjs",
+		);
+		expect(packageJson.scripts["security:evidence:final"]).toBe(
+			"node tooling/security-final-evidence.mjs",
+		);
+		expect(packageJson.scripts["governance:remote:review"]).toBe(
+			"node tooling/remote-canonical-review.mjs",
+		);
+		expect(packageJson.scripts["governance:final:check"]).toContain(
+			"governance:space:check",
+		);
+	});
+
 	it("builds doctor summary counts from mixed pass/fail results", () => {
 		const payload = buildDoctorPayload(
 			[
 				{ id: "root", ok: true, exitCode: 0, stdout: "ok", stderr: "" },
-				{ id: "pinnedSource", ok: false, exitCode: 1, stdout: "", stderr: "missing digest" },
-				{ id: "releaseReadiness", ok: false, exitCode: 1, stdout: "", stderr: "blocked" },
+				{
+					id: "pinnedSource",
+					ok: false,
+					exitCode: 1,
+					stdout: "",
+					stderr: "missing digest",
+				},
+				{
+					id: "releaseReadiness",
+					ok: false,
+					exitCode: 1,
+					stdout: "",
+					stderr: "blocked",
+				},
 			],
 			"2026-03-20T12:29:10.680Z",
 		);
@@ -205,7 +244,9 @@ describe("repo governance entrypoints", () => {
 	it("includes extra readiness advisories supplied by the doctor runtime", async () => {
 		const writer = createBufferWriter();
 		const exitCode = await runRepoDoctorCli({
-			checks: [{ id: "identityAlignment", command: ["npm", "run", "-s", "identity"] }],
+			checks: [
+				{ id: "identityAlignment", command: ["npm", "run", "-s", "identity"] },
+			],
 			runner: () => ({ status: 0, stdout: "ok", stderr: "" }),
 			advisoryProvider: async () => [
 				"History audit report contains 115 findings. Do not claim public-safe release closure until they are classified or remediated.",

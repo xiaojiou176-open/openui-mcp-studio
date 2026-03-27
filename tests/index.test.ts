@@ -86,19 +86,43 @@ vi.mock("../services/mcp-server/src/path-detection.js", () => ({
 	detectShadcnPaths,
 }));
 
-vi.mock("../services/mcp-server/src/tools/apply.js", () => ({ registerApplyTool }));
-vi.mock("../services/mcp-server/src/tools/computer-use.js", () => ({ registerComputerUseTool }));
-vi.mock("../services/mcp-server/src/tools/convert.js", () => ({ registerConvertTools }));
-vi.mock("../services/mcp-server/src/tools/detect.js", () => ({ registerDetectTool }));
-vi.mock("../services/mcp-server/src/tools/embed.js", () => ({ registerEmbedTool }));
-vi.mock("../services/mcp-server/src/tools/generate.js", () => ({ registerGenerateTool }));
-vi.mock("../services/mcp-server/src/tools/models.js", () => ({ registerModelsTool }));
-vi.mock("../services/mcp-server/src/tools/quality.js", () => ({ registerQualityTool }));
+vi.mock("../services/mcp-server/src/tools/apply.js", () => ({
+	registerApplyTool,
+}));
+vi.mock("../services/mcp-server/src/tools/computer-use.js", () => ({
+	registerComputerUseTool,
+}));
+vi.mock("../services/mcp-server/src/tools/convert.js", () => ({
+	registerConvertTools,
+}));
+vi.mock("../services/mcp-server/src/tools/detect.js", () => ({
+	registerDetectTool,
+}));
+vi.mock("../services/mcp-server/src/tools/embed.js", () => ({
+	registerEmbedTool,
+}));
+vi.mock("../services/mcp-server/src/tools/generate.js", () => ({
+	registerGenerateTool,
+}));
+vi.mock("../services/mcp-server/src/tools/models.js", () => ({
+	registerModelsTool,
+}));
+vi.mock("../services/mcp-server/src/tools/quality.js", () => ({
+	registerQualityTool,
+}));
 vi.mock("../services/mcp-server/src/tools/rag.js", () => ({ registerRagTool }));
-vi.mock("../services/mcp-server/src/tools/refine.js", () => ({ registerRefineTool }));
-vi.mock("../services/mcp-server/src/tools/ship.js", () => ({ registerShipTool }));
-vi.mock("../services/mcp-server/src/tools/smoke.js", () => ({ registerSmokeTool }));
-vi.mock("../services/mcp-server/src/tools/uiux-review.js", () => ({ registerUiuxReviewTool }));
+vi.mock("../services/mcp-server/src/tools/refine.js", () => ({
+	registerRefineTool,
+}));
+vi.mock("../services/mcp-server/src/tools/ship.js", () => ({
+	registerShipTool,
+}));
+vi.mock("../services/mcp-server/src/tools/smoke.js", () => ({
+	registerSmokeTool,
+}));
+vi.mock("../services/mcp-server/src/tools/uiux-review.js", () => ({
+	registerUiuxReviewTool,
+}));
 
 afterEach(() => {
 	createdServers.length = 0;
@@ -118,7 +142,7 @@ describe("index server bootstrap", () => {
 
 		expect(validateOpenuiRuntimeConfig).toHaveBeenCalledTimes(1);
 		expect(server.options).toEqual({
-			name: "openui-mcp-ui-generator",
+			name: "openui-mcp-studio",
 			version: "9.9.9-test",
 		});
 

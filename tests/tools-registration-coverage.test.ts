@@ -53,9 +53,13 @@ describe("tool registration coverage", () => {
 			applied: 2,
 			rolledBack: false,
 		}));
-		vi.doMock("../services/mcp-server/src/file-ops.js", () => ({ applyGeneratedFiles }));
+		vi.doMock("../services/mcp-server/src/file-ops.js", () => ({
+			applyGeneratedFiles,
+		}));
 
-		const { registerApplyTool } = await import("../services/mcp-server/src/tools/apply.js");
+		const { registerApplyTool } = await import(
+			"../services/mcp-server/src/tools/apply.js"
+		);
 		const harness = createToolHarness();
 		registerApplyTool(harness.server);
 
@@ -82,9 +86,13 @@ describe("tool registration coverage", () => {
 			uiImportBase: "@/components/ui",
 			componentsDir: "components",
 		}));
-		vi.doMock("../services/mcp-server/src/path-detection.js", () => ({ detectShadcnPaths }));
+		vi.doMock("../services/mcp-server/src/path-detection.js", () => ({
+			detectShadcnPaths,
+		}));
 
-		const { registerDetectTool } = await import("../services/mcp-server/src/tools/detect.js");
+		const { registerDetectTool } = await import(
+			"../services/mcp-server/src/tools/detect.js"
+		);
 		const harness = createToolHarness();
 		registerDetectTool(harness.server);
 
@@ -106,11 +114,15 @@ describe("tool registration coverage", () => {
 			},
 		}));
 		vi.doMock("../services/mcp-server/src/tools/shared.js", async () => {
-			const actual = await vi.importActual("../services/mcp-server/src/tools/shared.js");
+			const actual = await vi.importActual(
+				"../services/mcp-server/src/tools/shared.js",
+			);
 			return { ...actual, listOpenuiModels };
 		});
 
-		const { registerModelsTool } = await import("../services/mcp-server/src/tools/models.js");
+		const { registerModelsTool } = await import(
+			"../services/mcp-server/src/tools/models.js"
+		);
 		const harness = createToolHarness();
 		registerModelsTool(harness.server);
 
@@ -134,11 +146,15 @@ describe("tool registration coverage", () => {
 			},
 		}));
 		vi.doMock("../services/mcp-server/src/tools/shared.js", async () => {
-			const actual = await vi.importActual("../services/mcp-server/src/tools/shared.js");
+			const actual = await vi.importActual(
+				"../services/mcp-server/src/tools/shared.js",
+			);
 			return { ...actual, convertHtmlToReactShadcn };
 		});
 
-		const { registerConvertTools } = await import("../services/mcp-server/src/tools/convert.js");
+		const { registerConvertTools } = await import(
+			"../services/mcp-server/src/tools/convert.js"
+		);
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
 
@@ -194,7 +210,9 @@ describe("tool registration coverage", () => {
 			},
 		}));
 		vi.doMock("../services/mcp-server/src/tools/shared.js", async () => {
-			const actual = await vi.importActual("../services/mcp-server/src/tools/shared.js");
+			const actual = await vi.importActual(
+				"../services/mcp-server/src/tools/shared.js",
+			);
 			return {
 				...actual,
 				resolveShadcnStyleGuide,
@@ -203,7 +221,9 @@ describe("tool registration coverage", () => {
 			};
 		});
 
-		const { registerConvertTools } = await import("../services/mcp-server/src/tools/convert.js");
+		const { registerConvertTools } = await import(
+			"../services/mcp-server/src/tools/convert.js"
+		);
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
 

@@ -49,9 +49,12 @@ describe("quality-score output path security", () => {
 
 			await withCwd(workspaceRoot, async () => {
 				await expect(
-					writeQualityScoreFile(".runtime-cache/runs/test-run/quality-score.json", {
-						ok: true,
-					}),
+					writeQualityScoreFile(
+						".runtime-cache/runs/test-run/quality-score.json",
+						{
+							ok: true,
+						},
+					),
 				).rejects.toThrow(/resolves outside workspace via symlink/i);
 			});
 		} finally {
@@ -85,9 +88,12 @@ describe("quality-score output path security", () => {
 
 			await withCwd(workspaceRoot, async () => {
 				await expect(
-					writeQualityScoreFile(".runtime-cache/runs/test-run/quality-score.json", {
-						ok: true,
-					}),
+					writeQualityScoreFile(
+						".runtime-cache/runs/test-run/quality-score.json",
+						{
+							ok: true,
+						},
+					),
 				).rejects.toThrow(/must not be a symlink/i);
 			});
 			await expect(fs.readFile(outsideFile, "utf8")).resolves.toContain(

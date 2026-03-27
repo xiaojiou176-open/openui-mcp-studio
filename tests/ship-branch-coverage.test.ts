@@ -142,10 +142,9 @@ describe("ship branch coverage", () => {
 			};
 		});
 		vi.doMock("../services/mcp-server/src/file-ops.js", async () => {
-			const actual =
-				await vi.importActual<typeof import("../services/mcp-server/src/file-ops.js")>(
-					"../services/mcp-server/src/file-ops.js",
-				);
+			const actual = await vi.importActual<
+				typeof import("../services/mcp-server/src/file-ops.js")
+			>("../services/mcp-server/src/file-ops.js");
 			return { ...actual, applyGeneratedFiles: applyGeneratedFilesMock };
 		});
 		vi.doMock("../services/mcp-server/src/quality-gate.js", async () => {
@@ -158,7 +157,9 @@ describe("ship branch coverage", () => {
 			shipIdempotencyStore: idempotencyStoreMock,
 		}));
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 		const result = await harness.getHandler("openui_ship_react_page")({
@@ -237,7 +238,9 @@ describe("ship branch coverage", () => {
 			shipIdempotencyStore: idempotencyStoreMock,
 		}));
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -305,7 +308,9 @@ describe("ship branch coverage", () => {
 			shipIdempotencyStore: idempotencyStoreMock,
 		}));
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -382,7 +387,9 @@ describe("ship branch coverage", () => {
 			shipIdempotencyStore: idempotencyStoreMock,
 		}));
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -438,7 +445,9 @@ describe("ship branch coverage", () => {
 			shipIdempotencyStore: idempotencyStoreMock,
 		}));
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 

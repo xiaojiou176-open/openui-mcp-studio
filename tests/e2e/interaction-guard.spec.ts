@@ -1,5 +1,5 @@
 import { test as base, expect } from "playwright/test";
-import { disableMotion } from "./helpers/interaction";
+import { disableMotion, waitForWorkbenchReady } from "./helpers/interaction";
 import {
 	createPageErrorGuard,
 	type PageErrorGuard,
@@ -31,6 +31,7 @@ test.beforeEach(async ({ page, server, pageErrorGuard }) => {
 	await page.goto(server.baseURL, { waitUntil: "domcontentloaded" });
 	await disableMotion(page);
 	await expect(page.getByTestId("workbench-page")).toBeVisible();
+	await waitForWorkbenchReady(page);
 });
 
 test("primary control buttons expose stable role/name contracts", async ({
@@ -64,7 +65,7 @@ test("keyboard activation path for refresh/error/reset stays functional", async 
 	const refreshButton = page.getByTestId("refresh-workbench");
 	await refreshButton.focus();
 	await expect(refreshButton).toBeFocused();
-	await page.keyboard.press("Enter");
+	await refreshButton.press("Enter");
 	await expect(page.getByTestId("loading-state")).toBeVisible();
 	await expect(refreshButton).toBeDisabled();
 	await expect(refreshButton).toContainText("Refreshing");
@@ -75,7 +76,7 @@ test("keyboard activation path for refresh/error/reset stays functional", async 
 	const simulateError = page.getByTestId("simulate-error");
 	await simulateError.focus();
 	await expect(simulateError).toBeFocused();
-	await page.keyboard.press("Space");
+	await simulateError.press("Space");
 	await expect(page.getByTestId("error-state")).toBeVisible();
 
 	const resetButton = page.getByRole("button", {
@@ -83,7 +84,7 @@ test("keyboard activation path for refresh/error/reset stays functional", async 
 	});
 	await resetButton.focus();
 	await expect(resetButton).toBeFocused();
-	await page.keyboard.press("Enter");
+	await resetButton.press("Enter");
 	await expect(page.getByTestId("error-state")).toHaveCount(0);
 	await expect(searchInput).toHaveValue("");
 	await expect(page.locator("#status-all")).toBeChecked();

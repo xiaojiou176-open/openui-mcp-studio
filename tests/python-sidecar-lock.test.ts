@@ -29,9 +29,13 @@ describe("python sidecar dependency lock", () => {
 
 			await fs.writeFile(
 				requirementsPath,
-				["-c constraints.txt", "", "google-genai>=1.60.0,<2.0.0", "ruff>=0.12.0,<1.0.0", ""].join(
-					"\n",
-				),
+				[
+					"-c constraints.txt",
+					"",
+					"google-genai>=1.60.0,<2.0.0",
+					"ruff>=0.12.0,<1.0.0",
+					"",
+				].join("\n"),
 				"utf8",
 			);
 			await fs.writeFile(

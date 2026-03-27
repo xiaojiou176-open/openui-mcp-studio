@@ -24,8 +24,14 @@ type CoverageEntry = {
 	lines: CoverageMetric;
 };
 
-const WORKSPACE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const SCRIPT_PATH = path.resolve(WORKSPACE_ROOT, "tooling/check-core-coverage.mjs");
+const WORKSPACE_ROOT = path.resolve(
+	path.dirname(fileURLToPath(import.meta.url)),
+	"..",
+);
+const SCRIPT_PATH = path.resolve(
+	WORKSPACE_ROOT,
+	"tooling/check-core-coverage.mjs",
+);
 const tempDirs: string[] = [];
 
 function metric(pct: number, total = 100): CoverageMetric {
@@ -666,7 +672,9 @@ describe("check-core-coverage gate", () => {
 
 		expect(result.status).toBe(1);
 		expect(result.stderr).toContain("module kill-ratio gate failed");
-		expect(result.stderr).toContain("packages/shared-runtime/src/path-utils.ts");
+		expect(result.stderr).toContain(
+			"packages/shared-runtime/src/path-utils.ts",
+		);
 	});
 
 	it("fails mutation-only mode when operator sampling fails under default enforcement", async () => {

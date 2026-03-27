@@ -33,22 +33,25 @@ function normalizeExpression(expression: string): string {
 }
 
 describe("live gemini smoke gating strategy", () => {
-	it("keeps explicit nightly key-check controls and hard-fail path", async () => {
+	it("keeps nightly coverage deterministic and free of live Gemini smoke", async () => {
 		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
 		const workflow = await fs.readFile(workflowPath, "utf8");
 		const nightlySection = getJobSection(workflow, "nightly_coverage_gate");
 
-		expect(nightlySection).toContain(
+		expect(nightlySection).toContain("command: npm run governance:check");
+		expect(nightlySection).not.toContain(
 			"Validate GEMINI_API_KEY for nightly live gate",
 		);
-		expect(nightlySection).toContain(
+		expect(nightlySection).not.toContain(
 			"Nightly live gate requires GEMINI_API_KEY secret.",
 		);
-		expect(nightlySection).toContain("Live Gemini smoke in CI container (nightly)");
-		expect(nightlySection).toContain("command: npm run test:live");
+		expect(nightlySection).not.toContain(
+			"Live Gemini smoke in CI container (nightly)",
+		);
+		expect(nightlySection).not.toContain("command: npm run test:live");
 	});
 
-	it("defines a hard-gated live job for workflow_dispatch/main/release and non-fork PRs targeting those branches", async () => {
+	it("defines a hard-gated live job only for explicit manual dispatch", async () => {
 		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
 		const workflow = await fs.readFile(workflowPath, "utf8");
 		const ifExpression = getJobIfExpression(workflow, "live_gemini_hard_gate");
@@ -58,28 +61,21 @@ describe("live gemini smoke gating strategy", () => {
 		expect(normalizedIfExpression).toContain(
 			"github.event_name == 'workflow_dispatch'",
 		);
-		expect(normalizedIfExpression).toContain("github.ref == 'refs/heads/main'");
-		expect(normalizedIfExpression).toContain(
-			"startsWith(github.ref, 'refs/heads/release/')",
-		);
-		expect(normalizedIfExpression).toContain(
-			"github.event_name == 'pull_request'",
-		);
-		expect(normalizedIfExpression).toContain(
-			"!github.event.pull_request.head.repo.fork",
-		);
-		expect(normalizedIfExpression).toContain("github.base_ref == 'main'");
-		expect(normalizedIfExpression).toContain(
-			"startsWith(github.base_ref, 'release/')",
-		);
-		expect(normalizedIfExpression).toContain("||");
+		expect(normalizedIfExpression).toContain("inputs.run_live_gemini");
+		expect(workflow).toContain("run_live_gemini:");
 		expect(normalizedIfExpression).toContain("&&");
+		expect(normalizedIfExpression).not.toContain("pull_request");
+		expect(normalizedIfExpression).not.toContain("refs/heads/main");
+		expect(normalizedIfExpression).not.toContain("release/");
+		expect(normalizedIfExpression).not.toContain("github.base_ref");
 		expect(hardGateSection).toContain("name: Live Gemini hard gate");
 		expect(hardGateSection).toContain("Validate GEMINI_API_KEY for hard gate");
 		expect(hardGateSection).toContain(
 			"Live Gemini hard gate requires GEMINI_API_KEY secret.",
 		);
-		expect(hardGateSection).toContain("Run live Gemini smoke suite in CI container");
+		expect(hardGateSection).toContain(
+			"Run live Gemini smoke suite in CI container",
+		);
 		expect(hardGateSection).toContain("command: npm run test:live");
 	});
 
@@ -96,20 +92,36 @@ describe("live gemini smoke gating strategy", () => {
 		expect(hardGateSection).toContain("exit 1");
 	});
 
-	it("keeps nightly missing-key semantics as hard fail", async () => {
+	it("keeps live Gemini hard gate out of the default PR hot path", async () => {
+		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
+		const workflow = await fs.readFile(workflowPath, "utf8");
+		const ifExpression = getJobIfExpression(workflow, "live_gemini_hard_gate");
+		const normalizedIfExpression = normalizeExpression(ifExpression);
+
+		expect(normalizedIfExpression).not.toContain(
+			"github.event_name == 'pull_request'",
+		);
+		expect(normalizedIfExpression).not.toContain("github.base_ref == 'main'");
+		expect(normalizedIfExpression).not.toContain(
+			"startsWith(github.base_ref, 'release/')",
+		);
+	});
+
+	it("keeps nightly lane free of live-key hard fail semantics", async () => {
 		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
 		const workflow = await fs.readFile(workflowPath, "utf8");
 
 		const nightlySection = getJobSection(workflow, "nightly_coverage_gate");
 		expect(typeof nightlySection).toBe("string");
-		expect(nightlySection).toContain(
+		expect(nightlySection).not.toContain(
 			"Validate GEMINI_API_KEY for nightly live gate",
 		);
-		expect(nightlySection).toContain(
+		expect(nightlySection).not.toContain(
 			"::error title=Missing GEMINI_API_KEY::Nightly live gate requires GEMINI_API_KEY secret.",
 		);
-		expect(nightlySection).toContain("exit 1");
-		expect(nightlySection).toContain("Live Gemini smoke in CI container (nightly)");
+		expect(nightlySection).not.toContain(
+			"Live Gemini smoke in CI container (nightly)",
+		);
 		expect(nightlySection).not.toContain("nightly-live-gate-alert");
 	});
 

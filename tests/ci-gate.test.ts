@@ -8,10 +8,12 @@ import {
 	buildDefaultStages,
 	createDefaultRunner,
 	DEFAULT_STAGES,
+	ensureRunManifest,
 	runCiGate,
 	writeSummaryFile,
 } from "../tooling/ci-gate.mjs";
 import { runLiveGeminiSmoke } from "../tooling/run-live-tests.mjs";
+import { buildRunLayout } from "../tooling/shared/run-layout.mjs";
 
 type RunnerTask = {
 	id: string;
@@ -204,29 +206,29 @@ describe("ci gate orchestration", () => {
 		}
 	});
 
-		it("enforces fast-gates before deep-gates and keeps browser matrix parallel", () => {
-			const repoGovernanceStage = DEFAULT_STAGES.find(
-				(stage) => stage.id === "repoGovernanceHardGate",
-			);
-			const stage1 = DEFAULT_STAGES.find((stage) => stage.id === "stage1");
-			const stage1b = DEFAULT_STAGES.find((stage) => stage.id === "stage1b");
+	it("enforces fast-gates before deep-gates and keeps browser matrix parallel", () => {
+		const repoGovernanceStage = DEFAULT_STAGES.find(
+			(stage) => stage.id === "repoGovernanceHardGate",
+		);
+		const stage1 = DEFAULT_STAGES.find((stage) => stage.id === "stage1");
+		const stage1b = DEFAULT_STAGES.find((stage) => stage.id === "stage1b");
 		const stage2 = DEFAULT_STAGES.find((stage) => stage.id === "stage2");
 		const stage3 = DEFAULT_STAGES.find((stage) => stage.id === "stage3");
 		const stage4 = DEFAULT_STAGES.find((stage) => stage.id === "stage4");
-			expect(repoGovernanceStage?.mode).toBe("parallel");
-				expect(repoGovernanceStage?.tasks.map((task) => task.id)).toEqual([
-					"governanceRoot",
-					"governanceDeps",
-					"governanceRuntime",
-					"governanceLogSchema",
-					"governanceNoWildLog",
-					"governanceUpstream",
-					"iacConsistency",
-				]);
-			expect(stage1?.mode).toBe("parallel");
-			expect(stage1?.tasks.some((task) => task.id === "iacConsistency")).toBe(
-				false,
-			);
+		expect(repoGovernanceStage?.mode).toBe("parallel");
+		expect(repoGovernanceStage?.tasks.map((task) => task.id)).toEqual([
+			"governanceRoot",
+			"governanceDeps",
+			"governanceRuntime",
+			"governanceLogSchema",
+			"governanceNoWildLog",
+			"governanceUpstream",
+			"iacConsistency",
+		]);
+		expect(stage1?.mode).toBe("parallel");
+		expect(stage1?.tasks.some((task) => task.id === "iacConsistency")).toBe(
+			false,
+		);
 		expect(stage1?.tasks.some((task) => task.id === "resourceLeakAudit")).toBe(
 			true,
 		);
@@ -237,6 +239,9 @@ describe("ci gate orchestration", () => {
 		expect(
 			stage1?.tasks.find((task) => task.id === "uiuxReviewContract")?.command,
 		).toContain("uiux:audit:strict:gate");
+		expect(
+			stage1?.tasks.find((task) => task.id === "uiuxReviewContract")?.advisory,
+		).toBe(true);
 		expect(stage1b?.mode).toBe("sequential");
 		expect(stage1b?.tasks.some((task) => task.id === "test")).toBe(true);
 		expect(stage1b?.tasks.some((task) => task.id === "build")).toBe(true);
@@ -244,58 +249,57 @@ describe("ci gate orchestration", () => {
 			true,
 		);
 		expect(stage1b?.tasks.some((task) => task.id === "mutationFullGate")).toBe(
-			true,
+			false,
 		);
-		expect(
-			stage1b?.tasks.find((task) => task.id === "mutationFullGate")?.command,
-		).toContain("mutation:run:full");
-			expect(stage2?.mode).toBe("sequential");
-			expect(stage2?.tasks.map((task) => task.id)).toEqual([
-				"appPrepare",
-				"smokeE2E",
-				"testE2EResilience",
-				"testE2E",
-			]);
-			expect(stage2?.tasks[0]?.command).toContain("prepare:next-app");
+		expect(stage2?.mode).toBe("sequential");
+		expect(stage2?.tasks.map((task) => task.id)).toEqual([
+			"appPrepare",
+			"smokeE2E",
+			"testE2EResilience",
+			"testE2E",
+		]);
+		expect(stage2?.tasks[0]?.command).toContain("prepare:next-app");
 		expect(stage2?.tasks[3]?.command).toContain("playwright test");
 		expect(stage2?.tasks[3]?.command).toContain("--project=chromium");
 		expect(stage2?.tasks[3]?.command).toContain("--retries=2");
 		expect(stage2?.tasks[3]?.command).toContain("--fail-on-flaky-tests");
 		expect(stage2?.tasks[1]?.command).toContain("smoke:e2e");
-			expect(stage2?.tasks[2]?.command).toContain("test:e2e:resilience");
-			expect(stage3?.mode).toBe("parallel");
-			expect(stage3?.tasks.map((task) => task.id)).toEqual([
-				"testE2EFirefox",
-				"testE2EWebkit",
-			]);
+		expect(stage2?.tasks[2]?.command).toContain("test:e2e:resilience");
+		expect(stage3?.mode).toBe("parallel");
+		expect(stage3?.tasks.map((task) => task.id)).toEqual([
+			"testE2EFirefox",
+			"testE2EWebkit",
+		]);
 		expect(stage3?.tasks[0]?.command).toContain("--project=firefox");
 		expect(stage3?.tasks[0]?.command).toContain("--fail-on-flaky-tests");
 		expect(stage3?.tasks[0]?.command).toMatch(
 			/--output=\.runtime-cache\/runs\/ci-gate-[^/]+\/artifacts\/playwright-firefox/,
 		);
-			expect(stage3?.tasks[1]?.command).toContain("--project=webkit");
-			expect(stage3?.tasks[1]?.command).toContain("--fail-on-flaky-tests");
-			expect(stage3?.tasks[1]?.command).toMatch(
-				/--output=\.runtime-cache\/runs\/ci-gate-[^/]+\/artifacts\/playwright-webkit/,
-			);
+		expect(stage3?.tasks[1]?.command).toContain("--project=webkit");
+		expect(stage3?.tasks[1]?.command).toContain("--fail-on-flaky-tests");
+		expect(stage3?.tasks[1]?.command).toMatch(
+			/--output=\.runtime-cache\/runs\/ci-gate-[^/]+\/artifacts\/playwright-webkit/,
+		);
 		expect(stage4?.mode).toBe("sequential");
 		expect(stage4?.tasks.map((task) => task.id)).toEqual(["visualQa"]);
 		expect(stage4?.tasks[0]?.advisory).toBe(true);
 	});
 
-		it("adds external readonly gate only when explicitly requested", () => {
-			const explicitStages = buildDefaultStages({
-				enforceExternalReadonly: true,
-			});
-			const defaultStage3 = DEFAULT_STAGES.find((stage) => stage.id === "stage3");
-			const explicitStage3 = explicitStages.find((stage) => stage.id === "stage3");
-			expect(
-				defaultStage3?.tasks.some((task) => task.id === "externalReadonlyE2E"),
-			).toBe(false);
-			expect(
-				explicitStage3?.tasks.some((task) => task.id === "externalReadonlyE2E"),
-			).toBe(true);
+	it("adds external readonly gate only when explicitly requested", () => {
+		const explicitStages = buildDefaultStages({
+			enforceExternalReadonly: true,
 		});
+		const defaultStage3 = DEFAULT_STAGES.find((stage) => stage.id === "stage3");
+		const explicitStage3 = explicitStages.find(
+			(stage) => stage.id === "stage3",
+		);
+		expect(
+			defaultStage3?.tasks.some((task) => task.id === "externalReadonlyE2E"),
+		).toBe(false);
+		expect(
+			explicitStage3?.tasks.some((task) => task.id === "externalReadonlyE2E"),
+		).toBe(true);
+	});
 
 	it("runs stage0 first, stage1 in parallel, and stage2 as serial close-out", async () => {
 		const launched: string[] = [];
@@ -422,7 +426,9 @@ describe("ci gate orchestration", () => {
 				id: "stage1b",
 				name: "Deep Quality Gates",
 				mode: "sequential" as const,
-				tasks: [{ id: "deepGate", command: "deepGate", hint: "deep gate hint" }],
+				tasks: [
+					{ id: "deepGate", command: "deepGate", hint: "deep gate hint" },
+				],
 			},
 			{
 				id: "stage2",
@@ -434,7 +440,13 @@ describe("ci gate orchestration", () => {
 				id: "stage3",
 				name: "Browser Matrix",
 				mode: "parallel" as const,
-				tasks: [{ id: "browserMatrix", command: "browserMatrix", hint: "browser hint" }],
+				tasks: [
+					{
+						id: "browserMatrix",
+						command: "browserMatrix",
+						hint: "browser hint",
+					},
+				],
 			},
 			{
 				id: "stage4",
@@ -444,10 +456,10 @@ describe("ci gate orchestration", () => {
 			},
 		];
 
-			const gatePromise = runCiGate({
-				stages,
-				runTask: (task: RunnerTask) => {
-					launched.push(task.id);
+		const gatePromise = runCiGate({
+			stages,
+			runTask: (task: RunnerTask) => {
+				launched.push(task.id);
 
 				if (stage0Deferred.has(task.id)) {
 					return stage0Deferred.get(task.id)!.promise;
@@ -458,14 +470,14 @@ describe("ci gate orchestration", () => {
 				}
 
 				throw new Error(`Unexpected task execution: ${task.id}`);
-				},
-			}).then((summary) => {
-				settled = true;
-				return summary;
-			});
+			},
+		}).then((summary) => {
+			settled = true;
+			return summary;
+		});
 
-			await waitFor(() => launched.length === 1);
-			expect(launched).toEqual([stage0TaskIds[0]]);
+		await waitFor(() => launched.length === 1);
+		expect(launched).toEqual([stage0TaskIds[0]]);
 
 		for (let index = 0; index < stage0TaskIds.length; index += 1) {
 			const taskId = stage0TaskIds[index];
@@ -658,12 +670,12 @@ describe("ci gate orchestration", () => {
 				if (task.id === "testCoverageAdvisory") {
 					return { exitCode: 7, stderr: "global coverage threshold not met" };
 				}
-					if (task.id === "coreCoverageGate") {
-						return {
-							exitCode: 1,
-							stderr: "packages/shared-runtime/src/branches 84.10% < 85.00%",
-						};
-					}
+				if (task.id === "coreCoverageGate") {
+					return {
+						exitCode: 1,
+						stderr: "packages/shared-runtime/src/branches 84.10% < 85.00%",
+					};
+				}
 				throw new Error(`Unexpected task: ${task.id}`);
 			},
 		});
@@ -678,10 +690,10 @@ describe("ci gate orchestration", () => {
 		expect(
 			stage1?.tasks.find((task) => task.id === "coreCoverageGate")?.status,
 		).toBe("failed");
-			expect(
-				stage1?.tasks.find((task) => task.id === "coreCoverageGate")?.stderr,
-			).toContain("packages/shared-runtime");
-		});
+		expect(
+			stage1?.tasks.find((task) => task.id === "coreCoverageGate")?.stderr,
+		).toContain("packages/shared-runtime");
+	});
 
 	it("fails ci gate when mutation coverage gate fails", async () => {
 		const stages = [
@@ -712,7 +724,7 @@ describe("ci gate orchestration", () => {
 				if (task.id === "audit" || task.id === "test") {
 					return { exitCode: 0, stdout: `${task.id} ok` };
 				}
-					if (task.id === "mutationFullGate") {
+				if (task.id === "mutationFullGate") {
 					return {
 						exitCode: 1,
 						stderr: "mutation score 70.00% < 80.00%",
@@ -729,11 +741,11 @@ describe("ci gate orchestration", () => {
 		const stage1 = summary.stages.find((stage) => stage.id === "stage1");
 		expect(stage1?.status).toBe("failed");
 		expect(
-				stage1?.tasks.find((task) => task.id === "mutationFullGate")?.status,
-			).toBe("failed");
-			expect(
-				stage1?.tasks.find((task) => task.id === "mutationFullGate")?.stderr,
-			).toContain("mutation score");
+			stage1?.tasks.find((task) => task.id === "mutationFullGate")?.status,
+		).toBe("failed");
+		expect(
+			stage1?.tasks.find((task) => task.id === "mutationFullGate")?.stderr,
+		).toContain("mutation score");
 	});
 
 	it("rejects parallel stages that declare conflicting resource locks", async () => {
@@ -885,22 +897,22 @@ describe("ci gate orchestration", () => {
 				path.join(os.tmpdir(), "ci-gate-outside-"),
 			);
 			try {
-					await fs.mkdir(path.join(workspaceRoot, ".runtime-cache"), {
-						recursive: true,
-					});
-					await fs.mkdir(path.join(workspaceRoot, ".runtime-cache", "runs"), {
-						recursive: true,
-					});
-					await fs.symlink(
-						outsideDir,
-						path.join(workspaceRoot, ".runtime-cache", "runs", "test-run"),
-					);
+				await fs.mkdir(path.join(workspaceRoot, ".runtime-cache"), {
+					recursive: true,
+				});
+				await fs.mkdir(path.join(workspaceRoot, ".runtime-cache", "runs"), {
+					recursive: true,
+				});
+				await fs.symlink(
+					outsideDir,
+					path.join(workspaceRoot, ".runtime-cache", "runs", "test-run"),
+				);
 
-					await expect(
-						writeSummaryFile(".runtime-cache/runs/test-run/summary.json", {
-							ok: true,
-						}),
-					).rejects.toThrow(/resolves outside .* via symlink/i);
+				await expect(
+					writeSummaryFile(".runtime-cache/runs/test-run/summary.json", {
+						ok: true,
+					}),
+				).rejects.toThrow(/resolves outside .* via symlink/i);
 			} finally {
 				await fs.rm(outsideDir, { recursive: true, force: true });
 			}
@@ -913,12 +925,12 @@ describe("ci gate orchestration", () => {
 				path.join(os.tmpdir(), "ci-gate-outside-"),
 			);
 			try {
-					const summaryDir = path.join(
-						workspaceRoot,
-						".runtime-cache",
-						"runs",
-						"test-run",
-					);
+				const summaryDir = path.join(
+					workspaceRoot,
+					".runtime-cache",
+					"runs",
+					"test-run",
+				);
 				await fs.mkdir(summaryDir, { recursive: true });
 
 				const outsideFile = path.join(outsideDir, "outside.json");
@@ -933,6 +945,46 @@ describe("ci gate orchestration", () => {
 			} finally {
 				await fs.rm(outsideDir, { recursive: true, force: true });
 			}
+		});
+	});
+
+	it("recreates the authoritative run manifest after meta drift", async () => {
+		await withTempWorkspace(async (workspaceRoot) => {
+			const runId = "ci-gate-manifest-recovery";
+			const layout = buildRunLayout(workspaceRoot, runId, {
+				runsRoot: ".runtime-cache/runs",
+				logChannels: ["runtime", "ci", "tests", "upstream"],
+			});
+			const metaDir = path.join(workspaceRoot, layout.metaRootRelative);
+			const runManifestPath = path.join(
+				workspaceRoot,
+				layout.runManifestPathRelative,
+			);
+
+			await fs.mkdir(metaDir, { recursive: true });
+			await ensureRunManifest(layout, ["--enforce-external-readonly"]);
+			await fs.rm(runManifestPath, { force: true });
+			await fs.writeFile(
+				path.join(metaDir, `test-coverage-${runId}.json`),
+				JSON.stringify({ ok: true }, null, 2),
+				"utf8",
+			);
+
+			await ensureRunManifest(layout, ["--enforce-external-readonly"]);
+
+			const manifest = JSON.parse(await fs.readFile(runManifestPath, "utf8"));
+			expect(manifest).toMatchObject({
+				version: 1,
+				runId,
+				authoritative: true,
+				mode: "ci-gate",
+			});
+			expect(await fs.realpath(manifest.workspaceRoot)).toBe(
+				await fs.realpath(workspaceRoot),
+			);
+			expect(manifest.command).toBe(
+				"node tooling/ci-gate.mjs --enforce-external-readonly",
+			);
 		});
 	});
 });

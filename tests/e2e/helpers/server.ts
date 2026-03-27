@@ -1,15 +1,16 @@
 import { type ChildProcess, spawn } from "node:child_process";
 import fs from "node:fs/promises";
+import { createRequire } from "node:module";
 import net from "node:net";
 import path from "node:path";
 import process from "node:process";
 import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
+import { resolveNextBuildDir } from "../../../packages/shared-runtime/src/next-build-dir.js";
 import {
 	getTargetBuildManifestStatus,
 	writeTargetBuildManifest,
 } from "../../../packages/shared-runtime/src/target-build-manifest.js";
-import { resolveNextBuildDir } from "../../../packages/shared-runtime/src/next-build-dir.js";
 
 const INSTALL_TIMEOUT_MS = 180_000;
 const BUILD_TIMEOUT_MS = 180_000;
@@ -62,6 +63,14 @@ function getNpmCommand(): string {
 }
 
 function getNextBinPath(root: string): string {
+	if (process.platform !== "win32") {
+		try {
+			const requireFromRoot = createRequire(path.resolve(root, "package.json"));
+			return requireFromRoot.resolve("next/dist/bin/next");
+		} catch {
+			// Fall back to the local .bin path for fixture-style runtimes.
+		}
+	}
 	return path.resolve(
 		root,
 		"node_modules",
@@ -152,7 +161,7 @@ async function ensureBuild(root: string): Promise<void> {
 
 	await runCommand({
 		command: getNextBinPath(root),
-		args: ["build"],
+		args: ["build", "--webpack"],
 		cwd: root,
 		timeoutMs: BUILD_TIMEOUT_MS,
 	});
@@ -190,11 +199,11 @@ async function waitForServerReady(input: {
 	let consecutiveReadyChecks = 0;
 
 	while (Date.now() - startedAt < READY_TIMEOUT_MS) {
-			if (input.child.exitCode !== null || input.child.signalCode !== null) {
-				throw new Error(
-					`App server exited before ready (code=${String(input.child.exitCode)}, signal=${String(input.child.signalCode)}).`,
-				);
-			}
+		if (input.child.exitCode !== null || input.child.signalCode !== null) {
+			throw new Error(
+				`App server exited before ready (code=${String(input.child.exitCode)}, signal=${String(input.child.signalCode)}).`,
+			);
+		}
 
 		try {
 			const response = await fetch(input.url, {
@@ -266,9 +275,7 @@ function isProcessAlive(pid: number): boolean {
 	}
 }
 
-async function clearStaleAppPrepareLock(
-	lockPath: string,
-): Promise<boolean> {
+async function clearStaleAppPrepareLock(lockPath: string): Promise<boolean> {
 	let contents: string;
 	try {
 		contents = await fs.readFile(lockPath, "utf8");
@@ -308,21 +315,23 @@ async function withAppPrepareLock<T>(
 			if (!(isErrnoException(error) && error.code === "EEXIST")) {
 				throw error;
 			}
-				const staleLockCleared = await clearStaleAppPrepareLock(lockPath);
+			const staleLockCleared = await clearStaleAppPrepareLock(lockPath);
 			if (staleLockCleared) {
 				continue;
 			}
 			if (Date.now() >= deadline) {
-					throw new Error(`Timed out waiting for app prepare lock: ${lockPath}`, {
-						cause: error,
-					});
+				throw new Error(`Timed out waiting for app prepare lock: ${lockPath}`, {
+					cause: error,
+				});
 			}
 			await delay(PREPARE_LOCK_POLL_MS);
 		}
 	}
 }
 
-async function acquireAppServerLock(root: string): Promise<() => Promise<void>> {
+async function acquireAppServerLock(
+	root: string,
+): Promise<() => Promise<void>> {
 	const lockPath = path.resolve(root, ".runtime-cache", "app-server.lock");
 	await fs.mkdir(path.dirname(lockPath), { recursive: true });
 	const deadline = Date.now() + SERVER_LOCK_TIMEOUT_MS;

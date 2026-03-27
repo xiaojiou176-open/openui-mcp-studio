@@ -365,10 +365,10 @@ describe("uiux ai audit strict gate", () => {
 		expect(
 			isFrontendAuditCandidate("tests/e2e/dashboard-workbench.spec.ts"),
 		).toBe(false);
-			expect(isFrontendAuditCandidate("apps/web/app/page.tsx")).toBe(true);
-			expect(isFrontendAuditCandidate("apps/web/app/globals.css")).toBe(true);
-			expect(isFrontendAuditCandidate("tests/e2e/helpers/server.ts")).toBe(false);
-			expect(isFrontendAuditCandidate("components/ui/button.tsx")).toBe(true);
+		expect(isFrontendAuditCandidate("apps/web/app/page.tsx")).toBe(true);
+		expect(isFrontendAuditCandidate("apps/web/app/globals.css")).toBe(true);
+		expect(isFrontendAuditCandidate("tests/e2e/helpers/server.ts")).toBe(false);
+		expect(isFrontendAuditCandidate("components/ui/button.tsx")).toBe(true);
 		expect(isFrontendAuditCandidate("styles/globals.css")).toBe(true);
 	});
 

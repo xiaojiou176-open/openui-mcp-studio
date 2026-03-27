@@ -121,5 +121,11 @@ describe("review heuristics internals", () => {
 				`<button style="border: 1px solid #000; background:#fff">Strong</button>`,
 			),
 		).toBe(false);
+
+		expect(
+			__test__.stripHtmlTags(
+				'Visible <span aria-hidden="true"><script>alert(1)</script> text</span>',
+			),
+		).toBe("Visible alert(1) text");
 	});
 });

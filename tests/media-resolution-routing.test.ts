@@ -29,33 +29,36 @@ async function loadProviderWithBridgeMock(): Promise<{
 	provider: typeof import("../services/mcp-server/src/providers/gemini-provider.js");
 	calls: BridgeCall[];
 }> {
+	vi.resetModules();
 	const calls: BridgeCall[] = [];
-
-	class GeminiPythonSidecarBridgeMock {
-		public async request(
-			method: string,
-			params: Record<string, unknown>,
-		): Promise<unknown> {
+	const sidecar = await import(
+		"../services/mcp-server/src/providers/gemini-python-sidecar.js"
+	);
+	vi.spyOn(
+		sidecar.GeminiPythonSidecarBridge.prototype,
+		"request",
+	).mockImplementation(
+		async (method: string, params: Record<string, unknown>) => {
 			calls.push({ method, params });
 			return {
 				text: "media-ok",
 				function_calls: [],
 				safety_decisions: [],
 			};
-		}
+		},
+	);
+	vi.spyOn(
+		sidecar.GeminiPythonSidecarBridge.prototype,
+		"stop",
+	).mockResolvedValue();
 
-		public async stop(): Promise<void> {}
-	}
-
-	vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-		GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-	}));
-
-	const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
 	return { provider, calls };
 }
 
-afterEach(() => {
+afterEach(async () => {
 	for (const key of ENV_KEYS) {
 		const value = originalEnv.get(key);
 		if (value === undefined) {
@@ -65,9 +68,14 @@ afterEach(() => {
 		}
 	}
 
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
+	if ("resetGeminiProviderForTests" in provider) {
+		await provider.resetGeminiProviderForTests();
+	}
 	vi.restoreAllMocks();
 	vi.doUnmock("../services/mcp-server/src/providers/gemini-provider.js");
-	vi.doUnmock("../services/mcp-server/src/providers/gemini-python-sidecar.js");
 	vi.resetModules();
 });
 
@@ -111,19 +119,24 @@ describe("media resolution routing", () => {
 	});
 
 	it("keeps model routing behavior when mediaResolution is present", async () => {
-		process.env.GEMINI_MODEL = "gemini-default";
-		process.env.GEMINI_MODEL_FAST = "gemini-fast";
-		process.env.GEMINI_MODEL_STRONG = "gemini-strong";
+		vi.resetModules();
+		process.env.GEMINI_API_KEY = "gemini-test-key";
+		process.env.GEMINI_MODEL = "gemini-3.1-pro-preview";
+		process.env.GEMINI_MODEL_FAST = "gemini-3-flash-preview";
+		process.env.GEMINI_MODEL_STRONG = "gemini-3.1-pro-preview";
 		process.env.OPENUI_MODEL_ROUTING = "on";
 		process.env.OPENUI_MAX_RETRIES = "0";
 
-		const completeWithGemini = vi.fn(async () => "route-ok");
-
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
-
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
+		const completeSpy = vi
+			.spyOn(geminiProvider, "completeWithGemini")
+			.mockResolvedValue("route-ok");
+		vi.spyOn(geminiProvider, "listGeminiModels").mockResolvedValue({
+			provider: "gemini",
+			models: [],
+		});
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
 		const text = await aiClient.aiChatComplete({
@@ -133,13 +146,13 @@ describe("media resolution routing", () => {
 		});
 
 		expect(text).toBe("route-ok");
-		expect(completeWithGemini).toHaveBeenCalledTimes(1);
-		const [input, resolution] = completeWithGemini.mock.calls[0] as [
+		expect(completeSpy).toHaveBeenCalledTimes(1);
+		const [input, resolution] = completeSpy.mock.calls[0] as [
 			Record<string, unknown>,
 			Record<string, unknown>,
 		];
 		expect(input.mediaResolution).toBe("high");
-		expect(resolution.resolvedModel).toBe("gemini-fast");
+		expect(resolution.resolvedModel).toBe("gemini-3-flash-preview");
 	});
 
 	it("auto-injects high media resolution for UI workflow context", async () => {

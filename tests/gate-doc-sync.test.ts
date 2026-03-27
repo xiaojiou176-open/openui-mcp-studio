@@ -44,7 +44,7 @@ describe("gate docs sync", () => {
 		expect(readme).not.toContain("runner_mode");
 	});
 
-		it("keeps external readonly policy aligned in docs", async () => {
+	it("keeps external readonly policy aligned in docs", async () => {
 		const governancePath = path.join(repoRoot, "docs", "governance-runbook.md");
 		const testingPath = path.join(repoRoot, "docs", "testing.md");
 		const [governance, testing] = await Promise.all([
@@ -57,7 +57,7 @@ describe("gate docs sync", () => {
 		expect(testing).toContain("separate from the default blocking path");
 	});
 
-		it("keeps CI gate ownership wording aligned with actual workflow jobs", async () => {
+	it("keeps CI gate ownership wording aligned with actual workflow jobs", async () => {
 		const governancePath = path.join(repoRoot, "docs", "governance-runbook.md");
 		const testingPath = path.join(repoRoot, "docs", "testing.md");
 		const readmePath = path.join(repoRoot, "README.md");

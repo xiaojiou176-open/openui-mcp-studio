@@ -3,15 +3,15 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
-	getNoFollowWriteFlagOrThrow,
-	isNoFollowWriteProtectionSupported,
-} from "../services/mcp-server/src/file-ops.js";
-import {
 	isPathInsideRoot,
 	isPathInsideRootWithRealpath,
 	isProtectedWorkspacePath,
 	normalizePath,
 } from "../packages/shared-runtime/src/path-utils.js";
+import {
+	getNoFollowWriteFlagOrThrow,
+	isNoFollowWriteProtectionSupported,
+} from "../services/mcp-server/src/file-ops.js";
 
 describe("path utils", () => {
 	afterEach(() => {

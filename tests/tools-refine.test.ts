@@ -81,7 +81,9 @@ describe("refine tool", () => {
 			.spyOn(openui, "openuiChatComplete")
 			.mockResolvedValue("<main>refined</main>");
 
-		const { registerRefineTool } = await import("../services/mcp-server/src/tools/refine.js");
+		const { registerRefineTool } = await import(
+			"../services/mcp-server/src/tools/refine.js"
+		);
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
 
@@ -142,7 +144,9 @@ describe("refine tool", () => {
 			.spyOn(openui, "openuiChatComplete")
 			.mockResolvedValue("<main>refined</main>");
 
-		const { registerRefineTool } = await import("../services/mcp-server/src/tools/refine.js");
+		const { registerRefineTool } = await import(
+			"../services/mcp-server/src/tools/refine.js"
+		);
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
 
@@ -161,7 +165,9 @@ describe("refine tool", () => {
 	});
 
 	it("rejects invalid functionResponses payload early", async () => {
-		const { registerRefineTool } = await import("../services/mcp-server/src/tools/refine.js");
+		const { registerRefineTool } = await import(
+			"../services/mcp-server/src/tools/refine.js"
+		);
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
 		const schema = harness.getConfig("openui_refine_ui").inputSchema;
@@ -181,7 +187,9 @@ describe("refine tool", () => {
 	});
 
 	it("rejects non-object function response payload", async () => {
-		const { registerRefineTool } = await import("../services/mcp-server/src/tools/refine.js");
+		const { registerRefineTool } = await import(
+			"../services/mcp-server/src/tools/refine.js"
+		);
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
 		const schema = harness.getConfig("openui_refine_ui").inputSchema;
@@ -201,7 +209,9 @@ describe("refine tool", () => {
 	});
 
 	it("rejects empty instruction and keeps tool description stable", async () => {
-		const { registerRefineTool } = await import("../services/mcp-server/src/tools/refine.js");
+		const { registerRefineTool } = await import(
+			"../services/mcp-server/src/tools/refine.js"
+		);
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
 

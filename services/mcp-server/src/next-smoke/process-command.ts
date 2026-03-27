@@ -1,3 +1,4 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import type {
 	NextSmokeCommand,
@@ -10,23 +11,33 @@ export function getNpmCommand(): string {
 }
 
 export function getNominalCommand(step: "build" | "start"): string {
-	return `next ${step}`;
+	return step === "build" ? "next build --webpack" : "next start";
 }
 
 export function getCommandForStep(input: {
 	step: "build" | "start";
 	cwd: string;
 }): NextSmokeCommand {
-	const executable = path.resolve(
+	let executable = path.resolve(
 		input.cwd,
 		"node_modules",
 		".bin",
 		process.platform === "win32" ? "next.cmd" : "next",
 	);
+	if (process.platform !== "win32") {
+		try {
+			const requireFromRoot = createRequire(
+				path.resolve(input.cwd, "package.json"),
+			);
+			executable = requireFromRoot.resolve("next/dist/bin/next");
+		} catch {
+			// Fall back to the local .bin path for fixture-style runtimes.
+		}
+	}
 	return {
 		executable,
 		command: getNominalCommand(input.step),
-		args: [input.step],
+		args: input.step === "build" ? ["build", "--webpack"] : ["start"],
 	};
 }
 

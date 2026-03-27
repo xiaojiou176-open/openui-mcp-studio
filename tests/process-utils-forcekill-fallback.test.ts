@@ -31,7 +31,9 @@ describe("runProcess force-kill fallback", () => {
 			spawn: vi.fn(() => child),
 		}));
 
-		const { runProcess } = await import("../packages/shared-runtime/src/process-utils.js");
+		const { runProcess } = await import(
+			"../packages/shared-runtime/src/process-utils.js"
+		);
 		const originalKill = process.kill;
 		const killSpy = vi.spyOn(process, "kill").mockImplementation(((
 			pid: number | NodeJS.Signals,

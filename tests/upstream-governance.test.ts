@@ -2,8 +2,8 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { printDryRun } from "../tooling/sync-upstream-dryrun.mjs";
 import { runUpstreamGovernanceCheck } from "../tooling/check-upstream-governance.mjs";
+import { printDryRun } from "../tooling/sync-upstream-dryrun.mjs";
 
 async function writeFile(filePath: string, content: string) {
 	await fs.mkdir(path.dirname(filePath), { recursive: true });
@@ -15,10 +15,13 @@ async function writeJson(filePath: string, value: unknown) {
 }
 
 async function writeAdoptionBacklog(rootDir: string, entries: unknown[]) {
-	await writeJson(path.join(rootDir, "contracts", "upstream", "adoption-backlog.json"), {
-		version: 1,
-		entries,
-	});
+	await writeJson(
+		path.join(rootDir, "contracts", "upstream", "adoption-backlog.json"),
+		{
+			version: 1,
+			entries,
+		},
+	);
 }
 
 describe("upstream governance", () => {
@@ -49,7 +52,12 @@ describe("upstream governance", () => {
 				},
 			);
 			await writeJson(
-				path.join(rootDir, "contracts", "upstream", "compatibility-matrix.json"),
+				path.join(
+					rootDir,
+					"contracts",
+					"upstream",
+					"compatibility-matrix.json",
+				),
 				{ version: 1, entries: [] },
 			);
 			await writeJson(
@@ -181,7 +189,12 @@ describe("upstream governance", () => {
 				},
 			);
 			await writeJson(
-				path.join(rootDir, "contracts", "upstream", "compatibility-matrix.json"),
+				path.join(
+					rootDir,
+					"contracts",
+					"upstream",
+					"compatibility-matrix.json",
+				),
 				{ version: 1, entries: [] },
 			);
 			await writeJson(
@@ -203,7 +216,10 @@ describe("upstream governance", () => {
 					],
 				},
 			);
-			await writeFile(path.join(rootDir, ".github", "ci-image.lock.json"), "{}\n");
+			await writeFile(
+				path.join(rootDir, ".github", "ci-image.lock.json"),
+				"{}\n",
+			);
 			await writeFile(path.join(rootDir, "package-lock.json"), "{}\n");
 			await writeFile(
 				path.join(rootDir, "services", "gemini-sidecar", "requirements.txt"),
@@ -333,7 +349,12 @@ describe("upstream governance", () => {
 				},
 			);
 			await writeJson(
-				path.join(rootDir, "contracts", "upstream", "compatibility-matrix.json"),
+				path.join(
+					rootDir,
+					"contracts",
+					"upstream",
+					"compatibility-matrix.json",
+				),
 				{ version: 1, entries: [] },
 			);
 			await writeJson(
@@ -355,7 +376,10 @@ describe("upstream governance", () => {
 					],
 				},
 			);
-			await writeFile(path.join(rootDir, ".github", "ci-image.lock.json"), "{}\n");
+			await writeFile(
+				path.join(rootDir, ".github", "ci-image.lock.json"),
+				"{}\n",
+			);
 			await writeFile(path.join(rootDir, "package-lock.json"), "{}\n");
 			await writeFile(
 				path.join(rootDir, "services", "gemini-sidecar", "requirements.txt"),

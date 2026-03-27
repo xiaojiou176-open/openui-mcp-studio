@@ -550,17 +550,48 @@ function hasPrimaryActionOverloadHeuristic(html: string): boolean {
 	return primaryCount > 1;
 }
 
+function extractElementInnerHtml(fullElement: string): string {
+	const openingTagEnd = fullElement.indexOf(">");
+	if (openingTagEnd === -1) {
+		return "";
+	}
+
+	const closingTagStart = fullElement.lastIndexOf("</");
+	if (closingTagStart === -1 || closingTagStart <= openingTagEnd) {
+		return fullElement.slice(openingTagEnd + 1);
+	}
+
+	return fullElement.slice(openingTagEnd + 1, closingTagStart);
+}
+
+function stripHtmlTags(value: string): string {
+	let result = "";
+	let insideTag = false;
+
+	for (const char of value) {
+		if (char === "<") {
+			insideTag = true;
+			continue;
+		}
+		if (char === ">") {
+			insideTag = false;
+			continue;
+		}
+		if (!insideTag) {
+			result += char;
+		}
+	}
+
+	return result;
+}
+
 function hasInsufficientStaticTextContrastHeuristic(html: string): boolean {
 	const textElementPattern =
 		/<(?:p|span|a|button|label|h[1-6]|li|td|th|small|strong|em)\b[^>]*\bstyle\s*=\s*["'][^"']+["'][^>]*>[\s\S]*?<\/(?:p|span|a|button|label|h[1-6]|li|td|th|small|strong|em)>/gi;
 	for (const match of html.matchAll(textElementPattern)) {
 		const fullElement = match[0];
 		const openingTag = fullElement.match(/^<[^>]+>/)?.[0] ?? "";
-		const textContent = fullElement
-			.replace(/^<[^>]+>/, "")
-			.replace(/<\/[^>]+>\s*$/, "")
-			.replace(/<[^>]*>/g, "")
-			.trim();
+		const textContent = stripHtmlTags(extractElementInnerHtml(fullElement)).trim();
 		if (!textContent) {
 			continue;
 		}
@@ -678,6 +709,7 @@ export const __test__ = {
 	readTailwindSpacingClassValuePx,
 	hasFocusObscuredHeuristic,
 	listStyleValues,
+	stripHtmlTags,
 	hasNonScaleSpacingHeuristic,
 	hasInsufficientStaticTextContrastHeuristic,
 	hasInsufficientStaticNonTextContrastHeuristic,

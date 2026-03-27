@@ -23,7 +23,9 @@ async function writeJson(filePath: string, value: unknown) {
 
 afterEach(async () => {
 	await Promise.all(
-		tempRoots.splice(0).map((dir) => fs.rm(dir, { recursive: true, force: true })),
+		tempRoots
+			.splice(0)
+			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
 });
 
@@ -56,7 +58,12 @@ describe("remote governance evidence", () => {
 		const root = await mkTempRoot("openui-remote-gov-pass-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
-			path.join(root, "tooling", "contracts", "remote-governance-evidence.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"remote-governance-evidence.contract.json",
+			),
 			{
 				version: 1,
 				repository: {
@@ -65,16 +72,16 @@ describe("remote governance evidence", () => {
 				},
 				checkedAt: "2026-03-22T13:45:00Z",
 				repoLocalControls: [makeControl("workflow_governance")],
-					remotePlatformControls: [
-						makeControl("default_branch"),
-						makeControl("branch_protection_main", "unverified"),
-						makeControl("required_checks_main", "unverified"),
-						makeControl("codeowners_enforcement", "unverified"),
-						makeControl("secret_scanning", "unverified"),
-						makeControl("push_protection", "unverified"),
-						makeControl("code_scanning", "unverified"),
-						makeControl("private_vulnerability_reporting", "unverified"),
-					],
+				remotePlatformControls: [
+					makeControl("default_branch"),
+					makeControl("branch_protection_main", "unverified"),
+					makeControl("required_checks_main", "unverified"),
+					makeControl("codeowners_enforcement", "unverified"),
+					makeControl("secret_scanning", "unverified"),
+					makeControl("push_protection", "unverified"),
+					makeControl("code_scanning", "unverified"),
+					makeControl("private_vulnerability_reporting", "unverified"),
+				],
 			},
 		);
 
@@ -88,7 +95,12 @@ describe("remote governance evidence", () => {
 		const root = await mkTempRoot("openui-remote-gov-fail-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
-			path.join(root, "tooling", "contracts", "remote-governance-evidence.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"remote-governance-evidence.contract.json",
+			),
 			{
 				version: 1,
 				repository: {
@@ -120,7 +132,12 @@ describe("remote governance evidence", () => {
 		const root = await mkTempRoot("openui-remote-gov-origin-drift-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
-			path.join(root, "tooling", "contracts", "remote-governance-evidence.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"remote-governance-evidence.contract.json",
+			),
 			{
 				version: 1,
 				repository: {
@@ -129,16 +146,16 @@ describe("remote governance evidence", () => {
 				},
 				checkedAt: "2026-03-24T22:17:34Z",
 				repoLocalControls: [makeControl("workflow_governance")],
-					remotePlatformControls: [
-						makeControl("default_branch"),
-						makeControl("branch_protection_main", "unverified"),
-						makeControl("required_checks_main", "unverified"),
-						makeControl("codeowners_enforcement", "unverified"),
-						makeControl("secret_scanning", "unverified"),
-						makeControl("push_protection", "unverified"),
-						makeControl("code_scanning", "unverified"),
-						makeControl("private_vulnerability_reporting", "unverified"),
-					],
+				remotePlatformControls: [
+					makeControl("default_branch"),
+					makeControl("branch_protection_main", "unverified"),
+					makeControl("required_checks_main", "unverified"),
+					makeControl("codeowners_enforcement", "unverified"),
+					makeControl("secret_scanning", "unverified"),
+					makeControl("push_protection", "unverified"),
+					makeControl("code_scanning", "unverified"),
+					makeControl("private_vulnerability_reporting", "unverified"),
+				],
 			},
 		);
 
@@ -159,7 +176,12 @@ describe("remote governance evidence", () => {
 		const root = await mkTempRoot("openui-remote-gov-strict-fail-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
-			path.join(root, "tooling", "contracts", "remote-governance-evidence.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"remote-governance-evidence.contract.json",
+			),
 			{
 				version: 1,
 				repository: {
@@ -169,16 +191,16 @@ describe("remote governance evidence", () => {
 				},
 				checkedAt: "2026-03-22T13:45:00Z",
 				repoLocalControls: [makeControl("workflow_governance")],
-					remotePlatformControls: [
-						makeControl("default_branch"),
-						makeControl("branch_protection_main"),
-						makeControl("required_checks_main"),
-						makeControl("codeowners_enforcement"),
-						makeControl("secret_scanning"),
-						makeControl("push_protection"),
-						makeControl("code_scanning"),
-						makeControl("private_vulnerability_reporting"),
-					],
+				remotePlatformControls: [
+					makeControl("default_branch"),
+					makeControl("branch_protection_main"),
+					makeControl("required_checks_main"),
+					makeControl("codeowners_enforcement"),
+					makeControl("secret_scanning"),
+					makeControl("push_protection"),
+					makeControl("code_scanning"),
+					makeControl("private_vulnerability_reporting"),
+				],
 			},
 		);
 
@@ -204,7 +226,12 @@ describe("remote governance evidence", () => {
 		const root = await mkTempRoot("openui-remote-gov-strict-pass-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
-			path.join(root, "tooling", "contracts", "remote-governance-evidence.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"remote-governance-evidence.contract.json",
+			),
 			{
 				version: 1,
 				repository: {
@@ -215,15 +242,15 @@ describe("remote governance evidence", () => {
 				checkedAt: "2026-03-22T13:45:00Z",
 				repoLocalControls: [makeControl("workflow_governance")],
 				publicReadyRequirements: {
-						requiredValues: {
-							branch_protection_main: ["enabled"],
-							required_checks_main: ["enforced"],
-							codeowners_enforcement: ["enforced"],
-							secret_scanning: ["enabled"],
-							push_protection: ["enabled"],
-							code_scanning: ["enabled"],
-							private_vulnerability_reporting: ["enabled"],
-						},
+					requiredValues: {
+						branch_protection_main: ["enabled"],
+						required_checks_main: ["enforced"],
+						codeowners_enforcement: ["enforced"],
+						secret_scanning: ["enabled"],
+						push_protection: ["enabled"],
+						code_scanning: ["enabled"],
+						private_vulnerability_reporting: ["enabled"],
+					},
 				},
 				remotePlatformControls: [
 					makeControl("default_branch"),
@@ -239,18 +266,18 @@ describe("remote governance evidence", () => {
 						...makeControl("codeowners_enforcement"),
 						value: "enforced",
 					},
-						{
-							...makeControl("secret_scanning"),
-							value: "enabled",
-						},
-						{
-							...makeControl("push_protection"),
-							value: "enabled",
-						},
-						{
-							...makeControl("code_scanning"),
-							value: "enabled",
-						},
+					{
+						...makeControl("secret_scanning"),
+						value: "enabled",
+					},
+					{
+						...makeControl("push_protection"),
+						value: "enabled",
+					},
+					{
+						...makeControl("code_scanning"),
+						value: "enabled",
+					},
 					{
 						...makeControl("private_vulnerability_reporting"),
 						value: "enabled",

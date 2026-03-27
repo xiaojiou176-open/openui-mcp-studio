@@ -59,14 +59,143 @@ describe("evidence governance", () => {
 					runtimeRoot: ".runtime-cache",
 					runsRoot: ".runtime-cache/runs",
 					logChannels: ["runtime", "tests", "ci", "upstream"],
-					requiredRunFiles: ["summary.json", "quality-score.json", "meta/run.json", "evidence/index.json"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
 					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
 					requiredLogFiles: [
 						"logs/runtime.jsonl",
 						"logs/tests.jsonl",
 						"logs/ci.jsonl",
-						"logs/upstream.jsonl"
-					]
+						"logs/upstream.jsonl",
+					],
+				},
+			);
+
+			const result = await runEvidenceGovernanceCheck({ rootDir });
+
+			expect(result.ok).toBe(true);
+			expect(result.errors).toEqual([]);
+			expect(result.reason).toBe("no_authoritative_runs_present");
+		} finally {
+			await fs.rm(rootDir, { recursive: true, force: true });
+		}
+	});
+
+	it("treats present non-authoritative runtime runs as no authoritative runs present", async () => {
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-evidence-non-authoritative-"),
+		);
+		try {
+			clearRunIdEnv();
+			await writeJson(
+				path.join(rootDir, "contracts", "governance", "evidence-schema.json"),
+				{
+					version: 1,
+					requiredSummaryFields: ["runId"],
+					requiredEvidenceIndexFields: ["runId"],
+					requiredStageResultFields: ["stageId"],
+					requiredClassificationFields: ["businessFailureCount"],
+				},
+			);
+			await writeJson(
+				path.join(rootDir, "contracts", "runtime", "run-layout.json"),
+				{
+					version: 1,
+					runtimeRoot: ".runtime-cache",
+					runsRoot: ".runtime-cache/runs",
+					logChannels: ["runtime", "tests", "ci", "upstream"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
+					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
+					requiredLogFiles: [
+						"logs/runtime.jsonl",
+						"logs/tests.jsonl",
+						"logs/ci.jsonl",
+						"logs/upstream.jsonl",
+					],
+				},
+			);
+			await writeFile(
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"mcp-runtime-123",
+					"logs",
+					"runtime.jsonl",
+				),
+				'{"runId":"mcp-runtime-123"}\n',
+			);
+
+			const result = await runEvidenceGovernanceCheck({ rootDir });
+
+			expect(result.ok).toBe(true);
+			expect(result.errors).toEqual([]);
+			expect(result.reason).toBe("no_authoritative_runs_present");
+		} finally {
+			await fs.rm(rootDir, { recursive: true, force: true });
+		}
+	});
+
+	it("ignores authoritative manifests that do not yet have a complete run bundle", async () => {
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-evidence-incomplete-authoritative-"),
+		);
+		try {
+			clearRunIdEnv();
+			await writeJson(
+				path.join(rootDir, "contracts", "governance", "evidence-schema.json"),
+				{
+					version: 1,
+					requiredSummaryFields: ["runId"],
+					requiredEvidenceIndexFields: ["runId"],
+					requiredStageResultFields: ["stageId"],
+					requiredClassificationFields: ["businessFailureCount"],
+				},
+			);
+			await writeJson(
+				path.join(rootDir, "contracts", "runtime", "run-layout.json"),
+				{
+					version: 1,
+					runtimeRoot: ".runtime-cache",
+					runsRoot: ".runtime-cache/runs",
+					logChannels: ["runtime", "tests", "ci", "upstream"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
+					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
+					requiredLogFiles: [
+						"logs/runtime.jsonl",
+						"logs/tests.jsonl",
+						"logs/ci.jsonl",
+						"logs/upstream.jsonl",
+					],
+				},
+			);
+			await writeJson(
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"ci-gate-partial",
+					"meta",
+					"run.json",
+				),
+				{
+					version: 1,
+					runId: "ci-gate-partial",
+					authoritative: true,
 				},
 			);
 
@@ -103,14 +232,19 @@ describe("evidence governance", () => {
 					runtimeRoot: ".runtime-cache",
 					runsRoot: ".runtime-cache/runs",
 					logChannels: ["runtime", "tests", "ci", "upstream"],
-					requiredRunFiles: ["summary.json", "quality-score.json", "meta/run.json", "evidence/index.json"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
 					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
 					requiredLogFiles: [
 						"logs/runtime.jsonl",
 						"logs/tests.jsonl",
 						"logs/ci.jsonl",
-						"logs/upstream.jsonl"
-					]
+						"logs/upstream.jsonl",
+					],
 				},
 			);
 
@@ -172,14 +306,19 @@ describe("evidence governance", () => {
 					runtimeRoot: ".runtime-cache",
 					runsRoot: ".runtime-cache/runs",
 					logChannels: ["runtime", "tests", "ci", "upstream"],
-					requiredRunFiles: ["summary.json", "quality-score.json", "meta/run.json", "evidence/index.json"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
 					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
 					requiredLogFiles: [
 						"logs/runtime.jsonl",
 						"logs/tests.jsonl",
 						"logs/ci.jsonl",
-						"logs/upstream.jsonl"
-					]
+						"logs/upstream.jsonl",
+					],
 				},
 			);
 			const summary = {
@@ -201,11 +340,24 @@ describe("evidence governance", () => {
 				summary,
 			);
 			await writeJson(
-				path.join(rootDir, ".runtime-cache", "runs", "run-123", "quality-score.json"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"run-123",
+					"quality-score.json",
+				),
 				{ overall: { score: 100 } },
 			);
 			await writeJson(
-				path.join(rootDir, ".runtime-cache", "runs", "run-123", "meta", "run.json"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"run-123",
+					"meta",
+					"run.json",
+				),
 				{
 					version: 1,
 					runId: "run-123",
@@ -214,19 +366,47 @@ describe("evidence governance", () => {
 				},
 			);
 			await writeFile(
-				path.join(rootDir, ".runtime-cache", "runs", "run-123", "logs", "runtime.jsonl"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"run-123",
+					"logs",
+					"runtime.jsonl",
+				),
 				'{"ts":"1","level":"info","event":"ok","runId":"run-123","traceId":"t","requestId":"r","service":"svc","component":"cmp","stage":"runtime","context":{}}\n',
 			);
 			await writeFile(
-				path.join(rootDir, ".runtime-cache", "runs", "run-123", "logs", "tests.jsonl"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"run-123",
+					"logs",
+					"tests.jsonl",
+				),
 				"",
 			);
 			await writeFile(
-				path.join(rootDir, ".runtime-cache", "runs", "run-123", "logs", "ci.jsonl"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"run-123",
+					"logs",
+					"ci.jsonl",
+				),
 				"",
 			);
 			await writeFile(
-				path.join(rootDir, ".runtime-cache", "runs", "run-123", "logs", "upstream.jsonl"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"run-123",
+					"logs",
+					"upstream.jsonl",
+				),
 				"",
 			);
 

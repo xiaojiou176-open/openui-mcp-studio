@@ -47,11 +47,16 @@ async function loadProviderWithBridgeMock(): Promise<{
 		public async stop(): Promise<void> {}
 	}
 
-	vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-		GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-	}));
+	vi.doMock(
+		"../services/mcp-server/src/providers/gemini-python-sidecar.js",
+		() => ({
+			GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
+		}),
+	);
 
-	const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
 	return { provider, calls };
 }
 
@@ -235,11 +240,16 @@ describe("function calling loop wiring", () => {
 			public async stop(): Promise<void> {}
 		}
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-			GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-python-sidecar.js",
+			() => ({
+				GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
+			}),
+		);
 
-		const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const provider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		const response = await provider.completeWithGeminiResult(
 			{
 				prompt: "call tool",
@@ -274,10 +284,13 @@ describe("function calling loop wiring", () => {
 		const completeWithGeminiMock = vi
 			.fn()
 			.mockRejectedValue(new Error("network timeout"));
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini: completeWithGeminiMock,
-			listGeminiModels: vi.fn(),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini: completeWithGeminiMock,
+				listGeminiModels: vi.fn(),
+			}),
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 		const controller = new AbortController();

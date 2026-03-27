@@ -164,7 +164,7 @@ export async function requestHtmlFromPrompt(
 		requestId: newRequestId(input.requestIdPrefix),
 		inputParts: input.inputParts,
 		thinkingLevel: input.thinkingLevel,
-		includeThoughts: input.includeThoughts,
+		includeThoughts: input.includeThoughts ?? false,
 		responseMimeType: input.responseMimeType,
 		responseJsonSchema: input.responseJsonSchema,
 		tools: input.tools,

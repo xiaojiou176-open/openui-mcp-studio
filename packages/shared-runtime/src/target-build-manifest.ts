@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
+import { createRequire } from "node:module";
 import path from "node:path";
 import process from "node:process";
 import { resolveNextBuildDir } from "./next-build-dir.js";
@@ -146,11 +147,15 @@ async function allRuntimePackagesPresent(input: {
 	root: string;
 	requiredPackages: readonly string[];
 }): Promise<boolean> {
-	const requiredPackagePaths = input.requiredPackages.map((name) =>
-		path.resolve(input.root, "node_modules", name, "package.json"),
-	);
-	const existsList = await Promise.all(requiredPackagePaths.map(pathExists));
-	return existsList.every(Boolean);
+	const requireFromRoot = createRequire(path.resolve(input.root, "package.json"));
+	return input.requiredPackages.every((name) => {
+		try {
+			requireFromRoot.resolve(`${name}/package.json`);
+			return true;
+		} catch {
+			return false;
+		}
+	});
 }
 
 async function requiredBuildArtifactsPresent(buildDir: string): Promise<boolean> {

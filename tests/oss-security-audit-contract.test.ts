@@ -19,8 +19,7 @@ describe("oss security audit contract", () => {
 			"security:trufflehog:audit": "bash tooling/trufflehog-audit.sh",
 			"security:git-secrets:history":
 				"bash tooling/git-secrets-history-audit.sh",
-			"security:scancode:keyfiles":
-				"bash tooling/scancode-keyfiles-audit.sh",
+			"security:scancode:keyfiles": "bash tooling/scancode-keyfiles-audit.sh",
 			"security:oss:audit": "bash tooling/oss-security-audit.sh",
 		});
 	});

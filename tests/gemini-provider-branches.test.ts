@@ -34,11 +34,16 @@ async function loadProviderWithBridgeMock(
 		public async stop(): Promise<void> {}
 	}
 
-	vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-		GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-	}));
+	vi.doMock(
+		"../services/mcp-server/src/providers/gemini-python-sidecar.js",
+		() => ({
+			GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
+		}),
+	);
 
-	const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
 	return { provider, calls };
 }
 
@@ -65,15 +70,20 @@ async function loadProviderWithBridgeAndLoggerMock(
 		public async stop(): Promise<void> {}
 	}
 
-	vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-		GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-	}));
+	vi.doMock(
+		"../services/mcp-server/src/providers/gemini-python-sidecar.js",
+		() => ({
+			GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
+		}),
+	);
 	vi.doMock("../services/mcp-server/src/logger.js", () => ({
 		logDebug: vi.fn(),
 		logError: logErrorSpy,
 	}));
 
-	const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
 	return { provider, calls, logErrorSpy };
 }
 
@@ -84,7 +94,9 @@ afterEach(async () => {
 		process.env.GEMINI_API_KEY = ORIGINAL_GEMINI_API_KEY;
 	}
 	vi.restoreAllMocks();
-	const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
 	await provider.resetGeminiProviderForTests();
 	vi.resetModules();
 });

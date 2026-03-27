@@ -179,6 +179,55 @@ describe("clean mutation worktrees script", () => {
 		}
 	}, 30_000);
 
+	it("removes locked managed worktrees by escalating to double force", async () => {
+		const tempRoot = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-mutation-worktree-locked-"),
+		);
+		const managedWorktreeDir = path.join(
+			tempRoot,
+			".runtime-cache",
+			"mutation",
+			"worktrees",
+			"mutant-locked",
+		);
+
+		try {
+			await initGitRepo(tempRoot);
+			await fs.mkdir(path.dirname(managedWorktreeDir), { recursive: true });
+			await execFileAsync(
+				"git",
+				["worktree", "add", "--detach", managedWorktreeDir, "HEAD"],
+				{ cwd: tempRoot },
+			);
+			await execFileAsync(
+				"git",
+				["worktree", "lock", "--reason", "initializing", managedWorktreeDir],
+				{ cwd: tempRoot },
+			);
+
+			const { stdout } = await execFileAsync(
+				process.execPath,
+				[cleanupScriptPath],
+				{
+					cwd: tempRoot,
+				},
+			);
+
+			expect(stdout).toContain("[mutation-cleanup]");
+			const { stdout: worktreeList } = await execFileAsync(
+				"git",
+				["worktree", "list", "--porcelain"],
+				{ cwd: tempRoot },
+			);
+			expect(worktreeList).not.toContain(managedWorktreeDir);
+			await expect(fs.stat(managedWorktreeDir)).rejects.toMatchObject({
+				code: "ENOENT",
+			});
+		} finally {
+			await fs.rm(tempRoot, { recursive: true, force: true });
+		}
+	}, 30_000);
+
 	it("fails when managed worktree root resolves outside workspace via symlink", async () => {
 		const tempRoot = await fs.mkdtemp(
 			path.join(os.tmpdir(), "openui-mutation-worktree-symlink-root-"),

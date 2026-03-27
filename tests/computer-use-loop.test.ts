@@ -48,7 +48,9 @@ afterEach(() => {
 
 describe("computer use loop", () => {
 	it("invokes Gemini observation when observe tool invokeModel=true", async () => {
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		const geminiSpy = vi
 			.spyOn(geminiProvider, "computerUseStepWithGemini")
 			.mockResolvedValue({
@@ -128,7 +130,9 @@ describe("computer use loop", () => {
 	});
 
 	it("includes Gemini observation in loop result when invokeModel=true", async () => {
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		const geminiSpy = vi
 			.spyOn(geminiProvider, "computerUseStepWithGemini")
 			.mockResolvedValue({

@@ -242,5 +242,4 @@ describe("runNextSmoke", () => {
 			true,
 		);
 	}, 20_000);
-
 });

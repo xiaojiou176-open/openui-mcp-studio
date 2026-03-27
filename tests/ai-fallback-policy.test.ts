@@ -41,13 +41,21 @@ describe("ai gemini retry policy", () => {
 			.fn(async () => "retry-ok")
 			.mockRejectedValueOnce(geminiError);
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 
 		const result = await aiClient.aiChatComplete({
 			prompt: "hello",
@@ -73,13 +81,21 @@ describe("ai gemini retry policy", () => {
 			.fn(async () => "unused")
 			.mockRejectedValue(geminiError);
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 
 		await expect(
 			aiClient.aiChatComplete({ prompt: "hello", routeKey: "strong" }),
@@ -100,13 +116,21 @@ describe("ai gemini retry policy", () => {
 			.fn(async () => "unused")
 			.mockRejectedValue(new Error("network timeout"));
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 
 		await expect(
 			aiClient.aiChatComplete({

@@ -15,10 +15,17 @@ async function writeJson(filePath: string, value: unknown) {
 
 describe("log schema governance", () => {
 	it("fails when jsonl payload misses required fields", async () => {
-		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openui-log-schema-"));
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-log-schema-"),
+		);
 		try {
 			await writeJson(
-				path.join(rootDir, "contracts", "observability", "log-event.schema.json"),
+				path.join(
+					rootDir,
+					"contracts",
+					"observability",
+					"log-event.schema.json",
+				),
 				{
 					version: 2,
 					requiredCommonFields: [
@@ -40,7 +47,14 @@ describe("log schema governance", () => {
 				'const payload = { ts: "", level: "", event: "", runId: "", traceId: "", requestId: "", service: "", component: "", stage: "", context: {} };\nconst x = redactSensitiveMeta;\n',
 			);
 			await writeFile(
-				path.join(rootDir, ".runtime-cache", "runs", "run-123", "logs", "runtime.jsonl"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"run-123",
+					"logs",
+					"runtime.jsonl",
+				),
 				'{"ts":"1","level":"info","event":"missing-trace"}\n',
 			);
 

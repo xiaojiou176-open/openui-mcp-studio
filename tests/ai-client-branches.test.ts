@@ -28,10 +28,16 @@ afterEach(() => {
 
 describe("ai-client branch coverage", () => {
 	it("extractStatus reads statusCode and nested sidecar status", async () => {
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini: vi.fn(async () => "ok"),
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini: vi.fn(async () => "ok"),
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
 		expect(aiClient.extractStatus({ statusCode: 429 })).toBe(429);
@@ -41,6 +47,7 @@ describe("ai-client branch coverage", () => {
 			}),
 		).toBe(503);
 		expect(aiClient.extractStatus({ details: { status: 418 } })).toBe(418);
+		expect(aiClient.extractStatus({ status: 429 })).toBe(429);
 		expect(aiClient.extractStatus("not-an-object")).toBeUndefined();
 	});
 
@@ -50,10 +57,16 @@ describe("ai-client branch coverage", () => {
 		process.env.OPENUI_MAX_RETRIES = "0";
 
 		const completeWithGemini = vi.fn(async () => "unused");
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
 		await expect(
@@ -73,10 +86,16 @@ describe("ai-client branch coverage", () => {
 		process.env.OPENUI_RETRY_BASE_MS = "1";
 
 		const completeWithGemini = vi.fn(async () => "unused");
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
 		const controller = new AbortController();
@@ -108,10 +127,16 @@ describe("ai-client branch coverage", () => {
 				});
 			});
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
 		await expect(
@@ -125,16 +150,124 @@ describe("ai-client branch coverage", () => {
 	});
 
 	it("wraps non-Error failures from model listing", async () => {
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini: vi.fn(async () => "ok"),
-			listGeminiModels: vi.fn(async () => {
-				throw "model-list-unavailable";
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini: vi.fn(async () => "ok"),
+				listGeminiModels: vi.fn(async () => {
+					throw "model-list-unavailable";
+				}),
 			}),
-		}));
+		);
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
 		await expect(aiClient.aiListModels(3)).rejects.toThrow(
 			"model-list-unavailable",
 		);
+	});
+
+	it("does not retry auth-like upstream errors without retriable status", async () => {
+		process.env.GEMINI_MODEL = "gemini-default";
+		process.env.OPENUI_MODEL_ROUTING = "off";
+		process.env.OPENUI_MAX_RETRIES = "2";
+		process.env.OPENUI_RETRY_BASE_MS = "1";
+
+		const authLikeError = Object.assign(new Error("credentials rejected"), {
+			code: "SIDECAR_REMOTE_ERROR",
+			details: {
+				rpcError: {
+					data: {
+						kind: "upstream_error",
+						error_type: "PermissionDenied",
+						message: "invalid api key for request",
+					},
+				},
+			},
+		});
+		const completeWithGemini = vi
+			.fn(async () => "unused")
+			.mockRejectedValue(authLikeError);
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
+		const aiClient = await import("../services/mcp-server/src/ai-client.js");
+
+		await expect(
+			aiClient.aiChatComplete({
+				prompt: "auth-like-upstream-error",
+			}),
+		).rejects.toThrow(/attempt=1\/3/);
+		expect(completeWithGemini).toHaveBeenCalledTimes(1);
+	});
+
+	it("ignores malformed abort-like payloads that are not real signals", async () => {
+		process.env.GEMINI_MODEL = "gemini-default";
+		process.env.GEMINI_MODEL_STRONG = "gemini-strong";
+		process.env.OPENUI_MODEL_ROUTING = "on";
+		process.env.OPENUI_MAX_RETRIES = "0";
+
+		const completeWithGemini = vi.fn(async () => "ok");
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
+		const aiClient = await import("../services/mcp-server/src/ai-client.js");
+
+		const result = await aiClient.aiChatComplete({
+			prompt: "ignore malformed abort payload",
+			routeKey: "strong",
+			signal: { aborted: "not-boolean" } as unknown as AbortSignal,
+		});
+
+		expect(result).toBe("ok");
+		expect(completeWithGemini).toHaveBeenCalledTimes(1);
+	});
+
+	it("retries on explicit 429 status even without network wording", async () => {
+		process.env.GEMINI_MODEL = "gemini-default";
+		process.env.GEMINI_MODEL_STRONG = "gemini-strong";
+		process.env.OPENUI_MODEL_ROUTING = "on";
+		process.env.OPENUI_MAX_RETRIES = "1";
+		process.env.OPENUI_RETRY_BASE_MS = "1";
+
+		const completeWithGemini = vi
+			.fn(async () => "ok")
+			.mockRejectedValueOnce(
+				Object.assign(new Error("rate limited"), {
+					status: 429,
+				}),
+			);
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
+		const aiClient = await import("../services/mcp-server/src/ai-client.js");
+
+		const result = await aiClient.aiChatComplete({
+			prompt: "retry 429",
+			routeKey: "strong",
+		});
+
+		expect(result).toBe("ok");
+		expect(completeWithGemini).toHaveBeenCalledTimes(2);
 	});
 });

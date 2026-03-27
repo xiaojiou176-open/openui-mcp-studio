@@ -17,13 +17,7 @@ async function writeToolFile(
 	fileName: string,
 	toolName: string,
 ): Promise<void> {
-	const toolsDir = path.join(
-		rootDir,
-		"services",
-		"mcp-server",
-		"src",
-		"tools",
-	);
+	const toolsDir = path.join(rootDir, "services", "mcp-server", "src", "tools");
 	await fs.mkdir(toolsDir, { recursive: true });
 	await fs.writeFile(
 		path.join(toolsDir, fileName),

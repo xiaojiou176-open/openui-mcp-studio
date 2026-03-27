@@ -6,10 +6,34 @@ export function tryParseJson<T>(raw: string): T | null {
 	}
 }
 
+function extractFencedJsonBlock(raw: string): string | null {
+	const fenceStart = raw.indexOf("```");
+	if (fenceStart === -1) {
+		return null;
+	}
+
+	const headerEnd = raw.indexOf("\n", fenceStart + 3);
+	if (headerEnd === -1) {
+		return null;
+	}
+
+	const fenceHeader = raw.slice(fenceStart + 3, headerEnd).trim().toLowerCase();
+	if (fenceHeader !== "" && fenceHeader !== "json") {
+		return null;
+	}
+
+	const fenceEnd = raw.indexOf("```", headerEnd + 1);
+	if (fenceEnd === -1 || fenceEnd <= headerEnd) {
+		return null;
+	}
+
+	return raw.slice(headerEnd + 1, fenceEnd).trim();
+}
+
 export function extractJsonObject(raw: string): string | null {
-	const fencedMatch = raw.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
-	if (fencedMatch?.[1]) {
-		return fencedMatch[1].trim();
+	const fencedJson = extractFencedJsonBlock(raw);
+	if (fencedJson) {
+		return fencedJson;
 	}
 
 	const firstBrace = raw.indexOf("{");

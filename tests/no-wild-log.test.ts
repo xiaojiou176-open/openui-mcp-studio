@@ -11,12 +11,11 @@ async function writeFile(filePath: string, content: string) {
 
 describe("wild log governance", () => {
 	it("fails when a .log file exists outside governed roots", async () => {
-		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openui-wild-log-"));
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-wild-log-"),
+		);
 		try {
-			await writeFile(
-				path.join(rootDir, ".gitignore"),
-				".runtime-cache/\n",
-			);
+			await writeFile(path.join(rootDir, ".gitignore"), ".runtime-cache/\n");
 			await writeFile(path.join(rootDir, "tmp", "oops.log"), "bad\n");
 
 			const result = await runNoWildLogCheck({ rootDir });

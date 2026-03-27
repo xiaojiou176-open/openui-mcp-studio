@@ -49,7 +49,9 @@ afterEach(() => {
 
 describe("quality tool", () => {
 	it("forwards payload to runQualityGate and returns serialized result", async () => {
-		const qualityGate = await import("../services/mcp-server/src/quality-gate.js");
+		const qualityGate = await import(
+			"../services/mcp-server/src/quality-gate.js"
+		);
 
 		const gateSpy = vi.spyOn(qualityGate, "runQualityGate").mockResolvedValue({
 			passed: true,
@@ -58,7 +60,9 @@ describe("quality tool", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerQualityTool } = await import("../services/mcp-server/src/tools/quality.js");
+		const { registerQualityTool } = await import(
+			"../services/mcp-server/src/tools/quality.js"
+		);
 		const harness = createToolHarness();
 		registerQualityTool(harness.server);
 
@@ -100,7 +104,9 @@ describe("quality tool", () => {
 
 	it("uses workspace root fallback when targetRoot is omitted", async () => {
 		const constants = await import("../services/mcp-server/src/constants.js");
-		const qualityGate = await import("../services/mcp-server/src/quality-gate.js");
+		const qualityGate = await import(
+			"../services/mcp-server/src/quality-gate.js"
+		);
 		vi.spyOn(constants, "getWorkspaceRoot").mockReturnValue(
 			"/tmp/fallback-root",
 		);
@@ -111,7 +117,9 @@ describe("quality tool", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerQualityTool } = await import("../services/mcp-server/src/tools/quality.js");
+		const { registerQualityTool } = await import(
+			"../services/mcp-server/src/tools/quality.js"
+		);
 		const harness = createToolHarness();
 		registerQualityTool(harness.server);
 

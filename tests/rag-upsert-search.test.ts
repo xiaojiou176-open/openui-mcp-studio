@@ -1,7 +1,10 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as geminiProvider from "../services/mcp-server/src/providers/gemini-provider.js";
-import { registerRagTool, resetRagStateForTests } from "../services/mcp-server/src/tools/rag.js";
+import {
+	registerRagTool,
+	resetRagStateForTests,
+} from "../services/mcp-server/src/tools/rag.js";
 
 type TextResult = {
 	content: Array<{ type: string; text?: string }>;

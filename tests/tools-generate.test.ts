@@ -81,7 +81,9 @@ describe("generate tool", () => {
 			.spyOn(openui, "openuiChatComplete")
 			.mockResolvedValue("<main>generated</main>");
 
-		const { registerGenerateTool } = await import("../services/mcp-server/src/tools/generate.js");
+		const { registerGenerateTool } = await import(
+			"../services/mcp-server/src/tools/generate.js"
+		);
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 
@@ -143,7 +145,9 @@ describe("generate tool", () => {
 			.spyOn(openui, "openuiChatComplete")
 			.mockResolvedValue("<main>generated</main>");
 
-		const { registerGenerateTool } = await import("../services/mcp-server/src/tools/generate.js");
+		const { registerGenerateTool } = await import(
+			"../services/mcp-server/src/tools/generate.js"
+		);
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 
@@ -161,7 +165,9 @@ describe("generate tool", () => {
 	});
 
 	it("rejects invalid functionResponses payload early", async () => {
-		const { registerGenerateTool } = await import("../services/mcp-server/src/tools/generate.js");
+		const { registerGenerateTool } = await import(
+			"../services/mcp-server/src/tools/generate.js"
+		);
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 		const schema = harness.getConfig("openui_generate_ui").inputSchema;
@@ -180,7 +186,9 @@ describe("generate tool", () => {
 	});
 
 	it("rejects empty function response name", async () => {
-		const { registerGenerateTool } = await import("../services/mcp-server/src/tools/generate.js");
+		const { registerGenerateTool } = await import(
+			"../services/mcp-server/src/tools/generate.js"
+		);
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 		const schema = harness.getConfig("openui_generate_ui").inputSchema;
@@ -199,7 +207,9 @@ describe("generate tool", () => {
 	});
 
 	it("rejects empty prompt and keeps tool description stable", async () => {
-		const { registerGenerateTool } = await import("../services/mcp-server/src/tools/generate.js");
+		const { registerGenerateTool } = await import(
+			"../services/mcp-server/src/tools/generate.js"
+		);
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 

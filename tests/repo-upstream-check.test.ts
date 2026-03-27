@@ -11,10 +11,12 @@ describe("repo upstream check cli", () => {
 			"utf8",
 		);
 
-		expect(script).toContain('["npm", "run", "-s", "governance:upstream:check"]');
+		expect(script).toContain(
+			'["npm", "run", "-s", "governance:upstream:check"]',
+		);
 		expect(script).toContain('["npm", "run", "-s", "security:history:audit"]');
-		expect(script.indexOf('governance:upstream:check')).toBeLessThan(
-			script.indexOf('security:history:audit'),
+		expect(script.indexOf("governance:upstream:check")).toBeLessThan(
+			script.indexOf("security:history:audit"),
 		);
 	});
 });

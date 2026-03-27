@@ -9,11 +9,18 @@ import {
 	selectMutantsForMode,
 } from "../tooling/run-mutation-smoke.mjs";
 
-const WORKSPACE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const WORKSPACE_ROOT = path.resolve(
+	path.dirname(fileURLToPath(import.meta.url)),
+	"..",
+);
 
 describe("run-mutation-smoke timeout guard", () => {
 	it("uses SIGTERM then SIGKILL escalation for timed out child processes", async () => {
-		const scriptPath = path.resolve(WORKSPACE_ROOT, "tooling", "run-mutation-smoke.mjs");
+		const scriptPath = path.resolve(
+			WORKSPACE_ROOT,
+			"tooling",
+			"run-mutation-smoke.mjs",
+		);
 		const source = await fs.readFile(scriptPath, "utf8");
 
 		expect(source).toContain("OPENUI_MUTATION_FORCE_KILL_GRACE_MS");
@@ -169,8 +176,14 @@ describe("run-mutation-smoke timeout guard", () => {
 
 		expect(selected).toHaveLength(4);
 		const selectedModules = new Set(selected.map((mutant) => mutant.module));
-		expect(selectedModules).toContain("services/mcp-server/src/tools/generate.ts");
-		expect(selectedModules).toContain("packages/shared-runtime/src/path-utils.ts");
-		expect(selectedModules).toContain("packages/shared-runtime/src/child-env.ts");
+		expect(selectedModules).toContain(
+			"services/mcp-server/src/tools/generate.ts",
+		);
+		expect(selectedModules).toContain(
+			"packages/shared-runtime/src/path-utils.ts",
+		);
+		expect(selectedModules).toContain(
+			"packages/shared-runtime/src/child-env.ts",
+		);
 	});
 });

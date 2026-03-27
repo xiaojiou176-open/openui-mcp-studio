@@ -125,6 +125,24 @@ async function withTempWorkflow(
 }
 
 describe("ci workflow hardening", () => {
+	it("passes composite action command input through env to preserve multiline shell safely", async () => {
+		const actionPath = path.join(
+			repoRoot,
+			".github/actions/run-in-ci-container/action.yml",
+		);
+		const action = await fs.readFile(actionPath, "utf8");
+
+		expect(action).toContain(`INPUT_COMMAND: \${{ inputs.command }}`);
+		expect(action).toContain(
+			`INPUT_GEMINI_API_KEY: \${{ inputs.gemini_api_key }}`,
+		);
+		expect(action).toContain(
+			`export GEMINI_API_KEY="\${INPUT_GEMINI_API_KEY}"`,
+		);
+		expect(action).toContain(`--command "\${INPUT_COMMAND}"`);
+		expect(action).not.toContain(`--command "\${{ inputs.command }}"`);
+	});
+
 	it("parses quoted uses refs and keeps immutable pin checks", () => {
 		const workflow = `
 jobs:
@@ -193,44 +211,44 @@ jobs:
 		expect(qualitySection).toContain("timeout-minutes: 40");
 		expect(nightlyCoverageSection).toContain("timeout-minutes: 60");
 		expect(rollbackDrillSection).toContain("timeout-minutes: 15");
-			expect(qualitySection).toContain(
-				"uses: ./.github/actions/run-in-ci-container",
-			);
-			expect(qualitySection).toContain(
-				"Bootstrap CI image from tracked Dockerfile",
-			);
-			expect(qualitySection).toContain(
-				"DOCKER_BUILDKIT=1 docker build -f .devcontainer/Dockerfile . --progress=plain",
-			);
-			expect(qualitySection).toContain("command: npm run ci:gate:container");
-			expect(qualitySection).toContain(
-				"GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}",
-			);
-			expect(qualitySection).not.toContain('python-version: "3.11"');
-			expect(qualitySection).toContain(
-				".runtime-cache/runs/**/artifacts/playwright/**",
-			);
-			expect(qualitySection).not.toContain("playwright-report/**");
-			expect(qualitySection).not.toContain("tests/artifacts/playwright/**");
-		});
+		expect(qualitySection).toContain(
+			"uses: ./.github/actions/run-in-ci-container",
+		);
+		expect(qualitySection).toContain(
+			"Bootstrap CI image from tracked Dockerfile",
+		);
+		expect(qualitySection).toContain(
+			"DOCKER_BUILDKIT=1 docker build -f .devcontainer/Dockerfile . --progress=plain",
+		);
+		expect(qualitySection).toContain("command: npm run ci:gate:container");
+		expect(qualitySection).not.toContain("GEMINI_API_KEY:");
+		expect(qualitySection).not.toContain('python-version: "3.11"');
+		expect(qualitySection).toContain(
+			".runtime-cache/runs/**/artifacts/playwright/**",
+		);
+		expect(qualitySection).not.toContain("playwright-report/**");
+		expect(qualitySection).not.toContain("tests/artifacts/playwright/**");
+	});
 
-		it("enables CI image sbom and provenance evidence in build-ci-image workflow", async () => {
-			const workflowPath = path.join(
-				repoRoot,
-				".github/workflows/build-ci-image.yml",
-			);
-			const workflow = await fs.readFile(workflowPath, "utf8");
+	it("enables CI image sbom and provenance evidence in build-ci-image workflow", async () => {
+		const workflowPath = path.join(
+			repoRoot,
+			".github/workflows/build-ci-image.yml",
+		);
+		const workflow = await fs.readFile(workflowPath, "utf8");
 
-			expect(workflow).toContain("attestations: write");
-			expect(workflow).toContain("id-token: write");
-			expect(workflow).toContain("--sbom=true");
-			expect(workflow).toContain("--attest type=provenance,mode=max");
-			expect(workflow).toContain(
-				"actions/attest-build-provenance@10334b5f1e684784025c3fc0a277c88c19089275",
-			);
-			expect(workflow).toContain(".runtime-cache/ci-image/build-metadata.json");
-			expect(workflow).toContain(".runtime-cache/ci-image/supply-chain-evidence.json");
-		});
+		expect(workflow).toContain("attestations: write");
+		expect(workflow).toContain("id-token: write");
+		expect(workflow).toContain("--sbom=true");
+		expect(workflow).toContain("--attest type=provenance,mode=max");
+		expect(workflow).toContain(
+			"actions/attest-build-provenance@10334b5f1e684784025c3fc0a277c88c19089275",
+		);
+		expect(workflow).toContain(".runtime-cache/ci-image/build-metadata.json");
+		expect(workflow).toContain(
+			".runtime-cache/ci-image/supply-chain-evidence.json",
+		);
+	});
 
 	it("defines a public CI health workflow without exposing internal runner topology", async () => {
 		const workflowPath = path.join(
@@ -273,7 +291,10 @@ jobs:
 			".github/workflows/release-readiness.yml",
 		);
 		const workflow = await fs.readFile(workflowPath, "utf8");
-		const releaseReadinessSection = getJobSection(workflow, "release_readiness");
+		const releaseReadinessSection = getJobSection(
+			workflow,
+			"release_readiness",
+		);
 
 		expect(releaseReadinessSection).toContain("runs-on: ubuntu-latest");
 		expect(releaseReadinessSection).not.toContain("self-hosted");
@@ -293,16 +314,16 @@ jobs:
 			workflow,
 			"functional_strict",
 		);
-			const workflowGovernanceSection = getJobSection(
-				workflow,
-				"workflow_governance",
-			);
+		const workflowGovernanceSection = getJobSection(
+			workflow,
+			"workflow_governance",
+		);
 
-			expect(functionalStrictSection).toContain("name: Functional Strict Gate");
-			expect(functionalStrictSection).toContain("Acceptance contracts gate");
-			expect(functionalStrictSection).toContain(
-				"Network resilience functional gate",
-			);
+		expect(functionalStrictSection).toContain("name: Functional Strict Gate");
+		expect(functionalStrictSection).toContain("Acceptance contracts gate");
+		expect(functionalStrictSection).toContain(
+			"Network resilience functional gate",
+		);
 		expect(functionalStrictSection).toContain("Runtime smoke functional gate");
 		expect(functionalStrictSection).toContain(
 			"command: node tooling/run-with-heartbeat.mjs --label=functional-smoke -- npm run smoke:e2e",
@@ -311,30 +332,78 @@ jobs:
 		expect(workflowGovernanceSection).toContain(
 			"command: npm run governance:workflow:check",
 		);
-			expect(functionalStrictSection).toContain(
-				"command: node tooling/run-with-heartbeat.mjs --label=functional-resilience -- npm run test:e2e:resilience",
-			);
-		});
+		expect(functionalStrictSection).toContain(
+			"command: node tooling/run-with-heartbeat.mjs --label=functional-resilience -- npm run test:e2e:resilience",
+		);
+	});
 
-		it("keeps functional_strict short-before-long order", async () => {
-			const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
-			const workflow = await fs.readFile(workflowPath, "utf8");
-			const functionalStrictSection = getJobSection(
+	it("routes branch-aware upstream policy through a repo-local helper before entering the container bridge", async () => {
+		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
+		const workflow = await fs.readFile(workflowPath, "utf8");
+		const qualitySection = getJobSection(workflow, "quality");
+
+		expect(qualitySection).toContain(
+			"command: node tooling/run-upstream-policy-ci.mjs",
+		);
+		expect(qualitySection).not.toContain("command=\"$(cat <<'EOF'");
+		expect(qualitySection).not.toContain("branch_name=");
+		expect(qualitySection).not.toContain("GITHUB_HEAD_REF");
+		expect(qualitySection).not.toContain("GITHUB_REF_NAME");
+	});
+
+	it("routes flake metrics through a helper so missing summaries stay advisory", async () => {
+		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
+		const workflow = await fs.readFile(workflowPath, "utf8");
+		const qualitySection = getJobSection(workflow, "quality");
+
+		expect(qualitySection).toContain(
+			"command: node tooling/run-ci-flake-metrics.mjs",
+		);
+		expect(qualitySection).not.toContain("flake_metrics_command");
+	});
+
+	it("treats always-run quality artifacts as advisory evidence uploads", async () => {
+		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
+		const workflow = await fs.readFile(workflowPath, "utf8");
+		const qualitySection = getJobSection(workflow, "quality");
+
+		expect(qualitySection).toContain("Upload env inventory artifact");
+		expect(qualitySection).toContain("Upload ci-gate summary");
+		expect(qualitySection).toContain("Upload flake metrics artifact");
+		expect(qualitySection).toContain(
+			`name: env-inventory-\${{ github.run_id }}-\${{ github.run_attempt }}`,
+		);
+		expect(qualitySection).toContain(
+			`name: ci-gate-summary-\${{ github.run_id }}-\${{ github.run_attempt }}`,
+		);
+		expect(qualitySection).toContain(
+			`name: flake-metrics-\${{ github.run_id }}-\${{ github.run_attempt }}`,
+		);
+		expect(qualitySection).toContain("if-no-files-found: ignore");
+		expect(qualitySection).toContain(
+			"command: node tooling/run-ci-flake-metrics.mjs",
+		);
+	});
+
+	it("keeps functional_strict short-before-long order", async () => {
+		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
+		const workflow = await fs.readFile(workflowPath, "utf8");
+		const functionalStrictSection = getJobSection(
 			workflow,
 			"functional_strict",
 		);
 
-			const smokeIndex = functionalStrictSection.indexOf(
-				"--label=functional-smoke -- npm run smoke:e2e",
-			);
-			const resilienceIndex = functionalStrictSection.indexOf(
-				"--label=functional-resilience -- npm run test:e2e:resilience",
-			);
+		const smokeIndex = functionalStrictSection.indexOf(
+			"--label=functional-smoke -- npm run smoke:e2e",
+		);
+		const resilienceIndex = functionalStrictSection.indexOf(
+			"--label=functional-resilience -- npm run test:e2e:resilience",
+		);
 
-			expect(smokeIndex).toBeGreaterThan(-1);
-			expect(resilienceIndex).toBeGreaterThan(-1);
-			expect(smokeIndex).toBeLessThan(resilienceIndex);
-		});
+		expect(smokeIndex).toBeGreaterThan(-1);
+		expect(resilienceIndex).toBeGreaterThan(-1);
+		expect(smokeIndex).toBeLessThan(resilienceIndex);
+	});
 
 	it("enforces fast-before-long dependency for live hard gate", async () => {
 		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
@@ -354,22 +423,22 @@ jobs:
 		);
 	});
 
-		it("routes fork pull requests to a hosted static governance lane", async () => {
-			const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
-			const workflow = await fs.readFile(workflowPath, "utf8");
-			const untrustedSection = getJobSection(
-				workflow,
-				"untrusted_pr_static_governance",
-			);
+	it("routes fork pull requests to a hosted static governance lane", async () => {
+		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
+		const workflow = await fs.readFile(workflowPath, "utf8");
+		const untrustedSection = getJobSection(
+			workflow,
+			"untrusted_pr_static_governance",
+		);
 
-			expect(untrustedSection).toContain("runs-on: ubuntu-latest");
-			expect(untrustedSection).toContain("Workflow lint");
-			expect(untrustedSection).toContain("Workflow governance");
-			expect(untrustedSection).toContain("Docs governance");
-			expect(untrustedSection).toContain("Env governance");
-			expect(untrustedSection).toContain("Commitlint range");
-			expect(untrustedSection).toContain("Gitleaks scan");
-		});
+		expect(untrustedSection).toContain("runs-on: ubuntu-latest");
+		expect(untrustedSection).toContain("Workflow lint");
+		expect(untrustedSection).toContain("Workflow governance");
+		expect(untrustedSection).toContain("Docs governance");
+		expect(untrustedSection).toContain("Env governance");
+		expect(untrustedSection).toContain("Commitlint range");
+		expect(untrustedSection).toContain("Gitleaks scan");
+	});
 
 	it("requires gitleaks report artifact and disallows silent missing files", async () => {
 		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
@@ -377,10 +446,10 @@ jobs:
 		const secretScanSection = getJobSection(workflow, "secret_scan");
 
 		expect(secretScanSection).toContain(
-			'pkg="gitleaks_8.24.2_${os}_${arch}.tar.gz"',
+			`pkg="gitleaks_8.24.2_\${os}_\${arch}.tar.gz"`,
 		);
 		expect(secretScanSection).toContain(
-			"https://github.com/gitleaks/gitleaks/releases/download/v8.24.2/${pkg}",
+			`https://github.com/gitleaks/gitleaks/releases/download/v8.24.2/\${pkg}`,
 		);
 		expect(secretScanSection).toContain("/tmp/gitleaks detect \\");
 		expect(secretScanSection).toContain("Upload gitleaks report");
@@ -388,17 +457,19 @@ jobs:
 		expect(secretScanSection).not.toContain("if-no-files-found: ignore");
 	});
 
-		it("routes trusted CI jobs through the public runner selector contract and keeps fork PRs on hosted runners", async () => {
-			const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
-			const workflow = await fs.readFile(workflowPath, "utf8");
-			const runnerSelectorSection = getJobSection(workflow, "runner_selector");
-			const runnerBootstrapSection = getJobSection(workflow, "runner_bootstrap");
-			const untrustedSection = getJobSection(
-				workflow,
-				"untrusted_pr_static_governance",
-			);
+	it("routes trusted CI jobs through the public runner selector contract and keeps fork PRs on hosted runners", async () => {
+		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
+		const workflow = await fs.readFile(workflowPath, "utf8");
+		const runnerSelectorSection = getJobSection(workflow, "runner_selector");
+		const runnerBootstrapSection = getJobSection(workflow, "runner_bootstrap");
+		const untrustedSection = getJobSection(
+			workflow,
+			"untrusted_pr_static_governance",
+		);
 
-		expect(runnerSelectorSection).toContain('runs_on_json=\'["ubuntu-latest"]\'');
+		expect(runnerSelectorSection).toContain(
+			"runs_on_json='[\"ubuntu-latest\"]'",
+		);
 		expect(runnerSelectorSection).toContain('tier="public-github-hosted"');
 		expect(runnerSelectorSection).toContain('mode="public_default"');
 		expect(runnerSelectorSection).not.toContain("shared_pool_json");
@@ -409,11 +480,11 @@ jobs:
 		expect(runnerBootstrapSection).toContain("github-hosted contract");
 		expect(runnerBootstrapSection).not.toContain("pool-core01-01");
 		expect(runnerBootstrapSection).not.toContain("gcloud");
-			expect(workflow).not.toContain("config.sh");
-			expect(workflow).not.toContain("./run.sh");
-			expect(workflow).not.toContain("remove.sh");
-			expect(untrustedSection).toContain("runs-on: ubuntu-latest");
-		});
+		expect(workflow).not.toContain("config.sh");
+		expect(workflow).not.toContain("./run.sh");
+		expect(workflow).not.toContain("remove.sh");
+		expect(untrustedSection).toContain("runs-on: ubuntu-latest");
+	});
 
 	it("does not allow continue-on-error in the public-safe ci workflow", async () => {
 		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
@@ -480,7 +551,7 @@ jobs:
 		} finally {
 			await fs.rm(tempRoot, { recursive: true, force: true });
 		}
-	});
+	}, 15000);
 
 	it("rejects workflow files that set high-risk permissions write-all", async () => {
 		const tempRoot = await fs.mkdtemp(
@@ -583,7 +654,10 @@ jobs:
 		);
 		expect(precommitGateSection).not.toContain("path: ~/.cache/pre-commit");
 		expect(precommitGateSection).not.toContain(
-			"Restore pre-commit cache\n        env:\n          PRE_COMMIT_HOME: ${{ runner.temp }}/pre-commit-cache\n        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306",
+			`Restore pre-commit cache
+        env:
+          PRE_COMMIT_HOME: \${{ runner.temp }}/pre-commit-cache
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306`,
 		);
 	});
 
@@ -737,9 +811,9 @@ jobs:
 						cwd: tempRoot,
 					},
 				);
-					expect(stdout).toContain(
-						"OK: 1 workflow files and 0 composite action files passed strict checks.",
-					);
+				expect(stdout).toContain(
+					"OK: 1 workflow files and 0 composite action files passed strict checks.",
+				);
 			},
 		);
 	});

@@ -188,7 +188,10 @@ export async function createSidecarHarness(): Promise<SidecarHarness> {
 	);
 	await writeFakeGeminiSdk(tempRoot);
 
-	const scriptPath = path.resolve(process.cwd(), "services/gemini-sidecar/server.py");
+	const scriptPath = path.resolve(
+		process.cwd(),
+		"services/gemini-sidecar/server.py",
+	);
 	const existingPythonPath = process.env.PYTHONPATH?.trim();
 	const pythonPath = existingPythonPath
 		? `${tempRoot}${path.delimiter}${existingPythonPath}`

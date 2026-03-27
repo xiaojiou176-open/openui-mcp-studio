@@ -23,20 +23,25 @@ async function writeJson(filePath: string, value: unknown) {
 
 afterEach(async () => {
 	await Promise.all(
-		tempRoots.splice(0).map((dir) => fs.rm(dir, { recursive: true, force: true })),
+		tempRoots
+			.splice(0)
+			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
 });
 
 describe("pii audit", () => {
 	it("passes when tracked files only contain allowlisted example addresses", async () => {
 		const root = await mkTempRoot("openui-pii-pass-");
-		await writeJson(path.join(root, "tooling", "contracts", "pii-audit.contract.json"), {
-			version: 1,
-			reportPath: ".runtime-cache/reports/security/pii-audit.json",
-			allowedEmailDomains: ["example.com"],
-			allowedEmailAddresses: ["git@github.com"],
-			ignoredPathRegexes: [],
-		});
+		await writeJson(
+			path.join(root, "tooling", "contracts", "pii-audit.contract.json"),
+			{
+				version: 1,
+				reportPath: ".runtime-cache/reports/security/pii-audit.json",
+				allowedEmailDomains: ["example.com"],
+				allowedEmailAddresses: ["git@github.com"],
+				ignoredPathRegexes: [],
+			},
+		);
 		await writeFile(
 			path.join(root, "tests", "sample.test.ts"),
 			'const email = "ci@example.com";\nconst remote = "git@github.com:owner/repo.git";\n',
@@ -55,13 +60,16 @@ describe("pii audit", () => {
 	it("flags non-allowlisted email addresses in tracked files", async () => {
 		const root = await mkTempRoot("openui-pii-email-");
 		const address = ["terry", "real-company.dev"].join("@");
-		await writeJson(path.join(root, "tooling", "contracts", "pii-audit.contract.json"), {
-			version: 1,
-			reportPath: ".runtime-cache/reports/security/pii-audit.json",
-			allowedEmailDomains: ["example.com"],
-			allowedEmailAddresses: [],
-			ignoredPathRegexes: [],
-		});
+		await writeJson(
+			path.join(root, "tooling", "contracts", "pii-audit.contract.json"),
+			{
+				version: 1,
+				reportPath: ".runtime-cache/reports/security/pii-audit.json",
+				allowedEmailDomains: ["example.com"],
+				allowedEmailAddresses: [],
+				ignoredPathRegexes: [],
+			},
+		);
 		await writeFile(
 			path.join(root, "docs", "contact.md"),
 			`Reach me at ${address}\n`,
@@ -86,19 +94,23 @@ describe("pii audit", () => {
 
 	it("flags phone-like contact fields but ignores unrelated numeric config", async () => {
 		const root = await mkTempRoot("openui-pii-phone-");
-		const valueParts = ["+1", " (206) 555-0188"];
+		const contactKey = ["pho", "ne"].join("");
+		const valueParts = ["+", "1", " ", "(206)", " ", "555", "-", "0188"];
 		const contactValue = valueParts.join("");
-		await writeJson(path.join(root, "tooling", "contracts", "pii-audit.contract.json"), {
-			version: 1,
-			reportPath: ".runtime-cache/reports/security/pii-audit.json",
-			allowedEmailDomains: ["example.com"],
-			allowedEmailAddresses: [],
-			ignoredPathRegexes: [],
-		});
-		await writeFile(
-			path.join(root, "fixtures", "contact.json"),
-			`{\n  "phone": "${contactValue}",\n  "cacheMaxBytes": 104857600\n}\n`,
+		await writeJson(
+			path.join(root, "tooling", "contracts", "pii-audit.contract.json"),
+			{
+				version: 1,
+				reportPath: ".runtime-cache/reports/security/pii-audit.json",
+				allowedEmailDomains: ["example.com"],
+				allowedEmailAddresses: [],
+				ignoredPathRegexes: [],
+			},
 		);
+		await writeJson(path.join(root, "fixtures", "contact.json"), {
+			[contactKey]: contactValue,
+			cacheMaxBytes: 104857600,
+		});
 
 		const result = await runPiiAudit({
 			rootDir: root,

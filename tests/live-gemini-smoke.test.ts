@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { aiChatComplete, aiListModels } from "../services/mcp-server/src/ai-client.js";
+import {
+	aiChatComplete,
+	aiListModels,
+} from "../services/mcp-server/src/ai-client.js";
 import { getGeminiModelEmbedding } from "../services/mcp-server/src/constants.js";
 import { embedContentsWithGemini } from "../services/mcp-server/src/tools/embed.js";
 

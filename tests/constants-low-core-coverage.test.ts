@@ -98,7 +98,8 @@ describe("constants low-core coverage", () => {
 		process.env.OPENUI_QUEUE_MAX_PENDING = "77";
 		process.env.OPENUI_IDEMPOTENCY_TTL_MINUTES = "25";
 		process.env.OPENUI_GEMINI_PYTHON_BIN = "python3.12";
-		process.env.OPENUI_GEMINI_SIDECAR_PATH = "services/gemini-sidecar/bridge.py";
+		process.env.OPENUI_GEMINI_SIDECAR_PATH =
+			"services/gemini-sidecar/bridge.py";
 		process.env.OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES = "131072";
 		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "6";
 		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "2048";
