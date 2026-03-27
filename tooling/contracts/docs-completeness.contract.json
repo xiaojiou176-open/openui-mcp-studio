@@ -1,0 +1,135 @@
+{
+	"version": 1,
+	"generatedSurfaces": [],
+	"tools": {
+		"openui_generate_ui": {
+			"minimumRequest": "prompt",
+			"success": "Returns HTML-only text content.",
+			"failure": "Fails when upstream model call fails or returns empty text."
+		},
+		"openui_refine_ui": {
+			"minimumRequest": "html + instruction",
+			"success": "Returns full updated HTML content.",
+			"failure": "Fails when input schema validation or model call fails."
+		},
+		"openui_convert_react_shadcn": {
+			"minimumRequest": "html + pagePath + componentsDir",
+			"success": "Returns JSON with files array and optional notes.",
+			"failure": "Fails on invalid JSON, schema mismatch, or unsafe output path."
+		},
+		"openui_make_react_page": {
+			"minimumRequest": "prompt + pagePath + componentsDir",
+			"success": "Returns JSON payload with html, files, notes, and detection metadata.",
+			"failure": "Fails if generate/convert stage fails or output validation fails."
+		},
+		"openui_apply_files": {
+			"minimumRequest": "files + targetRoot",
+			"success": "Returns apply plan/written summary and supports rollback details.",
+			"failure": "Fails on path traversal, write errors, or rollback failure."
+		},
+		"openui_embed_content": {
+			"minimumRequest": "contents",
+			"success": "Returns embedding vectors and provider metadata.",
+			"failure": "Fails when embedding provider rejects request or returns invalid shape."
+		},
+		"openui_rag_upsert": {
+			"minimumRequest": "documents",
+			"success": "Returns inserted document count and index metadata.",
+			"failure": "Fails on invalid document schema or embedding/index errors."
+		},
+		"openui_rag_search": {
+			"minimumRequest": "query",
+			"success": "Returns ranked retrieval results.",
+			"failure": "Fails on retrieval pipeline errors or invalid search payload."
+		},
+		"openui_observe_screen": {
+			"minimumRequest": "input(text/images)",
+			"success": "Returns observation output from computer-use model path.",
+			"failure": "Fails when multimodal payload is invalid or provider call fails."
+		},
+		"openui_execute_ui_action": {
+			"minimumRequest": "action",
+			"success": "Returns action execution result and risk metadata.",
+			"failure": "Fails when high-risk action misses confirmation or action schema is invalid."
+		},
+		"openui_computer_use_loop": {
+			"minimumRequest": "goal + input",
+			"success": "Returns observe-plan-act loop result with safety decisions.",
+			"failure": "Fails on invalid planned action contract or provider-side execution error."
+		},
+		"openui_review_uiux": {
+			"minimumRequest": "html",
+			"success": "Returns structured UI/UX heuristic review payload.",
+			"failure": "Fails on schema validation errors or model scoring errors."
+		},
+		"openui_quality_gate": {
+			"minimumRequest": "files",
+			"success": "Returns passed/issues/commandResults summary.",
+			"failure": "Fails in strict mode when command policy or validation checks fail."
+		},
+		"openui_next_smoke": {
+			"minimumRequest": "targetRoot (optional)",
+			"success": "Returns build/start/probe smoke status summary.",
+			"failure": "Fails when Next.js install/build/start/probe stages fail."
+		},
+		"openui_ship_react_page": {
+			"minimumRequest": "prompt",
+			"success": "Returns end-to-end payload with steps and summary status.",
+			"failure": "Fails when any required stage (generate/convert/apply/quality_gate) fails."
+		},
+		"openui_detect_shadcn_paths": {
+			"minimumRequest": "workspaceRoot (optional)",
+			"success": "Returns resolved ui/components import-path detection.",
+			"failure": "Fails when workspace path is invalid or detection inputs are unreadable."
+		},
+		"openui_list_models": {
+			"minimumRequest": "none",
+			"success": "Returns available Gemini model list.",
+			"failure": "Fails when Gemini sidecar list_models call fails."
+		}
+	},
+	"scenarioMatrix": {
+		"default": [
+			{
+				"name": "Prompt to generated HTML",
+				"tools": ["openui_generate_ui"],
+				"expected": "Returns HTML text output"
+			},
+			{
+				"name": "Prompt to React files",
+				"tools": ["openui_make_react_page"],
+				"expected": "Returns html + files payload"
+			},
+			{
+				"name": "End-to-end shipping",
+				"tools": ["openui_ship_react_page"],
+				"expected": "Runs generate->convert->apply->quality gate"
+			}
+		],
+		"advanced": [
+			{
+				"name": "Structured output contract",
+				"tools": [
+					"openui_convert_react_shadcn",
+					"openui_make_react_page",
+					"openui_ship_react_page"
+				],
+				"expected": "Invalid structured output fails fast"
+			},
+			{
+				"name": "Function-calling loop",
+				"tools": ["openui_generate_ui", "openui_refine_ui"],
+				"expected": "toolChoice/functionResponses are forwarded"
+			},
+			{
+				"name": "Multimodal computer-use",
+				"tools": [
+					"openui_observe_screen",
+					"openui_execute_ui_action",
+					"openui_computer_use_loop"
+				],
+				"expected": "Risky actions require confirmation and keep action contract"
+			}
+		]
+	}
+}

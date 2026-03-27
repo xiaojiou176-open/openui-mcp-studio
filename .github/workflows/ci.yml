@@ -1,0 +1,877 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+  pull_request:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      upstream_policy_mode:
+        description: "Upstream policy check mode: blocking (default) or non-blocking"
+        required: false
+        default: blocking
+        type: choice
+        options:
+          - blocking
+          - non-blocking
+      run_rollback_drill:
+        description: "Run rollback drill job"
+        required: false
+        default: false
+        type: boolean
+
+
+permissions: {}
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  OPENUI_ALLOW_QUALITY_SCORE_BYPASS: "0"
+  OPENUI_ALLOW_MUTATION_SKIP: "0"
+
+jobs:
+  untrusted_pr_static_governance:
+    name: Untrusted PR Static Governance
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      SCAN_WORKTREE: secret-scan-src-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
+          path: ${{ env.SCAN_WORKTREE }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238
+        with:
+          node-version: "22.22.0"
+
+      - name: Install dependencies
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        run: npm ci
+
+      - name: Install actionlint
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="1.7.11"
+          archive="actionlint_${version}_linux_amd64.tar.gz"
+          expected_sha256="900919a84f2229bac68ca9cd4103ea297abc35e9689ebb842c6e34a3d1b01b0a"
+          temp_root="${RUNNER_TEMP:-/tmp}"
+          install_dir="${temp_root}/actionlint-bin"
+          mkdir -p "${install_dir}"
+          curl -fL --retry 3 --retry-delay 2 --retry-connrefused \
+            "https://github.com/rhysd/actionlint/releases/download/v${version}/${archive}" \
+            -o "${temp_root}/actionlint.tar.gz"
+          echo "${expected_sha256}  ${temp_root}/actionlint.tar.gz" | sha256sum -c -
+          tar -xzf "${temp_root}/actionlint.tar.gz" -C "${install_dir}" actionlint
+          chmod 0755 "${install_dir}/actionlint"
+          echo "${install_dir}" >> "${GITHUB_PATH}"
+
+      - name: Workflow lint
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        run: actionlint -color
+
+      - name: Public infra boundary
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        run: node tooling/check-public-infra-boundary.mjs
+
+      - name: Workflow governance
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        run: npm run governance:workflow:check
+
+      - name: Docs governance
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        run: npm run docs:check
+
+      - name: Env governance
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        run: |
+          npm run env:check
+          npm run env:governance:check
+          npm run governance:contract:check
+          npm run docs:completeness:check
+
+      - name: Commitlint range
+        shell: bash
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: npx --no-install commitlint --from "${PR_BASE_SHA}" --to "${PR_HEAD_SHA}" --verbose
+
+      - name: Guardrail - block committed env files
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        run: |
+          forbidden="$(git ls-files | grep -E '(^|/)\.env(\..+)?$' | grep -Ev '(^|/)\.env\.example$|(^|/)\.env\.(development|staging|production)\.example$' || true)"
+          if [ -n "${forbidden}" ]; then
+            echo "::error title=Committed env files detected::Remove committed .env files before merge."
+            echo "${forbidden}"
+            exit 1
+          fi
+
+      - name: Gitleaks scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          report_path="${GITHUB_WORKSPACE}/gitleaks.sarif"
+          rm -f "${report_path}"
+          os="$(uname -s | tr '[:upper:]' '[:lower:]')"
+          arch="$(uname -m)"
+          case "${arch}" in
+            x86_64) arch="x64" ;;
+            aarch64|arm64) arch="arm64" ;;
+          esac
+          pkg="gitleaks_8.24.2_${os}_${arch}.tar.gz"
+          curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/v8.24.2/${pkg}" -o /tmp/gitleaks.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          /tmp/gitleaks detect \
+            --source="${GITHUB_WORKSPACE}/${SCAN_WORKTREE}" \
+            --config="${GITHUB_WORKSPACE}/${SCAN_WORKTREE}/.gitleaks.toml" \
+            --verbose \
+            --redact \
+            --report-format sarif \
+            --report-path "${report_path}"
+
+      - name: Upload gitleaks report
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: gitleaks-report-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 7
+          path: gitleaks.sarif
+
+      - name: Cleanup checkout
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          worktree="${GITHUB_WORKSPACE}/${SCAN_WORKTREE}"
+          if [ -d "${worktree}" ]; then
+            rm -rf "${worktree}"
+          fi
+
+  runner_bootstrap:
+    name: Public Runner Contract
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Declare public-safe runner contract
+        shell: bash
+        run: |
+          {
+            echo "## Public Runner Contract"
+            echo ""
+            echo "- Public CI routes through the repository's github-hosted contract."
+            echo "- Infrastructure-specific bootstrap details are intentionally excluded from this public workflow."
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+  runner_selector:
+    name: Runner Selector
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_bootstrap
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: read
+    outputs:
+      runs_on_json: ${{ steps.select.outputs.runs_on_json }}
+      selected_tier: ${{ steps.select.outputs.selected_tier }}
+      selected_mode: ${{ steps.select.outputs.selected_mode }}
+    steps:
+      - name: Select runner labels
+        id: select
+        run: |
+          runs_on_json='["ubuntu-latest"]'
+          tier="public-github-hosted"
+          mode="public_default"
+
+          echo "runs_on_json=${runs_on_json}" >> "${GITHUB_OUTPUT}"
+          printf 'selected_tier=%s\nselected_mode=%s\n' "${tier}" "${mode}" | tee -a "${GITHUB_OUTPUT}" >/dev/null
+
+      - name: Route summary
+        run: |
+          echo "Selected CI runner labels: ${{ steps.select.outputs.runs_on_json }}"
+          echo "Selected runner mode: ${{ steps.select.outputs.selected_mode }}"
+          echo "Selected tier: ${{ steps.select.outputs.selected_tier }}"
+
+  required_env_hard_gate:
+    name: Required Env Hard Gate
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Validate GEMINI_API_KEY is configured (non-fork contexts)
+        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
+        run: |
+          if [ -z "${GEMINI_API_KEY}" ]; then
+            echo "::error title=Missing GEMINI_API_KEY::Required env hard gate requires GEMINI_API_KEY secret."
+            exit 1
+          fi
+
+      - name: Skip GEMINI_API_KEY requirement for fork PR
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork
+        run: 'echo "Fork PR detected: skip GEMINI_API_KEY hard requirement and continue non-live quality gates."'
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+  workflow_lint:
+    name: Workflow Lint
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Install actionlint
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="1.7.11"
+          archive="actionlint_${version}_linux_amd64.tar.gz"
+          expected_sha256="900919a84f2229bac68ca9cd4103ea297abc35e9689ebb842c6e34a3d1b01b0a"
+          temp_root="${RUNNER_TEMP:-/tmp}"
+          install_dir="${temp_root}/actionlint-bin"
+          mkdir -p "${install_dir}"
+          curl -fL --retry 3 --retry-delay 2 --retry-connrefused \
+            "https://github.com/rhysd/actionlint/releases/download/v${version}/${archive}" \
+            -o "${temp_root}/actionlint.tar.gz"
+          echo "${expected_sha256}  ${temp_root}/actionlint.tar.gz" | sha256sum -c -
+          tar -xzf "${temp_root}/actionlint.tar.gz" -C "${install_dir}" actionlint
+          chmod 0755 "${install_dir}/actionlint"
+          echo "${install_dir}" >> "${GITHUB_PATH}"
+
+      - name: Actionlint
+        run: actionlint -color
+
+      - name: Setup Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238
+        with:
+          node-version: "22.22.0"
+
+      - name: Public infra boundary
+        run: node tooling/check-public-infra-boundary.mjs
+
+  workflow_governance:
+    name: Workflow Governance
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Workflow governance check
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run governance:workflow:check
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+  commit_messages:
+    name: Commit Messages
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
+
+      - name: Commitlint range
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: |
+            set -euo pipefail
+            from=""
+            to=""
+            if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+              from="${PR_BASE_SHA}"
+              to="${PR_HEAD_SHA}"
+            elif [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
+              from="${PUSH_BEFORE}"
+              to="${PUSH_SHA}"
+            else
+              to="$(git rev-parse HEAD)"
+              if git rev-parse HEAD~1 >/dev/null 2>&1; then
+                from="$(git rev-parse HEAD~1)"
+              fi
+            fi
+            if [[ -z "${to}" ]]; then
+              to="$(git rev-parse HEAD)"
+            fi
+            if [[ -z "${from}" || "${from}" == "0000000000000000000000000000000000000000" ]]; then
+              if git rev-parse HEAD~1 >/dev/null 2>&1; then
+                from="$(git rev-parse HEAD~1)"
+              else
+                echo "Skipping commitlint: no valid previous commit range."
+                exit 0
+              fi
+            fi
+            npx --no-install commitlint --from "${from}" --to "${to}" --verbose
+          working_directory: .
+          extra_env_allowlist: PR_BASE_SHA,PR_HEAD_SHA,PUSH_BEFORE,PUSH_SHA
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+  lint_backend:
+    name: Lint Backend
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Lint backend scope
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run lint:backend
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+  lint_frontend:
+    name: Lint Frontend
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Lint frontend scope
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run lint:frontend
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+  precommit_gate:
+    name: Pre-commit Gate
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - name: Run pre-commit config (gitleaks, ruff)
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: |
+            set -euo pipefail
+            python -m venv /tmp/precommit-venv
+            /tmp/precommit-venv/bin/python -m pip install --upgrade pip
+            /tmp/precommit-venv/bin/python -m pip install pre-commit
+            PRE_COMMIT_HOME=/tmp/pre-commit-cache /tmp/precommit-venv/bin/pre-commit run --all-files
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+  quality:
+    name: Quality (Node 22.22.0)
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+      - workflow_lint
+      - workflow_governance
+      - lint_backend
+      - lint_frontend
+      - precommit_gate
+      - secret_scan
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      TZ: UTC
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Upstream sync dry run in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run sync:upstream:dryrun
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upstream sync policy check in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: |
+            set -euo pipefail
+            mode="blocking"
+            branch_name="${GITHUB_REF_NAME}"
+            if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+              mode="blocking"
+            elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+              branch_name="${GITHUB_HEAD_REF}"
+            fi
+            if [[ "${branch_name}" =~ ^chore/upstream-sync-[0-9]{8}$ ]]; then
+              npm run sync:upstream:check -- --mode="${mode}"
+            else
+              echo "Skipping upstream policy check for branch '${branch_name}': only upstream-sync branches are enforced in PR/push CI."
+            fi
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docs quality gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run docs:check
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Acceptance gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run ci:acceptance:gate
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean runtime artifacts in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run clean:runtime
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate env inventory in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: mkdir -p .runtime-cache/env-inventory && node tooling/env-inventory.mjs > .runtime-cache/env-inventory/ci-env-inventory.json
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Env governance gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run env:governance:check -- --ci
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bootstrap CI image from tracked Dockerfile
+        shell: bash
+        run: |
+          set -euo pipefail
+          DOCKER_BUILDKIT=1 docker build -f .devcontainer/Dockerfile . --progress=plain
+
+      - name: Full quality gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run ci:gate:container
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate flake metrics in CI container
+        if: always()
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: node tooling/flake-metrics.mjs --from-summary "$(find .runtime-cache/runs -path '*/summary.json' | head -n 1)"
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate env governance report in CI container
+        if: always()
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run env:governance:report
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload env inventory artifact
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: env-inventory-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 7
+          path: .runtime-cache/env-inventory/ci-env-inventory.json
+
+      - name: Upload env governance artifact
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: env-governance-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 7
+          path: .runtime-cache/env-governance/**
+
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: coverage-report-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 7
+          path: .runtime-cache/coverage/vitest/**
+
+      - name: Upload ci-gate summary
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: ci-gate-summary-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 7
+          path: .runtime-cache/runs/**/summary.json
+
+      - name: Upload flake metrics artifact
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: flake-metrics-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 7
+          path: |
+            .runtime-cache/runs/**/flake-rate.json
+            .runtime-cache/runs/**/flake-metrics.json
+            .runtime-cache/runs/**/flake-rate-history.json
+
+      - name: Upload Playwright artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: playwright-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            .runtime-cache/runs/**/artifacts/playwright/**
+            .runtime-cache/runs/**/artifacts/playwright-firefox/**
+            .runtime-cache/runs/**/artifacts/playwright-webkit/**
+
+  functional_strict:
+    name: Functional Strict Gate
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+      - workflow_lint
+      - workflow_governance
+      - precommit_gate
+      - secret_scan
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    env:
+      TZ: UTC
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Clean runtime artifacts in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run clean:runtime
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Acceptance contracts gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run test:acceptance:gate
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Runtime smoke functional gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: node tooling/run-with-heartbeat.mjs --label=functional-smoke -- npm run smoke:e2e
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Network resilience functional gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: node tooling/run-with-heartbeat.mjs --label=functional-resilience -- npm run test:e2e:resilience
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload functional artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: functional-strict-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            .runtime-cache/runs/**/artifacts/playwright/**
+            .runtime-cache/runs/**/artifacts/playwright-firefox/**
+            .runtime-cache/runs/**/artifacts/playwright-webkit/**
+
+  secret_scan:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
+    needs:
+      - runner_selector
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      SCAN_WORKTREE: secret-scan-src-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
+          path: ${{ env.SCAN_WORKTREE }}
+
+      - name: Guardrail - block committed env files
+        working-directory: ${{ env.SCAN_WORKTREE }}
+        run: |
+          forbidden="$(git ls-files | grep -E '(^|/)\.env(\..+)?$' | grep -Ev '(^|/)\.env\.example$|(^|/)\.env\.(development|staging|production)\.example$' || true)"
+          if [ -n "${forbidden}" ]; then
+            echo "::error title=Committed env files detected::Remove committed .env files before merge."
+            echo "${forbidden}"
+            exit 1
+          fi
+
+      - name: Gitleaks scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          report_path="${GITHUB_WORKSPACE}/gitleaks.sarif"
+          rm -f "${report_path}"
+          os="$(uname -s | tr '[:upper:]' '[:lower:]')"
+          arch="$(uname -m)"
+          case "${arch}" in
+            x86_64) arch="x64" ;;
+            aarch64|arm64) arch="arm64" ;;
+          esac
+          pkg="gitleaks_8.24.2_${os}_${arch}.tar.gz"
+          curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/v8.24.2/${pkg}" -o /tmp/gitleaks.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          /tmp/gitleaks detect \
+            --source="${GITHUB_WORKSPACE}/${SCAN_WORKTREE}" \
+            --config="${GITHUB_WORKSPACE}/${SCAN_WORKTREE}/.gitleaks.toml" \
+            --verbose \
+            --redact \
+            --report-format sarif \
+            --report-path "${report_path}"
+
+      - name: Upload gitleaks report
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: gitleaks-report-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 7
+          path: gitleaks.sarif
+      - name: Cleanup secret scan checkout
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          worktree="${GITHUB_WORKSPACE}/${SCAN_WORKTREE}"
+          if [ -d "${worktree}" ]; then
+            rm -rf "${worktree}"
+          fi
+
+  live_gemini_hard_gate:
+    name: Live Gemini hard gate
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/') || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork && (github.base_ref == 'main' || startsWith(github.base_ref, 'release/')))
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+      - quality
+      - functional_strict
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Validate GEMINI_API_KEY for hard gate
+        run: |
+          if [ -z "${GEMINI_API_KEY}" ]; then
+            echo "::error title=Missing GEMINI_API_KEY::Live Gemini hard gate requires GEMINI_API_KEY secret."
+            exit 1
+          fi
+
+      - name: Run live Gemini smoke suite in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run test:live
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+  nightly_cross_browser:
+    if: github.event_name == 'schedule'
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - chromium
+          - firefox
+          - webkit
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Run Playwright project in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: node tooling/run-with-heartbeat.mjs --label=nightly-cross-browser-${{ matrix.project }} -- npx playwright test --config=playwright.config.ts --project=${{ matrix.project }}
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Playwright artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: nightly-playwright-${{ matrix.project }}-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            .runtime-cache/runs/**/artifacts/playwright/**
+            .runtime-cache/runs/**/artifacts/playwright-firefox/**
+            .runtime-cache/runs/**/artifacts/playwright-webkit/**
+
+  nightly_coverage_gate:
+    if: github.event_name == 'schedule'
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Governance check in CI container (includes coverage gate)
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run governance:check
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate GEMINI_API_KEY for nightly live gate
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "${GEMINI_API_KEY}" ]; then
+            echo "::error title=Missing GEMINI_API_KEY::Nightly live gate requires GEMINI_API_KEY secret."
+            exit 1
+          fi
+
+      - name: Live Gemini smoke in CI container (nightly)
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run test:live
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: coverage-report-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 7
+          path: .runtime-cache/coverage/vitest/**
+
+  rollback_drill:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_rollback_drill
+    needs:
+      - runner_selector
+      - required_env_hard_gate
+    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Setup Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238
+        with:
+          node-version: "22.22.0"
+
+      - name: Restore node_modules cache
+        id: rollback_drill_node_modules_cache
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node22-modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node22-modules-
+
+      - name: Install dependencies
+        if: steps.rollback_drill_node_modules_cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Rollback drill (local simulated revert)
+        run: npm run rollback:drill

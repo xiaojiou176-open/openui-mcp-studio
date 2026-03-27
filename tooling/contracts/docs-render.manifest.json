@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "generatedSurfaces": [],
+  "toolGroups": {
+    "default": [
+      "openui_ship_react_page",
+      "openui_generate_ui",
+      "openui_refine_ui",
+      "openui_apply_files",
+      "openui_quality_gate",
+      "openui_review_uiux",
+      "openui_computer_use_loop",
+      "openui_rag_search",
+      "openui_detect_shadcn_paths"
+    ],
+    "advanced": [
+      "openui_convert_react_shadcn",
+      "openui_make_react_page",
+      "openui_embed_content",
+      "openui_rag_upsert",
+      "openui_observe_screen",
+      "openui_execute_ui_action",
+      "openui_next_smoke",
+      "openui_list_models"
+    ]
+  },
+  "manualBoundaryRules": [
+    {
+      "path": "README.md",
+      "bannedPatterns": [
+        "`runner_mode`",
+        "`spot_preferred`",
+        "`externalReadonlyE2E`",
+        "`mutationCoverageGate`"
+      ]
+    },
+    {
+      "path": "docs/governance-runbook.md",
+      "bannedPatterns": [
+        "`runner_mode`",
+        "`spot_preferred`",
+        "`externalReadonlyE2E`",
+        "`mutationCoverageGate`"
+      ]
+    },
+    {
+      "path": "docs/testing.md",
+      "bannedPatterns": [
+        "`runner_mode`",
+        "`spot_preferred`",
+        "`externalReadonlyE2E`",
+        "`mutationCoverageGate`"
+      ]
+    }
+  ]
+}

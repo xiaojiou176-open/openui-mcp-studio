@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "documents": [
+    { "path": "README.md", "role": "entry" },
+    { "path": "AGENTS.md", "role": "entry" },
+    { "path": "CLAUDE.md", "role": "entry" },
+    { "path": "docs/index.md", "role": "entry" },
+    { "path": "docs/architecture.md", "role": "overview" },
+    { "path": "docs/environment-governance.md", "role": "reference" },
+    { "path": "docs/release-readiness.md", "role": "reference" },
+    { "path": "docs/governance-runbook.md", "role": "runbook" },
+    { "path": "docs/testing.md", "role": "runbook" },
+    { "path": "docs/upstream-sync-sop.md", "role": "runbook" },
+    { "path": "docs/secrets-incident-runbook.md", "role": "runbook" }
+  ]
+}

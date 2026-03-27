@@ -1,0 +1,75 @@
+{
+	"version": 1,
+	"env": {
+		"scripts": ["env:check", "env:governance:check"],
+		"files": [
+			"packages/contracts/src/env-contract.ts",
+			".env.example",
+			"docs/environment-governance.md"
+		]
+	},
+	"testing": {
+		"scripts": ["ci:gate", "test", "test:e2e", "smoke:e2e"],
+		"files": [
+			".github/workflows/ci.yml",
+			".github/workflows/reusable-quality-gate.yml",
+			".github/workflows/release-readiness.yml",
+			".github/ci-image.lock.json",
+			"docs/testing.md"
+		]
+	},
+	"docs": {
+		"scripts": [
+			"docs:check",
+			"docs:completeness:check",
+			"docs:render:check",
+			"docs:scope:check",
+			"docs:manual-fact:check"
+		],
+		"files": [
+			"README.md",
+			"docs/index.md",
+			"docs/governance-runbook.md",
+			"tooling/contracts/docs-registry.json",
+			"tooling/contracts/docs-render.manifest.json"
+		]
+	},
+	"governance": {
+		"scripts": [
+			"governance:ssot:check",
+			"governance:topology:check",
+			"governance:public-surface:check",
+			"governance:module-readme:check",
+			"governance:root:check",
+			"governance:root-pristine:check",
+			"governance:deps:check",
+			"governance:runtime:check",
+			"governance:runtime-layout:check",
+			"governance:cache-lifecycle:check",
+			"governance:observability:check",
+			"governance:run-correlation:check",
+			"governance:score:check",
+			"governance:no-wild-log:check",
+			"governance:pinned-source:check",
+			"governance:evidence:check",
+			"governance:upstream:check",
+			"governance:final:check",
+			"verify:clean-room"
+		],
+		"files": [
+			"contracts/governance/root-allowlist.json",
+			"contracts/governance/dependency-boundaries.json",
+			"contracts/governance/module-topology.json",
+			"contracts/governance/public-surfaces.json",
+			"contracts/governance/evidence-schema.json",
+			"contracts/governance/final-form-score.contract.json",
+			"contracts/runtime/path-registry.json",
+			"contracts/runtime/run-layout.json",
+			"contracts/observability/log-event.schema.json",
+			"contracts/upstream/inventory.json",
+			"contracts/upstream/compatibility-matrix.json",
+			"contracts/upstream/patch-registry.json",
+			"contracts/upstream/glue-surfaces.json"
+		]
+	}
+}

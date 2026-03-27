@@ -1,0 +1,78 @@
+name: Reusable Quality Gate
+
+on:
+  workflow_call:
+    inputs:
+      run_live:
+        description: "Run npm run test:live after ci:gate"
+        required: false
+        type: boolean
+        default: false
+      working_directory:
+        description: "Directory where package.json is located"
+        required: false
+        type: string
+        default: "."
+    secrets:
+      GEMINI_API_KEY:
+        required: false
+
+permissions:
+  contents: read
+
+env:
+  OPENUI_ALLOW_QUALITY_SCORE_BYPASS: "0"
+  OPENUI_ALLOW_MUTATION_SKIP: "0"
+
+jobs:
+  required_env_hard_gate:
+    name: Required Env Hard Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Validate GEMINI_API_KEY is configured
+        if: ${{ inputs.run_live }}
+        run: |
+          if [ -z "${GEMINI_API_KEY}" ]; then
+            echo "::error title=Missing GEMINI_API_KEY::Reusable quality gate requires GEMINI_API_KEY secret."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+  quality_gate:
+    name: Quality Gate
+    needs:
+      - required_env_hard_gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Run env contract check in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run env:check
+          working_directory: ${{ inputs.working_directory }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run ci:gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run ci:gate:container
+          working_directory: ${{ inputs.working_directory }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run live gate in CI container
+        if: ${{ inputs.run_live }}
+        uses: ./.github/actions/run-in-ci-container
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        with:
+          command: npm run test:live
+          working_directory: ${{ inputs.working_directory }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
