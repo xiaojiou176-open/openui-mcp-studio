@@ -12,7 +12,7 @@
 		"@types/node": "^25.3.5",
 		"@types/pngjs": "^6.0.5",
 		"@vitest/coverage-v8": "^4.1.1",
-		"@vitest/eslint-plugin": "^1.6.9",
+		"@vitest/eslint-plugin": "^1.6.13",
 		"axe-core": "^4.11.0",
 		"eslint": "^10.1.0",
 		"jscpd": "^4.0.8",
