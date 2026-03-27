@@ -1,8 +1,6 @@
 name: Quality Trend Weekly
 
 on:
-  schedule:
-    - cron: "0 6 * * 1"
   workflow_dispatch:
 
 concurrency:
@@ -10,29 +8,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  required_env_hard_gate:
-    name: Required Env Hard Gate
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-    env:
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-    steps:
-      - name: Validate GEMINI_API_KEY is configured
-        run: |
-          if [ -z "${GEMINI_API_KEY}" ]; then
-            echo "::error title=Missing GEMINI_API_KEY::Quality trend weekly requires GEMINI_API_KEY secret."
-            exit 1
-          fi
-
-      - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-
   quality_trend:
     name: Quality Trend Report
-    needs:
-      - required_env_hard_gate
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:
@@ -41,7 +18,6 @@ jobs:
       TZ: UTC
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd

@@ -60,6 +60,7 @@
 				".runtime-cache/reports/history-audit",
 				".runtime-cache/reports/release-readiness",
 				".runtime-cache/reports/security",
+				".runtime-cache/reports/space-governance",
 				".runtime-cache/reports/upstream"
 			],
 			"recreateOnClean": false
@@ -117,6 +118,7 @@
 			".runtime-cache/reports/history-audit",
 			".runtime-cache/reports/release-readiness",
 			".runtime-cache/reports/security",
+			".runtime-cache/reports/space-governance",
 			".runtime-cache/reports/upstream",
 			".runtime-cache/next-smoke-tests",
 			".runtime-cache/stress"

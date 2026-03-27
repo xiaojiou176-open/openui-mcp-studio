@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "imageRepo": "ghcr.io/xiaojiou176-org/uiux-ui-generator-gemini-ci",
-  "digest": "sha256:5b5ab237f653bd83f740b6780d4ce186ec36b54d8c48902e38f3df1d38704002",
+  "imageRepo": "ghcr.io/xiaojiou176-open/openui-mcp-studio-ci",
+  "digest": "sha256:f694f7f8e1af64dc612180952d9a64b05ddd38d819c3b1672d69464fde979506",
   "bootstrap": {
     "dockerfile": ".devcontainer/Dockerfile",
     "context": "."
   },
-  "notes": "Canonical digest synced from Build CI Image run 23373120400 for commit f7393fa5d17672c87ef4e8863a1e6d0d0e7b1950. Bootstrap mode remains a fallback for local construction, but trusted CI now relies on this immutable digest."
+  "notes": "Canonical digest synced from Build CI Image run 23563445794 for commit ceb17293dd8aaf8299b39cf4fbe86a926ac4bbad. Bootstrap mode remains a fallback for local construction, but trusted CI now relies on this immutable digest."
 }

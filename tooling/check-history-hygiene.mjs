@@ -84,7 +84,7 @@ async function runHistoryHygieneCheck(options = {}) {
 	}
 	const reportPath = path.resolve(rootDir, reportPathRaw);
 
-	let findings = [];
+	let findings;
 	try {
 		findings = JSON.parse(await fs.readFile(reportPath, "utf8"));
 	} catch (error) {

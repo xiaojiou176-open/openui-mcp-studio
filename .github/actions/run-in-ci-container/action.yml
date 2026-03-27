@@ -21,6 +21,22 @@ inputs:
     description: "Additional env var names (comma-separated) to pass through."
     required: false
     default: ""
+  pr_base_sha:
+    description: "Optional pull request base SHA to expose inside the container."
+    required: false
+    default: ""
+  pr_head_sha:
+    description: "Optional pull request head SHA to expose inside the container."
+    required: false
+    default: ""
+  push_before:
+    description: "Optional push-before SHA to expose inside the container."
+    required: false
+    default: ""
+  push_sha:
+    description: "Optional push head SHA to expose inside the container."
+    required: false
+    default: ""
   registry:
     description: "Registry hostname used by docker login."
     required: false
@@ -41,6 +57,16 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ github.token }}
+        INPUT_IMAGE: ${{ inputs.image }}
+        INPUT_GEMINI_API_KEY: ${{ inputs.gemini_api_key }}
+        INPUT_COMMAND: ${{ inputs.command }}
+        INPUT_WORKING_DIRECTORY: ${{ inputs.working_directory }}
+        INPUT_EXTRA_ENV_ALLOWLIST: ${{ inputs.extra_env_allowlist }}
+        INPUT_REGISTRY: ${{ inputs.registry }}
+        PR_BASE_SHA: ${{ inputs.pr_base_sha }}
+        PR_HEAD_SHA: ${{ inputs.pr_head_sha }}
+        PUSH_BEFORE: ${{ inputs.push_before }}
+        PUSH_SHA: ${{ inputs.push_sha }}
       run: |
         set -euo pipefail
         registry_username="${{ inputs.registry_username }}"
@@ -51,15 +77,15 @@ runs:
         if [ -z "${registry_password}" ]; then
           registry_password="${GITHUB_TOKEN:-}"
         fi
-        if [ -n "${{ inputs.gemini_api_key }}" ]; then
-          export GEMINI_API_KEY="${{ inputs.gemini_api_key }}"
+        if [ -n "${INPUT_GEMINI_API_KEY}" ]; then
+          export GEMINI_API_KEY="${INPUT_GEMINI_API_KEY}"
         fi
 
         bash ops/ci-container/run-in-container.sh \
-          --image "${{ inputs.image }}" \
-          --command "${{ inputs.command }}" \
-          --workspace "${{ inputs.working_directory }}" \
-          --env-allowlist "${{ inputs.extra_env_allowlist }}" \
-          --registry "${{ inputs.registry }}" \
+          --image "${INPUT_IMAGE}" \
+          --command "${INPUT_COMMAND}" \
+          --workspace "${INPUT_WORKING_DIRECTORY}" \
+          --env-allowlist "${INPUT_EXTRA_ENV_ALLOWLIST}" \
+          --registry "${INPUT_REGISTRY}" \
           --registry-username "${registry_username}" \
           --registry-password "${registry_password}"

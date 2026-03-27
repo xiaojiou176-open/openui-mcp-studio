@@ -269,3 +269,14 @@ main().catch((error) => {
 	);
 	process.exit(1);
 });
+
+export {
+	stageSummaryMarkdown,
+	workflowInventoryMarkdown,
+	toolMatrixMarkdown,
+	docsCatalogMarkdown,
+	remoteGovernanceMarkdown,
+	renderSurfaces,
+	writeOutputs,
+	checkOutputs,
+};

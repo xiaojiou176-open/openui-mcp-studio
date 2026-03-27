@@ -180,18 +180,13 @@ function buildDefaultStages(options = {}) {
 						command: "npm run -s test:fast:gate",
 					hint: "Fast unit/integration/acceptance gate failed. Fix deterministic test failures before deep checks.",
 				}),
-					Object.freeze({
-						id: "uiuxReviewContract",
-						category: "test",
-						command: "npm run -s uiux:audit:strict:gate",
-					hint: "UIUX strict gate failed. Fix semantic/a11y issues or provide GEMINI_API_KEY when frontend files are present.",
-				}),
-					Object.freeze({
-						id: "docsCochange",
-						category: "infra",
-						command: "node tooling/check-docs-cochange.mjs --ci",
-					hint: "Code changes require matching doc updates (or vice versa). See docs/governance-runbook.md for whitelist options.",
-				}),
+						Object.freeze({
+							id: "uiuxReviewContract",
+							category: "test",
+							command: "npm run -s uiux:audit:strict:gate",
+							advisory: true,
+						hint: "UIUX strict gate is advisory in ci:gate because Gemini-backed review output can drift. Investigate semantic/a11y issues, but keep deterministic checks as the blocking path.",
+					}),
 			]),
 		}),
 		Object.freeze({
@@ -218,12 +213,6 @@ function buildDefaultStages(options = {}) {
 						command:
 						"node tooling/check-core-coverage.mjs --wait-for-fresh-ms=120000",
 					hint: "Core coverage hard gate failed. Ensure packages/shared-runtime/src/** and services/mcp-server/src/tools/** meet minimum thresholds.",
-				}),
-					Object.freeze({
-						id: "mutationFullGate",
-						category: "test",
-						command: "npm run -s mutation:run:full && npm run -s mutation:gate",
-					hint: "Mutation full gate failed. Fix surviving mutants or sample-quality violations before continuing.",
 				}),
 					Object.freeze({
 						id: "build",

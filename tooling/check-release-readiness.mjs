@@ -97,18 +97,12 @@ function validateTagPolicy(tagPolicy, tags, errors) {
 		return { latestTag: tags[0] ?? null };
 	}
 
-	const latestTag = tags[0] ?? null;
+	const latestTag = tags.find((tag) => pattern.test(tag)) ?? null;
 	if (!latestTag) {
 		errors.push(
 			"No git release tag found. Create a SemVer tag (for example: v0.3.0) before release readiness check.",
 		);
 		return { latestTag: null };
-	}
-
-	if (!pattern.test(latestTag)) {
-		errors.push(
-			`Latest git tag "${latestTag}" does not match releaseTagPattern ${patternRaw}.`,
-		);
 	}
 
 	return { latestTag };

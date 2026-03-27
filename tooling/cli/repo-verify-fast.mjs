@@ -17,6 +17,7 @@ const VERIFY_FAST_STEPS = [
 	["npm", "run", "-s", "governance:runtime:check"],
 	["npm", "run", "-s", "governance:runtime-layout:check"],
 	["npm", "run", "-s", "governance:cache-lifecycle:check"],
+	["npm", "run", "-s", "governance:space:check"],
 	["npm", "run", "-s", "governance:deps:check"],
 	["npm", "run", "-s", "governance:history-hygiene:check"],
 	["npm", "run", "-s", "governance:log-schema:check"],

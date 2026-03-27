@@ -1,4 +1,4 @@
-title = "openui-mcp-ui-generator gitleaks config"
+title = "openui-mcp-studio gitleaks config"
 
 [extend]
 useDefault = true
@@ -10,7 +10,6 @@ commits = [
 ]
 paths = [
   '''^(?:\./)?\.secrets\.baseline$''',
-  '''^backend/openui/eval/svg_annotator\.html$''',
 ]
 regexes = [
   '''^(?:token-value|apikey-value|password-value|secret-value|generic-key-value|nested-token-value|list-secret-value|top-secret-value)$''',

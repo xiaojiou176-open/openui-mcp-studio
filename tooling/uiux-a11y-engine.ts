@@ -160,7 +160,7 @@ async function getFilesFromGitDiff(
 		);
 }
 
-async function collectHtmlFiles(root: string): Promise<string[]> {
+export async function collectHtmlFiles(root: string): Promise<string[]> {
 	const entries = await readdir(root, { withFileTypes: true });
 	const files: string[] = [];
 	for (const entry of entries) {
@@ -176,7 +176,7 @@ async function collectHtmlFiles(root: string): Promise<string[]> {
 	return files;
 }
 
-async function disableMotion(page: Page): Promise<void> {
+export async function disableMotion(page: Page): Promise<void> {
 	await page.addStyleTag({
 		content:
 			"*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}",

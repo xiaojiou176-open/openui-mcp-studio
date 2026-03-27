@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import { spawnSync } from "node:child_process";
-import { pathToFileURL } from "node:url";
+import { URL, pathToFileURL } from "node:url";
 import process from "node:process";
 import { runHistoryHygieneCheck } from "../check-history-hygiene.mjs";
 
@@ -20,6 +20,7 @@ const DOCTOR_CHECKS = [
 	{ id: "runtime", command: ["npm", "run", "-s", "governance:runtime:check"] },
 	{ id: "runtimeLayout", command: ["npm", "run", "-s", "governance:runtime-layout:check"] },
 	{ id: "cacheLifecycle", command: ["npm", "run", "-s", "governance:cache-lifecycle:check"] },
+	{ id: "spaceGovernance", command: ["npm", "run", "-s", "governance:space:check"] },
 	{ id: "logSchema", command: ["npm", "run", "-s", "governance:log-schema:check"] },
 	{ id: "evidence", command: ["npm", "run", "-s", "governance:evidence:check"] },
 	{ id: "runCorrelation", command: ["npm", "run", "-s", "governance:run-correlation:check"] },

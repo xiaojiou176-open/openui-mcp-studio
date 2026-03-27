@@ -304,31 +304,20 @@ repos:
         name: AI context files pair check (AGENTS/CLAUDE)
         entry: >-
           bash -c 'set -euo pipefail;
-          required=(
-            .cursorrules
-            AGENTS.md CLAUDE.md
-            src/next-smoke/AGENTS.md src/next-smoke/CLAUDE.md
-            src/providers/AGENTS.md src/providers/CLAUDE.md
-            src/retrieval/AGENTS.md src/retrieval/CLAUDE.md
-            src/shared/AGENTS.md src/shared/CLAUDE.md
-            src/tools/AGENTS.md src/tools/CLAUDE.md
-            src/uiux/AGENTS.md src/uiux/CLAUDE.md
-            tests/e2e/AGENTS.md tests/e2e/CLAUDE.md
-            tests/fixtures/AGENTS.md tests/fixtures/CLAUDE.md
-            tests/visual-golden/AGENTS.md tests/visual-golden/CLAUDE.md
-            tooling/contracts/AGENTS.md tooling/contracts/CLAUDE.md
-            tooling/env-contract/AGENTS.md tooling/env-contract/CLAUDE.md
-            tooling/shared/AGENTS.md tooling/shared/CLAUDE.md
-            services/gemini-sidecar/AGENTS.md services/gemini-sidecar/CLAUDE.md
-          );
+          mapfile -t agent_files < <(find . \( -path ./.git -o -path ./node_modules \) -prune -o -name AGENTS.md -print | sed "s#^\\./##" | sort);
+          mapfile -t claude_files < <(find . \( -path ./.git -o -path ./node_modules \) -prune -o -name CLAUDE.md -print | sed "s#^\\./##" | sort);
           missing=();
-          for f in "${required[@]}"; do [ -f "$f" ] || missing+=("$f"); done;
+          [ -f AGENTS.md ] || missing+=("AGENTS.md");
+          [ -f CLAUDE.md ] || missing+=("CLAUDE.md");
+          for f in "${agent_files[@]}"; do pair="${f%AGENTS.md}CLAUDE.md"; [ -f "$pair" ] || missing+=("$pair"); done;
+          for f in "${claude_files[@]}"; do pair="${f%CLAUDE.md}AGENTS.md"; [ -f "$pair" ] || missing+=("$pair"); done;
           if [ ${#missing[@]} -gt 0 ]; then
             echo "[pre-commit] missing AI context files:";
-            printf "%s\n" "${missing[@]}";
+            printf "%s\n" "${missing[@]}" | sort -u;
             exit 1;
           fi;
-          echo "[pre-commit] AI context files OK (${#required[@]} files)"'
+          total=$(( ${#agent_files[@]} + ${#claude_files[@]} ));
+          echo "[pre-commit] AI context files OK ($total files)"'
         language: system
         pass_filenames: false
 

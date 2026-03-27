@@ -53,10 +53,12 @@ jobs:
           dockerfile_hash="$(sha256sum .devcontainer/Dockerfile | awk '{print $1}')"
           lockfile_hash="$(sha256sum package-lock.json | awk '{print $1}')"
           created_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          echo "image_repo=${image_repo}" >> "${GITHUB_OUTPUT}"
-          echo "dockerfile_hash=${dockerfile_hash}" >> "${GITHUB_OUTPUT}"
-          echo "lockfile_hash=${lockfile_hash}" >> "${GITHUB_OUTPUT}"
-          echo "created_at=${created_at}" >> "${GITHUB_OUTPUT}"
+          {
+            echo "image_repo=${image_repo}"
+            echo "dockerfile_hash=${dockerfile_hash}"
+            echo "lockfile_hash=${lockfile_hash}"
+            echo "created_at=${created_at}"
+          } >> "${GITHUB_OUTPUT}"
 
       - name: Login to GHCR
         shell: bash
@@ -67,7 +69,7 @@ jobs:
           printf '%s' "${GHCR_TOKEN}" | docker login ghcr.io --username "${GITHUB_ACTOR}" --password-stdin
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@8016837eba79c3b51bf2025379f48b6fc50f1236
+        uses: docker/setup-buildx-action@d91f340399fb2345e3e45f5461e116862b08261d
         with:
           driver: docker-container
           install: true
@@ -88,7 +90,7 @@ jobs:
             --metadata-file .runtime-cache/ci-image/build-metadata.json \
             --sbom=true \
             --attest type=provenance,mode=max \
-            --label "org.opencontainers.image.title=openui-mcp-ui-generator-ci" \
+            --label "org.opencontainers.image.title=openui-mcp-studio-ci" \
             --label "org.opencontainers.image.description=Hermetic CI runtime for OpenUI MCP repository" \
             --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
             --label "org.opencontainers.image.revision=${GITHUB_SHA}" \

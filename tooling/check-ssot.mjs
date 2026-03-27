@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { readJsonFile, toPosixPath } from "./shared/governance-utils.mjs";
+import { toPosixPath } from "./shared/governance-utils.mjs";
 
 const REQUIRED_CONTRACTS = [
 	"contracts/governance/root-allowlist.json",

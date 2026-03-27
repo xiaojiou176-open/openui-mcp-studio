@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/xiaojiou176-open/openui-mcp-studio/discussions
+    about: Use Discussions for ideas, setup questions, comparisons, and show-and-tell threads instead of opening a bug.
   - name: Private vulnerability reporting
     url: https://github.com/xiaojiou176-open/openui-mcp-studio/security/advisories/new
     about: Private vulnerability reporting is enabled. Use this non-public intake instead of opening a public issue for security-sensitive findings.

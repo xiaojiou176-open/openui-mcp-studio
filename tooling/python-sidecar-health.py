@@ -9,7 +9,6 @@ import os
 import selectors
 import ssl
 import subprocess
-import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -30,6 +29,34 @@ def read_line_with_timeout(proc: subprocess.Popen[str], timeout_seconds: float, 
   if not line:
     raise RuntimeError(f"No response from sidecar for method={method}")
   return line
+
+
+def read_stderr_tail_nonblocking(
+  proc: subprocess.Popen[str],
+  timeout_seconds: float = 0.5,
+) -> tuple[str, dict[str, object] | None]:
+  if proc.stderr is None:
+    return "", None
+
+  selector = selectors.DefaultSelector()
+  try:
+    selector.register(proc.stderr, selectors.EVENT_READ)
+    events = selector.select(timeout_seconds)
+    if not events:
+      return "", None
+
+    data = proc.stderr.read()
+    if not data:
+      return "", None
+
+    return data[-2000:], None
+  except Exception as exc:  # noqa: BLE001
+    return "", {
+      "error_type": type(exc).__name__,
+      "error": str(exc),
+    }
+  finally:
+    selector.close()
 
 
 def rpc_call(
@@ -172,13 +199,15 @@ def main() -> int:
 
     return 0
   except Exception as exc:  # noqa: BLE001
-    stderr_tail = ""
-    if proc.stderr is not None:
-      try:
-        stderr_tail = proc.stderr.read()[-2000:]
-      except Exception:
-        stderr_tail = ""
-    print(json.dumps({"ok": False, "error": str(exc), "stderr": stderr_tail}, ensure_ascii=True))
+    stderr_tail, stderr_read_error = read_stderr_tail_nonblocking(proc)
+    payload = {
+      "ok": False,
+      "error": str(exc),
+      "stderr": stderr_tail,
+    }
+    if stderr_read_error is not None:
+      payload["stderr_read_error"] = stderr_read_error
+    print(json.dumps(payload, ensure_ascii=True))
     return 1
   finally:
     if proc.poll() is None:
