@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"@modelcontextprotocol/sdk": "^1.27.1",
+		"@modelcontextprotocol/sdk": "^1.28.0",
 		"zod": "^4.3.6"
 	},
 	"description": "Generate, apply, and verify production-ready React and shadcn UI from natural-language briefs.",
