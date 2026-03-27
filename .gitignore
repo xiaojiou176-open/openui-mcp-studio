@@ -1,0 +1,65 @@
+node_modules/
+dist/
+build/
+.cache/
+.env*
+!.env.example
+!.env.development.example
+!.env.staging.example
+!.env.production.example
+.DS_Store
+npm-debug.log*
+.runtime-cache/
+.agent/
+.agents/
+.codex/
+.claude/
+.opencode/
+.cursorrules
+logs/
+cache/
+orb.db/
+tooling/__pycache__/
+
+# TypeScript incremental compilation
+*.tsbuildinfo
+.tsbuildinfo
+
+# IDE and editor files
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Deployment and build caches
+.turbo/
+.vercel/
+.netlify/
+.next/
+
+# Python sidecar cache
+services/gemini-sidecar/**/__pycache__/
+services/gemini-sidecar/**/*.pyc
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+.venv/
+venv/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Debug and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej

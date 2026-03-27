@@ -1,0 +1,158 @@
+{
+	"version": 2,
+	"upstreams": [
+		{
+			"id": "gemini-api",
+			"name": "Gemini API",
+			"glueSurfaceId": "gemini-runtime",
+			"owner": "openui-platform",
+			"responsibility": "Primary LLM inference and embeddings/runtime model calls.",
+			"integrationType": "runtime-api",
+			"sourceLocator": "https://ai.google.dev/",
+			"publicContractSurface": "Gemini Generative Language API + model name contract",
+			"supportedVersionWindow": "Gemini model names declared in env contract",
+			"pin": {
+				"mode": "model-name-and-env-contract",
+				"required": true
+			},
+			"validationSuites": ["test:live", "tests/gemini-sidecar-contract.test.ts"],
+			"rollbackPath": "Restore previous env contract model set and rerun live + sidecar contract gates.",
+			"failureAttributionSignals": [
+				"upstream",
+				"environment",
+				"version_combination"
+			]
+		},
+		{
+			"id": "openui-upstream-reference",
+			"name": "OpenUI upstream reference",
+			"glueSurfaceId": "openui-upstream-reference",
+			"owner": "openui-platform",
+			"responsibility": "Tracked upstream reference surface used for selective adoption, compatibility review, and upstream drift visibility.",
+			"integrationType": "upstream-reference",
+			"sourceLocator": "ghcr.io/wandb/openui + upstream remote https://github.com/wandb/openui.git",
+			"publicContractSurface": "Upstream repository/image reference plus repository compatibility projection and sync policy docs.",
+			"supportedVersionWindow": "Tracked upstream remote state and explicitly reviewed image or commit evidence only",
+			"pin": {
+				"mode": "upstream-remote-and-reviewed-image",
+				"required": true
+			},
+			"validationSuites": ["sync:upstream:check", "sync:upstream:dryrun"],
+			"rollbackPath": "Revert the selective adoption branch, restore prior upstream evidence, and rerun upstream governance checks.",
+			"failureAttributionSignals": [
+				"upstream",
+				"repo",
+				"environment"
+			]
+		},
+		{
+			"id": "ghcr-ci-image",
+			"name": "GHCR CI image",
+			"glueSurfaceId": "ci-image-runner",
+			"owner": "devinfra",
+			"responsibility": "Pinned containerized CI/runtime parity image.",
+			"integrationType": "container-image",
+			"sourceLocator": ".github/ci-image.lock.json",
+			"publicContractSurface": "Immutable GHCR image digest + CI container action contract",
+			"supportedVersionWindow": "Exact digest only",
+			"pin": {
+				"mode": "digest-lock",
+				"required": true
+			},
+			"validationSuites": ["governance:pinned-source:check", "governance:workflow:check", "iac:check"],
+			"rollbackPath": "Restore previous lock digest and rerun workflow + IaC checks.",
+			"failureAttributionSignals": [
+				"upstream",
+				"version_combination",
+				"environment"
+			]
+		},
+		{
+			"id": "playwright-browser-assets",
+			"name": "Playwright browser assets",
+			"glueSurfaceId": "playwright-browser-runtime",
+			"owner": "devinfra",
+			"responsibility": "Browser binaries and traces used by E2E and visual checks.",
+			"integrationType": "tool-runtime",
+			"sourceLocator": "package-lock.json + Playwright install contract",
+			"publicContractSurface": "playwright package version and browser executable contract",
+			"supportedVersionWindow": "Lockfile-pinned Playwright release only",
+			"pin": {
+				"mode": "lockfile",
+				"required": true
+			},
+			"validationSuites": ["test:e2e", "visual:qa"],
+			"rollbackPath": "Restore prior lockfile and rerun E2E + visual QA.",
+			"failureAttributionSignals": [
+				"upstream",
+				"version_combination",
+				"environment"
+			]
+		},
+		{
+			"id": "python-sidecar-dependencies",
+			"name": "Python sidecar dependencies",
+			"glueSurfaceId": "python-sidecar-runtime",
+			"owner": "openui-platform",
+			"responsibility": "Gemini sidecar runtime packages.",
+			"integrationType": "runtime-package-set",
+			"sourceLocator": "services/gemini-sidecar/requirements.txt",
+			"publicContractSurface": "Python sidecar protocol + dependency set",
+			"supportedVersionWindow": "requirements.txt pinned ranges validated by py:smoke and sidecar contract tests",
+			"pin": {
+				"mode": "requirements-file",
+				"required": true
+			},
+			"validationSuites": ["py:smoke", "tests/gemini-sidecar-contract.test.ts"],
+			"rollbackPath": "Restore previous requirements.txt and rerun py:smoke + sidecar contract tests.",
+			"failureAttributionSignals": [
+				"upstream",
+				"environment",
+				"version_combination"
+			]
+		},
+		{
+			"id": "patch-package-surface",
+			"name": "patch-package surface",
+			"glueSurfaceId": "patch-replay-layer",
+			"owner": "devinfra",
+			"responsibility": "Temporary third-party dependency overrides applied postinstall.",
+			"integrationType": "patch-layer",
+			"sourceLocator": "ops/upstream/patches/patch-package/README.md + contracts/upstream/patch-registry.json",
+			"publicContractSurface": "patch-package registry and postinstall replay contract",
+			"supportedVersionWindow": "Only patches declared in patch registry",
+			"pin": {
+				"mode": "patch-registry",
+				"required": true
+			},
+			"validationSuites": ["governance:upstream:check"],
+			"rollbackPath": "Delete patch entry + patch file together and rerun upstream governance.",
+			"failureAttributionSignals": [
+				"repo",
+				"version_combination"
+			]
+		},
+		{
+			"id": "upstream-sync-remotes",
+			"name": "Upstream sync remotes",
+			"glueSurfaceId": "upstream-sync-git-remote",
+			"owner": "devinfra",
+			"responsibility": "Source alignment with upstream remote and replay workflow.",
+			"integrationType": "git-remote",
+			"sourceLocator": "docs/upstream-sync-sop.md + tooling/sync-upstream-init.mjs",
+			"publicContractSurface": "Canonical upstream remote URL + sync branch policy + init/check scripts",
+			"supportedVersionWindow": "Canonical upstream remote must resolve and pass init/check policy",
+			"pin": {
+				"mode": "commit-sha",
+				"required": true
+			},
+			"validationSuites": ["sync:upstream:init", "sync:upstream:check", "sync:upstream:dryrun"],
+			"rollbackPath": "Reset remote URL to previous canonical target and rerun init/check.",
+			"failureAttributionSignals": [
+				"upstream",
+				"repo",
+				"environment"
+			]
+		}
+	]
+}
