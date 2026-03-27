@@ -61,9 +61,30 @@ async function runProofPackFreshnessCheck(rootDir = process.cwd()) {
 		"release:public-safe:check",
 		"governance:remote-evidence:check:strict",
 		"security:pii:audit",
+		"public:assets:check",
+		"public:assets:render",
+		"public:remote:check",
+		"public:surface:check",
 	]) {
 		if (!Object.prototype.hasOwnProperty.call(scripts, requiredScript)) {
 			errors.push(`package.json is missing required proof-pack script "${requiredScript}".`);
+		}
+	}
+
+	for (const requiredAsset of [
+		"docs/assets/openui-mcp-studio-workbench.png",
+		"docs/assets/openui-mcp-studio-demo.gif",
+		"docs/assets/openui-mcp-studio-social-preview.png",
+		"docs/assets/openui-mcp-studio-workflow-overview.png",
+		"docs/assets/openui-mcp-studio-comparison.png",
+		"docs/assets/openui-mcp-studio-trust-stack.png",
+		"docs/assets/openui-mcp-studio-use-cases.png",
+		"docs/assets/openui-mcp-studio-visitor-paths.png",
+	]) {
+		try {
+			await fs.access(path.resolve(absoluteRoot, requiredAsset));
+		} catch {
+			errors.push(`missing required public asset "${requiredAsset}".`);
 		}
 	}
 

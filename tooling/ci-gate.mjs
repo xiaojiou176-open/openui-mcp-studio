@@ -246,10 +246,16 @@ async function initializeRunLayout(layout, commandArgs) {
 		await mkdir(path.dirname(absoluteLogPath), { recursive: true });
 		await writeFile(absoluteLogPath, "", "utf8");
 	}
+	await ensureRunManifest(layout, commandArgs);
+}
+
+async function ensureRunManifest(layout, commandArgs = []) {
+	const normalizedCommandArgs = Array.isArray(commandArgs) ? commandArgs : [];
 	const runManifestPath = path.resolve(
 		process.cwd(),
 		layout.runManifestPathRelative,
 	);
+	await mkdir(path.dirname(runManifestPath), { recursive: true });
 	await writeFile(
 		runManifestPath,
 		`${JSON.stringify(
@@ -258,7 +264,7 @@ async function initializeRunLayout(layout, commandArgs) {
 				runId: layout.runId,
 				authoritative: true,
 				mode: "ci-gate",
-				command: `node tooling/ci-gate.mjs${commandArgs.length > 0 ? ` ${commandArgs.join(" ")}` : ""}`,
+				command: `node tooling/ci-gate.mjs${normalizedCommandArgs.length > 0 ? ` ${normalizedCommandArgs.join(" ")}` : ""}`,
 				createdAt: new Date().toISOString(),
 				workspaceRoot: process.cwd(),
 			},
@@ -293,6 +299,7 @@ if (isDirectExecution()) {
 			}),
 		});
 		summary = applyRunMetadataToSummary(summary, runId);
+		await ensureRunManifest(layout, cliArgs);
 		const qualityScoreGate = await runQualityScoreGate({
 			summary,
 			summaryPath: finalSummaryPath,
@@ -399,4 +406,5 @@ export {
 	runCiGate,
 	writeSummaryFile,
 	applyQualityScoreGateToSummary,
+	ensureRunManifest,
 };

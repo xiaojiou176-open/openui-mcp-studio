@@ -14,8 +14,8 @@
 			"owner": "tooling-root",
 			"entryFile": "tooling/sync-upstream-check.mjs",
 			"testFiles": ["tests/upstream-governance.test.ts"],
-			"docsEntry": "docs/vision-and-boundaries.md",
-			"runbook": "docs/upstream-operations-handbook.md"
+			"docsEntry": "docs/upstream-sync-sop.md",
+			"runbook": "docs/governance-runbook.md"
 		},
 		{
 			"id": "ci-image-runner",
@@ -47,14 +47,14 @@
 			"entryFile": "tooling/sync-upstream-check.mjs",
 			"testFiles": ["tests/upstream-governance.test.ts"],
 			"docsEntry": "docs/upstream-sync-sop.md",
-			"runbook": "docs/upstream-operations-handbook.md"
+			"runbook": "docs/governance-runbook.md"
 		},
 		{
 			"id": "patch-replay-layer",
 			"owner": "tooling-root",
 			"entryFile": "ops/upstream/patches/patch-package/README.md",
 			"testFiles": ["tests/upstream-governance.test.ts"],
-			"docsEntry": "docs/dependencies.md",
+			"docsEntry": "ops/upstream/patches/patch-package/README.md",
 			"runbook": "docs/upstream-sync-sop.md"
 		}
 	]

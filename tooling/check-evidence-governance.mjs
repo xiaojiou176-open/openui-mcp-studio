@@ -2,9 +2,18 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readJsonFile, toPosixPath } from "./shared/governance-utils.mjs";
-import { describeRunSurfaceState, resolveRunLayout } from "./shared/run-layout.mjs";
+import {
+	resolveLatestRunId,
+	resolveRunLayout,
+} from "./shared/run-layout.mjs";
 
 const DEFAULT_CONTRACT_PATH = "contracts/governance/evidence-schema.json";
+const AUTHORITATIVE_RUN_FILES = [
+	"summary.json",
+	"quality-score.json",
+	"meta/run.json",
+	"evidence/index.json",
+];
 // Governance verifies .runtime-cache/runs/<run_id>/summary.json + quality-score.json + evidence/index.json as one bundle.
 
 function parseCliArgs(argv = process.argv.slice(2)) {
@@ -25,12 +34,7 @@ async function runEvidenceGovernanceCheck(options = {}) {
 		layout = await resolveRunLayout({
 			...options,
 			preferLatestExistingRun: options.runId === undefined,
-			requiredRunFiles: [
-				"summary.json",
-				"quality-score.json",
-				"meta/run.json",
-				"evidence/index.json",
-			],
+			requiredRunFiles: AUTHORITATIVE_RUN_FILES,
 			requireAuthoritativeManifest: options.runId === undefined,
 		});
 	} catch (error) {
@@ -38,8 +42,13 @@ async function runEvidenceGovernanceCheck(options = {}) {
 			error instanceof Error &&
 			error.message.includes("No authoritative run id is available")
 		) {
-			const runSurface = await describeRunSurfaceState(options);
-			if (runSurface.state === "absent" || runSurface.state === "empty") {
+			const authoritativeRunId = await resolveLatestRunId({
+				rootDir,
+				contractPath: options.contractPath,
+				requiredRunFiles: AUTHORITATIVE_RUN_FILES,
+				requireAuthoritativeManifest: true,
+			});
+			if (!authoritativeRunId) {
 				if (options.allowNoAuthoritativeRuns === false) {
 					return {
 						ok: false,

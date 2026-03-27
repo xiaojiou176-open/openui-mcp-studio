@@ -26,7 +26,7 @@ async function runModuleReadmeCheck(options = {}) {
 			errors.push(`module ${moduleEntry.path ?? "<unknown>"} is missing readme declaration`);
 			continue;
 		}
-		let content = "";
+		let content;
 		try {
 			content = await fs.readFile(path.resolve(rootDir, readmePath), "utf8");
 		} catch {

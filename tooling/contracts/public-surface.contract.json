@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "repository": {
+    "owner": "xiaojiou176-open",
+    "name": "openui-mcp-studio"
+  },
+  "about": {
+    "description": "Generate, apply, and verify production-ready React and shadcn UI from natural-language briefs.",
+    "homepageUrl": "https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/docs/proof-and-faq.md",
+    "discussionsEnabled": true
+  },
+  "topics": [
+    "agent-tools",
+    "ai-ui",
+    "design-to-code",
+    "developer-tools",
+    "frontend-workflow",
+    "mcp",
+    "nextjs",
+    "openui",
+    "quality-gates",
+    "react",
+    "shadcn",
+    "tailwind",
+    "ui-generation",
+    "ui-testing"
+  ],
+  "discussionCategories": [
+    "Announcements",
+    "General",
+    "Ideas",
+    "Polls",
+    "Q&A",
+    "Show and tell"
+  ],
+  "requiredDiscussionTitles": [
+    "Start here: OpenUI MCP Studio public surface refresh",
+    "General: what are you trying to evaluate or build?",
+    "Ideas backlog: what should OpenUI MCP Studio prove next?",
+    "Poll: what should matter most on the public surface?",
+    "Q&A kickoff: ask setup or evaluation questions here",
+    "Show and tell: share what you built or evaluated"
+  ],
+  "release": {
+    "requiredAssets": [
+      "openui-mcp-studio-demo.gif",
+      "openui-mcp-studio-social-preview.png",
+      "openui-mcp-studio-workbench.png",
+      "openui-mcp-studio-workflow-overview.png",
+      "openui-mcp-studio-comparison.png",
+      "openui-mcp-studio-trust-stack.png",
+      "openui-mcp-studio-use-cases.png",
+      "openui-mcp-studio-visitor-paths.png"
+    ]
+  }
+}

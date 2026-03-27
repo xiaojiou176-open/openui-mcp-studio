@@ -47,10 +47,12 @@
 - Upstream version source (Required):
   - Release note / changelog URL:
   - Upstream tag / commit SHA:
+- Clone-local preflight status (Required):
+  - Did this worktree have `upstream` attached and green sync preflight when you started? If not, how was that gap handled?
 - Conflict points (Required):
   1.
-- Whole-repo merge/rebase exception note (Required when applicable):
-  - If whole-repo merge/rebase was considered, explain why selective-port was not realistic:
+- Exceptional whole-repo merge/rebase note (Required when applicable):
+  - If whole-repo merge/rebase was considered, explain why selective-port was not realistic for this case:
 - Verification result for conflict resolution (Required):
   - Key checks and outcomes:
 - Backlog receipt update (Required when status becomes `done`):

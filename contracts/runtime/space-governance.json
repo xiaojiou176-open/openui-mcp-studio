@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "reportRoot": ".runtime-cache/reports/space-governance",
+  "topN": 10,
+  "nonCanonicalRuntimeHeavyThresholdBytes": 10485760,
+  "hardFailNonCanonicalPaths": [
+    ".runtime-cache/go-mod",
+    ".runtime-cache/go-cache",
+    ".runtime-cache/precommit-full-home",
+    ".runtime-cache/precommit-venv",
+    ".runtime-cache/precommit-full-venv",
+    "$HOME",
+    "$HOME/.cache/pre-commit"
+  ],
+  "rootAnomalies": [
+    "$HOME"
+  ],
+  "baselineTargets": [
+    ".runtime-cache",
+    ".runtime-cache/go-mod",
+    ".runtime-cache/precommit-full-home",
+    ".runtime-cache/go-cache",
+    ".runtime-cache/precommit-venv",
+    ".runtime-cache/precommit-full-venv",
+    "$HOME",
+    "$HOME/.cache/pre-commit",
+    "apps/web/.next",
+    "node_modules",
+    ".git"
+  ],
+  "lowRiskCleanupTargets": [
+    "apps/web/.next",
+    ".runtime-cache/go-cache",
+    ".runtime-cache/precommit-venv",
+    ".runtime-cache/precommit-full-venv"
+  ],
+  "verificationCandidates": [
+    {
+      "path": ".runtime-cache/go-mod",
+      "reason": "Non-canonical Go module download cache with clear rebuild path through Go-based tool invocations."
+    },
+    {
+      "path": ".runtime-cache/precommit-full-home",
+      "reason": "Non-canonical pre-commit tool home that should rebuild from hook bootstrap when needed."
+    },
+    {
+      "path": "$HOME",
+      "reason": "Unexpected literal HOME root inside the repository; treat as path-governance drift first."
+    },
+    {
+      "path": "$HOME/.cache/pre-commit",
+      "reason": "Unexpected pre-commit cache mirror inside repo-local literal HOME tree."
+    }
+  ],
+  "deferredSharedLayers": [
+    {
+      "path": "~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw",
+      "reason": "Shared container VM layer; machine-level cleanup only."
+    },
+    {
+      "path": "~/.npm",
+      "reason": "Shared npm cache; not repo-local cleanup scope."
+    },
+    {
+      "path": "~/.cache/pre-commit",
+      "reason": "Shared pre-commit cache; not repo-local cleanup scope."
+    },
+    {
+      "path": "~/Library/Caches/ms-playwright",
+      "reason": "Shared Playwright browser cache; not repo-local cleanup scope."
+    },
+    {
+      "path": "~/Library/Application Support/Cursor/User/workspaceStorage",
+      "reason": "Editor workspace cache; treat repo-specific slices separately."
+    },
+    {
+      "path": "~/Library/Application Support/Cursor/User/globalStorage",
+      "reason": "Editor global cache with unclear repo attribution."
+    }
+  ]
+}

@@ -2,7 +2,18 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readJsonFile, toPosixPath } from "./shared/governance-utils.mjs";
-import { describeRunSurfaceState, resolveRunLayout } from "./shared/run-layout.mjs";
+import {
+	describeRunSurfaceState,
+	resolveLatestRunId,
+	resolveRunLayout,
+} from "./shared/run-layout.mjs";
+
+const AUTHORITATIVE_RUN_FILES = [
+	"summary.json",
+	"quality-score.json",
+	"meta/run.json",
+	"evidence/index.json",
+];
 
 function parseCliArgs(argv = process.argv.slice(2)) {
 	return {
@@ -14,7 +25,7 @@ async function collectJsonlFiles(logPaths, rootDir) {
 	const errors = [];
 	for (const relativePath of logPaths) {
 		const absolutePath = path.resolve(rootDir, relativePath);
-		let raw = "";
+		let raw;
 		try {
 			raw = await fs.readFile(absolutePath, "utf8");
 		} catch {
@@ -43,12 +54,7 @@ async function runRunCorrelationCheck(options = {}) {
 		layout = await resolveRunLayout({
 			...options,
 			preferLatestExistingRun: options.runId === undefined,
-			requiredRunFiles: [
-				"summary.json",
-				"quality-score.json",
-				"meta/run.json",
-				"evidence/index.json",
-			],
+			requiredRunFiles: AUTHORITATIVE_RUN_FILES,
 			requireAuthoritativeManifest: options.runId === undefined,
 		});
 	} catch (error) {
@@ -57,7 +63,13 @@ async function runRunCorrelationCheck(options = {}) {
 			error.message.includes("No authoritative run id is available")
 		) {
 			const runSurface = await describeRunSurfaceState(options);
-			if (runSurface.state === "absent" || runSurface.state === "empty") {
+			const authoritativeRunId = await resolveLatestRunId({
+				rootDir: runSurface.rootDir,
+				contractPath: options.contractPath,
+				requiredRunFiles: AUTHORITATIVE_RUN_FILES,
+				requireAuthoritativeManifest: true,
+			});
+			if (!authoritativeRunId) {
 				if (options.allowNoAuthoritativeRuns === false) {
 					return {
 						ok: false,

@@ -7,7 +7,7 @@ const DEFAULT_ALLOWLIST_PATH = "tooling/contracts/public-boundary-allowlist.json
 function firstNonAsciiLine(content) {
 	const lines = content.split("\n");
 	for (let index = 0; index < lines.length; index += 1) {
-		if (/[^\x00-\x7F]/u.test(lines[index])) {
+		if ([...lines[index]].some((char) => (char.codePointAt(0) ?? 0) > 0x7f)) {
 			return index + 1;
 		}
 	}

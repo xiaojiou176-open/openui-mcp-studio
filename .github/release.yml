@@ -1,0 +1,30 @@
+changelog:
+  categories:
+    - title: Highlights
+      labels:
+        - feat
+        - feature
+        - enhancement
+    - title: UI Shipping Workflow
+      labels:
+        - ui
+        - uiux
+        - frontend
+        - product-surface
+    - title: Quality And Trust
+      labels:
+        - governance
+        - quality
+        - testing
+        - security
+    - title: Docs And Onboarding
+      labels:
+        - docs
+        - onboarding
+  exclude:
+    labels:
+      - chore
+      - dependencies
+      - internal
+    authors:
+      - dependabot

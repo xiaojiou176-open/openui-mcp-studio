@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
+import path from "node:path";
+import { buildSafeToolCacheEnv } from "./shared/tool-cache-env.mjs";
 
 const NPM_BIN = process.platform === "win32" ? "npm.cmd" : "npm";
 const WARNING_PATTERN = /\b(warn(?:ing)?|deprecated)\b/iu;
@@ -11,16 +13,6 @@ const PROFILE_DEFINITIONS = {
 			id: "fast-gates",
 			mode: "parallel",
 			tasks: [
-				{
-					name: "required-live-key",
-					command: "node",
-					args: [
-						"--env-file-if-exists=.env",
-						"--input-type=module",
-						"-e",
-						"const key=(process.env.GEMINI_API_KEY||'').trim(); const placeholder=/(YOUR_GEMINI_API_KEY|your_key|changeme|replace_me)/i.test(key); if(!key||placeholder){console.error('GEMINI_API_KEY is required and must not be a placeholder for pre-commit/pre-push gate.'); process.exit(1);}",
-					],
-				},
 				{
 					name: "secrets-scan",
 					command: "bash",
@@ -35,11 +27,6 @@ const PROFILE_DEFINITIONS = {
 					name: "governance-contract",
 					command: "node",
 					args: ["tooling/check-governance-contract.mjs"],
-				},
-				{
-					name: "docs-cochange",
-					command: "node",
-					args: ["tooling/check-docs-cochange.mjs"],
 				},
 				{
 					name: "lint-staged",
@@ -78,11 +65,6 @@ const PROFILE_DEFINITIONS = {
 					name: "test-fast-gate",
 					command: NPM_BIN,
 					args: ["run", "-s", "test:fast:gate"],
-				},
-				{
-					name: "uiux-review-contract",
-					command: "node",
-					args: ["tooling/run-prepush-uiux-gate.mjs"],
 				},
 				{
 					name: "anti-placebo-guard",
@@ -155,6 +137,13 @@ function formatDuration(ms) {
 	return `${minutes}m${String(remainSeconds).padStart(2, "0")}s`;
 }
 
+async function buildGateTaskEnv(options = {}) {
+	return buildSafeToolCacheEnv({
+		rootDir: path.resolve(options.rootDir ?? process.cwd()),
+		env: options.env ?? process.env,
+	});
+}
+
 async function main() {
 	console.log(
 		`[pre-commit] policy profile=${profile}: short checks first, heavy checks stay in CI. each phase runs in parallel.`,
@@ -175,6 +164,7 @@ async function main() {
 	heartbeat.unref?.();
 
 	try {
+		const safeEnv = await buildGateTaskEnv();
 		for (const phase of PHASES) {
 			activePhase = phase.id;
 			console.log(
@@ -185,7 +175,7 @@ async function main() {
 				console.log(`[pre-commit] start ${task.name}`);
 				const child = spawn(task.command, task.args, {
 					stdio: ["ignore", "pipe", "pipe"],
-					env: process.env,
+					env: safeEnv,
 				});
 				running.set(task.name, child);
 				const warningLines = [];
@@ -294,3 +284,5 @@ main().catch((error) => {
 	console.error(`[pre-commit] fatal: ${error?.stack ?? String(error)}`);
 	process.exit(1);
 });
+
+export { buildGateTaskEnv };

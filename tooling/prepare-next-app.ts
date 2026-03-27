@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import { createRequire } from "node:module";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -115,6 +116,14 @@ function getNpmCommand(): string {
 }
 
 function getNextBinPath(root: string): string {
+	if (process.platform !== "win32") {
+		try {
+			const requireFromRoot = createRequire(path.resolve(root, "package.json"));
+			return requireFromRoot.resolve("next/dist/bin/next");
+		} catch {
+			// Fall back to the local .bin path for fixture-style runtimes.
+		}
+	}
 	return path.resolve(
 		root,
 		"node_modules",
@@ -150,11 +159,16 @@ async function runCommand(input: {
 }
 
 async function ensureRuntimeDeps(root: string): Promise<void> {
-	const requiredPaths = REQUIRED_NEXT_RUNTIME_PACKAGES.map((name) =>
-		path.resolve(root, "node_modules", name, "package.json"),
-	);
-	const allInstalled = await Promise.all(requiredPaths.map(pathExists));
-	if (allInstalled.every(Boolean)) {
+	const requireFromRoot = createRequire(path.resolve(root, "package.json"));
+	const allInstalled = REQUIRED_NEXT_RUNTIME_PACKAGES.every((name) => {
+		try {
+			requireFromRoot.resolve(`${name}/package.json`);
+			return true;
+		} catch {
+			return false;
+		}
+	});
+	if (allInstalled) {
 		return;
 	}
 
@@ -213,7 +227,7 @@ async function ensureBuild(root: string): Promise<void> {
 
 	await runCommand({
 		command: getNextBinPath(root),
-		args: ["build"],
+		args: ["build", "--webpack"],
 		cwd: root,
 		timeoutMs: DEFAULT_TIMEOUT_MS,
 	});

@@ -4,6 +4,7 @@ import process from "node:process";
 
 const steps = [
 	["npm", "run", "-s", "governance:upstream:check"],
+	["node", "tooling/sync-upstream-check.mjs", "--mode=non-blocking"],
 	["npm", "run", "-s", "security:history:audit"],
 ];
 

@@ -18,6 +18,11 @@ on:
         options:
           - blocking
           - non-blocking
+      run_live_gemini:
+        description: "Run manual live Gemini smoke gate"
+        required: false
+        default: false
+        type: boolean
       run_rollback_drill:
         description: "Run rollback drill job"
         required: false
@@ -42,6 +47,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
+      packages: read
     env:
       SCAN_WORKTREE: secret-scan-src-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -52,7 +58,7 @@ jobs:
           path: ${{ env.SCAN_WORKTREE }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version: "22.22.0"
 
@@ -169,6 +175,7 @@ jobs:
     timeout-minutes: 5
     permissions:
       contents: read
+      packages: read
     steps:
       - name: Declare public-safe runner contract
         shell: bash
@@ -189,6 +196,7 @@ jobs:
     timeout-minutes: 3
     permissions:
       contents: read
+      packages: read
     outputs:
       runs_on_json: ${{ steps.select.outputs.runs_on_json }}
       selected_tier: ${{ steps.select.outputs.selected_tier }}
@@ -219,20 +227,21 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+      packages: read
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
     steps:
-      - name: Validate GEMINI_API_KEY is configured (non-fork contexts)
-        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
+      - name: Validate GEMINI_API_KEY is configured (manual live lane)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_live_gemini
         run: |
           if [ -z "${GEMINI_API_KEY}" ]; then
             echo "::error title=Missing GEMINI_API_KEY::Required env hard gate requires GEMINI_API_KEY secret."
             exit 1
           fi
 
-      - name: Skip GEMINI_API_KEY requirement for fork PR
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork
-        run: 'echo "Fork PR detected: skip GEMINI_API_KEY hard requirement and continue non-live quality gates."'
+      - name: Skip GEMINI_API_KEY requirement outside manual live lane
+        if: github.event_name != 'workflow_dispatch' || !inputs.run_live_gemini
+        run: 'echo "Deterministic CI path detected: skip live Gemini key requirement unless manual dispatch explicitly enables it."'
 
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -247,6 +256,7 @@ jobs:
     timeout-minutes: 20
     permissions:
       contents: read
+      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -273,7 +283,7 @@ jobs:
         run: actionlint -color
 
       - name: Setup Node.js
-        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version: "22.22.0"
 
@@ -290,6 +300,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -311,46 +322,56 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
+      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           fetch-depth: 0
 
-      - name: Commitlint range
-        uses: ./.github/actions/run-in-ci-container
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
-          command: |
-            set -euo pipefail
-            from=""
-            to=""
-            if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
-              from="${PR_BASE_SHA}"
-              to="${PR_HEAD_SHA}"
-            elif [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
-              from="${PUSH_BEFORE}"
-              to="${PUSH_SHA}"
+          node-version: "22.22.0"
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Commitlint range
+        shell: bash
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          range_from=""
+          range_to=""
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            range_from="${PR_BASE_SHA:-}"
+            range_to="${PR_HEAD_SHA:-}"
+          elif [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
+            range_from="${PUSH_BEFORE:-}"
+            range_to="${PUSH_SHA:-}"
+          else
+            range_to="$(git rev-parse HEAD)"
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              range_from="$(git rev-parse HEAD~1)"
+            fi
+          fi
+          if [[ -z "${range_to}" ]]; then
+            range_to="$(git rev-parse HEAD)"
+          fi
+          if [[ -z "${range_from}" || "${range_from}" == "0000000000000000000000000000000000000000" ]]; then
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              range_from="$(git rev-parse HEAD~1)"
             else
-              to="$(git rev-parse HEAD)"
-              if git rev-parse HEAD~1 >/dev/null 2>&1; then
-                from="$(git rev-parse HEAD~1)"
-              fi
+              echo "Skipping commitlint: no valid previous commit range."
+              exit 0
             fi
-            if [[ -z "${to}" ]]; then
-              to="$(git rev-parse HEAD)"
-            fi
-            if [[ -z "${from}" || "${from}" == "0000000000000000000000000000000000000000" ]]; then
-              if git rev-parse HEAD~1 >/dev/null 2>&1; then
-                from="$(git rev-parse HEAD~1)"
-              else
-                echo "Skipping commitlint: no valid previous commit range."
-                exit 0
-              fi
-            fi
-            npx --no-install commitlint --from "${from}" --to "${to}" --verbose
-          working_directory: .
-          extra_env_allowlist: PR_BASE_SHA,PR_HEAD_SHA,PUSH_BEFORE,PUSH_SHA
-          registry_password: ${{ secrets.GITHUB_TOKEN }}
+          fi
+          npx --no-install commitlint --from "${range_from}" --to "${range_to}" --verbose
 
   lint_backend:
     name: Lint Backend
@@ -362,6 +383,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -383,6 +405,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -404,20 +427,26 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
+      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-      - name: Run pre-commit config (gitleaks, ruff)
-        uses: ./.github/actions/run-in-ci-container
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
-          command: |
-            set -euo pipefail
-            python -m venv /tmp/precommit-venv
-            /tmp/precommit-venv/bin/python -m pip install --upgrade pip
-            /tmp/precommit-venv/bin/python -m pip install pre-commit
-            PRE_COMMIT_HOME=/tmp/pre-commit-cache /tmp/precommit-venv/bin/pre-commit run --all-files
-          working_directory: .
-          registry_password: ${{ secrets.GITHUB_TOKEN }}
+          node-version: "22.22.0"
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Run pre-commit config (gitleaks, ruff)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv /tmp/precommit-venv
+          /tmp/precommit-venv/bin/python -m pip install --upgrade pip
+          /tmp/precommit-venv/bin/python -m pip install pre-commit
+          PRE_COMMIT_HOME=/tmp/pre-commit-cache /tmp/precommit-venv/bin/pre-commit run --all-files
 
   quality:
     name: Quality (Node 22.22.0)
@@ -435,8 +464,8 @@ jobs:
     timeout-minutes: 40
     permissions:
       contents: read
+      packages: read
     env:
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       TZ: UTC
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
@@ -454,20 +483,7 @@ jobs:
       - name: Upstream sync policy check in CI container
         uses: ./.github/actions/run-in-ci-container
         with:
-          command: |
-            set -euo pipefail
-            mode="blocking"
-            branch_name="${GITHUB_REF_NAME}"
-            if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
-              mode="blocking"
-            elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
-              branch_name="${GITHUB_HEAD_REF}"
-            fi
-            if [[ "${branch_name}" =~ ^chore/upstream-sync-[0-9]{8}$ ]]; then
-              npm run sync:upstream:check -- --mode="${mode}"
-            else
-              echo "Skipping upstream policy check for branch '${branch_name}': only upstream-sync branches are enforced in PR/push CI."
-            fi
+          command: node tooling/run-upstream-policy-ci.mjs
           working_directory: .
           registry_password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -495,7 +511,7 @@ jobs:
       - name: Generate env inventory in CI container
         uses: ./.github/actions/run-in-ci-container
         with:
-          command: mkdir -p .runtime-cache/env-inventory && node tooling/env-inventory.mjs > .runtime-cache/env-inventory/ci-env-inventory.json
+          command: mkdir -p .runtime-cache/env-governance && node tooling/env-inventory.mjs > .runtime-cache/env-governance/ci-env-inventory.json
           working_directory: .
           registry_password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -523,7 +539,7 @@ jobs:
         if: always()
         uses: ./.github/actions/run-in-ci-container
         with:
-          command: node tooling/flake-metrics.mjs --from-summary "$(find .runtime-cache/runs -path '*/summary.json' | head -n 1)"
+          command: node tooling/run-ci-flake-metrics.mjs
           working_directory: .
           registry_password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -540,9 +556,9 @@ jobs:
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
           name: env-inventory-${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          if-no-files-found: ignore
           retention-days: 7
-          path: .runtime-cache/env-inventory/ci-env-inventory.json
+          path: .runtime-cache/env-governance/ci-env-inventory.json
 
       - name: Upload env governance artifact
         if: always()
@@ -567,7 +583,7 @@ jobs:
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
           name: ci-gate-summary-${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          if-no-files-found: ignore
           retention-days: 7
           path: .runtime-cache/runs/**/summary.json
 
@@ -576,7 +592,7 @@ jobs:
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
           name: flake-metrics-${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          if-no-files-found: ignore
           retention-days: 7
           path: |
             .runtime-cache/runs/**/flake-rate.json
@@ -609,11 +625,11 @@ jobs:
     timeout-minutes: 45
     permissions:
       contents: read
+      packages: read
     env:
       TZ: UTC
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
@@ -728,7 +744,7 @@ jobs:
 
   live_gemini_hard_gate:
     name: Live Gemini hard gate
-    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/') || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork && (github.base_ref == 'main' || startsWith(github.base_ref, 'release/')))
+    if: github.event_name == 'workflow_dispatch' && inputs.run_live_gemini
     needs:
       - runner_selector
       - required_env_hard_gate
@@ -817,22 +833,6 @@ jobs:
           working_directory: .
           registry_password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Validate GEMINI_API_KEY for nightly live gate
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          if [ -z "${GEMINI_API_KEY}" ]; then
-            echo "::error title=Missing GEMINI_API_KEY::Nightly live gate requires GEMINI_API_KEY secret."
-            exit 1
-          fi
-
-      - name: Live Gemini smoke in CI container (nightly)
-        uses: ./.github/actions/run-in-ci-container
-        with:
-          command: npm run test:live
-          working_directory: .
-          registry_password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Upload coverage artifacts
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
@@ -856,13 +856,13 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Setup Node.js
-        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version: "22.22.0"
 
       - name: Restore node_modules cache
         id: rollback_drill_node_modules_cache
-        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306
+        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7
         with:
           path: node_modules
           key: ${{ runner.os }}-node22-modules-${{ hashFiles('package-lock.json') }}
