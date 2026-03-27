@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "redMetrics": [
+    "request_rate",
+    "error_rate",
+    "duration_ms"
+  ],
+  "logging": {
+    "format": "jsonl",
+    "requiredFields": [
+      "ts",
+      "level",
+      "event",
+      "traceId"
+    ],
+    "redaction": "enabled"
+  },
+  "tracing": {
+    "enabled": true,
+    "mode": "trace-id-propagation",
+    "exporter": "otlp-compatible"
+  },
+  "alerts": [
+    {
+      "name": "error-rate-breach",
+      "route": "github-actions-notification",
+      "condition": "tool_request_error_rate > 0.01 for 10m"
+    },
+    {
+      "name": "latency-breach",
+      "route": "github-actions-notification",
+      "condition": "tool_request_latency_p95_ms > 12000 for 10m"
+    }
+  ]
+}

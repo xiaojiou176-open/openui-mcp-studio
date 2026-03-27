@@ -1,0 +1,65 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenUI MCP Compatibility Surface",
+    "version": "0.3.0",
+    "description": "Contract-oriented HTTP projection of the stdio MCP interface for compatibility and breaking-change review."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:7878",
+      "description": "Compatibility projection only; runtime transport remains stdio."
+    }
+  ],
+  "x-openui-transport": "stdio-mcp",
+  "paths": {
+    "/mcp/tools/list": {
+      "get": {
+        "summary": "List tool contracts",
+        "responses": {
+          "200": {
+            "description": "Tool metadata with input/output schema references."
+          }
+        }
+      }
+    },
+    "/mcp/tools/call": {
+      "post": {
+        "summary": "Invoke MCP tool via compatibility bridge",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "arguments"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "arguments": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful tool response payload."
+          },
+          "400": {
+            "description": "Validation error."
+          },
+          "500": {
+            "description": "Unhandled runtime error."
+          }
+        }
+      }
+    }
+  }
+}
