@@ -53,7 +53,9 @@ describe("ship idempotency status branches", () => {
 		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
-		const idempotency = await import("../packages/shared-runtime/src/idempotency-store.js");
+		const idempotency = await import(
+			"../packages/shared-runtime/src/idempotency-store.js"
+		);
 
 		const payload = {
 			workspaceRoot: "/tmp/openui-workspace",
@@ -91,7 +93,9 @@ describe("ship idempotency status branches", () => {
 			value: payload,
 		} as never);
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -115,7 +119,9 @@ describe("ship idempotency status branches", () => {
 		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
-		const idempotency = await import("../packages/shared-runtime/src/idempotency-store.js");
+		const idempotency = await import(
+			"../packages/shared-runtime/src/idempotency-store.js"
+		);
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
 			detection: {
@@ -137,7 +143,9 @@ describe("ship idempotency status branches", () => {
 			status: "unexpected",
 		} as never);
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 

@@ -118,13 +118,16 @@ describe("logger extra branch coverage", () => {
 		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
 		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
 
-		vi.doMock("../packages/runtime-observability/src/cache-retention.js", () => ({
-			isCacheCleanupDue: vi.fn(() => true),
-			pruneCacheDirectorySync: vi.fn(),
-			resolveCacheRetentionConfigFromEnv: vi.fn(() => {
-				throw new Error("broken-cache-config");
+		vi.doMock(
+			"../packages/runtime-observability/src/cache-retention.js",
+			() => ({
+				isCacheCleanupDue: vi.fn(() => true),
+				pruneCacheDirectorySync: vi.fn(),
+				resolveCacheRetentionConfigFromEnv: vi.fn(() => {
+					throw new Error("broken-cache-config");
+				}),
 			}),
-		}));
+		);
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		const stderrSpy = vi
@@ -157,19 +160,22 @@ describe("logger extra branch coverage", () => {
 		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
 		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
 
-		vi.doMock("../packages/runtime-observability/src/cache-retention.js", () => ({
-			isCacheCleanupDue: vi.fn(() => true),
-			pruneCacheDirectorySync: vi.fn(() => {
-				throw new Error("forced-prune-failure");
+		vi.doMock(
+			"../packages/runtime-observability/src/cache-retention.js",
+			() => ({
+				isCacheCleanupDue: vi.fn(() => true),
+				pruneCacheDirectorySync: vi.fn(() => {
+					throw new Error("forced-prune-failure");
+				}),
+				resolveCacheRetentionConfigFromEnv: vi.fn(() => ({
+					cacheDir: "/tmp/cache",
+					nowMs: Date.now(),
+					cleanIntervalMinutes: 10,
+					maxBytes: 1000,
+					retentionDays: 7,
+				})),
 			}),
-			resolveCacheRetentionConfigFromEnv: vi.fn(() => ({
-				cacheDir: "/tmp/cache",
-				nowMs: Date.now(),
-				cleanIntervalMinutes: 10,
-				maxBytes: 1000,
-				retentionDays: 7,
-			})),
-		}));
+		);
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		const stderrSpy = vi

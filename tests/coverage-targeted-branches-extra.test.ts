@@ -232,7 +232,9 @@ describe("logger targeted branch coverage", () => {
 	});
 
 	it("covers rotateOnStart true branch when active log exceeds max size", async () => {
-		const workspaceRoot = mkRuntimeWorkspaceRoot("openui-logger-coverage-rotate-");
+		const workspaceRoot = mkRuntimeWorkspaceRoot(
+			"openui-logger-coverage-rotate-",
+		);
 		const logDir = path.join(
 			workspaceRoot,
 			".runtime-cache",
@@ -253,9 +255,7 @@ describe("logger targeted branch coverage", () => {
 		const rotatedFiles = fs
 			.readdirSync(logDir)
 			.filter((entry) => /^runtime\..+\.jsonl$/.test(entry));
-		expect(rotatedFiles.some((entry) => entry !== "runtime.jsonl")).toBe(
-			true,
-		);
+		expect(rotatedFiles.some((entry) => entry !== "runtime.jsonl")).toBe(true);
 	});
 
 	it("covers cache cleanup short-circuit when cleanup is not due", async () => {
@@ -264,23 +264,29 @@ describe("logger targeted branch coverage", () => {
 		);
 		setupLoggerEnv(workspaceRoot);
 
-		const isCacheCleanupDue = vi.fn(() => false);
-		const pruneCacheDirectorySync = vi.fn();
-		const resolveCacheRetentionConfigFromEnv = vi.fn(() => ({
+		vi.resetModules();
+		const cacheRetention = await import(
+			"../packages/runtime-observability/src/cache-retention.js"
+		);
+		const isCacheCleanupDue = vi
+			.spyOn(cacheRetention, "isCacheCleanupDue")
+			.mockReturnValue(false);
+		const pruneCacheDirectorySync = vi.spyOn(
+			cacheRetention,
+			"pruneCacheDirectorySync",
+		);
+		vi.spyOn(
+			cacheRetention,
+			"resolveCacheRetentionConfigFromEnv",
+		).mockReturnValue({
 			cacheDir: path.join(workspaceRoot, ".runtime-cache", "cache"),
 			nowMs: Date.now(),
 			cleanIntervalMinutes: 30,
 			maxBytes: 1024 * 1024,
 			retentionDays: 7,
-		}));
+		});
 
-		vi.doMock("../packages/runtime-observability/src/cache-retention.js", () => ({
-			isCacheCleanupDue,
-			pruneCacheDirectorySync,
-			resolveCacheRetentionConfigFromEnv,
-		}));
-
-		const logger = await loadLogger();
+		const logger = await import("../services/mcp-server/src/logger.js");
 		logger.logInfo("cache-not-due");
 
 		expect(isCacheCleanupDue).toHaveBeenCalledTimes(1);
@@ -288,7 +294,9 @@ describe("logger targeted branch coverage", () => {
 	});
 
 	it("covers symlink guard path in file sink writes", async () => {
-		const workspaceRoot = mkRuntimeWorkspaceRoot("openui-logger-coverage-symlink-");
+		const workspaceRoot = mkRuntimeWorkspaceRoot(
+			"openui-logger-coverage-symlink-",
+		);
 		const logDir = path.join(
 			workspaceRoot,
 			".runtime-cache",
@@ -318,7 +326,9 @@ describe("logger targeted branch coverage", () => {
 	});
 
 	it("covers shouldLog false and stderr/both output branches", async () => {
-		const workspaceRoot = mkRuntimeWorkspaceRoot("openui-logger-coverage-output-");
+		const workspaceRoot = mkRuntimeWorkspaceRoot(
+			"openui-logger-coverage-output-",
+		);
 		const logDir = path.join(
 			workspaceRoot,
 			".runtime-cache",

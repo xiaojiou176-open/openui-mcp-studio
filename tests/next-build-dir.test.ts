@@ -207,4 +207,23 @@ describe("next build dir resolution", () => {
 			path.resolve(root, "esm-default-output"),
 		);
 	});
+
+	it("falls back to regex parsing when Next constants omit the production phase", async () => {
+		const root = await createRoot();
+		await installCustomNextModules({
+			root,
+			constantsSource: "module.exports = { OTHER_PHASE: 'dev-phase' };",
+			loaderSource:
+				"module.exports = async () => ({ distDir: 'loader-should-not-win' });",
+		});
+		await fs.writeFile(
+			path.resolve(root, "next.config.js"),
+			"module.exports = { distDir: 'fallback-phase-missing-output' };",
+			"utf8",
+		);
+
+		await expect(resolveNextBuildDir(root)).resolves.toBe(
+			path.resolve(root, "fallback-phase-missing-output"),
+		);
+	});
 });

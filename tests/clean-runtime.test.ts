@@ -53,15 +53,16 @@ describe("clean runtime script", () => {
 		);
 		const unaffectedFile = path.join(tempRoot, "keep", "note.txt");
 		const runtimeTargets = [
-			path.join(tempRoot, ".runtime-cache", "runs", "run-123", "logs", "runtime.jsonl"),
-			path.join(tempRoot, ".runtime-cache", "cache", "cache.json"),
 			path.join(
 				tempRoot,
 				".runtime-cache",
-				"build",
-				"mcp-server",
-				"bundle.js",
+				"runs",
+				"run-123",
+				"logs",
+				"runtime.jsonl",
 			),
+			path.join(tempRoot, ".runtime-cache", "cache", "cache.json"),
+			path.join(tempRoot, ".runtime-cache", "build", "mcp-server", "bundle.js"),
 		];
 
 		try {
@@ -101,15 +102,16 @@ describe("clean runtime script", () => {
 			path.join(os.tmpdir(), "openui-clean-runtime-dry-run-"),
 		);
 		const runtimeTargets = [
-			path.join(tempRoot, ".runtime-cache", "runs", "run-123", "logs", "runtime.jsonl"),
-			path.join(tempRoot, ".runtime-cache", "cache", "cache.json"),
 			path.join(
 				tempRoot,
 				".runtime-cache",
-				"build",
-				"mcp-server",
-				"bundle.js",
+				"runs",
+				"run-123",
+				"logs",
+				"runtime.jsonl",
 			),
+			path.join(tempRoot, ".runtime-cache", "cache", "cache.json"),
+			path.join(tempRoot, ".runtime-cache", "build", "mcp-server", "bundle.js"),
 		];
 
 		try {
@@ -286,35 +288,21 @@ describe("clean runtime script", () => {
 			path.join(os.tmpdir(), "openui-clean-runtime-extended-"),
 		);
 		const runtimeTargets = [
-			path.join(tempRoot, ".runtime-cache", "runs", "run-123", "logs", "runtime.jsonl"),
-			path.join(tempRoot, ".runtime-cache", "cache", "cache.json"),
 			path.join(
 				tempRoot,
 				".runtime-cache",
-				"build",
-				"mcp-server",
-				"bundle.js",
+				"runs",
+				"run-123",
+				"logs",
+				"runtime.jsonl",
 			),
+			path.join(tempRoot, ".runtime-cache", "cache", "cache.json"),
+			path.join(tempRoot, ".runtime-cache", "build", "mcp-server", "bundle.js"),
 		];
 		const extendedTargets = [
-			path.join(
-				tempRoot,
-				".runtime-cache",
-				"ci-gate",
-				"summary.json",
-			),
-			path.join(
-				tempRoot,
-				".runtime-cache",
-				"evidence",
-				"index.json",
-			),
-			path.join(
-				tempRoot,
-				".runtime-cache",
-				"logs",
-				"local.log",
-			),
+			path.join(tempRoot, ".runtime-cache", "ci-gate", "summary.json"),
+			path.join(tempRoot, ".runtime-cache", "evidence", "index.json"),
+			path.join(tempRoot, ".runtime-cache", "logs", "local.log"),
 			path.join(
 				tempRoot,
 				".runtime-cache",

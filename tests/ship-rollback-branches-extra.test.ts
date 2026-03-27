@@ -61,10 +61,9 @@ describe("ship rollback extra branches", () => {
 		});
 
 		vi.doMock("../services/mcp-server/src/file-ops.js", async () => {
-			const actual =
-				await vi.importActual<typeof import("../services/mcp-server/src/file-ops.js")>(
-					"../services/mcp-server/src/file-ops.js",
-				);
+			const actual = await vi.importActual<
+				typeof import("../services/mcp-server/src/file-ops.js")
+			>("../services/mcp-server/src/file-ops.js");
 			return {
 				...actual,
 				readWorkspaceFileIfExistsNoFollow,

@@ -94,7 +94,9 @@ describe("MCP e2e pipeline", () => {
 		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_MAX_RETRIES = "2";
 
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		const completeSpy = vi
 			.spyOn(geminiProvider, "completeWithGemini")
 			.mockResolvedValueOnce(
@@ -221,12 +223,14 @@ describe("MCP e2e pipeline", () => {
 		process.env.GEMINI_API_KEY = "gemini-test-key";
 		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
 
-		const nextSmokeModule = await import("../services/mcp-server/src/next-smoke.js");
-			const smokeSpy = vi
-				.spyOn(nextSmokeModule, "runNextSmoke")
-				.mockResolvedValue({
-					passed: true,
-					usedTargetRoot: appRoot,
+		const nextSmokeModule = await import(
+			"../services/mcp-server/src/next-smoke.js"
+		);
+		const smokeSpy = vi
+			.spyOn(nextSmokeModule, "runNextSmoke")
+			.mockResolvedValue({
+				passed: true,
+				usedTargetRoot: appRoot,
 				build: { ok: true, command: "next build" },
 				start: { ok: true, command: "next start" },
 				probe: { ok: true, url: "http://127.0.0.1:3000/" },

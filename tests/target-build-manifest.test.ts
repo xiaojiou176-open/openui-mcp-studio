@@ -46,7 +46,7 @@ async function createTargetRoot(sandbox: string): Promise<string> {
 		path.resolve(root, "package.json"),
 		JSON.stringify(
 			{
-					name: "target-build-manifest-test-app",
+				name: "target-build-manifest-test-app",
 				private: true,
 			},
 			null,
@@ -186,7 +186,7 @@ describe("target build manifest", () => {
 			JSON.stringify(
 				{
 					version: 2,
-						targetRoot: root,
+					targetRoot: root,
 					requiredPackages: ["next"],
 				},
 				null,

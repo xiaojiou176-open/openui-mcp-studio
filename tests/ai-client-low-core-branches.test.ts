@@ -51,10 +51,16 @@ describe("ai-client low-core branches", () => {
 		const completeWithGemini = vi
 			.fn(async () => "ok")
 			.mockRejectedValueOnce(new Error("network timeout while fetching"));
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 		const result = await aiClient.aiChatComplete({
@@ -80,10 +86,16 @@ describe("ai-client low-core branches", () => {
 		const completeWithGemini = vi
 			.fn(async () => "unused")
 			.mockRejectedValue(abortLike);
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini,
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 		await expect(
@@ -96,10 +108,16 @@ describe("ai-client low-core branches", () => {
 
 	it("extractStatus handles non-object details and undefined status fields", async () => {
 		mockLogger();
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini: vi.fn(async () => "ok"),
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini: vi.fn(async () => "ok"),
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
 		expect(aiClient.extractStatus({ details: "text-details" })).toBeUndefined();
@@ -111,12 +129,15 @@ describe("ai-client low-core branches", () => {
 
 	it("keeps Error instances when list models fails with Error object", async () => {
 		mockLogger();
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini: vi.fn(async () => "ok"),
-			listGeminiModels: vi.fn(async () => {
-				throw new Error("upstream model list failed");
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini: vi.fn(async () => "ok"),
+				listGeminiModels: vi.fn(async () => {
+					throw new Error("upstream model list failed");
+				}),
 			}),
-		}));
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 		await expect(aiClient.aiListModels(5)).rejects.toThrow(

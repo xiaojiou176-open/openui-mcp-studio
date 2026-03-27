@@ -1140,7 +1140,9 @@ describe("uiux review tool", () => {
 	});
 
 	it("requests model critique when invokeModel=true", async () => {
-		const openuiClient = await import("../services/mcp-server/src/openui-client.js");
+		const openuiClient = await import(
+			"../services/mcp-server/src/openui-client.js"
+		);
 		const chatSpy = vi
 			.spyOn(openuiClient, "openuiChatComplete")
 			.mockResolvedValue(
@@ -1235,7 +1237,9 @@ describe("uiux review tool", () => {
 	});
 
 	it("passes screenshot input as multimodal part when invokeModel=true", async () => {
-		const openuiClient = await import("../services/mcp-server/src/openui-client.js");
+		const openuiClient = await import(
+			"../services/mcp-server/src/openui-client.js"
+		);
 		const chatSpy = vi
 			.spyOn(openuiClient, "openuiChatComplete")
 			.mockResolvedValue("Looks good.");
@@ -1267,7 +1271,9 @@ describe("uiux review tool", () => {
 	});
 
 	it("parses fenced JSON model review payloads and preserves task-flow prompt context", async () => {
-		const openuiClient = await import("../services/mcp-server/src/openui-client.js");
+		const openuiClient = await import(
+			"../services/mcp-server/src/openui-client.js"
+		);
 		const chatSpy = vi
 			.spyOn(openuiClient, "openuiChatComplete")
 			.mockResolvedValue(
@@ -1308,7 +1314,9 @@ describe("uiux review tool", () => {
 	});
 
 	it("falls back to default model summary when structured parsing fails on blank output", async () => {
-		const openuiClient = await import("../services/mcp-server/src/openui-client.js");
+		const openuiClient = await import(
+			"../services/mcp-server/src/openui-client.js"
+		);
 		vi.spyOn(openuiClient, "openuiChatComplete").mockResolvedValue("   ");
 
 		const harness = createToolHarness();
@@ -1333,7 +1341,9 @@ describe("uiux review tool", () => {
 	});
 
 	it("deduplicates heuristic findings when the model reports the same issue id and title", async () => {
-		const openuiClient = await import("../services/mcp-server/src/openui-client.js");
+		const openuiClient = await import(
+			"../services/mcp-server/src/openui-client.js"
+		);
 		vi.spyOn(openuiClient, "openuiChatComplete").mockResolvedValue(
 			JSON.stringify({
 				score: 42,

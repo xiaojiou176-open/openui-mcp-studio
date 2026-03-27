@@ -33,7 +33,9 @@ afterEach(async () => {
 		process.env.OPENUI_CI_GATE_RUN_KEY = ORIGINAL_CI_GATE_RUN_KEY;
 	}
 	await Promise.all(
-		tempRoots.splice(0).map((dir) => fs.rm(dir, { recursive: true, force: true })),
+		tempRoots
+			.splice(0)
+			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
 });
 
@@ -47,6 +49,22 @@ describe("release readiness contract check", () => {
 		expect(result.ok).toBe(true);
 		expect(result.errors).toEqual([]);
 		expect(result.latestTag).toBe("v0.3.0");
+	});
+
+	it("ignores newer backup tags when a valid SemVer release tag exists", async () => {
+		const result = await verifyReleaseReadiness({
+			rootDir: process.cwd(),
+			listTags: () => [
+				"backup/repo-closure-20260326000257-final",
+				"backup/repo-closure-20260326000002-postcommit",
+				"v0.3.1",
+				"v0.3.0",
+			],
+		});
+
+		expect(result.ok).toBe(true);
+		expect(result.errors).toEqual([]);
+		expect(result.latestTag).toBe("v0.3.1");
 	});
 
 	it("fails in strict mode when no authoritative run evidence is present", async () => {
@@ -80,12 +98,16 @@ describe("release readiness contract check", () => {
 		expect(result.ok).toBe(false);
 		expect(
 			result.errors.some((issue) =>
-				issue.includes("authoritativeEvidence: No authoritative runs are present"),
+				issue.includes(
+					"authoritativeEvidence: No authoritative runs are present",
+				),
 			),
 		).toBe(true);
 		expect(
 			result.errors.some((issue) =>
-				issue.includes("authoritativeRunCorrelation: No authoritative runs are present"),
+				issue.includes(
+					"authoritativeRunCorrelation: No authoritative runs are present",
+				),
 			),
 		).toBe(true);
 	});
@@ -101,8 +123,8 @@ describe("release readiness contract check", () => {
 			result.errors.some((issue) =>
 				issue.toLowerCase().includes("git release tag"),
 			),
-			).toBe(true);
-		});
+		).toBe(true);
+	});
 
 	it("does not report CI image supply-chain errors when digest and evidence contract are valid", async () => {
 		const result = await verifyReleaseReadiness({

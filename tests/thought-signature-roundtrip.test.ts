@@ -41,11 +41,16 @@ async function loadProviderWithBridgeMock(): Promise<{
 		public async stop(): Promise<void> {}
 	}
 
-	vi.doMock("../services/mcp-server/src/providers/gemini-python-sidecar.js", () => ({
-		GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
-	}));
+	vi.doMock(
+		"../services/mcp-server/src/providers/gemini-python-sidecar.js",
+		() => ({
+			GeminiPythonSidecarBridge: GeminiPythonSidecarBridgeMock,
+		}),
+	);
 
-	const provider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+	const provider = await import(
+		"../services/mcp-server/src/providers/gemini-provider.js"
+	);
 	return { provider, calls };
 }
 

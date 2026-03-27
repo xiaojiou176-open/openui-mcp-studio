@@ -28,7 +28,10 @@ describe("dependency boundary governance", () => {
 				),
 				{
 					version: 1,
-					includeRoots: ["packages/shared-runtime/src", "services/mcp-server/src"],
+					includeRoots: [
+						"packages/shared-runtime/src",
+						"services/mcp-server/src",
+					],
 					excludePatterns: [],
 					rules: [
 						{
@@ -40,14 +43,8 @@ describe("dependency boundary governance", () => {
 				},
 			);
 			await writeFile(
-				path.join(
-					rootDir,
-					"packages",
-					"shared-runtime",
-					"src",
-					"safe.ts",
-				),
-				'export const safe = true;\n',
+				path.join(rootDir, "packages", "shared-runtime", "src", "safe.ts"),
+				"export const safe = true;\n",
 			);
 			await writeFile(
 				path.join(
@@ -61,13 +58,7 @@ describe("dependency boundary governance", () => {
 				'import { safe } from "../../../../packages/shared-runtime/src/safe.js";\nexport const tool = safe;\n',
 			);
 			await writeFile(
-				path.join(
-					rootDir,
-					"packages",
-					"shared-runtime",
-					"src",
-					"broken.ts",
-				),
+				path.join(rootDir, "packages", "shared-runtime", "src", "broken.ts"),
 				'import { tool } from "../../../services/mcp-server/src/tools/unsafe.js";\nexport const broken = tool;\n',
 			);
 
@@ -119,7 +110,7 @@ describe("dependency boundary governance", () => {
 					"providers",
 					"gemini-provider.ts",
 				),
-				'export const resetGeminiProviderForTests = () => {};\n',
+				"export const resetGeminiProviderForTests = () => {};\n",
 			);
 			await writeFile(
 				path.join(
@@ -144,7 +135,8 @@ describe("dependency boundary governance", () => {
 				expect.objectContaining({
 					ruleId: "tooling-public-surface-only",
 					file: "tooling/checks/bad.ts",
-					resolvedImport: "services/mcp-server/src/providers/gemini-provider.ts",
+					resolvedImport:
+						"services/mcp-server/src/providers/gemini-provider.ts",
 				}),
 			);
 		} finally {

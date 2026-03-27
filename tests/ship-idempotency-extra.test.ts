@@ -53,7 +53,9 @@ describe("ship idempotency extra branches", () => {
 		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
-		const idempotency = await import("../packages/shared-runtime/src/idempotency-store.js");
+		const idempotency = await import(
+			"../packages/shared-runtime/src/idempotency-store.js"
+		);
 
 		const detection = {
 			workspaceRoot: "/tmp/openui-workspace",
@@ -98,7 +100,9 @@ describe("ship idempotency extra branches", () => {
 			value: cachedPayload,
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -122,7 +126,9 @@ describe("ship idempotency extra branches", () => {
 		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
-		const idempotency = await import("../packages/shared-runtime/src/idempotency-store.js");
+		const idempotency = await import(
+			"../packages/shared-runtime/src/idempotency-store.js"
+		);
 
 		const detection = {
 			workspaceRoot: "/tmp/openui-workspace",
@@ -164,7 +170,9 @@ describe("ship idempotency extra branches", () => {
 			value: cachedPayload,
 		} as never);
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -192,7 +200,9 @@ describe("ship idempotency extra branches", () => {
 		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
-		const idempotency = await import("../packages/shared-runtime/src/idempotency-store.js");
+		const idempotency = await import(
+			"../packages/shared-runtime/src/idempotency-store.js"
+		);
 
 		const detection = {
 			workspaceRoot: "/tmp/openui-workspace",
@@ -219,7 +229,9 @@ describe("ship idempotency extra branches", () => {
 			status: "timeout_missing",
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 

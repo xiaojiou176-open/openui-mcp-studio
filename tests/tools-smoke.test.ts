@@ -66,7 +66,9 @@ describe("smoke tool", () => {
 			runNextSmoke,
 		}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -85,7 +87,9 @@ describe("smoke tool", () => {
 			runNextSmoke,
 		}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -103,7 +107,9 @@ describe("smoke tool", () => {
 			runNextSmoke: vi.fn(async () => ({ passed: true })),
 		}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -123,7 +129,9 @@ describe("smoke tool", () => {
 			runNextSmoke,
 		}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -138,7 +146,9 @@ describe("smoke tool", () => {
 	it("throws explicit unavailable error when runNextSmoke export is missing", async () => {
 		vi.doMock("../services/mcp-server/src/next-smoke.js", () => ({}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -148,9 +158,13 @@ describe("smoke tool", () => {
 	});
 
 	it("includes missing export detail when next-smoke lacks runNextSmoke", async () => {
-		vi.doMock("../services/mcp-server/src/next-smoke.js", () => ({ runNextSmoke: undefined }));
+		vi.doMock("../services/mcp-server/src/next-smoke.js", () => ({
+			runNextSmoke: undefined,
+		}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -165,7 +179,9 @@ describe("smoke tool", () => {
 			runNextSmoke,
 		}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -188,7 +204,9 @@ describe("smoke tool", () => {
 			runNextSmoke: vi.fn(async () => "plain smoke result"),
 		}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -203,7 +221,9 @@ describe("smoke tool", () => {
 			}),
 		}));
 
-		const { registerSmokeTool } = await import("../services/mcp-server/src/tools/smoke.js");
+		const { registerSmokeTool } = await import(
+			"../services/mcp-server/src/tools/smoke.js"
+		);
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
@@ -247,29 +267,29 @@ describe("next smoke target root guardrails", () => {
 			]);
 			const logs = new LogTailBuffer(20);
 
-				const selected = await chooseRoot(
-					{
-						targetRoot: outsideRoot,
-					},
-					logs,
-				);
+			const selected = await chooseRoot(
+				{
+					targetRoot: outsideRoot,
+				},
+				logs,
+			);
 
-				expect(selected).toMatchObject({
-					validation: {
-						ok: false,
-					},
-				});
-				expect(logs.snapshot().join("\n")).toContain(
-					"outside workspace boundary",
-				);
-			} finally {
-				delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
-				await Promise.all([
-					fs.rm(workspaceRoot, { recursive: true, force: true }),
-					fs.rm(outsideRoot, { recursive: true, force: true }),
-				]);
-			}
-		});
+			expect(selected).toMatchObject({
+				validation: {
+					ok: false,
+				},
+			});
+			expect(logs.snapshot().join("\n")).toContain(
+				"outside workspace boundary",
+			);
+		} finally {
+			delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+			await Promise.all([
+				fs.rm(workspaceRoot, { recursive: true, force: true }),
+				fs.rm(outsideRoot, { recursive: true, force: true }),
+			]);
+		}
+	});
 });
 
 describe("next smoke probe timing guardrails", () => {

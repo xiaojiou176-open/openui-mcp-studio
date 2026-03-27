@@ -160,11 +160,9 @@ describe("pre-commit gate hardening", () => {
 		expect(
 			profileTaskMap["precommit-strict"]?.["fast-gates"].map((t) => t.name),
 		).toEqual([
-			"required-live-key",
 			"secrets-scan",
 			"env-governance",
 			"governance-contract",
-			"docs-cochange",
 			"lint-staged",
 			"typecheck",
 		]);
@@ -176,14 +174,8 @@ describe("pre-commit gate hardening", () => {
 			"workflow-governance",
 			"resource-leak-audit-full",
 			"test-fast-gate",
-			"uiux-review-contract",
 			"anti-placebo-guard",
 		]);
-
-		const uiuxTask = profileTaskMap["prepush-light"]?.["light-gates"].find(
-			(task) => task.name === "uiux-review-contract",
-		);
-		expect(uiuxTask?.args).toEqual(["tooling/run-prepush-uiux-gate.mjs"]);
 
 		const allArgs = Object.values(profileTaskMap)
 			.flatMap((phaseMap) => Object.values(phaseMap))

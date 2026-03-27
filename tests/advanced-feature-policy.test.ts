@@ -64,7 +64,9 @@ describe("advanced feature strategy contract", () => {
 			.spyOn(openui, "openuiChatComplete")
 			.mockResolvedValue("<main>generated</main>");
 
-		const { registerGenerateTool } = await import("../services/mcp-server/src/tools/generate.js");
+		const { registerGenerateTool } = await import(
+			"../services/mcp-server/src/tools/generate.js"
+		);
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 
@@ -143,7 +145,9 @@ describe("advanced feature strategy contract", () => {
 				},
 			});
 
-		const { registerConvertTools } = await import("../services/mcp-server/src/tools/convert.js");
+		const { registerConvertTools } = await import(
+			"../services/mcp-server/src/tools/convert.js"
+		);
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
 

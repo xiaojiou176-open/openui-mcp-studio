@@ -24,30 +24,35 @@ async function writeJson(filePath: string, value: unknown) {
 
 afterEach(async () => {
 	await Promise.all(
-		tempRoots.splice(0).map((dir) => fs.rm(dir, { recursive: true, force: true })),
+		tempRoots
+			.splice(0)
+			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
 });
 
 describe("public boundary allowlist", () => {
 	it("allows declared workflow exceptions while still scanning the file", async () => {
 		const root = await mkTempRoot("openui-public-boundary-");
-		await writeJson(path.join(root, "tooling", "contracts", "public-boundary-allowlist.json"), {
-			version: 1,
-			publicInfraBoundary: {
-				scanPaths: [".github/workflows/internal.yml"],
-				allowedExceptions: [
-					{
-						path: ".github/workflows/internal.yml",
-						ruleIds: ["self-hosted-label", "shared-pool-label"],
-						reason: "fixture",
-					},
-				],
+		await writeJson(
+			path.join(root, "tooling", "contracts", "public-boundary-allowlist.json"),
+			{
+				version: 1,
+				publicInfraBoundary: {
+					scanPaths: [".github/workflows/internal.yml"],
+					allowedExceptions: [
+						{
+							path: ".github/workflows/internal.yml",
+							ruleIds: ["self-hosted-label", "shared-pool-label"],
+							reason: "fixture",
+						},
+					],
+				},
+				languageBoundary: {
+					scanPaths: ["README.md"],
+					allowedNonAsciiPaths: [],
+				},
 			},
-			languageBoundary: {
-				scanPaths: ["README.md"],
-				allowedNonAsciiPaths: [],
-			},
-		});
+		);
 		await writeFile(
 			path.join(root, ".github", "workflows", "internal.yml"),
 			'runs-on: ["self-hosted", "shared-pool"]\n',
@@ -62,17 +67,20 @@ describe("public boundary allowlist", () => {
 
 	it("fails when a deep-water english boundary file contains non-ascii content", async () => {
 		const root = await mkTempRoot("openui-language-boundary-");
-		await writeJson(path.join(root, "tooling", "contracts", "public-boundary-allowlist.json"), {
-			version: 1,
-			publicInfraBoundary: {
-				scanPaths: [],
-				allowedExceptions: [],
+		await writeJson(
+			path.join(root, "tooling", "contracts", "public-boundary-allowlist.json"),
+			{
+				version: 1,
+				publicInfraBoundary: {
+					scanPaths: [],
+					allowedExceptions: [],
+				},
+				languageBoundary: {
+					scanPaths: ["README.md", "ops/README.md"],
+					allowedNonAsciiPaths: [],
+				},
 			},
-			languageBoundary: {
-				scanPaths: ["README.md", "ops/README.md"],
-				allowedNonAsciiPaths: [],
-			},
-		});
+		);
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeFile(path.join(root, "ops", "README.md"), "含中文\n");
 

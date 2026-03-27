@@ -48,14 +48,126 @@ describe("run correlation", () => {
 					runtimeRoot: ".runtime-cache",
 					runsRoot: ".runtime-cache/runs",
 					logChannels: ["runtime", "tests", "ci", "upstream"],
-					requiredRunFiles: ["summary.json", "quality-score.json", "meta/run.json", "evidence/index.json"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
 					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
 					requiredLogFiles: [
 						"logs/runtime.jsonl",
 						"logs/tests.jsonl",
 						"logs/ci.jsonl",
-						"logs/upstream.jsonl"
-					]
+						"logs/upstream.jsonl",
+					],
+				},
+			);
+
+			const result = await runRunCorrelationCheck({ rootDir });
+
+			expect(result.ok).toBe(true);
+			expect(result.errors).toEqual([]);
+			expect(result.reason).toBe("no_authoritative_runs_present");
+		} finally {
+			await fs.rm(rootDir, { recursive: true, force: true });
+		}
+	});
+
+	it("treats present non-authoritative runtime runs as no authoritative runs present", async () => {
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-run-correlation-non-authoritative-"),
+		);
+		try {
+			clearRunIdEnv();
+			await writeJson(
+				path.join(rootDir, "contracts", "runtime", "run-layout.json"),
+				{
+					version: 1,
+					runtimeRoot: ".runtime-cache",
+					runsRoot: ".runtime-cache/runs",
+					logChannels: ["runtime", "tests", "ci", "upstream"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
+					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
+					requiredLogFiles: [
+						"logs/runtime.jsonl",
+						"logs/tests.jsonl",
+						"logs/ci.jsonl",
+						"logs/upstream.jsonl",
+					],
+				},
+			);
+			await writeFile(
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"mcp-runtime-123",
+					"logs",
+					"runtime.jsonl",
+				),
+				'{"runId":"mcp-runtime-123"}\n',
+			);
+
+			const result = await runRunCorrelationCheck({ rootDir });
+
+			expect(result.ok).toBe(true);
+			expect(result.errors).toEqual([]);
+			expect(result.reason).toBe("no_authoritative_runs_present");
+		} finally {
+			await fs.rm(rootDir, { recursive: true, force: true });
+		}
+	});
+
+	it("ignores authoritative manifests that do not yet have a complete run bundle", async () => {
+		const rootDir = await fs.mkdtemp(
+			path.join(
+				os.tmpdir(),
+				"openui-run-correlation-incomplete-authoritative-",
+			),
+		);
+		try {
+			clearRunIdEnv();
+			await writeJson(
+				path.join(rootDir, "contracts", "runtime", "run-layout.json"),
+				{
+					version: 1,
+					runtimeRoot: ".runtime-cache",
+					runsRoot: ".runtime-cache/runs",
+					logChannels: ["runtime", "tests", "ci", "upstream"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
+					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
+					requiredLogFiles: [
+						"logs/runtime.jsonl",
+						"logs/tests.jsonl",
+						"logs/ci.jsonl",
+						"logs/upstream.jsonl",
+					],
+				},
+			);
+			await writeJson(
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"ci-gate-partial",
+					"meta",
+					"run.json",
+				),
+				{
+					version: 1,
+					runId: "ci-gate-partial",
+					authoritative: true,
 				},
 			);
 
@@ -82,14 +194,19 @@ describe("run correlation", () => {
 					runtimeRoot: ".runtime-cache",
 					runsRoot: ".runtime-cache/runs",
 					logChannels: ["runtime", "tests", "ci", "upstream"],
-					requiredRunFiles: ["summary.json", "quality-score.json", "meta/run.json", "evidence/index.json"],
+					requiredRunFiles: [
+						"summary.json",
+						"quality-score.json",
+						"meta/run.json",
+						"evidence/index.json",
+					],
 					requiredRunDirectories: ["meta", "logs", "artifacts", "evidence"],
 					requiredLogFiles: [
 						"logs/runtime.jsonl",
 						"logs/tests.jsonl",
 						"logs/ci.jsonl",
-						"logs/upstream.jsonl"
-					]
+						"logs/upstream.jsonl",
+					],
 				},
 			);
 

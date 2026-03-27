@@ -34,13 +34,21 @@ describe("ai provider routing", () => {
 		process.env.OPENUI_MODEL_ROUTING = "on";
 		process.env.OPENUI_MAX_RETRIES = "0";
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini: vi.fn(async () => "ok"),
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini: vi.fn(async () => "ok"),
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: [],
+				})),
+			}),
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		const completeSpy = vi.mocked(geminiProvider.completeWithGemini);
 
 		await aiClient.aiChatComplete({ prompt: "fast", routeKey: "fast" });
@@ -54,16 +62,21 @@ describe("ai provider routing", () => {
 	it("lists models from Gemini only", async () => {
 		process.env.GEMINI_MODEL = "gemini-default";
 
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
-			completeWithGemini: vi.fn(async () => "ok"),
-			listGeminiModels: vi.fn(async () => ({
-				provider: "gemini",
-				models: ["gemini-2.5-flash"],
-			})),
-		}));
+		vi.doMock(
+			"../services/mcp-server/src/providers/gemini-provider.js",
+			() => ({
+				completeWithGemini: vi.fn(async () => "ok"),
+				listGeminiModels: vi.fn(async () => ({
+					provider: "gemini",
+					models: ["gemini-2.5-flash"],
+				})),
+			}),
+		);
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 
 		const result = await aiClient.aiListModels(50);
 

@@ -11,7 +11,9 @@ async function writeJson(filePath: string, value: unknown) {
 
 describe("run layout selection", () => {
 	it("prefers the latest run that satisfies required files instead of the latest directory only", async () => {
-		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openui-run-layout-"));
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-run-layout-"),
+		);
 		try {
 			await writeJson(
 				path.join(rootDir, "contracts", "runtime", "run-layout.json"),
@@ -38,7 +40,13 @@ describe("run layout selection", () => {
 				"utf8",
 			);
 			await writeJson(
-				path.join(rootDir, ".runtime-cache", "runs", "ci-gate-123", "summary.json"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"ci-gate-123",
+					"summary.json",
+				),
 				{ runId: "ci-gate-123" },
 			);
 
@@ -54,7 +62,9 @@ describe("run layout selection", () => {
 	});
 
 	it("can require an authoritative run manifest when selecting the latest run", async () => {
-		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openui-run-layout-auth-"));
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-run-layout-auth-"),
+		);
 		try {
 			await writeJson(
 				path.join(rootDir, "contracts", "runtime", "run-layout.json"),
@@ -65,19 +75,45 @@ describe("run layout selection", () => {
 				},
 			);
 			await writeJson(
-				path.join(rootDir, ".runtime-cache", "runs", "ci-gate-older", "summary.json"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"ci-gate-older",
+					"summary.json",
+				),
 				{ runId: "ci-gate-older" },
 			);
 			await writeJson(
-				path.join(rootDir, ".runtime-cache", "runs", "ci-gate-older", "meta", "run.json"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"ci-gate-older",
+					"meta",
+					"run.json",
+				),
 				{ runId: "ci-gate-older", authoritative: true },
 			);
 			await writeJson(
-				path.join(rootDir, ".runtime-cache", "runs", "ci-gate-newer", "summary.json"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"ci-gate-newer",
+					"summary.json",
+				),
 				{ runId: "ci-gate-newer" },
 			);
 			await writeJson(
-				path.join(rootDir, ".runtime-cache", "runs", "ci-gate-newer", "meta", "run.json"),
+				path.join(
+					rootDir,
+					".runtime-cache",
+					"runs",
+					"ci-gate-newer",
+					"meta",
+					"run.json",
+				),
 				{ runId: "ci-gate-newer", authoritative: false },
 			);
 

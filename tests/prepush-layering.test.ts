@@ -27,11 +27,11 @@ describe("pre-push layering", () => {
 		expect(prepushGate).not.toContain("test:acceptance:gate");
 	});
 
-	it("raises the prepush uiux timeout floor to absorb slow live audits", async () => {
-		const scriptPath = path.join(repoRoot, "tooling/run-prepush-uiux-gate.mjs");
-		const script = await fs.readFile(scriptPath, "utf8");
+	it("keeps Gemini-backed UIUX audit out of the prepush hot path", async () => {
+		const gatePath = path.join(repoRoot, "tooling/precommit-gate.mjs");
+		const gate = await fs.readFile(gatePath, "utf8");
 
-		expect(script).toContain("PREPUSH_UIUX_TIMEOUT_MS_FLOOR = 180_000");
-		expect(script).toContain("OPENUI_TIMEOUT_MS: String(effectiveTimeoutMs)");
+		expect(gate).not.toContain("uiux-review-contract");
+		expect(gate).not.toContain("run-prepush-uiux-gate.mjs");
 	});
 });

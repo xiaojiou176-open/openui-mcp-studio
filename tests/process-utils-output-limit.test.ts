@@ -1,18 +1,5 @@
-import { EventEmitter } from "node:events";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { runProcess } from "../packages/shared-runtime/src/process-utils.js";
-import { afterEach, vi } from "vitest";
-
-class FakeReadable extends EventEmitter {
-	setEncoding(): void {}
-}
-
-class FakeChunkedChildProcess extends EventEmitter {
-	pid = 5150;
-	stdout = new FakeReadable();
-	stderr = new FakeReadable();
-	kill = vi.fn(() => true);
-}
 
 afterEach(() => {
 	vi.restoreAllMocks();
@@ -58,29 +45,19 @@ describe("runProcess output limits", () => {
 	});
 
 	it("keeps later stdout chunks out once the byte budget is already exhausted", async () => {
-		vi.resetModules();
-		const child = new FakeChunkedChildProcess();
-		vi.doMock("node:child_process", () => ({
-			spawn: vi.fn(() => child),
-		}));
-
-		const { runProcess: runProcessWithMock } = await import(
-			"../packages/shared-runtime/src/process-utils.js"
-		);
-		const pending = runProcessWithMock({
-			command: "node",
-			args: ["-e", "console.log('unused')"],
+		const result = await runProcess({
+			command: process.execPath,
+			args: [
+				"-e",
+				[
+					"process.stdout.write('abcd');",
+					"setTimeout(() => process.stdout.write('EFGH'), 0);",
+					"setTimeout(() => process.exit(0), 10);",
+				].join(" "),
+			],
 			timeoutMs: 2_000,
 			maxStdoutBytes: 4,
 		});
-
-		child.stdout.emit("data", "abcd");
-		child.stdout.emit("data", "EFGH");
-		queueMicrotask(() => {
-			child.emit("close", 0, null);
-		});
-
-		const result = await pending;
 		expect(result.exitCode).toBe(0);
 		expect(result.stdout).toBe("abcd\n[truncated]\n");
 		expect(result.stderr).toBe("");

@@ -71,7 +71,9 @@ describe("computer use observe extra branches", () => {
 	});
 
 	it("passes media resolution to Gemini and normalizes non-array tool output", async () => {
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		const geminiSpy = vi
 			.spyOn(geminiProvider, "computerUseStepWithGemini")
 			.mockResolvedValue({
@@ -132,7 +134,9 @@ describe("computer use observe extra branches", () => {
 	});
 
 	it("surfaces provider failures from observe path", async () => {
-		const geminiProvider = await import("../services/mcp-server/src/providers/gemini-provider.js");
+		const geminiProvider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
 		vi.spyOn(geminiProvider, "computerUseStepWithGemini").mockRejectedValue(
 			new Error("observe-failed"),
 		);

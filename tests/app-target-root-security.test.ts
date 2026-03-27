@@ -14,11 +14,7 @@ const tsxCliPath = path.join(
 	"dist",
 	"cli.mjs",
 );
-const prepareScriptPath = path.join(
-	repoRoot,
-	"tooling",
-	"prepare-next-app.ts",
-);
+const prepareScriptPath = path.join(repoRoot, "tooling", "prepare-next-app.ts");
 const visualQaScriptPath = path.join(repoRoot, "tooling", "visual-qa.ts");
 
 async function runScript(

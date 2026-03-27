@@ -160,7 +160,9 @@ describe("ship telemetry", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -270,7 +272,9 @@ describe("ship telemetry", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -352,7 +356,9 @@ describe("ship telemetry", () => {
 			checkedFiles: ["app/page.tsx"],
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -449,7 +455,9 @@ describe("ship telemetry", () => {
 			};
 		});
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -517,7 +525,9 @@ describe("ship telemetry", () => {
 		);
 		const qualitySpy = vi.spyOn(quality, "runQualityGate");
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -586,7 +596,9 @@ describe("ship telemetry", () => {
 			new Error("quality execution failed"),
 		);
 
-		const { registerShipTool } = await import("../services/mcp-server/src/tools/ship.js");
+		const { registerShipTool } = await import(
+			"../services/mcp-server/src/tools/ship.js"
+		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
@@ -616,11 +628,11 @@ describe("ship telemetry", () => {
 		const { IdempotencyStore } = await import(
 			"../packages/shared-runtime/src/idempotency-store.js"
 		);
-			const store = new IdempotencyStore({
-				cacheDir,
-				ttlMinutes: 10,
-				lockTimeoutMs: 60_000,
-			});
+		const store = new IdempotencyStore({
+			cacheDir,
+			ttlMinutes: 10,
+			lockTimeoutMs: 60_000,
+		});
 
 		await expect(
 			Promise.all(
@@ -643,11 +655,11 @@ describe("ship telemetry", () => {
 		const { IdempotencyStore } = await import(
 			"../packages/shared-runtime/src/idempotency-store.js"
 		);
-			const store = new IdempotencyStore({
-				cacheDir,
-				ttlMinutes: 10,
-				lockTimeoutMs: 60_000,
-			});
+		const store = new IdempotencyStore({
+			cacheDir,
+			ttlMinutes: 10,
+			lockTimeoutMs: 60_000,
+		});
 
 		const started = await store.beginExecution<{ index: number }>(
 			"lease-timeout-key",
@@ -673,16 +685,16 @@ describe("ship telemetry", () => {
 		const { IdempotencyStore } = await import(
 			"../packages/shared-runtime/src/idempotency-store.js"
 		);
-			const leaderStore = new IdempotencyStore({
-				cacheDir,
-				ttlMinutes: 10,
-				lockTimeoutMs: 60_000,
-			});
-			const followerStore = new IdempotencyStore({
-				cacheDir,
-				ttlMinutes: 10,
-				lockTimeoutMs: 60_000,
-			});
+		const leaderStore = new IdempotencyStore({
+			cacheDir,
+			ttlMinutes: 10,
+			lockTimeoutMs: 60_000,
+		});
+		const followerStore = new IdempotencyStore({
+			cacheDir,
+			ttlMinutes: 10,
+			lockTimeoutMs: 60_000,
+		});
 
 		const leader = await leaderStore.beginExecution<{ value: string }>(
 			"leader-key",

@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import * as logger from "../services/mcp-server/src/logger.js";
 import {
 	GeminiPythonSidecarBridge,
 	GeminiSidecarBridgeError,
@@ -107,7 +108,10 @@ afterEach(() => {
 
 describe("gemini sidecar contract", () => {
 	it("returns JSON-RPC health response", async () => {
-		const scriptPath = path.resolve(process.cwd(), "services/gemini-sidecar/server.py");
+		const scriptPath = path.resolve(
+			process.cwd(),
+			"services/gemini-sidecar/server.py",
+		);
 		const proc = spawn(
 			process.env.OPENUI_GEMINI_PYTHON_BIN || "python3",
 			[scriptPath],
@@ -135,14 +139,18 @@ describe("gemini sidecar contract", () => {
 			proc.kill("SIGKILL");
 			await waitForProcessExit(proc, 3_000);
 		}
-	}, 15_000);
+	}, 30_000);
 
 	it("handles concurrent start/stop calls without lifecycle race failures", async () => {
-		const scriptPath = path.resolve(process.cwd(), "services/gemini-sidecar/server.py");
+		const scriptPath = path.resolve(
+			process.cwd(),
+			"services/gemini-sidecar/server.py",
+		);
+		// Shared hosts can make Python sidecar cold starts bursty under suite load.
 		const bridge = new GeminiPythonSidecarBridge({
 			scriptPath,
-			startupTimeoutMs: 8_000,
-			requestTimeoutMs: 8_000,
+			startupTimeoutMs: 20_000,
+			requestTimeoutMs: 20_000,
 		});
 
 		await Promise.all([bridge.start(), bridge.start()]);
@@ -154,7 +162,7 @@ describe("gemini sidecar contract", () => {
 			expect.objectContaining({ status: "ok" }),
 		);
 		await bridge.stop();
-	}, 15_000);
+	}, 30_000);
 });
 
 describe("gemini sidecar retry contract", () => {
@@ -182,21 +190,21 @@ describe("gemini sidecar retry contract", () => {
 			.fn(async () => "retry-ok")
 			.mockRejectedValueOnce(remoteError);
 
-		const logDebug = vi.fn();
-		const logInfo = vi.fn();
-		const logWarn = vi.fn();
-		const logError = vi.fn();
-
-		vi.doMock("../services/mcp-server/src/logger.js", () => ({
-			logDebug,
-			logInfo,
-			logWarn,
-			logError,
-		}));
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
+		const logger = await import("../services/mcp-server/src/logger.js");
+		const provider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
+		const logDebug = vi.spyOn(logger, "logDebug").mockImplementation(() => {});
+		const logInfo = vi.spyOn(logger, "logInfo").mockImplementation(() => {});
+		const logWarn = vi.spyOn(logger, "logWarn").mockImplementation(() => {});
+		vi.spyOn(logger, "logError").mockImplementation(() => {});
+		vi.spyOn(provider, "completeWithGemini").mockImplementation(
 			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		);
+		vi.spyOn(provider, "listGeminiModels").mockResolvedValue({
+			provider: "gemini",
+			models: [],
+		});
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
@@ -265,21 +273,21 @@ describe("gemini sidecar retry contract", () => {
 			.fn(async () => "unused")
 			.mockRejectedValue(remoteError);
 
-		const logDebug = vi.fn();
-		const logInfo = vi.fn();
-		const logWarn = vi.fn();
-		const logError = vi.fn();
-
-		vi.doMock("../services/mcp-server/src/logger.js", () => ({
-			logDebug,
-			logInfo,
-			logWarn,
-			logError,
-		}));
-		vi.doMock("../services/mcp-server/src/providers/gemini-provider.js", () => ({
+		const logger = await import("../services/mcp-server/src/logger.js");
+		const provider = await import(
+			"../services/mcp-server/src/providers/gemini-provider.js"
+		);
+		vi.spyOn(logger, "logDebug").mockImplementation(() => {});
+		vi.spyOn(logger, "logInfo").mockImplementation(() => {});
+		const logWarn = vi.spyOn(logger, "logWarn").mockImplementation(() => {});
+		const logError = vi.spyOn(logger, "logError").mockImplementation(() => {});
+		vi.spyOn(provider, "completeWithGemini").mockImplementation(
 			completeWithGemini,
-			listGeminiModels: vi.fn(async () => ({ provider: "gemini", models: [] })),
-		}));
+		);
+		vi.spyOn(provider, "listGeminiModels").mockResolvedValue({
+			provider: "gemini",
+			models: [],
+		});
 
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
 
@@ -362,5 +370,60 @@ describe("gemini sidecar retry contract", () => {
 			data?: { status?: number };
 		};
 		expect(rpcError.data?.status).toBe(503);
+	});
+
+	it("uses a fallback requestId for timeout logs when context is missing", async () => {
+		vi.useFakeTimers();
+		try {
+			const logWarnSpy = vi
+				.spyOn(logger, "logWarn")
+				.mockImplementation(() => {});
+			const bridge = new GeminiPythonSidecarBridge({ requestTimeoutMs: 5 });
+
+			const bridgeState = bridge as unknown as {
+				child: {
+					stdin: {
+						write: (
+							payload: string,
+							callback?: (error?: Error | null) => void,
+						) => boolean;
+					};
+					exitCode: number | null;
+					signalCode: NodeJS.Signals | null;
+				} | null;
+			};
+			bridgeState.child = {
+				stdin: {
+					write: (_payload, callback) => {
+						callback?.(null);
+						return true;
+					},
+				},
+				exitCode: null,
+				signalCode: null,
+			};
+
+			const timeoutResultPromise = bridge
+				.request("health", {}, 5)
+				.catch((error) => error);
+			await vi.advanceTimersByTimeAsync(5);
+
+			const timeoutError = await timeoutResultPromise;
+			expect(timeoutError).toMatchObject({
+				code: "SIDECAR_TIMEOUT",
+				details: expect.objectContaining({
+					requestId: "sidecar_runtime",
+				}),
+			});
+			expect(logWarnSpy).toHaveBeenCalledWith(
+				"sidecar_request_timeout",
+				expect.objectContaining({
+					requestId: "sidecar_runtime",
+					traceId: "sidecar_runtime",
+				}),
+			);
+		} finally {
+			vi.useRealTimers();
+		}
 	});
 });

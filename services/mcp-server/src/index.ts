@@ -28,7 +28,7 @@ export function createServer(): McpServer {
 	validateOpenuiRuntimeConfig();
 
 	const server = new McpServer({
-		name: "openui-mcp-ui-generator",
+		name: "openui-mcp-studio",
 		version: MCP_SERVER_VERSION,
 	});
 

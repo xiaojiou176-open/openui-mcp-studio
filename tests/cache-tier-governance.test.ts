@@ -15,35 +15,37 @@ async function writeJson(filePath: string, value: unknown) {
 
 describe("cache tier governance", () => {
 	it("fails when legacy artifact roots still exist", async () => {
-		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openui-cache-tier-"));
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-cache-tier-"),
+		);
 		try {
 			await writeJson(
 				path.join(rootDir, "contracts", "runtime", "path-registry.json"),
-					{
-						version: 1,
-						forbiddenTopLevelDirectories: ["logs", "cache"],
-						forbiddenRepoRuntimeDirectories: [],
-						pathExpectations: [
-							{
-								path: "ops/ci-container/run-in-container.sh",
-								mustInclude: ["RUNNER_TEMP"],
-								mustExclude: [".runtime-cache/ms-playwright"],
-							},
-						],
-						categories: {},
-						cleanPolicy: {
-							resetOnClean: [],
-							purgeOnClean: [],
-							retentionOnly: [],
+				{
+					version: 1,
+					forbiddenTopLevelDirectories: ["logs", "cache"],
+					forbiddenRepoRuntimeDirectories: [],
+					pathExpectations: [
+						{
+							path: "ops/ci-container/run-in-container.sh",
+							mustInclude: ["RUNNER_TEMP"],
+							mustExclude: [".runtime-cache/ms-playwright"],
 						},
+					],
+					categories: {},
+					cleanPolicy: {
+						resetOnClean: [],
+						purgeOnClean: [],
+						retentionOnly: [],
 					},
+				},
 			);
-				await fs.mkdir(path.join(rootDir, "logs"), { recursive: true });
-				await writeFile(
-					path.join(rootDir, "logs", "legacy.log"),
-					"artifact\n",
-				);
-			await writeFile(path.join(rootDir, "ops", "ci-container", "run-in-container.sh"), "echo ok\n");
+			await fs.mkdir(path.join(rootDir, "logs"), { recursive: true });
+			await writeFile(path.join(rootDir, "logs", "legacy.log"), "artifact\n");
+			await writeFile(
+				path.join(rootDir, "ops", "ci-container", "run-in-container.sh"),
+				"echo ok\n",
+			);
 
 			const result = await runRuntimeGovernanceCheck({ rootDir });
 			expect(result.ok).toBe(false);

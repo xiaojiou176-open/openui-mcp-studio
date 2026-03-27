@@ -43,7 +43,9 @@ describe("model routing", () => {
 		setBaseEnv();
 		setRoutingEnabled(false);
 
-		const { resolveOpenuiModel } = await import("../services/mcp-server/src/constants.js");
+		const { resolveOpenuiModel } = await import(
+			"../services/mcp-server/src/constants.js"
+		);
 
 		expect(resolveOpenuiModel({ routeKey: "fast" }).resolvedModel).toBe(
 			"gemini-default",
@@ -57,7 +59,9 @@ describe("model routing", () => {
 		setBaseEnv();
 		setRoutingEnabled(true);
 
-		const { resolveOpenuiModel } = await import("../services/mcp-server/src/constants.js");
+		const { resolveOpenuiModel } = await import(
+			"../services/mcp-server/src/constants.js"
+		);
 
 		expect(resolveOpenuiModel({ routeKey: "fast" }).resolvedModel).toBe(
 			"gemini-fast",
@@ -71,7 +75,9 @@ describe("model routing", () => {
 		setBaseEnv();
 		setRoutingEnabled(true);
 
-		const { resolveOpenuiModel } = await import("../services/mcp-server/src/constants.js");
+		const { resolveOpenuiModel } = await import(
+			"../services/mcp-server/src/constants.js"
+		);
 
 		expect(resolveOpenuiModel({ useFast: true }).resolvedModel).toBe(
 			"gemini-fast",
@@ -81,7 +87,9 @@ describe("model routing", () => {
 	it("explicit model overrides route selection", async () => {
 		setBaseEnv();
 
-		const { resolveOpenuiModel } = await import("../services/mcp-server/src/constants.js");
+		const { resolveOpenuiModel } = await import(
+			"../services/mcp-server/src/constants.js"
+		);
 
 		const resolution = resolveOpenuiModel({
 			routeKey: "strong",

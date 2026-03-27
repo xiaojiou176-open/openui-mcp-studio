@@ -1,5 +1,9 @@
 import { test as base, expect, type Page } from "playwright/test";
-import { activateControl, disableMotion, waitForWorkbenchReady } from "./helpers/interaction";
+import {
+	activateControl,
+	disableMotion,
+	waitForWorkbenchReady,
+} from "./helpers/interaction";
 import {
 	createPageErrorGuard,
 	type PageErrorGuard,
