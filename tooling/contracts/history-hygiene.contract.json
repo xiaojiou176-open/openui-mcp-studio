@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "reportPath": ".runtime-cache/reports/history-audit/gitleaks-history.json",
+  "summaryExpectation": {
+    "totalFindings": 0,
+    "byRule": {}
+  },
+  "classifications": [],
+  "resolutionNotes": [
+    "Current local clone is zero-history-findings clean after replacing the historical Unsplash key family inside local upstream tracking refs.",
+    "This resolution applies to the current clone state; future fetches from the external upstream remote may reintroduce the upstream-side history unless that source also changes."
+  ]
+}

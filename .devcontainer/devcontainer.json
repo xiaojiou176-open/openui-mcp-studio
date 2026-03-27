@@ -1,0 +1,27 @@
+{
+  "name": "openui-mcp-ui-generator",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-playwright.playwright"
+      ]
+    }
+  },
+  "postCreateCommand": "npm ci",
+  "postStartCommand": "npm run hooks:install",
+  "containerEnv": {
+    "CI": "1",
+    "DEVCONTAINER": "1",
+    "TZ": "UTC",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "OPENUI_NODE_VERSION": "22.22.0"
+  }
+}

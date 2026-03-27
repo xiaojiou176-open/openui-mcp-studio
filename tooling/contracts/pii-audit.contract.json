@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "reportPath": ".runtime-cache/reports/security/pii-audit.json",
+  "allowedEmailDomains": [
+    "example.com",
+    "example.org",
+    "example.net",
+    "users.noreply.github.com"
+  ],
+  "allowedEmailAddresses": [
+    "git@github.com"
+  ],
+  "ignoredPathRegexes": [
+    "^node_modules/",
+    "^\\.runtime-cache/",
+    "^\\.secrets\\.baseline$"
+  ]
+}

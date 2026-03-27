@@ -1,0 +1,65 @@
+name: "Run In CI Container"
+description: "Run commands inside the repository CI image with controlled env passthrough."
+
+inputs:
+  image:
+    description: "Container image reference. Empty means resolve from the immutable digest declared in .github/ci-image.lock.json."
+    required: false
+    default: ""
+  gemini_api_key:
+    description: "Optional Gemini API key passthrough for containerized live/test flows."
+    required: false
+    default: ""
+  command:
+    description: "Command to execute in the container."
+    required: true
+  working_directory:
+    description: "Workspace directory to mount into the container."
+    required: false
+    default: "."
+  extra_env_allowlist:
+    description: "Additional env var names (comma-separated) to pass through."
+    required: false
+    default: ""
+  registry:
+    description: "Registry hostname used by docker login."
+    required: false
+    default: "ghcr.io"
+  registry_username:
+    description: "Registry username."
+    required: false
+    default: ""
+  registry_password:
+    description: "Registry password/token."
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run command in repository CI image
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        registry_username="${{ inputs.registry_username }}"
+        if [ -z "${registry_username}" ]; then
+          registry_username="${{ github.actor }}"
+        fi
+        registry_password="${{ inputs.registry_password }}"
+        if [ -z "${registry_password}" ]; then
+          registry_password="${GITHUB_TOKEN:-}"
+        fi
+        if [ -n "${{ inputs.gemini_api_key }}" ]; then
+          export GEMINI_API_KEY="${{ inputs.gemini_api_key }}"
+        fi
+
+        bash ops/ci-container/run-in-container.sh \
+          --image "${{ inputs.image }}" \
+          --command "${{ inputs.command }}" \
+          --workspace "${{ inputs.working_directory }}" \
+          --env-allowlist "${{ inputs.extra_env_allowlist }}" \
+          --registry "${{ inputs.registry }}" \
+          --registry-username "${registry_username}" \
+          --registry-password "${registry_password}"

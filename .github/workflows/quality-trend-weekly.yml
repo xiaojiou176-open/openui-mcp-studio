@@ -1,0 +1,138 @@
+name: Quality Trend Weekly
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: quality-trend-weekly-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  required_env_hard_gate:
+    name: Required Env Hard Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Validate GEMINI_API_KEY is configured
+        run: |
+          if [ -z "${GEMINI_API_KEY}" ]; then
+            echo "::error title=Missing GEMINI_API_KEY::Quality trend weekly requires GEMINI_API_KEY secret."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+  quality_trend:
+    name: Quality Trend Report
+    needs:
+      - required_env_hard_gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    env:
+      TZ: UTC
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Run ci:gate in CI container
+        id: ci_gate_run
+        continue-on-error: true
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run ci:gate:container
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run mutation full in CI container
+        id: mutation_run
+        continue-on-error: true
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run mutation:run:full
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Persist quality trend gate status
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p .runtime-cache/quality-trend
+          ci_gate_status="1"
+          if [[ "${{ steps.ci_gate_run.outcome }}" == "success" ]]; then
+            ci_gate_status="0"
+          fi
+          mutation_status="1"
+          if [[ "${{ steps.mutation_run.outcome }}" == "success" ]]; then
+            mutation_status="0"
+          fi
+          cat > .runtime-cache/quality-trend/input-status.json <<EOF
+          {
+            "ci_gate_status": "${ci_gate_status}",
+            "mutation_status": "${mutation_status}",
+            "run_id": "${{ github.run_id }}",
+            "run_attempt": "${{ github.run_attempt }}"
+          }
+          EOF
+
+      - name: Reset quality trend runtime cache
+        if: always()
+        run: rm -f .runtime-cache/quality-trend/report.json .runtime-cache/quality-trend/report.md .runtime-cache/quality-trend/quality-score-calibration.json
+
+      - name: Build quality trend report
+        if: steps.ci_gate_run.outcome == 'success' && steps.mutation_run.outcome == 'success'
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: node tooling/quality-trend.mjs --window=30d
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Calibrate quality-score threshold (advisory)
+        if: steps.ci_gate_run.outcome == 'success' && steps.mutation_run.outcome == 'success'
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: node tooling/quality-score-calibrate.mjs --min-samples=10
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload quality trend artifacts
+        if: steps.ci_gate_run.outcome == 'success' && steps.mutation_run.outcome == 'success'
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: quality-trend-report-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 30
+          path: .runtime-cache/quality-trend/**
+
+      - name: Upload quality trend gate status
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: quality-trend-status-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 30
+          path: .runtime-cache/quality-trend/input-status.json
+
+      - name: Fail workflow when gate inputs fail
+        if: always()
+        shell: bash
+        run: |
+          if [[ "${{ steps.ci_gate_run.outcome }}" != "success" ]]; then
+            echo "::error title=Quality trend input failed::ci:gate failed before trend generation."
+            exit 1
+          fi
+          if [[ "${{ steps.mutation_run.outcome }}" != "success" ]]; then
+            echo "::error title=Quality trend input failed::mutation:run:full failed before trend generation."
+            exit 1
+          fi

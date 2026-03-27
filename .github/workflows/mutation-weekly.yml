@@ -1,0 +1,63 @@
+name: Mutation Weekly
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: mutation-weekly-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  required_env_hard_gate:
+    name: Required Env Hard Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Validate GEMINI_API_KEY is configured
+        run: |
+          if [ -z "${GEMINI_API_KEY}" ]; then
+            echo "::error title=Missing GEMINI_API_KEY::Mutation weekly requires GEMINI_API_KEY secret."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+  mutation_gate:
+    name: Mutation Gate
+    needs:
+      - required_env_hard_gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    env:
+      TZ: UTC
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Run mutation gate in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run mutation:run:full && npm run mutation:gate
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload mutation artifacts
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: mutation-report-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 14
+          path: .runtime-cache/mutation/**
