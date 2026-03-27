@@ -5,7 +5,7 @@
 	},
 	"description": "Generate, apply, and verify production-ready React and shadcn UI from natural-language briefs.",
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.6",
+		"@biomejs/biome": "^2.4.9",
 		"@commitlint/cli": "^20.5.0",
 		"@commitlint/config-conventional": "^20.5.0",
 		"@eslint/js": "^10.0.1",
