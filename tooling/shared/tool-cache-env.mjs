@@ -193,7 +193,6 @@ async function buildSafeToolCacheEnv(options = {}) {
 }
 
 async function buildManagedToolingEnv(options = {}) {
-	const env = options.env ?? process.env;
 	const roots = await resolveToolCacheRoots(options);
 	const safeEnv = await buildSafeToolCacheEnv(options);
 	return {

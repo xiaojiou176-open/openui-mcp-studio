@@ -213,7 +213,7 @@ async function buildMaintenanceCandidate(detail, metadata, options = {}) {
 		error: null,
 	};
 	let eligible = false;
-	let reason = "missing";
+	let reason;
 	if (!detail.exists) {
 		reason = "missing";
 	} else if (scope !== "repo-local") {
