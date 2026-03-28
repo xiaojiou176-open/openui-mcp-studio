@@ -31,11 +31,11 @@
 				display: grid;
 				grid-template-columns: 286px minmax(0, 1fr);
 				gap: 16px;
-				align-items: center;
+				align-items: stretch;
 			}
 
 			.panel {
-				min-height: 548px;
+				min-height: 574px;
 				padding: 22px 20px 22px;
 				border-radius: 32px;
 				background: rgba(255, 255, 255, 0.9);
@@ -120,7 +120,6 @@
 				border: 1px solid rgba(15, 23, 42, 0.08);
 				box-shadow: 0 32px 90px rgba(13, 139, 111, 0.12);
 				background: rgba(255, 255, 255, 0.96);
-				height: 574px;
 				padding: 8px;
 				display: flex;
 				align-items: center;
@@ -132,7 +131,8 @@
 				width: 100%;
 				height: 100%;
 				object-fit: contain;
-				object-position: center top;
+				object-position: left top;
+				border-radius: 24px;
 			}
 		</style>
 	</head>

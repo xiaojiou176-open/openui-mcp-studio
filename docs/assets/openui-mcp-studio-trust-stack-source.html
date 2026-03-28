@@ -28,11 +28,13 @@
 
 			.canvas {
 				width: 1440px;
-				height: 760px;
-				padding: 30px 34px 26px;
+				height: 900px;
+				overflow: hidden;
+				padding: 40px 40px 42px;
 				display: flex;
 				flex-direction: column;
-				gap: 16px;
+				justify-content: center;
+				gap: 22px;
 			}
 
 			.eyebrow {
@@ -47,28 +49,29 @@
 
 			h1 {
 				margin: 0;
-				font-size: 44px;
+				font-size: 58px;
 				line-height: 1.05;
 				letter-spacing: -0.04em;
+				max-width: 1220px;
 			}
 
 			p {
 				margin: 0;
-				font-size: 18px;
-				line-height: 1.32;
+				font-size: 23px;
+				line-height: 1.42;
 				color: #4b5d78;
-				max-width: 880px;
+				max-width: 1040px;
 			}
 
 			.grid {
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
-				gap: 14px;
-				margin-top: 4px;
+				gap: 18px;
+				margin-top: 2px;
 			}
 
 			.card {
-				padding: 16px 16px 16px;
+				padding: 28px 28px 26px;
 				border-radius: 24px;
 				background: rgba(255, 255, 255, 0.92);
 				border: 1px solid rgba(148, 163, 184, 0.2);
@@ -76,24 +79,25 @@
 			}
 
 			h2 {
-				margin: 0 0 10px;
-				font-size: 22px;
+				margin: 0 0 14px;
+				font-size: 28px;
 				line-height: 1.15;
 				letter-spacing: -0.03em;
 			}
 
 			.card p {
-				font-size: 16px;
+				font-size: 20px;
+				line-height: 1.4;
 				color: #485b77;
 			}
 
 			.badge {
 				display: inline-block;
-				margin-top: 8px;
-				padding: 7px 10px;
+				margin-top: 16px;
+				padding: 9px 14px;
 				border-radius: 999px;
-				background: rgba(15, 23, 42, 0.06);
-				font-size: 14px;
+				background: rgba(15, 23, 42, 0.1);
+				font-size: 16px;
 				font-weight: 700;
 				color: #0f172a;
 			}

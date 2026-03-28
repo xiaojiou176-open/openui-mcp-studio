@@ -30,8 +30,8 @@
 				width: 1280px;
 				height: 640px;
 				display: grid;
-				grid-template-columns: 0.92fr 1.08fr;
-				gap: 20px;
+				grid-template-columns: 0.96fr 1.04fr;
+				gap: 24px;
 				padding: 40px 42px;
 			}
 
@@ -58,7 +58,7 @@
 				margin: 0;
 				font-size: 60px;
 				line-height: 1.02;
-				letter-spacing: -0.05em;
+				letter-spacing: -0.02em;
 			}
 
 			p {
@@ -81,31 +81,149 @@
 				border-radius: 999px;
 				background: rgba(255, 255, 255, 0.08);
 				color: #ebf2ff;
-				font-size: 16px;
+				font-size: 20px;
 				font-weight: 600;
 			}
 
 			.right {
 				display: flex;
 				align-items: center;
-				justify-content: center;
+				justify-content: flex-end;
 			}
 
 			.frame {
 				width: 100%;
+				height: auto;
 				border-radius: 28px;
-				overflow: hidden;
 				border: 1px solid rgba(201, 219, 255, 0.16);
 				box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-				background: rgba(255, 255, 255, 0.04);
-				transform: scale(1.04);
-				transform-origin: center;
+				background: linear-gradient(180deg, #fdfefe 0%, #f4f7fd 100%);
+				padding: 22px 22px 20px;
 			}
 
-			img {
-				display: block;
-				width: 100%;
-				height: auto;
+			.preview {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				color: #132238;
+			}
+
+			.preview-chip {
+				width: fit-content;
+				padding: 7px 12px;
+				border-radius: 999px;
+				background: rgba(47, 109, 246, 0.08);
+				border: 1px solid rgba(47, 109, 246, 0.18);
+				color: #234dbf;
+				font-size: 12px;
+				font-weight: 700;
+				letter-spacing: 0.01em;
+			}
+
+			.preview h2 {
+				margin: 0;
+				font-size: 42px;
+				line-height: 1.02;
+				letter-spacing: -0.03em;
+			}
+
+			.preview-copy {
+				margin: 0;
+				font-size: 18px;
+				line-height: 1.34;
+				color: #4e5f79;
+				max-width: 520px;
+			}
+
+			.preview-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 12px;
+			}
+
+			.preview-card {
+				padding: 16px 18px;
+				border-radius: 18px;
+				background: rgba(255, 255, 255, 0.96);
+				border: 1px solid rgba(148, 163, 184, 0.22);
+				box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+			}
+
+			.preview-label {
+				margin: 0 0 6px;
+				font-size: 16px;
+				font-weight: 600;
+				color: #5f7089;
+			}
+
+			.preview-value {
+				margin: 0;
+				font-size: 52px;
+				line-height: 1;
+				font-weight: 800;
+				color: #132238;
+			}
+
+			.preview-note {
+				margin: 6px 0 0;
+				font-size: 14px;
+				line-height: 1.35;
+				color: #66788f;
+			}
+
+			.preview-command {
+				margin-top: auto;
+				padding: 16px 18px;
+				border-radius: 18px;
+				background: rgba(255, 255, 255, 0.96);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+			}
+
+			.preview-command h3 {
+				margin: 0;
+				font-size: 22px;
+				letter-spacing: -0.02em;
+				color: #132238;
+			}
+
+			.preview-command p {
+				margin: 6px 0 12px;
+				font-size: 15px;
+				color: #64768d;
+				line-height: 1.35;
+			}
+
+			.preview-row {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.preview-search {
+				flex: 1;
+				padding: 12px 14px;
+				border-radius: 14px;
+				background: #f8fbff;
+				border: 1px solid rgba(148, 163, 184, 0.24);
+				font-size: 15px;
+				color: #5f7089;
+			}
+
+			.preview-filters {
+				display: flex;
+				gap: 8px;
+			}
+
+			.preview-filter {
+				padding: 10px 12px;
+				border-radius: 12px;
+				border: 1px solid rgba(47, 109, 246, 0.18);
+				background: rgba(47, 109, 246, 0.04);
+				font-size: 15px;
+				font-weight: 700;
+				color: #234dbf;
 			}
 		</style>
 	</head>
@@ -126,10 +244,38 @@
 			</section>
 			<section class="right">
 				<div class="frame">
-					<img
-						src="./openui-mcp-studio-workbench.png"
-						alt="Workbench preview"
-					/>
+					<div class="preview" role="img" aria-label="Workbench preview">
+						<div class="preview-chip">Product workbench</div>
+						<h2>Brief to reviewed delivery, visible in one flow.</h2>
+						<p class="preview-copy">
+							See active work, blocked decisions, and the command bar without
+							leaving the card.
+						</p>
+						<div class="preview-grid">
+							<div class="preview-card">
+								<p class="preview-label">Active work</p>
+								<p class="preview-value">1</p>
+								<p class="preview-note">In pipeline now.</p>
+							</div>
+							<div class="preview-card">
+								<p class="preview-label">Blocked</p>
+								<p class="preview-value">1</p>
+								<p class="preview-note">Waiting on decisions.</p>
+							</div>
+						</div>
+						<div class="preview-command">
+							<h3>Command bar</h3>
+							<p>Search work, focus a lane, and keep the workflow legible.</p>
+							<div class="preview-row">
+								<div class="preview-search">Search briefs, owners, or review notes</div>
+								<div class="preview-filters">
+									<div class="preview-filter">All</div>
+									<div class="preview-filter">Active</div>
+									<div class="preview-filter">Blocked</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>

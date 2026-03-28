@@ -28,11 +28,12 @@
 
 			.canvas {
 				width: 1440px;
-				height: 880px;
-				padding: 24px 28px 22px;
+				height: 1300px;
+				overflow: hidden;
+				padding: 42px 88px 46px;
 				display: flex;
 				flex-direction: column;
-				gap: 10px;
+				gap: 18px;
 			}
 
 			.eyebrow {
@@ -47,29 +48,30 @@
 
 			h1 {
 				margin: 0;
-				font-size: 40px;
-				line-height: 1.03;
+				font-size: 54px;
+				line-height: 1.04;
 				letter-spacing: -0.04em;
+				max-width: 1260px;
 			}
 
 			p {
 				margin: 0;
-				font-size: 18px;
-				line-height: 1.3;
+				font-size: 28px;
+				line-height: 1.32;
 				color: #4b5d78;
-				max-width: 940px;
+				max-width: 1040px;
 			}
 
 			table {
 				width: 100%;
 				border-collapse: separate;
-				border-spacing: 8px;
+				border-spacing: 14px;
 				table-layout: fixed;
 			}
 
 			th,
 			td {
-				padding: 12px 12px;
+				padding: 20px 22px;
 				border-radius: 18px;
 				background: rgba(255, 255, 255, 0.92);
 				border: 1px solid rgba(148, 163, 184, 0.2);
@@ -78,20 +80,20 @@
 			}
 
 			th {
-				font-size: 20px;
+				font-size: 28px;
 				text-align: left;
 				letter-spacing: -0.03em;
 			}
 
 			td {
-				font-size: 16px;
-				line-height: 1.24;
+				font-size: 24px;
+				line-height: 1.28;
 				color: #3f516c;
 			}
 
 			.highlight {
-				background: linear-gradient(180deg, #eef5ff 0%, #ffffff 100%);
-				border-color: rgba(47, 109, 246, 0.32);
+				background: #edf4ff;
+				border-color: rgba(47, 109, 246, 0.52);
 			}
 
 			.good {
@@ -106,11 +108,11 @@
 
 			.metric {
 				display: inline-block;
-				margin-top: 5px;
-				padding: 5px 9px;
+				margin-top: 8px;
+				padding: 8px 12px;
 				border-radius: 999px;
 				background: rgba(15, 23, 42, 0.06);
-				font-size: 13px;
+				font-size: 18px;
 				font-weight: 700;
 				color: #0f172a;
 			}
@@ -126,7 +128,7 @@
 				evaluate and reuse.
 			</p>
 
-			<table>
+			<table style="margin-top: 6px">
 				<thead>
 					<tr>
 						<th>Evaluation question</th>
