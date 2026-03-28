@@ -64,9 +64,13 @@ async function runRuntimeLayoutCheck(options = {}) {
 		REQUIRED_SNIPPETS_BY_FILE,
 	)) {
 		const absolutePath = path.resolve(rootDir, filePath);
-		let content = "";
 		try {
-			content = await fs.readFile(absolutePath, "utf8");
+			const content = await fs.readFile(absolutePath, "utf8");
+			for (const snippet of requiredSnippets) {
+				if (!content.includes(snippet)) {
+					errors.push(`${filePath} must include run-layout snippet "${snippet}"`);
+				}
+			}
 		} catch (error) {
 			const errorCode =
 				error && typeof error === "object" && "code" in error
@@ -79,12 +83,6 @@ async function runRuntimeLayoutCheck(options = {}) {
 			errors.push(
 				`required runtime-layout source file could not be read: ${filePath}`,
 			);
-			continue;
-		}
-		for (const snippet of requiredSnippets) {
-			if (!content.includes(snippet)) {
-				errors.push(`${filePath} must include run-layout snippet "${snippet}"`);
-			}
 		}
 	}
 

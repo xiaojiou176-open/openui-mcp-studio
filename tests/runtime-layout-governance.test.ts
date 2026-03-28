@@ -23,7 +23,11 @@ const MINIMAL_RUNTIME_LAYOUT_CONTRACT = {
 };
 
 const REQUIRED_FILE_SNIPPETS = {
-	"tooling/ci-gate.mjs": [".runtime-cache/runs", "summary.json", "quality-score.json"],
+	"tooling/ci-gate.mjs": [
+		".runtime-cache/runs",
+		"summary.json",
+		"quality-score.json",
+	],
 	"tooling/ci-gate/summary-file.mjs": [".runtime-cache/runs", "summary.json"],
 	"tooling/quality-score.mjs": [".runtime-cache/runs", "quality-score.json"],
 	"tooling/evidence-index.mjs": [
@@ -32,7 +36,10 @@ const REQUIRED_FILE_SNIPPETS = {
 		"qualityScorePath",
 		"evidence/index.json",
 	],
-	"tooling/check-evidence-governance.mjs": [".runtime-cache/runs", "quality score file"],
+	"tooling/check-evidence-governance.mjs": [
+		".runtime-cache/runs",
+		"quality score file",
+	],
 	"services/mcp-server/src/logger.ts": [".runtime-cache/runs", "runtime.jsonl"],
 } as const;
 
@@ -47,7 +54,9 @@ describe("runtime layout governance", () => {
 				MINIMAL_RUNTIME_LAYOUT_CONTRACT,
 			);
 
-			for (const [filePath, snippets] of Object.entries(REQUIRED_FILE_SNIPPETS)) {
+			for (const [filePath, snippets] of Object.entries(
+				REQUIRED_FILE_SNIPPETS,
+			)) {
 				if (filePath === "tooling/quality-score.mjs") {
 					continue;
 				}
@@ -57,7 +66,7 @@ describe("runtime layout governance", () => {
 			const result = await runRuntimeLayoutCheck({ rootDir });
 			expect(result.ok).toBe(false);
 			expect(result.errors).toContain(
-				'required runtime-layout source file is missing: tooling/quality-score.mjs',
+				"required runtime-layout source file is missing: tooling/quality-score.mjs",
 			);
 		} finally {
 			await fs.rm(rootDir, { recursive: true, force: true });
