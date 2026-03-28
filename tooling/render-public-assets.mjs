@@ -15,14 +15,14 @@ const GOLDEN_WORKBENCH = path.resolve(
 	"tests/visual-golden/apps-web-home.png",
 );
 
-const COPY_TARGETS = [
-	{
-		source: GOLDEN_WORKBENCH,
-		output: path.resolve(DOCS_ASSETS_DIR, "openui-mcp-studio-workbench.png"),
-	},
-];
+const COPY_TARGETS = [];
 
 const STATIC_PAGES = [
+	{
+		input: "docs/assets/openui-mcp-studio-workbench-source.html",
+		output: "docs/assets/openui-mcp-studio-workbench.png",
+		viewport: { width: 1280, height: 720 },
+	},
 	{
 		input: "docs/assets/openui-mcp-studio-social-preview-source.html",
 		output: "docs/assets/openui-mcp-studio-social-preview.png",
@@ -36,12 +36,12 @@ const STATIC_PAGES = [
 	{
 		input: "docs/assets/openui-mcp-studio-comparison-source.html",
 		output: "docs/assets/openui-mcp-studio-comparison.png",
-		viewport: { width: 1440, height: 880 },
+		viewport: { width: 1440, height: 1300 },
 	},
 	{
 		input: "docs/assets/openui-mcp-studio-trust-stack-source.html",
 		output: "docs/assets/openui-mcp-studio-trust-stack.png",
-		viewport: { width: 1440, height: 760 },
+		viewport: { width: 1440, height: 820 },
 	},
 	{
 		input: "docs/assets/openui-mcp-studio-use-cases-source.html",

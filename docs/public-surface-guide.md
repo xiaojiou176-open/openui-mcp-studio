@@ -101,6 +101,7 @@ with Playwright screenshots.
 
 Current source files:
 
+- `docs/assets/openui-mcp-studio-workbench-source.html`
 - `docs/assets/openui-mcp-studio-social-preview-source.html`
 - `docs/assets/openui-mcp-studio-demo-source-brief.html`
 - `docs/assets/openui-mcp-studio-demo-source-review.html`
