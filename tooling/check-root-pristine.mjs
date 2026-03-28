@@ -82,7 +82,7 @@ async function main() {
 			}
 			process.exit(1);
 		}
-		console.log("[root-pristine] OK");
+		console.log("[root-pristine] OK (allowlisted root hygiene)");
 	} catch (error) {
 		console.error(`[root-pristine] ERROR: ${error instanceof Error ? error.message : String(error)}`);
 		process.exit(1);

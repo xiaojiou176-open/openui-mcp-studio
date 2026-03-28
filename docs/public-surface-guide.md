@@ -70,6 +70,16 @@ When the public message changes:
 If README says one thing and Releases say another, the repo starts feeling
 unmaintained even when the code is healthy.
 
+### 3.1 Homepage And Social Preview Must Be Honest
+
+- Prefer a real landing page or docs site for the GitHub Homepage field.
+- If no standalone landing page exists yet, leaving Homepage unset is better
+  than pointing visitors at a raw GitHub blob URL that looks like a product
+  site but behaves like source code.
+- Do not assume that shipping `docs/assets/openui-mcp-studio-social-preview.png`
+  means GitHub is already using it. Treat Social Preview as a settings-level
+  control that must be explicitly verified whenever the public story changes.
+
 ### 4. Discussions Should Feel Alive
 
 The main discussions categories should keep at least one visible, useful thread:
@@ -107,6 +117,13 @@ Preferred regeneration pattern:
 3. run `npm run public:assets:check`
 4. update README or docs references if the asset meaning changed
 5. upload the asset to the latest release if it belongs in the release bundle
+
+Visual quality floor:
+
+- comparison and trust visuals must not clip their final row or status pills
+- demo frames must not rely on README scaling to stay readable
+- if a frame only works when viewed full-size but becomes unreadable in README,
+  treat that as a layout problem and fix the frame or the embedding pattern
 
 ## Release Asset Checklist
 

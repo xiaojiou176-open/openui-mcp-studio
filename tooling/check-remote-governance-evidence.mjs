@@ -18,6 +18,7 @@ const REQUIRED_REMOTE_IDS = new Set([
 	"code_scanning",
 	"private_vulnerability_reporting",
 ]);
+const STRICT_MAX_AGE_HOURS = 36;
 const DEFAULT_PUBLIC_READY_REQUIRED_VALUES = {
 	branch_protection_main: ["enabled"],
 	required_checks_main: ["enforced"],
@@ -198,6 +199,18 @@ async function runRemoteGovernanceEvidenceCheck(options = {}) {
 	}
 	if (!readString(contract.checkedAt)) {
 		errors.push("checkedAt must be non-empty.");
+	} else if (strict) {
+		const parsed = Date.parse(contract.checkedAt);
+		if (Number.isNaN(parsed)) {
+			errors.push("checkedAt must be a valid ISO timestamp in strict mode.");
+		} else {
+			const ageHours = (Date.now() - parsed) / (1000 * 60 * 60);
+			if (ageHours > STRICT_MAX_AGE_HOURS) {
+				errors.push(
+					`remote governance evidence is stale in strict mode: checkedAt is older than ${STRICT_MAX_AGE_HOURS}h.`,
+				);
+			}
+		}
 	}
 
 	const repoLocalControls = Array.isArray(contract.repoLocalControls)

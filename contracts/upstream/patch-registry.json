@@ -1,6 +1,7 @@
 {
 	"version": 1,
 	"manager": "patch-package",
+	"patchDirectory": "ops/upstream/patches/patch-package",
 	"patches": [],
 	"requiredFields": [
 		"file",

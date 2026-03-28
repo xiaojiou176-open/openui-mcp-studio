@@ -5,9 +5,9 @@ import { readJsonFile, toPosixPath } from "./shared/governance-utils.mjs";
 
 const DEFAULT_PATCH_REGISTRY_PATH = "contracts/upstream/patch-registry.json";
 
-async function listPatchFiles(rootDir) {
+async function listPatchFiles(rootDir, patchDirectory) {
 	try {
-		const entries = await fs.readdir(path.join(rootDir, "patches"), {
+		const entries = await fs.readdir(path.join(rootDir, patchDirectory), {
 			withFileTypes: true,
 		});
 		return entries
@@ -31,12 +31,18 @@ async function runPatchRegistryCheck(options = {}) {
 	if (String(registry.manager ?? "") !== "patch-package") {
 		errors.push('patch registry manager must be "patch-package"');
 	}
+	const patchDirectory = String(registry.patchDirectory ?? "").trim();
+	if (!patchDirectory) {
+		errors.push('patch registry must declare non-empty "patchDirectory"');
+	}
 
 	const requiredFields = Array.isArray(registry.requiredFields)
 		? registry.requiredFields.map((value) => String(value))
 		: [];
 	const patches = Array.isArray(registry.patches) ? registry.patches : [];
-	const patchFiles = await listPatchFiles(rootDir);
+	const patchFiles = patchDirectory
+		? await listPatchFiles(rootDir, patchDirectory)
+		: [];
 	const registeredFiles = new Set();
 
 	for (const entry of patches) {
@@ -63,6 +69,9 @@ async function runPatchRegistryCheck(options = {}) {
 		ok: errors.length === 0,
 		rootDir: toPosixPath(rootDir),
 		registryPath: toPosixPath(path.relative(rootDir, registryPath)),
+		patchDirectory: patchDirectory
+			? toPosixPath(path.join(rootDir, patchDirectory))
+			: "",
 		errors,
 	};
 }
@@ -77,7 +86,9 @@ async function main() {
 			}
 			process.exit(1);
 		}
-		console.log(`[patch-registry] OK (${result.registryPath})`);
+		console.log(
+			`[patch-registry] OK (${result.registryPath}; patchDirectory=${toPosixPath(path.relative(result.rootDir, result.patchDirectory || "")) || "n/a"})`,
+		);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
 		console.error(`[patch-registry] ERROR: ${message}`);

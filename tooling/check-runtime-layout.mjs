@@ -38,6 +38,27 @@ async function runRuntimeLayoutCheck(options = {}) {
 			errors.push(`run layout contract is missing field "${requiredField}"`);
 		}
 	}
+	if (typeof contract.runtimeRoot !== "string" || contract.runtimeRoot.trim() === "") {
+		errors.push('run layout contract "runtimeRoot" must be a non-empty string');
+	}
+	if (typeof contract.runsRoot !== "string" || contract.runsRoot.trim() === "") {
+		errors.push('run layout contract "runsRoot" must be a non-empty string');
+	}
+	for (const field of [
+		"requiredRunFiles",
+		"requiredRunDirectories",
+		"requiredLogFiles",
+	]) {
+		if (!Array.isArray(contract[field]) || contract[field].length === 0) {
+			errors.push(`run layout contract "${field}" must be a non-empty array`);
+			continue;
+		}
+		for (const value of contract[field]) {
+			if (typeof value !== "string" || value.trim() === "") {
+				errors.push(`run layout contract "${field}" contains an empty entry`);
+			}
+		}
+	}
 
 	for (const [filePath, requiredSnippets] of Object.entries(
 		REQUIRED_SNIPPETS_BY_FILE,
@@ -47,6 +68,13 @@ async function runRuntimeLayoutCheck(options = {}) {
 			if (!content.includes(snippet)) {
 				errors.push(`${filePath} must include run-layout snippet "${snippet}"`);
 			}
+		}
+	}
+	for (const filePath of Object.keys(REQUIRED_SNIPPETS_BY_FILE)) {
+		try {
+			await fs.access(path.resolve(rootDir, filePath));
+		} catch {
+			errors.push(`required runtime-layout source file is missing: ${filePath}`);
 		}
 	}
 

@@ -1,4 +1,7 @@
-# First Minute Walkthrough
+# Warm-Start Walkthrough
+
+This file keeps the old "first minute" URL for link stability, but the route
+below is the **warm-start** path. It assumes your machine is already prepared.
 
 Use this page when you want the fastest honest answer to one question:
 
@@ -10,8 +13,9 @@ Use this route only if you already have:
 - `GEMINI_API_KEY` configured in `.env` or your shell
 - a working repo checkout with dependencies installed
 
-If you do **not** have that yet, start with the [README Quick Start](../README.md#quick-start).
-That path is slower, but it is the honest cold-start route.
+If you do **not** have that yet, start with the
+[README Cold Start Quick Start](../README.md#cold-start-quick-start).
+That path is slower, but it is the honest clean-machine route.
 
 ## 0 to 20 Seconds
 
@@ -35,6 +39,12 @@ What this proves:
 - one real ship-tool payload from the current repo
 - not a placeholder screenshot
 - not the full clean-room or release story
+
+What this does **not** prove:
+
+- that the repository already passed `repo:verify:full`
+- that the result is production-ready
+- that the public-safe release lane is clear
 
 ## 20 to 40 Seconds
 
@@ -71,6 +81,17 @@ What you are looking for:
 - `smoke:e2e` tells you the default proof target still behaves like a real app
 - `docs/proof-and-faq.md` remains the canonical page for what each proof command
   does and does **not** prove
+
+## If You Need The Authoritative Local Parity Path
+
+Use this command when you want more than a warm-start proof:
+
+```bash
+npm run repo:verify:full
+```
+
+That path is slower, but it is the local parity lane instead of the quick
+visibility lane.
 
 ## If You Want More Than One Minute
 

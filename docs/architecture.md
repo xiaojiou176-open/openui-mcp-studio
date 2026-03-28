@@ -12,6 +12,13 @@ The runtime entrypoint is `services/mcp-server/src/main.ts`.
 Tool registration and orchestration live in `services/mcp-server/src/index.ts`.
 The MCP server remains the system protocol entrypoint.
 
+Public entry order stays separate from runtime entry order:
+
+1. `README.md` explains the product surface
+2. `docs/proof-and-faq.md` explains the proof tiers
+3. `docs/evaluator-checklist.md` gives the short evaluation route
+4. `services/mcp-server/src/main.ts` remains the actual runtime entrypoint
+
 ## Main Flow
 
 The default end-to-end flow is owned by `openui_ship_react_page`:

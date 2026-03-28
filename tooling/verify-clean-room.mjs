@@ -3,6 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readJsonFile, toPosixPath } from "./shared/governance-utils.mjs";
 
+const DEFAULT_ROOT_ALLOWLIST_PATH = "contracts/governance/root-allowlist.json";
+
 async function runCleanRoomVerification(options = {}) {
 	const rootDir = path.resolve(options.rootDir ?? process.cwd());
 	const imageLock = await readJsonFile(path.resolve(rootDir, ".github/ci-image.lock.json"));
@@ -32,9 +34,65 @@ async function runCleanRoomVerification(options = {}) {
 	};
 }
 
+async function withManagedInstallSurfaceMoved(rootDir, action) {
+	const allowlist = await readJsonFile(
+		path.resolve(rootDir, DEFAULT_ROOT_ALLOWLIST_PATH),
+	);
+	const managedInstallSurface = Array.isArray(allowlist.machineManagedInstallSurface)
+		? allowlist.machineManagedInstallSurface.map((value) => String(value).trim()).filter(Boolean)
+		: [];
+	const forbiddenCleanRoomEntries = new Set([
+		"node_modules",
+		"coverage",
+		"dist",
+		"build",
+		"playwright-report",
+		"htmlcov",
+	]);
+	const staged = [];
+	const stashRoot = path.resolve(
+		rootDir,
+		".runtime-cache",
+		"tmp",
+		"verify-clean-room-managed-install-surface",
+	);
+	await fs.mkdir(stashRoot, { recursive: true });
+
+	try {
+		for (const relativePath of managedInstallSurface) {
+			if (!forbiddenCleanRoomEntries.has(relativePath)) {
+				continue;
+			}
+			const sourcePath = path.resolve(rootDir, relativePath);
+			try {
+				await fs.access(sourcePath);
+			} catch {
+				continue;
+			}
+			const targetPath = path.resolve(stashRoot, relativePath);
+			await fs.rm(targetPath, { recursive: true, force: true });
+			await fs.rename(sourcePath, targetPath);
+			staged.push({ sourcePath, targetPath });
+		}
+		return await action();
+	} finally {
+		for (const { sourcePath, targetPath } of [...staged].reverse()) {
+			try {
+				await fs.access(targetPath);
+			} catch {
+				continue;
+			}
+			await fs.rename(targetPath, sourcePath);
+		}
+	}
+}
+
 async function main() {
 	try {
-		const result = await runCleanRoomVerification();
+		const rootDir = process.cwd();
+		const result = await withManagedInstallSurfaceMoved(rootDir, () =>
+			runCleanRoomVerification({ rootDir }),
+		);
 		if (!result.ok) {
 			console.error("[verify-clean-room] FAILED");
 			for (const error of result.errors) {

@@ -5,14 +5,14 @@ import path from "node:path";
 
 const MANIFEST_PATH = path.resolve(
 	process.cwd(),
-	"tooling/contracts/docs-render.manifest.json",
+	"tooling/contracts/docs-manual-boundary.contract.json",
 );
 
 async function main() {
 	const manifestRaw = await readFile(MANIFEST_PATH, "utf8");
 	const manifest = JSON.parse(manifestRaw);
-	const rules = Array.isArray(manifest.manualBoundaryRules)
-		? manifest.manualBoundaryRules
+	const rules = Array.isArray(manifest.rules)
+		? manifest.rules
 		: [];
 	const errors = [];
 

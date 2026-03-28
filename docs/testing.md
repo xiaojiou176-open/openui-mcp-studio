@@ -41,6 +41,28 @@ real gate?"
 If a lane depends on Gemini, external APIs, or unstable network behavior, keep
 it out of the default blocking PR path.
 
+## Default Merge Gate Surface
+
+Use this section when you want the shortest honest answer to "what is merge-ready
+on the canonical public branch today?"
+
+The stable required-check target is:
+
+- `Quality (Node 22.22.0)`
+- `Workflow Lint`
+- `secret_scan`
+
+Everything else in the repository may still matter for release, public-safe
+claims, or maintenance review, but it should not be confused with the default
+merge gate surface.
+
+Important boundary:
+
+- merge-ready is **not** the same thing as public-safe
+- `release:public-safe:check` is still the stricter repo-side verdict
+- manual Gemini, mutation, and other high-variance maintenance lanes remain
+  outside the default required PR path
+
 ## Gate Meaning
 
 - `npm run ci:gate`
@@ -52,7 +74,7 @@ it out of the default blocking PR path.
     coverage, build, smoke, E2E, and governance checks
 - `npm run docs:check`
   - deterministic docs front-door gate
-  - keeps lint, render, link, and scope checks on the default path
+  - keeps lint, link, and scope checks on the default path
 - `npm run docs:check:strict`
   - strict docs lane for release or manual governance review
   - adds manual-fact and proof-pack checks without forcing that cost onto every

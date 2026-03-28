@@ -47,11 +47,20 @@ Check:
 If the repository only talks about what it can do but does not show a visible
 target or a reproducible ship result, treat the evaluation as incomplete.
 
+Also check whether you are looking at the right proof tier:
+
+- `demo:ship` is the warm-start visible proof
+- `README.md#cold-start-quick-start` is the clean-machine setup path
+- `repo:doctor` is the front-door health lane
+- `repo:verify:full` is the authoritative local parity lane
+- `release:public-safe:check` is the strict public-safe lane
+
 ### 3. Does trust come from evidence instead of vibes?
 
 Check:
 
 - `npm run repo:doctor`
+- `npm run repo:verify:full`
 - `npm run release:public-safe:check`
 - the trust stack visual and proof FAQ
 
