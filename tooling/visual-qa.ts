@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
+import { createRequire } from "node:module";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -59,7 +60,14 @@ const VISUAL_QA_REQUIRE_DARK_VARIATION =
 const VISUAL_QA_MIN_DARK_DIFF_RATIO =
 	readNonNegativeNumberEnv("VISUAL_QA_MIN_DARK_DIFF_RATIO") ??
 	DEFAULT_MIN_DARK_DIFF_RATIO;
-const REQUIRED_NEXT_RUNTIME_PACKAGES = ["next", "react", "react-dom"] as const;
+const REQUIRED_NEXT_BUILD_PACKAGES = [
+	"next",
+	"react",
+	"react-dom",
+	"typescript",
+	"@types/react",
+	"@types/react-dom",
+] as const;
 const VISUAL_SCENARIOS = Object.freeze([
 	{
 		id: "desktop-light",
@@ -241,6 +249,14 @@ async function resolveSafeTargetRoot(targetRoot: string): Promise<string> {
 }
 
 function getNextBinPath(root: string): string {
+	if (process.platform !== "win32") {
+		try {
+			const requireFromRoot = createRequire(path.resolve(root, "package.json"));
+			return requireFromRoot.resolve("next/dist/bin/next");
+		} catch {
+			// Fall back to the local .bin path for workspace layouts without resolvable bins.
+		}
+	}
 	return path.resolve(
 		root,
 		"node_modules",
@@ -277,14 +293,16 @@ async function runCommand(input: {
 }
 
 async function ensureRuntimeDeps(targetRoot: string): Promise<void> {
-	const requiredPaths = [
-		path.resolve(targetRoot, "node_modules", "next", "package.json"),
-		path.resolve(targetRoot, "node_modules", "react", "package.json"),
-		path.resolve(targetRoot, "node_modules", "react-dom", "package.json"),
-	];
-
-	const allInstalled = await Promise.all(requiredPaths.map(pathExists));
-	if (allInstalled.every(Boolean)) {
+	const requireFromRoot = createRequire(path.resolve(targetRoot, "package.json"));
+	const allInstalled = REQUIRED_NEXT_BUILD_PACKAGES.every((name) => {
+		try {
+			requireFromRoot.resolve(`${name}/package.json`);
+			return true;
+		} catch {
+			return false;
+		}
+	});
+	if (allInstalled) {
 		return;
 	}
 
@@ -485,14 +503,14 @@ async function main(): Promise<void> {
 
 	const manifestStatus = await getTargetBuildManifestStatus({
 		root: targetRoot,
-		requiredPackages: REQUIRED_NEXT_RUNTIME_PACKAGES,
+		requiredPackages: REQUIRED_NEXT_BUILD_PACKAGES,
 	});
 	if (!manifestStatus.valid) {
 		await ensureRuntimeDeps(targetRoot);
 		await ensureNextBuild(targetRoot);
 		await writeTargetBuildManifest({
 			root: targetRoot,
-			requiredPackages: REQUIRED_NEXT_RUNTIME_PACKAGES,
+			requiredPackages: REQUIRED_NEXT_BUILD_PACKAGES,
 		});
 	}
 

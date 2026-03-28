@@ -12,7 +12,14 @@ import { runProcess } from "../packages/shared-runtime/src/process-utils.js";
 import { pathExists } from "../packages/shared-runtime/src/runtime-ops.js";
 
 const DEFAULT_TIMEOUT_MS = 180_000;
-const REQUIRED_NEXT_RUNTIME_PACKAGES = ["next", "react", "react-dom"] as const;
+const REQUIRED_NEXT_BUILD_PACKAGES = [
+	"next",
+	"react",
+	"react-dom",
+	"typescript",
+	"@types/react",
+	"@types/react-dom",
+] as const;
 
 type CliOptions = {
 	targetRoot: string;
@@ -160,7 +167,7 @@ async function runCommand(input: {
 
 async function ensureRuntimeDeps(root: string): Promise<void> {
 	const requireFromRoot = createRequire(path.resolve(root, "package.json"));
-	const allInstalled = REQUIRED_NEXT_RUNTIME_PACKAGES.every((name) => {
+	const allInstalled = REQUIRED_NEXT_BUILD_PACKAGES.every((name) => {
 		try {
 			requireFromRoot.resolve(`${name}/package.json`);
 			return true;
@@ -238,7 +245,7 @@ async function main(): Promise<void> {
 	const targetRoot = await resolveSafeTargetRoot(options.targetRoot);
 	const manifestStatus = await getTargetBuildManifestStatus({
 		root: targetRoot,
-		requiredPackages: REQUIRED_NEXT_RUNTIME_PACKAGES,
+		requiredPackages: REQUIRED_NEXT_BUILD_PACKAGES,
 	});
 
 	if (manifestStatus.valid) {
@@ -262,7 +269,7 @@ async function main(): Promise<void> {
 	await ensureBuild(targetRoot);
 	const manifestPath = await writeTargetBuildManifest({
 		root: targetRoot,
-		requiredPackages: REQUIRED_NEXT_RUNTIME_PACKAGES,
+		requiredPackages: REQUIRED_NEXT_BUILD_PACKAGES,
 	});
 
 	process.stdout.write(
