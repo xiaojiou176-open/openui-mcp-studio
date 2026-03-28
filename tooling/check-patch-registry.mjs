@@ -5,18 +5,14 @@ import { readJsonFile, toPosixPath } from "./shared/governance-utils.mjs";
 
 const DEFAULT_PATCH_REGISTRY_PATH = "contracts/upstream/patch-registry.json";
 
-async function listPatchFiles(rootDir) {
-	try {
-		const entries = await fs.readdir(path.join(rootDir, "patches"), {
-			withFileTypes: true,
-		});
-		return entries
-			.filter((entry) => entry.isFile() && entry.name.endsWith(".patch"))
-			.map((entry) => entry.name)
-			.sort();
-	} catch {
-		return [];
-	}
+async function listPatchFiles(rootDir, patchDirectory) {
+	const entries = await fs.readdir(path.join(rootDir, patchDirectory), {
+		withFileTypes: true,
+	});
+	return entries
+		.filter((entry) => entry.isFile() && entry.name.endsWith(".patch"))
+		.map((entry) => entry.name)
+		.sort();
 }
 
 async function runPatchRegistryCheck(options = {}) {
@@ -31,12 +27,43 @@ async function runPatchRegistryCheck(options = {}) {
 	if (String(registry.manager ?? "") !== "patch-package") {
 		errors.push('patch registry manager must be "patch-package"');
 	}
+	const patchDirectory = String(registry.patchDirectory ?? "").trim();
+	if (!patchDirectory) {
+		errors.push('patch registry must declare non-empty "patchDirectory"');
+	}
+	const patchDirectoryPath = patchDirectory
+		? path.join(rootDir, patchDirectory)
+		: "";
 
 	const requiredFields = Array.isArray(registry.requiredFields)
 		? registry.requiredFields.map((value) => String(value))
 		: [];
 	const patches = Array.isArray(registry.patches) ? registry.patches : [];
-	const patchFiles = await listPatchFiles(rootDir);
+	const patchFiles = [];
+	if (patchDirectoryPath) {
+		try {
+			const patchDirectoryStat = await fs.stat(patchDirectoryPath);
+			if (!patchDirectoryStat.isDirectory()) {
+				errors.push(
+					`patch directory "${patchDirectory}" must exist and be a directory`,
+				);
+			} else {
+				patchFiles.push(...(await listPatchFiles(rootDir, patchDirectory)));
+			}
+		} catch (error) {
+			const errorCode =
+				error && typeof error === "object" && "code" in error
+					? error.code
+					: undefined;
+			if (errorCode === "ENOENT") {
+				errors.push(
+					`patch directory "${patchDirectory}" must exist and be a directory`,
+				);
+			} else {
+				throw error;
+			}
+		}
+	}
 	const registeredFiles = new Set();
 
 	for (const entry of patches) {
@@ -63,6 +90,7 @@ async function runPatchRegistryCheck(options = {}) {
 		ok: errors.length === 0,
 		rootDir: toPosixPath(rootDir),
 		registryPath: toPosixPath(path.relative(rootDir, registryPath)),
+		patchDirectory: patchDirectoryPath ? toPosixPath(patchDirectoryPath) : "",
 		errors,
 	};
 }
@@ -77,7 +105,9 @@ async function main() {
 			}
 			process.exit(1);
 		}
-		console.log(`[patch-registry] OK (${result.registryPath})`);
+		console.log(
+			`[patch-registry] OK (${result.registryPath}; patchDirectory=${toPosixPath(path.relative(result.rootDir, result.patchDirectory || "")) || "n/a"})`,
+		);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
 		console.error(`[patch-registry] ERROR: ${message}`);

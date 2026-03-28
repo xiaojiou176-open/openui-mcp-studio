@@ -14,7 +14,7 @@ Think of this page as the repository's proof desk:
 - this page is the canonical proof explanation
 - `docs/evaluator-checklist.md` is the scorecard you can skim quickly
 
-## Fastest Reproducible Prompt
+## Warm-Start Proof
 
 If you want one command that proves the repository can do more than show
 screenshots, run:
@@ -40,6 +40,19 @@ first. This page explains proof semantics; it does not replace first-time setup.
 | `npm run repo:doctor` | front-door repository health across governance, runtime, evidence, upstream, and release-readiness inputs | not a full CI substitute and not a hosted-platform uptime guarantee |
 | `npm run smoke:e2e` | the default proof target still boots and behaves like a real app | not proof that every generated UI is production-ready |
 | `npm run release:public-safe:check` | the strict repo-side public-safe verdict across docs, release-readiness, remote evidence, and history hygiene | not legal sign-off, product judgment, or rollout approval |
+
+## Proof Tiers
+
+Use this table when you want the shortest honest answer to "which proof lane am I
+looking at?"
+
+| Lane | Primary command | Best for | What it proves | What it still does not prove |
+| --- | --- | --- | --- | --- |
+| Warm-start visible proof | `npm run demo:ship` | already-configured local evaluation | the real ship tool can return one rerunnable payload quickly | not a full gate, not a public-safe verdict |
+| Front-door repo health | `npm run repo:doctor` | quick structural trust check | repo-side contracts, runtime, evidence, upstream policy, and release-readiness inputs are in a healthy shape | not full local parity and not remote platform closure by itself |
+| Default proof target runtime proof | `npm run smoke:e2e` | proving the sample surface is alive | `apps/web` still boots and answers like a real app | not proof that every generated UI should ship |
+| Authoritative local parity | `npm run repo:verify:full` | deeper repo-side confidence | the local container-parity verification path still holds | not remote GitHub governance truth by itself |
+| Public-safe release verdict | `npm run release:public-safe:check` | deciding whether repo-side public claims are safe | docs, release-readiness, remote evidence, and history hygiene agree on a strict repo-side verdict | not legal sign-off, product judgment, or rollout approval |
 
 ## Demo Proof
 

@@ -39,6 +39,13 @@ Use:
 - `npm run governance:remote-evidence:check:strict`
 - `tooling/contracts/remote-governance-evidence.contract.json`
 
+Freshness rule:
+
+- strict remote-governance evidence must be refreshed in the current execution
+  wave
+- stale snapshots are not enough for a public-safe verdict, even when the
+  recorded values still look correct
+
 The canonical public-safe stance for this wave is:
 
 - repository is public

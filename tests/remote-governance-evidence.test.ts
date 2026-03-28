@@ -29,6 +29,10 @@ afterEach(async () => {
 	);
 });
 
+function freshCheckedAt(): string {
+	return new Date().toISOString();
+}
+
 function makeControl(id: string, status = "verified") {
 	return {
 		id,
@@ -70,7 +74,7 @@ describe("remote governance evidence", () => {
 					owner: "owner",
 					name: "repo",
 				},
-				checkedAt: "2026-03-22T13:45:00Z",
+				checkedAt: freshCheckedAt(),
 				repoLocalControls: [makeControl("workflow_governance")],
 				remotePlatformControls: [
 					makeControl("default_branch"),
@@ -107,7 +111,7 @@ describe("remote governance evidence", () => {
 					owner: "owner",
 					name: "repo",
 				},
-				checkedAt: "2026-03-22T13:45:00Z",
+				checkedAt: freshCheckedAt(),
 				repoLocalControls: [makeControl("workflow_governance")],
 				remotePlatformControls: [
 					makeControl("default_branch"),
@@ -189,7 +193,7 @@ describe("remote governance evidence", () => {
 					name: "repo",
 					visibility: "private",
 				},
-				checkedAt: "2026-03-22T13:45:00Z",
+				checkedAt: freshCheckedAt(),
 				repoLocalControls: [makeControl("workflow_governance")],
 				remotePlatformControls: [
 					makeControl("default_branch"),
@@ -239,7 +243,7 @@ describe("remote governance evidence", () => {
 					name: "repo",
 					visibility: "public",
 				},
-				checkedAt: "2026-03-22T13:45:00Z",
+				checkedAt: freshCheckedAt(),
 				repoLocalControls: [makeControl("workflow_governance")],
 				publicReadyRequirements: {
 					requiredValues: {

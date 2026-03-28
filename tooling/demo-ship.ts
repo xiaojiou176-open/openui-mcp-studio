@@ -1,7 +1,7 @@
 import path from "node:path";
 import process from "node:process";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerShipTool } from "../services/mcp-server/src/tools/ship.js";
+import { registerShipTool } from "../services/mcp-server/src/public/ship.js";
 
 type TextResult = {
 	content: Array<{ type: string; text?: string }>;

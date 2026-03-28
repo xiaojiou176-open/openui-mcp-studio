@@ -93,6 +93,19 @@ fi
 
 WORKSPACE="$(cd "${WORKSPACE}" && pwd)"
 
+compute_sha256_file() {
+  local file_path="$1"
+  node --input-type=module - "${file_path}" <<'EOF'
+import crypto from "node:crypto";
+import fs from "node:fs";
+
+const filePath = process.argv[2];
+process.stdout.write(
+  crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex"),
+);
+EOF
+}
+
 resolve_image_configuration() {
   local workspace="$1"
   local explicit_image="$2"
@@ -223,11 +236,9 @@ HOST_RUNTIME_ROOT="${OPENUI_HOST_RUNTIME_ROOT:-${RUNNER_TEMP:-${TMPDIR:-/tmp}}/o
 PLAYWRIGHT_CACHE_HOST_PATH="${HOST_RUNTIME_ROOT}/ms-playwright"
 HOST_OPENUI_HOME="${HOST_RUNTIME_ROOT}/openui-home"
 HOST_TMPDIR="${HOST_RUNTIME_ROOT}/tmp"
-HOST_NODE_MODULES="${HOST_RUNTIME_ROOT}/node_modules"
 mkdir -p "${PLAYWRIGHT_CACHE_HOST_PATH}"
 mkdir -p "${HOST_OPENUI_HOME}"
 mkdir -p "${HOST_TMPDIR}"
-mkdir -p "${HOST_NODE_MODULES}"
 
 cleanup_workspace_mount_residue() {
   local workspace_node_modules="${WORKSPACE}/node_modules"
@@ -239,6 +250,47 @@ cleanup_workspace_mount_residue() {
       sleep 1
     done
   fi
+
+  while IFS= read -r nested_node_modules; do
+    if [[ -z "${nested_node_modules}" ]]; then
+      continue
+    fi
+    rm -rf "${nested_node_modules}"
+  done < <(
+    find "${WORKSPACE}" \
+      -path "${WORKSPACE}/node_modules" -prune -o \
+      -path "${WORKSPACE}/.runtime-cache" -prune -o \
+      -type d -name node_modules -print 2>/dev/null
+  )
+}
+
+resolve_container_runtime_marker() {
+  local workspace="$1"
+  local lockfile="${workspace}/package-lock.json"
+
+  if [[ ! -f "${lockfile}" ]]; then
+    echo "no-lockfile"
+    return 0
+  fi
+
+  local runtime_fingerprint
+  runtime_fingerprint="$(
+    docker run --rm "${IMAGE}" bash -lc \
+      'set -euo pipefail; printf "%s|%s|%s" "$(uname -s | tr '"'"'[:upper:]'"'"' '"'"'[:lower:]'"'"')" "$(uname -m)" "$(node --version)"'
+  )"
+
+  local container_os="${runtime_fingerprint%%|*}"
+  local remaining="${runtime_fingerprint#*|}"
+  local container_arch="${remaining%%|*}"
+  local container_node_version="${remaining#*|}"
+  local lock_hash
+  lock_hash="$(compute_sha256_file "${lockfile}")"
+
+  printf '%s-%s-%s-%s' \
+    "${container_os}" \
+    "${container_arch}" \
+    "${container_node_version}" \
+    "${lock_hash}"
 }
 
 PLAYWRIGHT_BROWSERS_PATH="${OPENUI_CONTAINER_PLAYWRIGHT_BROWSERS_PATH:-/tmp/openui-ms-playwright}"
@@ -256,6 +308,34 @@ if [[ "${image_mode}" != "local-bootstrap" ]] && ! docker pull "${IMAGE}" >/dev/
     exit 1
   fi
 fi
+
+HOST_NODE_MODULES_ROOT="${HOST_RUNTIME_ROOT}/node_modules"
+HOST_NODE_MODULES_MARKER="$(resolve_container_runtime_marker "${WORKSPACE}")"
+HOST_NODE_MODULES="${HOST_NODE_MODULES_ROOT}/${HOST_NODE_MODULES_MARKER}"
+HOST_NPM_CACHE_ROOT="${HOST_OPENUI_HOME}/.npm"
+HOST_NPM_CACHE="${HOST_NPM_CACHE_ROOT}/${HOST_NODE_MODULES_MARKER}"
+mkdir -p "${HOST_NODE_MODULES_ROOT}"
+mkdir -p "${HOST_NPM_CACHE_ROOT}"
+
+current_host_marker=""
+if [[ -f "${HOST_NODE_MODULES}/.openui-platform" ]]; then
+  current_host_marker="$(cat "${HOST_NODE_MODULES}/.openui-platform" 2>/dev/null || true)"
+fi
+if [[ ! -d "${HOST_NODE_MODULES}" || "${current_host_marker}" != "${HOST_NODE_MODULES_MARKER}" ]]; then
+  if [[ -e "${HOST_NODE_MODULES}" ]]; then
+    stale_host_node_modules="${HOST_NODE_MODULES}.stale.$$.$RANDOM"
+    if mv "${HOST_NODE_MODULES}" "${stale_host_node_modules}" 2>/dev/null; then
+      rm -rf "${stale_host_node_modules}" &
+    else
+      rm -rf "${HOST_NODE_MODULES}" || true
+    fi
+  fi
+  rm -rf "${HOST_NPM_CACHE}" || true
+fi
+mkdir -p "${HOST_NODE_MODULES}"
+mkdir -p "${HOST_NPM_CACHE}"
+
+CONTAINER_NPM_CACHE="${CONTAINER_HOME}/.npm/${HOST_NODE_MODULES_MARKER}"
 
 declare -A ALLOW_MAP=()
 BASE_ALLOWLIST=(
@@ -326,6 +406,18 @@ if [[ "${AUTO_BOOTSTRAP_NPM_CI}" == "1" ]]; then
   bootstrap_script="$(mktemp)"
   cat > "${bootstrap_script}" <<'EOF'
 set -euo pipefail
+compute_sha256_file() {
+  local file_path="$1"
+  node --input-type=module - "${file_path}" <<'NODE_EOF'
+import crypto from "node:crypto";
+import fs from "node:fs";
+
+const filePath = process.argv[2];
+process.stdout.write(
+  crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex"),
+);
+NODE_EOF
+}
 if [[ ! -f package.json || ! -f package-lock.json ]]; then
   echo "[ci-container] package.json or package-lock.json missing; skip dependency bootstrap"
   exit 0
@@ -334,7 +426,7 @@ fi
 os_name="$(uname -s | tr '[:upper:]' '[:lower:]')"
 arch_name="$(uname -m)"
 node_version="$(node --version)"
-lock_hash="$(sha256sum package-lock.json | awk '{print $1}')"
+lock_hash="$(compute_sha256_file package-lock.json)"
 desired_marker="${os_name}-${arch_name}-${node_version}-${lock_hash}"
 marker_path="node_modules/.openui-platform"
 current_marker=""
@@ -345,7 +437,7 @@ fi
 if [[ ! -d node_modules || "${current_marker}" != "${desired_marker}" ]]; then
   echo "[ci-container] preparing Linux-native dependencies in external runtime volume (npm ci)"
   mkdir -p node_modules
-  find node_modules -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+  rm -f "${marker_path}"
   npm ci --no-audit --no-fund
   mkdir -p node_modules
   printf '%s\n' "${desired_marker}" > "${marker_path}"
@@ -399,7 +491,7 @@ EOF
     -e TMP="${CONTAINER_TMPDIR}" \
     -e TEMP="${CONTAINER_TMPDIR}" \
     -e XDG_CACHE_HOME="${CONTAINER_HOME}/.cache" \
-    -e NPM_CONFIG_CACHE="${CONTAINER_HOME}/.npm" \
+    -e NPM_CONFIG_CACHE="${CONTAINER_NPM_CACHE}" \
     -v "${WORKSPACE}:${CONTAINER_WORKDIR}" \
     -v "${HOST_NODE_MODULES}:${CONTAINER_WORKDIR}/node_modules" \
     -v "${PLAYWRIGHT_CACHE_HOST_PATH}:${PLAYWRIGHT_BROWSERS_PATH}" \
@@ -428,7 +520,7 @@ if docker run --rm \
   -e TMP="${CONTAINER_TMPDIR}" \
   -e TEMP="${CONTAINER_TMPDIR}" \
   -e XDG_CACHE_HOME="${CONTAINER_HOME}/.cache" \
-  -e NPM_CONFIG_CACHE="${CONTAINER_HOME}/.npm" \
+  -e NPM_CONFIG_CACHE="${CONTAINER_NPM_CACHE}" \
   -v "${WORKSPACE}:${CONTAINER_WORKDIR}" \
   -v "${HOST_NODE_MODULES}:${CONTAINER_WORKDIR}/node_modules" \
   -v "${PLAYWRIGHT_CACHE_HOST_PATH}:${PLAYWRIGHT_BROWSERS_PATH}" \

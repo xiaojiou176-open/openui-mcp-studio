@@ -12,11 +12,38 @@ async function runCacheLifecycleCheck(options = {}) {
 	);
 	const registry = await readJsonFile(registryPath);
 	const errors = [];
+	const categoryPaths = new Set();
 
 	for (const [categoryId, entry] of Object.entries(registry.categories ?? {})) {
 		for (const field of ["owner", "schema", "ttlDays", "cleanMode", "rebuildStrategy"]) {
 			if (!(field in entry)) {
 				errors.push(`runtime category "${categoryId}" is missing lifecycle field "${field}"`);
+			}
+		}
+		if (!Array.isArray(entry.paths) || entry.paths.length === 0) {
+			errors.push(`runtime category "${categoryId}" must declare at least one path`);
+			continue;
+		}
+		for (const value of entry.paths) {
+			const normalized = String(value ?? "").trim();
+			if (!normalized) {
+				errors.push(`runtime category "${categoryId}" contains an empty path entry`);
+				continue;
+			}
+			categoryPaths.add(normalized);
+		}
+	}
+	for (const policyField of ["resetOnClean", "purgeOnClean", "retentionOnly"]) {
+		for (const value of registry.cleanPolicy?.[policyField] ?? []) {
+			const normalized = String(value ?? "").trim();
+			if (!normalized) {
+				errors.push(`cleanPolicy.${policyField} contains an empty path entry`);
+				continue;
+			}
+			if (!categoryPaths.has(normalized)) {
+				errors.push(
+					`cleanPolicy.${policyField} references path outside registered runtime categories: ${normalized}`,
+				);
 			}
 		}
 	}

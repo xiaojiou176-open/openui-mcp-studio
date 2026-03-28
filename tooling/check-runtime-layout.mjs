@@ -38,15 +38,51 @@ async function runRuntimeLayoutCheck(options = {}) {
 			errors.push(`run layout contract is missing field "${requiredField}"`);
 		}
 	}
+	if (typeof contract.runtimeRoot !== "string" || contract.runtimeRoot.trim() === "") {
+		errors.push('run layout contract "runtimeRoot" must be a non-empty string');
+	}
+	if (typeof contract.runsRoot !== "string" || contract.runsRoot.trim() === "") {
+		errors.push('run layout contract "runsRoot" must be a non-empty string');
+	}
+	for (const field of [
+		"requiredRunFiles",
+		"requiredRunDirectories",
+		"requiredLogFiles",
+	]) {
+		if (!Array.isArray(contract[field]) || contract[field].length === 0) {
+			errors.push(`run layout contract "${field}" must be a non-empty array`);
+			continue;
+		}
+		for (const value of contract[field]) {
+			if (typeof value !== "string" || value.trim() === "") {
+				errors.push(`run layout contract "${field}" contains an empty entry`);
+			}
+		}
+	}
 
 	for (const [filePath, requiredSnippets] of Object.entries(
 		REQUIRED_SNIPPETS_BY_FILE,
 	)) {
-		const content = await fs.readFile(path.resolve(rootDir, filePath), "utf8");
-		for (const snippet of requiredSnippets) {
-			if (!content.includes(snippet)) {
-				errors.push(`${filePath} must include run-layout snippet "${snippet}"`);
+		const absolutePath = path.resolve(rootDir, filePath);
+		try {
+			const content = await fs.readFile(absolutePath, "utf8");
+			for (const snippet of requiredSnippets) {
+				if (!content.includes(snippet)) {
+					errors.push(`${filePath} must include run-layout snippet "${snippet}"`);
+				}
 			}
+		} catch (error) {
+			const errorCode =
+				error && typeof error === "object" && "code" in error
+					? error.code
+					: undefined;
+			if (errorCode === "ENOENT") {
+				errors.push(`required runtime-layout source file is missing: ${filePath}`);
+				continue;
+			}
+			errors.push(
+				`required runtime-layout source file could not be read: ${filePath}`,
+			);
 		}
 	}
 

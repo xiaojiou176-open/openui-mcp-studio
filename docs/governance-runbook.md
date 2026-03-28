@@ -59,11 +59,21 @@ These commands are the repository front desk.
 - `docs:check` is the deterministic front-door docs lane.
 - `docs:check:strict` is reserved for release or explicit manual governance
   review when manual-fact and proof-pack evidence need to be revalidated.
+- The current minimal docs profile no longer treats generated markdown as a
+  maintained repository surface. If a future wave reintroduces generated docs,
+  that wave must also declare the generated outputs and their authoritative
+  inputs explicitly.
 
 ## CI And Execution Truth
 
 - Mainline CI uses host orchestration plus container execution for the main
   quality gate.
+- The current stable required-check target on `main` is:
+  - `Quality (Node 22.22.0)`
+  - `Workflow Lint`
+  - `secret_scan`
+- Treat that set as the merge gate surface, not as the full public-safe or
+  release-ready verdict by itself.
 - Containerized CI jobs resolve their canonical image from
   `.github/ci-image.lock.json`; when that lock rotates, the workflow and lock
   file must stay in sync.
@@ -93,8 +103,15 @@ These commands are the repository front desk.
   multiline shell snippet embedded directly in the `run-in-ci-container`
   `command:` string. That keeps quoting predictable across the container bridge
   and avoids turning shell parsing drift into the primary CI blocker.
+- The external runtime `node_modules` volume used by the container bridge must
+  be cleared before a marker-driven reinstall. Otherwise stale workspace links
+  can survive across waves and turn `npm ci` into a false parity blocker.
 - Containerized pre-commit helpers must invoke `python3 -m venv` explicitly,
   because the locked CI image does not guarantee a bare `python` shim.
+- The `postinstall` patch bootstrap is now patch-aware:
+  if `ops/upstream/patches/patch-package/` contains no `.patch` files, the
+  bootstrap path must short-circuit instead of invoking `patch-package` just to
+  prove an empty patch surface.
 - The `Pre-commit Gate` is intentionally host-runner based: the all-files
   pre-commit path currently needs a host compiler toolchain for the `oxipng`
   Rust hook, while the locked CI container remains the source of truth for the
@@ -147,6 +164,8 @@ These commands are the repository front desk.
 - External readonly validation remains report-only and stays separate from the
   default blocking path.
 - Long-running tasks must keep heartbeat output and preserve run-scoped evidence.
+- `root-pristine` means allowlisted root hygiene. It is not a promise that the
+  visible repository root stays empty after normal runtime activity.
 - Space governance is a separate maintenance lane:
   - `repo:space:report` writes machine-readable snapshots under `.runtime-cache/reports/space-governance/`
   - `repo:space:check` is now part of the front-door governance path through `repo:doctor`, `repo:verify:fast`, and `governance:final:check`
@@ -171,3 +190,9 @@ When these change, update docs in the same wave:
 3. runtime/env behavior
 4. upstream maintenance workflow
 5. security reporting or public-safe release rules
+
+## Remote Governance Freshness
+
+- `tooling/contracts/remote-governance-evidence.contract.json` must be refreshed
+  in the current execution wave before strict release-facing claims.
+- A stale remote-governance snapshot is historical evidence, not current truth.

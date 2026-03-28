@@ -49,7 +49,9 @@
 		"services/mcp-server"
 	],
 	"overrides": {
+		"brace-expansion": "5.0.5",
 		"minimatch": "10.2.4",
+		"path-to-regexp": "8.4.0",
 		"hono": "4.12.8",
 		"@hono/node-server": "1.19.11",
 		"flatted": "3.4.2"
@@ -75,12 +77,10 @@
 		"docs:check": "npm run docs:lint && npm run docs:consistency:check",
 		"docs:check:strict": "npm run docs:check && npm run docs:manual-fact:check && npm run proof:pack:check",
 		"docs:completeness:check": "node tooling/check-doc-completeness.mjs",
-		"docs:consistency:check": "npm run docs:render:check && npm run docs:linkcheck && npm run docs:scope:check",
+		"docs:consistency:check": "npm run docs:linkcheck && npm run docs:scope:check",
 		"docs:linkcheck": "node tooling/docs-linkcheck.mjs",
 		"docs:manual-fact:check": "node tooling/check-docs-manual-boundary.mjs",
 		"docs:lint": "markdownlint --config .markdownlint.json \"README.md\" \"docs/**/*.md\"",
-		"docs:render": "node tooling/render-doc-surfaces.mjs --write",
-		"docs:render:check": "node tooling/render-doc-surfaces.mjs --check",
 		"docs:scope:check": "node tooling/check-docs-scope.mjs",
 		"env:check": "node tooling/verify-env-contract.mjs",
 		"env:governance:check": "node tooling/verify-env-governance.mjs",
@@ -141,7 +141,7 @@
 		"mutation:run:gate": "npm run -s mutation:run:full && npm run -s mutation:gate",
 		"patch:apply": "patch-package --patch-dir ops/upstream/patches/patch-package",
 		"patch:create": "patch-package --patch-dir ops/upstream/patches/patch-package",
-		"postinstall": "node --input-type=module -e \"import { existsSync } from 'node:fs'; import { spawnSync } from 'node:child_process'; const runner = process.platform === 'win32' ? 'node_modules/.bin/patch-package.cmd' : 'node_modules/.bin/patch-package'; if (!existsSync(runner)) { console.log('patch-package not installed; skip postinstall apply'); process.exit(0); } const result = spawnSync(runner, ['--patch-dir', 'ops/upstream/patches/patch-package'], { stdio: 'inherit', shell: true }); process.exit(result.status ?? 1);\"",
+		"postinstall": "node tooling/apply-patches-if-present.mjs",
 		"preprepare:next-app": "node -e \"process.exit(0)\"",
 		"precommit:container": "node tooling/check-container-env.mjs --require-container && npm run precommit:gate",
 		"precommit:docs:cochange": "node --unhandled-rejections=strict tooling/check-docs-cochange.mjs",

@@ -11,6 +11,11 @@ Local bootstrap remains a construction-only bridge. Public release confidence
 still depends on explicit repository checks such as `npm run security:oss:audit`
 and `npm run release:public-safe:check`.
 
+> Runtime truth:
+> the real system entrypoint is `services/mcp-server/src/main.ts`.
+> `apps/web` is the default proof target for smoke, visual, and UI/UX checks.
+> It is not the primary product entrypoint.
+
 English is the canonical source of truth for repository governance and
 maintenance.
 
@@ -21,7 +26,7 @@ maintenance.
 
 [Quick Start](#quick-start) |
 [Demo Proof](./docs/proof-and-faq.md#demo-proof) |
-[First Minute](./docs/first-minute-walkthrough.md) |
+[Warm Start](./docs/first-minute-walkthrough.md) |
 [Evaluator Checklist](./docs/evaluator-checklist.md) |
 [Architecture](./docs/architecture.md) |
 [Releases](https://github.com/xiaojiou176-open/openui-mcp-studio/releases) |
@@ -100,9 +105,21 @@ maintenance.
   />
 </p>
 
+## Proof Ladder
+
+Use the lightest path that answers your real question.
+
+| Path | Use it when | What it proves | What it does not prove |
+| --- | --- | --- | --- |
+| `npm run demo:ship` | your machine is already ready and you want one fast proof | one real ship-tool payload from the current repo | not a cold-start setup, not `repo:verify:full`, not a public-safe verdict |
+| `npm run repo:doctor` | you want a fast structural trust check | the repo-side contracts, runtime, evidence, upstream policy, and release-readiness inputs are healthy | not full local parity and not remote platform closure by itself |
+| `npm run repo:verify:full` | you want the stronger repo-local verification lane | the local container-parity verification path still holds | not remote GitHub governance truth by itself |
+| `npm run release:public-safe:check` | you want the strict repo-side public-safe verdict | docs, remote evidence, and history hygiene agree on a strict repo-side verdict | not legal sign-off, product judgment, or rollout approval |
+
 ## Fastest Visible Proof
 
-Use this path when your local environment is already ready.
+Use this path only when your local environment is already ready.
+This is the **warm-start** proof lane, not the clean-machine setup path.
 
 ```bash
 npm run demo:ship
@@ -121,6 +138,8 @@ What this gives you right away:
 - generated React and shadcn file output printed as JSON
 - a safe default preview path because the demo stays in `dryRun` mode unless you
   opt into `--apply`
+- one rerunnable proof that the ship tool is live, **not** a replacement for
+  `repo:verify:full` or `release:public-safe:check`
 
 The built-in sample prompt asks for a polished pricing-page hero. If you want to
 swap in your own brief:
@@ -141,9 +160,10 @@ If your Gemini route is slow and you want a more forgiving first run:
 npm run demo:ship -- --timeout-ms 120000
 ```
 
-If you are starting from a completely cold machine, use [Quick Start](#quick-start)
-instead. That path installs Playwright, builds the repository, and proves the
-default proof target end to end.
+If you are starting from a completely cold machine, use
+[Cold Start Quick Start](#cold-start-quick-start) instead. That path installs
+Playwright, builds the repository, and proves the default proof target end to
+end.
 
 ## Use Cases
 
@@ -202,33 +222,22 @@ This repository is closer to a shipping studio than a prompt toy.
 
 ## Visual Tour
 
-<table>
-  <tr>
-    <td width="33%">
-      <img
-        src="./docs/assets/openui-mcp-studio-demo-brief.png"
-        alt="Visual tour step 1 showing the brief stage"
-      />
-    </td>
-    <td width="33%">
-      <img
-        src="./docs/assets/openui-mcp-studio-demo-review.png"
-        alt="Visual tour step 2 showing the review stage"
-      />
-    </td>
-    <td width="33%">
-      <img
-        src="./docs/assets/openui-mcp-studio-demo-ship.png"
-        alt="Visual tour step 3 showing the ship stage"
-      />
-    </td>
-  </tr>
-  <tr>
-    <td><strong>1. Brief</strong><br />Start from a natural-language UI request.</td>
-    <td><strong>2. Review</strong><br />Inspect the workbench before trusting the output.</td>
-    <td><strong>3. Ship</strong><br />Keep gates in the loop before calling it done.</td>
-  </tr>
-</table>
+These frames are meant to be read as evidence, not as decorative thumbnails.
+
+**1. Brief**
+Start from a natural-language UI request.
+
+![Visual tour step 1 showing the brief stage](./docs/assets/openui-mcp-studio-demo-brief.png)
+
+**2. Review**
+Inspect the workbench before trusting the output.
+
+![Visual tour step 2 showing the review stage](./docs/assets/openui-mcp-studio-demo-review.png)
+
+**3. Ship**
+Keep gates in the loop before calling it done.
+
+![Visual tour step 3 showing the ship stage](./docs/assets/openui-mcp-studio-demo-ship.png)
 
 ## Quick Start
 
@@ -238,9 +247,10 @@ This repository is closer to a shipping studio than a prompt toy.
 - A valid `GEMINI_API_KEY`
 - Playwright browsers installed once for the local proof surface
 
-### Fastest Path
+### Cold Start Quick Start
 
-Use this path when you want the repository front door to prove it is alive.
+Use this path when you are starting from a clean or mostly clean machine and
+want the repository front door to prove it is alive.
 
 ```bash
 npm install
@@ -265,8 +275,16 @@ The demo command prefers `GEMINI_MODEL_FAST` when that env var is available and
 lets you raise the request window with `--timeout-ms` for slower live provider
 runs.
 
+### Warm Start Quick Proof
+
+If your machine already has Node, dependencies, and `GEMINI_API_KEY` in place,
+use [`docs/first-minute-walkthrough.md`](./docs/first-minute-walkthrough.md)
+for the faster warm-start route.
+
+### Stricter Repo-Side Verification
+
 If you want the stricter path that proves the repository is not a one-shot demo,
-run:
+run the repo-side verification lane:
 
 ```bash
 npm run repo:doctor
@@ -275,9 +293,16 @@ npm run repo:space:check
 npm run smoke:e2e
 ```
 
+If you want the authoritative local parity path rather than the lighter front
+door checks, run:
+
+```bash
+npm run repo:verify:full
+```
+
 ### Full Governed Path
 
-Use this path when you are evaluating trust, not just startup.
+Use this path when you are evaluating public-safe trust, not just startup.
 
 ```bash
 npm run lint

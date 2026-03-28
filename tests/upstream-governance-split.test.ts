@@ -64,6 +64,7 @@ describe("split upstream governance gates", () => {
 				{
 					version: 1,
 					manager: "patch-package",
+					patchDirectory: "ops/upstream/patches/patch-package",
 					requiredFields: [
 						"file",
 						"reason",
@@ -75,12 +76,45 @@ describe("split upstream governance gates", () => {
 				},
 			);
 			await writeFile(
-				path.join(rootDir, "patches", "react+1.0.0.patch"),
+				path.join(
+					rootDir,
+					"ops",
+					"upstream",
+					"patches",
+					"patch-package",
+					"react+1.0.0.patch",
+				),
 				"patch\n",
 			);
 			const result = await runPatchRegistryCheck({ rootDir });
 			expect(result.ok).toBe(false);
 			expect(result.errors[0]).toContain("missing from patch registry");
+		} finally {
+			await fs.rm(rootDir, { recursive: true, force: true });
+		}
+	});
+
+	it("fails patch registry when patchDirectory is missing on disk", async () => {
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-patch-registry-missing-dir-"),
+		);
+		try {
+			await writeJson(
+				path.join(rootDir, "contracts", "upstream", "patch-registry.json"),
+				{
+					version: 1,
+					manager: "patch-package",
+					patchDirectory: "ops/upstream/patches/patch-package",
+					requiredFields: ["file", "reason"],
+					patches: [],
+				},
+			);
+
+			const result = await runPatchRegistryCheck({ rootDir });
+			expect(result.ok).toBe(false);
+			expect(result.errors).toContain(
+				'patch directory "ops/upstream/patches/patch-package" must exist and be a directory',
+			);
 		} finally {
 			await fs.rm(rootDir, { recursive: true, force: true });
 		}
