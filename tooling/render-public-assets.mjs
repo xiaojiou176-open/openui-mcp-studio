@@ -41,7 +41,7 @@ const STATIC_PAGES = [
 	{
 		input: "docs/assets/openui-mcp-studio-trust-stack-source.html",
 		output: "docs/assets/openui-mcp-studio-trust-stack.png",
-		viewport: { width: 1440, height: 820 },
+		viewport: { width: 1440, height: 900 },
 	},
 	{
 		input: "docs/assets/openui-mcp-studio-use-cases-source.html",
@@ -219,17 +219,25 @@ async function collectCheckErrors() {
 			output: target.output,
 		})),
 		...STATIC_PAGES.map((spec) => ({
-			inputs: [path.resolve(ROOT, spec.input), GOLDEN_WORKBENCH],
+			inputs: [
+				path.resolve(ROOT, spec.input),
+				spec.output.endsWith("openui-mcp-studio-workbench.png")
+					? GOLDEN_WORKBENCH
+					: path.resolve(DOCS_ASSETS_DIR, "openui-mcp-studio-workbench.png"),
+			],
 			output: path.resolve(ROOT, spec.output),
 		})),
 		...DEMO_FRAMES.filter((spec) => Boolean(spec.publicOutput)).map((spec) => ({
-			inputs: [path.resolve(ROOT, spec.input), GOLDEN_WORKBENCH],
+			inputs: [
+				path.resolve(ROOT, spec.input),
+				path.resolve(DOCS_ASSETS_DIR, "openui-mcp-studio-workbench.png"),
+			],
 			output: path.resolve(ROOT, spec.publicOutput),
 		})),
 		{
 			inputs: [
 				...DEMO_FRAMES.map((spec) => path.resolve(ROOT, spec.input)),
-				GOLDEN_WORKBENCH,
+				path.resolve(DOCS_ASSETS_DIR, "openui-mcp-studio-workbench.png"),
 			],
 			output: GIF_OUTPUT,
 		},
