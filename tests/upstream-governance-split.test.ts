@@ -94,6 +94,32 @@ describe("split upstream governance gates", () => {
 		}
 	});
 
+	it("fails patch registry when patchDirectory is missing on disk", async () => {
+		const rootDir = await fs.mkdtemp(
+			path.join(os.tmpdir(), "openui-patch-registry-missing-dir-"),
+		);
+		try {
+			await writeJson(
+				path.join(rootDir, "contracts", "upstream", "patch-registry.json"),
+				{
+					version: 1,
+					manager: "patch-package",
+					patchDirectory: "ops/upstream/patches/patch-package",
+					requiredFields: ["file", "reason"],
+					patches: [],
+				},
+			);
+
+			const result = await runPatchRegistryCheck({ rootDir });
+			expect(result.ok).toBe(false);
+			expect(result.errors).toContain(
+				'patch directory "ops/upstream/patches/patch-package" must exist and be a directory',
+			);
+		} finally {
+			await fs.rm(rootDir, { recursive: true, force: true });
+		}
+	});
+
 	it("fails failure-classification gate when required categories are missing", async () => {
 		const rootDir = await fs.mkdtemp(
 			path.join(os.tmpdir(), "openui-upstream-failure-"),

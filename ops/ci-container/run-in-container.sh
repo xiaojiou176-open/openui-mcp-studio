@@ -93,6 +93,19 @@ fi
 
 WORKSPACE="$(cd "${WORKSPACE}" && pwd)"
 
+compute_sha256_file() {
+  local file_path="$1"
+  node --input-type=module - "${file_path}" <<'EOF'
+import crypto from "node:crypto";
+import fs from "node:fs";
+
+const filePath = process.argv[2];
+process.stdout.write(
+  crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex"),
+);
+EOF
+}
+
 resolve_image_configuration() {
   local workspace="$1"
   local explicit_image="$2"
@@ -271,7 +284,7 @@ resolve_container_runtime_marker() {
   local container_arch="${remaining%%|*}"
   local container_node_version="${remaining#*|}"
   local lock_hash
-  lock_hash="$(sha256sum "${lockfile}" | awk '{print $1}')"
+  lock_hash="$(compute_sha256_file "${lockfile}")"
 
   printf '%s-%s-%s-%s' \
     "${container_os}" \
@@ -393,6 +406,18 @@ if [[ "${AUTO_BOOTSTRAP_NPM_CI}" == "1" ]]; then
   bootstrap_script="$(mktemp)"
   cat > "${bootstrap_script}" <<'EOF'
 set -euo pipefail
+compute_sha256_file() {
+  local file_path="$1"
+  node --input-type=module - "${file_path}" <<'NODE_EOF'
+import crypto from "node:crypto";
+import fs from "node:fs";
+
+const filePath = process.argv[2];
+process.stdout.write(
+  crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex"),
+);
+NODE_EOF
+}
 if [[ ! -f package.json || ! -f package-lock.json ]]; then
   echo "[ci-container] package.json or package-lock.json missing; skip dependency bootstrap"
   exit 0
@@ -401,7 +426,7 @@ fi
 os_name="$(uname -s | tr '[:upper:]' '[:lower:]')"
 arch_name="$(uname -m)"
 node_version="$(node --version)"
-lock_hash="$(sha256sum package-lock.json | awk '{print $1}')"
+lock_hash="$(compute_sha256_file package-lock.json)"
 desired_marker="${os_name}-${arch_name}-${node_version}-${lock_hash}"
 marker_path="node_modules/.openui-platform"
 current_marker=""

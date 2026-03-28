@@ -6,17 +6,13 @@ import { readJsonFile, toPosixPath } from "./shared/governance-utils.mjs";
 const DEFAULT_PATCH_REGISTRY_PATH = "contracts/upstream/patch-registry.json";
 
 async function listPatchFiles(rootDir, patchDirectory) {
-	try {
-		const entries = await fs.readdir(path.join(rootDir, patchDirectory), {
-			withFileTypes: true,
-		});
-		return entries
-			.filter((entry) => entry.isFile() && entry.name.endsWith(".patch"))
-			.map((entry) => entry.name)
-			.sort();
-	} catch {
-		return [];
-	}
+	const entries = await fs.readdir(path.join(rootDir, patchDirectory), {
+		withFileTypes: true,
+	});
+	return entries
+		.filter((entry) => entry.isFile() && entry.name.endsWith(".patch"))
+		.map((entry) => entry.name)
+		.sort();
 }
 
 async function runPatchRegistryCheck(options = {}) {
@@ -35,14 +31,39 @@ async function runPatchRegistryCheck(options = {}) {
 	if (!patchDirectory) {
 		errors.push('patch registry must declare non-empty "patchDirectory"');
 	}
+	const patchDirectoryPath = patchDirectory
+		? path.join(rootDir, patchDirectory)
+		: "";
 
 	const requiredFields = Array.isArray(registry.requiredFields)
 		? registry.requiredFields.map((value) => String(value))
 		: [];
 	const patches = Array.isArray(registry.patches) ? registry.patches : [];
-	const patchFiles = patchDirectory
-		? await listPatchFiles(rootDir, patchDirectory)
-		: [];
+	const patchFiles = [];
+	if (patchDirectoryPath) {
+		try {
+			const patchDirectoryStat = await fs.stat(patchDirectoryPath);
+			if (!patchDirectoryStat.isDirectory()) {
+				errors.push(
+					`patch directory "${patchDirectory}" must exist and be a directory`,
+				);
+			} else {
+				patchFiles.push(...(await listPatchFiles(rootDir, patchDirectory)));
+			}
+		} catch (error) {
+			const errorCode =
+				error && typeof error === "object" && "code" in error
+					? error.code
+					: undefined;
+			if (errorCode === "ENOENT") {
+				errors.push(
+					`patch directory "${patchDirectory}" must exist and be a directory`,
+				);
+			} else {
+				throw error;
+			}
+		}
+	}
 	const registeredFiles = new Set();
 
 	for (const entry of patches) {
@@ -69,9 +90,7 @@ async function runPatchRegistryCheck(options = {}) {
 		ok: errors.length === 0,
 		rootDir: toPosixPath(rootDir),
 		registryPath: toPosixPath(path.relative(rootDir, registryPath)),
-		patchDirectory: patchDirectory
-			? toPosixPath(path.join(rootDir, patchDirectory))
-			: "",
+		patchDirectory: patchDirectoryPath ? toPosixPath(patchDirectoryPath) : "",
 		errors,
 	};
 }
