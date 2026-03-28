@@ -6,7 +6,7 @@
   },
   "about": {
     "description": "Generate, apply, and verify production-ready React and shadcn UI from natural-language briefs.",
-    "homepageUrl": "https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/docs/proof-and-faq.md",
+    "homepageUrl": "",
     "discussionsEnabled": true
   },
   "topics": [

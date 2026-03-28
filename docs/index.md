@@ -30,6 +30,11 @@ try, adopt, or share.
 Start here if you are changing repository rules, upstream policy, or incident
 handling.
 
+Coordination-only note:
+
+- `.agents/Tasks/` can help humans and agents coordinate work, but it is not an
+  authoritative source for release, closure, or public-safe claims
+
 - [`docs/governance-runbook.md`](./governance-runbook.md)
 - [`docs/public-surface-guide.md`](./public-surface-guide.md)
 - [`docs/upstream-sync-sop.md`](./upstream-sync-sop.md)
@@ -42,6 +47,19 @@ handling.
 - [`CODEOWNERS`](../CODEOWNERS)
 - [`CODE_OF_CONDUCT.md`](../CODE_OF_CONDUCT.md)
 - [`SUPPORT.md`](../SUPPORT.md)
+
+## Truth Tiers
+
+Use this table when you need the shortest honest answer to "where does this
+fact actually live?"
+
+| Truth tier | What it is for | Primary sources |
+| --- | --- | --- |
+| Public and product story | what the repository helps people do and how to start | `README.md`, `docs/proof-and-faq.md`, `docs/evaluator-checklist.md` |
+| Governance and release rules | what counts as repo-safe, release-safe, or merge-ready | `docs/testing.md`, `docs/release-readiness.md`, `docs/governance-runbook.md` |
+| Authoritative contracts | machine-enforced structural rules | `contracts/governance/*`, `contracts/runtime/*`, `contracts/upstream/*`, `tooling/contracts/*` |
+| Run evidence | what happened in a real execution wave | `.runtime-cache/runs/<run_id>/summary.json`, `.runtime-cache/runs/<run_id>/meta/run.json`, `.runtime-cache/runs/<run_id>/evidence/index.json`, run-scoped logs |
+| Coordination-only notes | human/agent work coordination | `.agents/Tasks/*` and transient conversation state; not a release or public-safe truth source |
 
 ## Authoritative Contracts
 

@@ -64,6 +64,7 @@ describe("split upstream governance gates", () => {
 				{
 					version: 1,
 					manager: "patch-package",
+					patchDirectory: "ops/upstream/patches/patch-package",
 					requiredFields: [
 						"file",
 						"reason",
@@ -75,7 +76,14 @@ describe("split upstream governance gates", () => {
 				},
 			);
 			await writeFile(
-				path.join(rootDir, "patches", "react+1.0.0.patch"),
+				path.join(
+					rootDir,
+					"ops",
+					"upstream",
+					"patches",
+					"patch-package",
+					"react+1.0.0.patch",
+				),
 				"patch\n",
 			);
 			const result = await runPatchRegistryCheck({ rootDir });

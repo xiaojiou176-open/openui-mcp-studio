@@ -22,7 +22,6 @@
 		"scripts": [
 			"docs:check",
 			"docs:completeness:check",
-			"docs:render:check",
 			"docs:scope:check",
 			"docs:manual-fact:check"
 		],
@@ -31,7 +30,7 @@
 			"docs/index.md",
 			"docs/governance-runbook.md",
 			"tooling/contracts/docs-registry.json",
-			"tooling/contracts/docs-render.manifest.json"
+			"tooling/contracts/docs-manual-boundary.contract.json"
 		]
 	},
 	"governance": {

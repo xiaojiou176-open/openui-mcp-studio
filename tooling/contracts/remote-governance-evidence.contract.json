@@ -5,7 +5,7 @@
     "name": "openui-mcp-studio",
     "visibility": "public"
   },
-  "checkedAt": "2026-03-25T01:56:00Z",
+  "checkedAt": "2026-03-27T23:54:03Z",
   "statusModel": [
     "verified",
     "repo_asserted",
@@ -113,13 +113,14 @@
       "value": "enforced",
       "expectedChecks": [
         "Quality (Node 22.22.0)",
+        "Workflow Lint",
         "secret_scan"
       ],
-      "summary": "Branch protection requires the quality workflow and secret scan before merge.",
+      "summary": "Branch protection requires a stable aggregate quality gate together with workflow lint and secret scan before merge.",
       "evidence": [
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/branches/main/protection -> required_status_checks.contexts=[Quality (Node 22.22.0), secret_scan]"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/branches/main/protection/required_status_checks -> contexts=[secret_scan, Workflow Lint, Quality (Node 22.22.0)]"
         },
         {
           "type": "repo_path",
@@ -161,7 +162,7 @@
       "label": "GitHub secret scanning",
       "status": "verified",
       "value": "enabled",
-      "summary": "Repository-local gitleaks coverage is verified, and the GitHub secret-scanning REST endpoint is available for the public repository.",
+      "summary": "Repository-local gitleaks coverage is verified, and the GitHub secret-scanning REST endpoint currently reports zero open alerts for the public repository.",
       "evidence": [
         {
           "type": "repo_path",
@@ -173,7 +174,7 @@
         },
         {
           "type": "command_observation",
-          "value": "gh api 'repos/xiaojiou176-open/openui-mcp-studio/secret-scanning/alerts?per_page=1' -> []"
+          "value": "gh api 'repos/xiaojiou176-open/openui-mcp-studio/secret-scanning/alerts?state=open&per_page=100' -> []"
         }
       ]
     },
@@ -199,7 +200,7 @@
       "label": "GitHub code scanning",
       "status": "verified",
       "value": "enabled",
-      "summary": "GitHub code-scanning alerts are available for the repository, which proves native code scanning is active.",
+      "summary": "GitHub code-scanning alerts are available for the repository, and the current REST query reports zero open alerts.",
       "evidence": [
         {
           "type": "repo_path",
@@ -207,7 +208,7 @@
         },
         {
           "type": "command_observation",
-          "value": "gh api 'repos/xiaojiou176-open/openui-mcp-studio/code-scanning/alerts?per_page=1' -> returned alert payload"
+          "value": "gh api 'repos/xiaojiou176-open/openui-mcp-studio/code-scanning/alerts?state=open&per_page=100' -> []"
         }
       ]
     },

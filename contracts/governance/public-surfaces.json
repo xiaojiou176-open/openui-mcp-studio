@@ -82,6 +82,11 @@
 			"owner": "services-mcp-server"
 		},
 		{
+			"id": "service-public-ship",
+			"file": "services/mcp-server/src/public/ship.ts",
+			"owner": "services-mcp-server"
+		},
+		{
 			"id": "service-public-computer-use",
 			"file": "services/mcp-server/src/public/computer-use.ts",
 			"owner": "services-mcp-server"
