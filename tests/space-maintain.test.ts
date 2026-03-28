@@ -267,7 +267,9 @@ describe("space maintain", () => {
 			).rejects.toMatchObject({ code: "ENOENT" });
 			await expect(
 				fs.stat(path.join(rootDir, "node_modules")),
-			).resolves.toBeDefined();
+			).resolves.toMatchObject({
+				isDirectory: expect.any(Function),
+			});
 			await expect(
 				fs.access(
 					path.join(
