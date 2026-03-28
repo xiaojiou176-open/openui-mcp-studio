@@ -290,6 +290,8 @@ run the repo-side verification lane:
 npm run repo:doctor
 npm run repo:space:report
 npm run repo:space:check
+npm run repo:space:verify
+npm run repo:space:maintain:dry-run
 npm run smoke:e2e
 ```
 
@@ -388,9 +390,11 @@ your own machine.
 | --- | --- | --- |
 | Can it produce one real UI result fast? | `npm run demo:ship` | generated file payload for a sample brief |
 | Is the repo structurally healthy? | `npm run repo:doctor` | repository-side readiness verdict |
-| What is taking repo-local space right now? | `npm run repo:space:report` | repo-local footprint plus shared-layer defer map |
+| What is taking repo-local space right now? | `npm run repo:space:report` | repo-local footprint plus shared-layer defer map, repo-specific external cache roots, and reclaimable bytes by cleanup class |
 | Is repo-local space governance drifting? | `npm run repo:space:check` | front-door repo-local gate verdict: no hard-fail pollution and no unknown heavy non-canonical runtime subtree |
-| Which verification candidates are currently safe to clean? | `npm run repo:space:verify` | candidate-by-candidate cleanup eligibility snapshot |
+| Which candidates are currently eligible for controlled repo-local maintenance? | `npm run repo:space:verify` | contract candidates plus maintenance-candidate eligibility snapshot |
+| What would the current repo-local maintenance wave reclaim without deleting anything? | `npm run repo:space:maintain:dry-run` | projected repo-local reclaim plan plus skip reasons |
+| Apply the explicit repo-local maintenance wave | `npm run repo:space:maintain` | controlled repo-local cleanup summary under `.runtime-cache/reports/space-governance/maintenance-latest.*` |
 | What is the current repo-side security evidence bundle? | `npm run security:evidence:final` | PII + ScanCode final evidence pack under `.runtime-cache/reports/security/` |
 | What is the current remote canonical review verdict? | `npm run governance:remote:review` | remote/platform review plus mirror audit summary |
 | Does the default proof target boot like a real app? | `npm run smoke:e2e` | smoke verdict against `apps/web` |
@@ -442,11 +446,15 @@ real engineering trail.
 - `npm run repo:doctor`
   - quick repository health check across governance, runtime, and readiness
 - `npm run repo:space:report`
-  - shows repo-local disk footprint, runtime split, and deferred shared layers
+  - shows repo-local disk footprint, runtime split, deferred shared layers, repo-specific external cache roots, and reclaimable bytes by cleanup class
 - `npm run repo:space:check`
   - front-door repo-local space-governance gate; fails on hard-fail pollution and unknown heavy non-canonical runtime subtrees
 - `npm run repo:space:verify`
-  - reports which repo-local verification candidates are currently eligible for controlled cleanup
+  - reports contract verification candidates plus repo-local maintenance eligibility, active-ref state, age, and skip reasons
+- `npm run repo:space:maintain:dry-run`
+  - generates the explicit no-delete maintenance plan for repo-local cleanup
+- `npm run repo:space:maintain`
+  - applies the explicit repo-local maintenance wave and writes `maintenance-latest.*` under `.runtime-cache/reports/space-governance/`
 - `npm run smoke:e2e`
   - confirms the default proof surface boots and behaves like a real app
 - `npm run release:public-safe:check`
@@ -454,6 +462,16 @@ real engineering trail.
   - runs the strict docs lane in addition to release-readiness and remote/history checks
 - `npm run governance:history-hygiene:check`
   - makes sure release confidence is not based on current-tree scans alone
+
+Machine-level shared layers remain outside the default repo-local maintenance lane:
+
+- Docker.raw
+- `~/.npm`
+- `~/.cache/pre-commit`
+- `~/Library/Caches/ms-playwright`
+- Cursor `workspaceStorage` / `globalStorage`
+
+Treat those as operator-maintained machine surfaces rather than `repo:space:maintain` targets.
 
 In plain language:
 

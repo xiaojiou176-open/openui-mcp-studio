@@ -3,9 +3,9 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
-const DEFAULT_SNAPSHOTS_PATH = ".runtime-cache/quality-trend/snapshots.json";
+const DEFAULT_SNAPSHOTS_PATH = ".runtime-cache/reports/quality-trend/snapshots.json";
 const DEFAULT_OUTPUT_PATH =
-	".runtime-cache/quality-trend/quality-score-calibration.json";
+	".runtime-cache/reports/quality-trend/quality-score-calibration.json";
 const DEFAULT_MIN_SAMPLES = 10;
 const DEFAULT_FALLBACK_THRESHOLD = 85;
 

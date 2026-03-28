@@ -89,6 +89,10 @@ describe("space governance report", () => {
 					"ok",
 				),
 				writeFile(
+					path.join(rootDir, ".runtime-cache", "tmp", "repo-verify-final", "trace.txt"),
+					"x".repeat(2048),
+				),
+				writeFile(
 					path.join(rootDir, ".runtime-cache", "go-mod", "module.zip"),
 					"x".repeat(32768),
 				),
@@ -113,6 +117,9 @@ describe("space governance report", () => {
 				});
 
 			expect(report.summary.repoInternalBytes).toBeGreaterThan(0);
+			expect(report.summary.sharedLayerRelatedBytes).toBeGreaterThanOrEqual(0);
+			expect(report.summary).toHaveProperty("repoSpecificExternalBytes");
+			expect(report.summary).toHaveProperty("reclaimableBytesByClass");
 			expect(report.summary.nonCanonicalRuntimeBytes).toBeGreaterThan(
 				report.summary.canonicalRuntimeBytes,
 			);
@@ -141,6 +148,13 @@ describe("space governance report", () => {
 					expect.objectContaining({
 						relativePath: "apps/web/.next",
 						classification: "low-risk-cleanup-target",
+					}),
+				]),
+			);
+			expect(report.topTmpSubtrees).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({
+						relativePath: ".runtime-cache/tmp/repo-verify-final",
 					}),
 				]),
 			);

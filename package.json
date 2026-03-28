@@ -168,6 +168,8 @@
 		"repo:space:check": "npm run -s governance:space:check",
 		"repo:space:clean": "node tooling/space-clean.mjs",
 		"repo:space:clean:dry-run": "node tooling/space-clean-dry-run.mjs",
+		"repo:space:maintain": "node tooling/space-maintain.mjs --apply",
+		"repo:space:maintain:dry-run": "node tooling/space-maintain.mjs",
 		"repo:space:report": "node tooling/space-governance-report.mjs",
 		"repo:space:verify": "node tooling/space-verify-candidates.mjs",
 		"repo:upstream:check": "node tooling/cli/repo-upstream-check.mjs",

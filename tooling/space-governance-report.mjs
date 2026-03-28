@@ -6,11 +6,15 @@ import { pathToFileURL } from "node:url";
 import {
 	buildReportFileNames,
 	buildSpaceGovernanceContext,
+	collectDirectChildren,
 	collectRootEntries,
 	collectRuntimeSubtrees,
 	collectTopFiles,
 	describeExternalPath,
 	describeRepoLocalPath,
+	describeRepoSpecificExternalTargets,
+	formatBytes,
+	getRuntimePathMetadata,
 	summarizeRuntimeSubtrees,
 } from "./shared/space-governance.mjs";
 
@@ -43,20 +47,24 @@ function parseCliArgs(argv = process.argv.slice(2)) {
 
 function classifyPath(relativePath, context) {
 	const candidate = String(relativePath ?? "");
+	const maintenancePolicy = context.contract.maintenancePolicy ?? {};
 	if ((context.contract.hardFailNonCanonicalPaths ?? []).includes(candidate)) {
 		return "hard-fail-non-canonical-path";
+	}
+	if ((maintenancePolicy.safeAutoMaintainTargets ?? []).includes(candidate)) {
+		return "safe-auto-maintain";
+	}
+	if ((maintenancePolicy.manualOptInTargets ?? []).includes(candidate)) {
+		return "manual-opt-in";
+	}
+	if ((maintenancePolicy.neverRepoLocalTargets ?? []).includes(candidate)) {
+		return "never-repo-local";
 	}
 	if ((context.contract.lowRiskCleanupTargets ?? []).includes(candidate)) {
 		return "low-risk-cleanup-target";
 	}
 	if (candidate === ".git") {
 		return "git-history";
-	}
-	if (candidate === "node_modules") {
-		return "install-surface";
-	}
-	if (candidate === "apps/web/.next") {
-		return "framework-build-cache";
 	}
 	if ((context.contract.rootAnomalies ?? []).includes(candidate)) {
 		return "root-anomaly";
@@ -68,6 +76,10 @@ function classifyPath(relativePath, context) {
 	) {
 		return "verification-candidate";
 	}
+	const runtimeMetadata = getRuntimePathMetadata(candidate, context.registry);
+	if (runtimeMetadata?.cleanupClass) {
+		return runtimeMetadata.cleanupClass;
+	}
 	if (candidate.startsWith(".runtime-cache/")) {
 		return "non-canonical-runtime-subtree";
 	}
@@ -75,6 +87,115 @@ function classifyPath(relativePath, context) {
 		return "runtime-surface";
 	}
 	return "tracked-or-local-path";
+}
+
+function sumBytes(entries) {
+	return entries.reduce((sum, entry) => sum + Number(entry?.sizeBytes ?? 0), 0);
+}
+
+function buildReclaimableBytesByClass(context, baselineTargets, runtimeSubtrees) {
+	const maintenancePolicy = context.contract.maintenancePolicy ?? {};
+	const safeAutoSet = new Set(
+		(maintenancePolicy.safeAutoMaintainTargets ?? []).map((entry) =>
+			String(entry ?? "").trim(),
+		),
+	);
+	const manualSet = new Set(
+		(maintenancePolicy.manualOptInTargets ?? []).map((entry) =>
+			String(entry ?? "").trim(),
+		),
+	);
+	let safeAutoMaintainBytes = 0;
+	let manualOptInBytes = 0;
+	for (const entry of baselineTargets) {
+		if (!entry.exists) {
+			continue;
+		}
+		if (safeAutoSet.has(entry.relativePath)) {
+			safeAutoMaintainBytes += entry.sizeBytes;
+		}
+		if (manualSet.has(entry.relativePath)) {
+			manualOptInBytes += entry.sizeBytes;
+		}
+	}
+	let verifyFirstMaintainBytes = 0;
+	for (const subtree of runtimeSubtrees) {
+		const metadata = getRuntimePathMetadata(subtree.relativePath, context.registry);
+		if (metadata?.cleanupClass === "verify-first-maintain") {
+			verifyFirstMaintainBytes += subtree.sizeBytes;
+		}
+	}
+	return {
+		"safe-auto-maintain": {
+			bytes: safeAutoMaintainBytes,
+			human: formatBytes(safeAutoMaintainBytes),
+		},
+		"verify-first-maintain": {
+			bytes: verifyFirstMaintainBytes,
+			human: formatBytes(verifyFirstMaintainBytes),
+		},
+		"manual-opt-in": {
+			bytes: manualOptInBytes,
+			human: formatBytes(manualOptInBytes),
+		},
+	};
+}
+
+async function collectTopTmpSubtrees(context, topN) {
+	const tmpDetail = await describeRepoLocalPath(context.rootDir, ".runtime-cache/tmp");
+	if (!tmpDetail.exists || !tmpDetail.isDirectory) {
+		return [];
+	}
+	const topChildren = await collectDirectChildren(
+		tmpDetail.relativePath,
+		tmpDetail.absolutePath,
+		topN,
+	);
+	return Promise.all(
+		topChildren.map(async (entry) => ({
+			...entry,
+			cleanupClass: classifyPath(entry.relativePath, context),
+			runtimeMetadata: getRuntimePathMetadata(entry.relativePath, context.registry),
+			components: entry.isDirectory
+				? await collectDirectChildren(entry.relativePath, entry.absolutePath, topN)
+				: [],
+		})),
+	);
+}
+
+function collectDriftCandidates(context, runtimeSubtrees, rootAnomalies, baselineTargets) {
+	const candidates = [];
+	for (const entry of runtimeSubtrees) {
+		if (!entry.canonical) {
+			candidates.push({
+				path: entry.relativePath,
+				reason: "non-canonical-runtime-subtree",
+				sizeBytes: entry.sizeBytes,
+				sizeHuman: entry.sizeHuman,
+			});
+		}
+	}
+	for (const entry of rootAnomalies) {
+		if (entry.exists) {
+			candidates.push({
+				path: entry.relativePath,
+				reason: "root-anomaly",
+				sizeBytes: entry.sizeBytes,
+				sizeHuman: entry.sizeHuman,
+			});
+		}
+	}
+	for (const entry of baselineTargets) {
+		if (entry.classification === "hard-fail-non-canonical-path" && entry.exists) {
+			candidates.push({
+				path: entry.relativePath,
+				reason: "hard-fail-non-canonical-path",
+				sizeBytes: entry.sizeBytes,
+				sizeHuman: entry.sizeHuman,
+			});
+		}
+	}
+	return candidates.sort((left, right) => right.sizeBytes - left.sizeBytes);
 }
 
 function formatMarkdownReport(report) {
@@ -88,9 +209,19 @@ function formatMarkdownReport(report) {
 		"",
 		`- Repo internal footprint: ${report.summary.repoInternalHuman}`,
 		`- Runtime surface footprint: ${report.summary.runtimeSurfaceHuman}`,
+		`- Shared-layer related footprint: ${report.summary.sharedLayerRelatedHuman}`,
+		`- Repo-specific external footprint: ${report.summary.repoSpecificExternalHuman}`,
 		`- Canonical runtime footprint: ${report.summary.canonicalRuntimeHuman}`,
 		`- Non-canonical runtime footprint: ${report.summary.nonCanonicalRuntimeHuman}`,
 		`- OK semantics: ${report.statusSemantics.okMeaning}`,
+		"",
+		"## Reclaimable By Class",
+		"",
+		"| Class | Bytes |",
+		"| --- | ---: |",
+		...Object.entries(report.summary.reclaimableBytesByClass).map(
+			([key, value]) => `| ${key} | ${value.human} |`,
+		),
 		"",
 		"## Top Repo Paths",
 		"",
@@ -101,23 +232,25 @@ function formatMarkdownReport(report) {
 				`| ${entry.relativePath} | ${entry.sizeHuman} | ${entry.classification} |`,
 		),
 		"",
-		"## Runtime Subtrees",
+		"## Top Tmp Subtrees",
 		"",
-		"| Path | Size | Canonical |",
+		"| Path | Size | Cleanup class |",
 		"| --- | ---: | --- |",
-		...report.runtimeSubtrees.map(
-			(entry) =>
-				`| ${entry.relativePath} | ${entry.sizeHuman} | ${entry.canonical ? "yes" : "no"} |`,
-		),
-		"",
-		"## Root Anomalies",
-		"",
-		...(report.rootAnomalies.length > 0
-			? report.rootAnomalies.map(
+		...(report.topTmpSubtrees.length > 0
+			? report.topTmpSubtrees.map(
 					(entry) =>
-						`- ${entry.relativePath}: ${entry.sizeHuman}${entry.exists ? "" : " (missing)"}`,
+						`| ${entry.relativePath} | ${entry.sizeHuman} | ${entry.cleanupClass ?? "unknown"} |`,
 				)
-			: ["- none"]),
+			: ["| none | 0 B | n/a |"]),
+		"",
+		"## Shared Layer Defer Map",
+		"",
+		"| Path | Size | Reason |",
+		"| --- | ---: | --- |",
+		...report.machineLevelDefer.map(
+			(entry) =>
+				`| ${entry.path} | ${entry.sizeHuman} | ${entry.reason || "shared-layer"} |`,
+		),
 	];
 	return lines.join("\n");
 }
@@ -125,6 +258,10 @@ function formatMarkdownReport(report) {
 async function generateSpaceGovernanceReport(options = {}) {
 	const context = await buildSpaceGovernanceContext(options);
 	const topN = Number(context.contract.topN ?? 10);
+	const profile = String(options.profile ?? "full").trim() || "full";
+	const includeTopFiles = profile !== "maintenance";
+	const includeTmpBreakdown = profile !== "maintenance";
+	const includeExternalLayers = profile !== "maintenance";
 	const [
 		repoRootEntries,
 		runtimeSubtrees,
@@ -132,12 +269,14 @@ async function generateSpaceGovernanceReport(options = {}) {
 		baselineTargets,
 		rootAnomalies,
 		deferredSharedLayers,
+		repoSpecificExternalTargets,
 		repoInternalDetail,
 		runtimeSurfaceDetail,
+		topTmpSubtrees,
 	] = await Promise.all([
 		collectRootEntries(context.rootDir),
 		collectRuntimeSubtrees(context.rootDir, context.registry),
-		collectTopFiles(context.rootDir, topN),
+		includeTopFiles ? collectTopFiles(context.rootDir, topN) : Promise.resolve([]),
 		Promise.all(
 			(context.contract.baselineTargets ?? []).map((targetPath) =>
 				describeRepoLocalPath(context.rootDir, String(targetPath)),
@@ -149,17 +288,23 @@ async function generateSpaceGovernanceReport(options = {}) {
 			),
 		),
 		Promise.all(
-			(context.contract.deferredSharedLayers ?? []).map(async (entry) => ({
-				path: String(entry?.path ?? ""),
-				reason: String(entry?.reason ?? "").trim(),
-				...(await describeExternalPath(entry?.path ?? "")),
-			})),
+			includeExternalLayers
+				? (context.contract.deferredSharedLayers ?? []).map(async (entry) => ({
+						path: String(entry?.path ?? ""),
+						reason: String(entry?.reason ?? "").trim(),
+						...(await describeExternalPath(entry?.path ?? "")),
+					}))
+				: [],
 		),
+		includeExternalLayers
+			? describeRepoSpecificExternalTargets(context.rootDir, context.contract)
+			: Promise.resolve([]),
 		describeRepoLocalPath(context.rootDir, "."),
 		describeRepoLocalPath(
 			context.rootDir,
 			String(context.registry.runtimeSurface ?? ".runtime-cache"),
 		),
+		includeTmpBreakdown ? collectTopTmpSubtrees(context, topN) : Promise.resolve([]),
 	]);
 
 	const runtimeSummary = summarizeRuntimeSubtrees(runtimeSubtrees);
@@ -171,6 +316,22 @@ async function generateSpaceGovernanceReport(options = {}) {
 		...entry,
 		classification: classifyPath(entry.relativePath, context),
 	}));
+	const sharedLayerRelatedBytes = sumBytes(deferredSharedLayers);
+	const repoSpecificExternalBytes = sumBytes(repoSpecificExternalTargets);
+	const topSharedLayers = [...deferredSharedLayers]
+		.sort((left, right) => right.sizeBytes - left.sizeBytes)
+		.slice(0, topN);
+	const reclaimableBytesByClass = buildReclaimableBytesByClass(
+		context,
+		targetDetails,
+		runtimeSubtrees,
+	);
+	const driftCandidates = collectDriftCandidates(
+		context,
+		runtimeSubtrees,
+		rootAnomalies,
+		targetDetails,
+	);
 
 	const report = {
 		generatedAt: new Date().toISOString(),
@@ -182,12 +343,17 @@ async function generateSpaceGovernanceReport(options = {}) {
 			repoInternalHuman: repoInternalDetail.sizeHuman,
 			runtimeSurfaceBytes: runtimeSurfaceDetail.sizeBytes,
 			runtimeSurfaceHuman: runtimeSurfaceDetail.sizeHuman,
+			sharedLayerRelatedBytes,
+			sharedLayerRelatedHuman: formatBytes(sharedLayerRelatedBytes),
+			repoSpecificExternalBytes,
+			repoSpecificExternalHuman: formatBytes(repoSpecificExternalBytes),
 			canonicalRuntimeBytes: runtimeSummary.canonicalBytes,
 			canonicalRuntimeHuman: runtimeSummary.canonicalHuman,
 			nonCanonicalRuntimeBytes: runtimeSummary.nonCanonicalBytes,
 			nonCanonicalRuntimeHuman: runtimeSummary.nonCanonicalHuman,
 			canonicalRuntimePct: runtimeSummary.canonicalPct,
 			nonCanonicalRuntimePct: runtimeSummary.nonCanonicalPct,
+			reclaimableBytesByClass,
 		},
 		topPaths,
 		topFiles,
@@ -195,15 +361,24 @@ async function generateSpaceGovernanceReport(options = {}) {
 		runtimeSubtrees,
 		rootAnomalies,
 		deferredSharedLayers,
+		repoSpecificExternalTargets,
+		topSharedLayers,
+		topTmpSubtrees,
+		driftCandidates,
+		machineLevelDefer: deferredSharedLayers,
 		statusSemantics: {
 			okMeaning:
-				"no hard-fail pollution and no unknown non-canonical runtime subtree above threshold",
+				"repo-local report only; shared layers are reported for visibility and never authorized for repo-local apply",
 		},
+		profile,
 	};
 
 	const outputRoot = path.resolve(
 		context.rootDir,
-		options.outputDir ?? String(context.contract.reportRoot ?? ".runtime-cache/reports/space-governance"),
+		options.outputDir ??
+			String(
+				context.contract.reportRoot ?? ".runtime-cache/reports/space-governance",
+			),
 	);
 	await fs.mkdir(outputRoot, { recursive: true });
 	const fileNames = buildReportFileNames(options.label ?? "report");

@@ -19,7 +19,8 @@
 		".runtime-cache/evidence",
 		".runtime-cache/logs",
 		".runtime-cache/ms-playwright",
-		".runtime-cache/openui-home"
+		".runtime-cache/openui-home",
+		".runtime-cache/quality-trend"
 	],
 	"categories": {
 		"build": {
@@ -28,6 +29,9 @@
 			"ttlDays": 14,
 			"cleanMode": "reset",
 			"rebuildStrategy": "recompile",
+			"cleanupClass": "skip-maintenance",
+			"maintenanceMinAgeHours": 0,
+			"retainLatestCount": 0,
 			"paths": [".runtime-cache/build"],
 			"recreateOnClean": true
 		},
@@ -37,6 +41,9 @@
 			"ttlDays": 7,
 			"cleanMode": "purge",
 			"rebuildStrategy": "new-run-only",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 72,
+			"retainLatestCount": 2,
 			"paths": [".runtime-cache/runs"],
 			"recreateOnClean": true
 		},
@@ -46,6 +53,9 @@
 			"ttlDays": 7,
 			"cleanMode": "retention",
 			"rebuildStrategy": "lazy-rebuild",
+			"cleanupClass": "skip-maintenance",
+			"maintenanceMinAgeHours": 0,
+			"retainLatestCount": 0,
 			"paths": [".runtime-cache/cache"],
 			"recreateOnClean": true
 		},
@@ -55,6 +65,9 @@
 			"ttlDays": 30,
 			"cleanMode": "purge",
 			"rebuildStrategy": "rerun-report-jobs",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 336,
+			"retainLatestCount": 1,
 			"paths": [
 				".runtime-cache/reports/quality-trend",
 				".runtime-cache/reports/history-audit",
@@ -71,6 +84,9 @@
 			"ttlDays": 1,
 			"cleanMode": "purge",
 			"rebuildStrategy": "ephemeral-only",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 24,
+			"retainLatestCount": 0,
 			"paths": [".runtime-cache/tmp"],
 			"recreateOnClean": true
 		},
@@ -80,6 +96,9 @@
 			"ttlDays": 30,
 			"cleanMode": "purge",
 			"rebuildStrategy": "rerun-tooling",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 168,
+			"retainLatestCount": 0,
 			"paths": [
 				".runtime-cache/ci-image",
 				".runtime-cache/next-smoke-tests",
@@ -95,6 +114,9 @@
 			"ttlDays": 14,
 			"cleanMode": "purge",
 			"rebuildStrategy": "rerun-mutation",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 168,
+			"retainLatestCount": 0,
 			"paths": [".runtime-cache/mutation"],
 			"recreateOnClean": false
 		},
@@ -104,6 +126,9 @@
 			"ttlDays": 14,
 			"cleanMode": "purge",
 			"rebuildStrategy": "rerun-coverage",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 168,
+			"retainLatestCount": 0,
 			"paths": [".runtime-cache/coverage"],
 			"recreateOnClean": false
 		}
@@ -182,6 +207,24 @@
 				".runtime-cache/runs/**/artifacts/playwright-webkit/**"
 			],
 			"mustExclude": ["playwright-report/**"]
+		},
+		{
+			"path": ".github/workflows/quality-trend-weekly.yml",
+			"mustInclude": [
+				".runtime-cache/reports/quality-trend"
+			],
+			"mustExclude": [
+				".runtime-cache/quality-trend"
+			]
+		},
+		{
+			"path": "tooling/quality-score-calibrate.mjs",
+			"mustInclude": [
+				".runtime-cache/reports/quality-trend"
+			],
+			"mustExclude": [
+				".runtime-cache/quality-trend"
+			]
 		}
 	]
 }

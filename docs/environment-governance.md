@@ -166,13 +166,16 @@ Additional governed keysets (same registry file):
 - Space-governance reporting is separate from cleanup:
   - `npm run repo:space:report` writes snapshots under `.runtime-cache/reports/space-governance/`
   - `npm run repo:space:check` is the front-door repo-local gate and enforces hard-fail pollution plus unknown heavy non-canonical runtime subtree rules from `contracts/runtime/space-governance.json`
-  - `npm run repo:space:verify` reports which `verificationCandidates` are currently eligible for controlled repo-local cleanup
+  - `npm run repo:space:verify` reports contract verification candidates plus repo-local maintenance candidates, including age, active refs, cleanup class, and skip reason
+  - `npm run repo:space:maintain:dry-run` generates the current repo-local maintenance plan without deleting files
+  - `npm run repo:space:maintain` applies the explicit repo-local maintenance wave and writes `maintenance-latest.json` / `maintenance-latest.md` under `.runtime-cache/reports/space-governance/`
   - `npm run repo:space:clean:dry-run` only enumerates repo-local allowlist targets and must not target shared layers
 - Security and release evidence reporting is separate from runtime operation:
   - `npm run security:evidence:final` writes final repo-side evidence summaries under `.runtime-cache/reports/security/`
   - `npm run governance:remote:review` writes remote canonical review summaries under `.runtime-cache/reports/release-readiness/`
 - Space-governance hard rule: repo-local runtime truth remains `.runtime-cache/*`; shared layers such as Docker, `~/.npm`, `~/.cache/pre-commit`, and Playwright browser caches stay outside repo-local cleanup scope unless separately approved as machine-level maintenance.
 - Tool cache hard rule: pre-commit and Go tooling caches must resolve outside the workspace; only canonical repo-local runtime evidence remains under `.runtime-cache/*`.
+- Repo-local verification tmp roots that execute from `.runtime-cache/tmp/*` must reuse the external workspace-token tooling cache for Playwright browsers, managed install surfaces, and npm cache; tmp roots should keep only light overlay state plus an ownership manifest.
 
 ## Operational Examples
 

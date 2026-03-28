@@ -1,5 +1,5 @@
 import path from "node:path";
-import { readJsonFile } from "./governance-utils.mjs";
+import { readJsonFile, toPosixPath } from "./governance-utils.mjs";
 
 const DEFAULT_REGISTRY_PATH = "contracts/runtime/path-registry.json";
 
@@ -48,11 +48,43 @@ function listCleanPolicyPaths(registry, key) {
 		: [];
 }
 
+function normalizeRegistryRelativePath(value) {
+	return toPosixPath(String(value ?? "").trim());
+}
+
+function findRuntimeCategoryForPath(registry, relativePath) {
+	const candidate = normalizeRegistryRelativePath(relativePath);
+	let bestMatch = null;
+	for (const [categoryId, entry] of Object.entries(registry?.categories ?? {})) {
+		for (const rawPath of Array.isArray(entry?.paths) ? entry.paths : []) {
+			const registeredPath = normalizeRegistryRelativePath(rawPath);
+			if (!registeredPath) {
+				continue;
+			}
+			if (
+				candidate === registeredPath ||
+				candidate.startsWith(`${registeredPath}/`)
+			) {
+				if (!bestMatch || registeredPath.length > bestMatch.registeredPath.length) {
+					bestMatch = {
+						categoryId,
+						entry,
+						registeredPath,
+					};
+				}
+			}
+		}
+	}
+	return bestMatch;
+}
+
 export {
 	DEFAULT_REGISTRY_PATH,
+	findRuntimeCategoryForPath,
 	listAllRegistryPaths,
 	listAllowedRuntimeTopLevelDirectories,
 	listCategoryPaths,
 	listCleanPolicyPaths,
+	normalizeRegistryRelativePath,
 	readRuntimePathRegistry,
 };

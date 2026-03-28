@@ -35,6 +35,12 @@ describe("quality-score-calibrate", () => {
 	it("parses CLI options with defaults and overrides", () => {
 		const defaults = parseArgs([]);
 		expect(defaults.minSamples).toBe(10);
+		expect(defaults.snapshotsPath).toBe(
+			".runtime-cache/reports/quality-trend/snapshots.json",
+		);
+		expect(defaults.outputPath).toBe(
+			".runtime-cache/reports/quality-trend/quality-score-calibration.json",
+		);
 
 		const custom = parseArgs([
 			"--snapshots",
