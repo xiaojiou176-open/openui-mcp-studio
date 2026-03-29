@@ -55,6 +55,9 @@ The canonical public-safe stance for this wave is:
 - secret scanning is enabled
 - push protection is enabled
 - private vulnerability reporting is enabled
+- live Gemini verification stays manual-only and must pass through the
+  protected `live-gemini-manual` environment before repository secrets enter
+  the job
 
 ## Git History Boundary
 

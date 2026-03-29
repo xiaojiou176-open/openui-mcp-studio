@@ -35,7 +35,7 @@ real gate?"
 | Deterministic local front door | yes | `npm run precommit:gate`, `npm run prepush:gate`, `npm run repo:doctor`, `npm run repo:verify:fast` | fast local hygiene and structural truth |
 | Deterministic CI hot path | yes | `npm run ci:gate`, docs/workflow governance jobs, secret scan | the default PR and push confidence path |
 | Advisory deterministic deep review | no | `npm run uiux:audit:strict:gate` | stricter UX/a11y review without blocking every routine push |
-| Manual live-provider lane | no | `npm run test:live`, `workflow_dispatch` with `run_live_gemini=true` | explicit live Gemini verification |
+| Manual live-provider lane | no | `npm run test:live`, `workflow_dispatch` with `run_live_gemini=true`, protected environment review | explicit live Gemini verification under manual approval |
 | Manual maintenance lane | no | mutation, quality trend, weekly env audit | periodic or operator-triggered maintenance evidence |
 
 If a lane depends on Gemini, external APIs, or unstable network behavior, keep
@@ -103,6 +103,8 @@ Important boundary:
   - require an explicit `run_live_gemini=true` opt-in so default CI never
     blocks on live provider behavior, secret availability, or external model
     stability
+  - require the protected `live-gemini-manual` environment so a reviewer must
+    approve the secret-bearing lane before it starts
 - Gemini-backed maintenance workflows
   - keep `mutation-weekly.yml`, `quality-trend-weekly.yml`, and
     `weekly-env-audit.yml` manual-only

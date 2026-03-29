@@ -416,6 +416,7 @@ jobs:
 		const liveGateNeeds = getJobNeeds(workflow, "live_gemini_hard_gate");
 
 		expect(liveGateSection).toContain("name: Live Gemini hard gate");
+		expect(liveGateSection).toContain("environment: live-gemini-manual");
 		expect(liveGateNeeds).toContain("quality");
 		expect(liveGateNeeds).toContain("functional_strict");
 		expect(nightlyCrossBrowserSection).toContain(
@@ -530,7 +531,7 @@ jobs:
 					"on: [push]",
 					"jobs:",
 					"  sample:",
-					'    runs-on: ["self-hosted", "shared-pool"]',
+					"    runs-on: ubuntu-latest",
 					"    timeout-minutes: 5",
 					"    steps:",
 					"      - uses: actions/checkout@393031adb9afb225ee52ae2ccd7a5af5525e03e8",
@@ -570,7 +571,7 @@ jobs:
 					"permissions: write-all",
 					"jobs:",
 					"  sample:",
-					'    runs-on: ["self-hosted", "shared-pool"]',
+					"    runs-on: ubuntu-latest",
 					"    timeout-minutes: 5",
 					"    steps:",
 					"      - uses: actions/checkout@393031adb9afb225ee52ae2ccd7a5af5525e03e8",
@@ -608,7 +609,7 @@ jobs:
 					"on: [push]",
 					"jobs:",
 					"  sample:",
-					'    runs-on: ["self-hosted", "shared-pool"]',
+					"    runs-on: ubuntu-latest",
 					"    timeout-minutes: 5",
 					"    steps:",
 					"      - id: guarded",
@@ -669,7 +670,7 @@ jobs:
 				"on: [push]",
 				"jobs:",
 				"  sample:",
-				'    runs-on: ["self-hosted", "shared-pool"]',
+				"    runs-on: ubuntu-latest",
 				"    timeout-minutes: 5",
 				"    steps:",
 				"      - name: Checkout",
@@ -699,7 +700,7 @@ jobs:
 				"on: [push]",
 				"jobs:",
 				"  sample:",
-				'    runs-on: ["self-hosted", "shared-pool"]',
+				"    runs-on: ubuntu-latest",
 				"    timeout-minutes: 5",
 				"    steps:",
 				"      - name: Cache Playwright",
@@ -722,15 +723,15 @@ jobs:
 		);
 	});
 
-	it("rejects global pip installs inside self-hosted workflows", async () => {
+	it("rejects global pip installs inside governed workflows", async () => {
 		await withTempWorkflow(
-			"openui-workflow-governance-self-hosted-pip-",
+			"openui-workflow-governance-hosted-pip-",
 			[
-				"name: governance-self-hosted-pip",
+				"name: governance-hosted-pip",
 				"on: [push]",
 				"jobs:",
 				"  sample:",
-				'    runs-on: ["self-hosted", "shared-pool"]',
+				"    runs-on: ubuntu-latest",
 				"    timeout-minutes: 5",
 				"    steps:",
 				"      - name: Install pre-commit globally",
@@ -743,22 +744,22 @@ jobs:
 					}),
 				).rejects.toMatchObject({
 					stderr: expect.stringContaining(
-						"runs global python -m pip install inside self-hosted job",
+						"runs global python -m pip install inside workflow job",
 					),
 				});
 			},
 		);
 	});
 
-	it("rejects playwright install with deps inside self-hosted workflows", async () => {
+	it("rejects playwright install with deps inside governed workflows", async () => {
 		await withTempWorkflow(
-			"openui-workflow-governance-self-hosted-playwright-",
+			"openui-workflow-governance-hosted-playwright-",
 			[
-				"name: governance-self-hosted-playwright",
+				"name: governance-hosted-playwright",
 				"on: [push]",
 				"jobs:",
 				"  sample:",
-				'    runs-on: ["self-hosted", "shared-pool"]',
+				"    runs-on: ubuntu-latest",
 				"    timeout-minutes: 5",
 				"    steps:",
 				"      - name: Install Playwright browsers",
@@ -771,22 +772,22 @@ jobs:
 					}),
 				).rejects.toMatchObject({
 					stderr: expect.stringContaining(
-						"runs playwright install --with-deps inside self-hosted job",
+						"runs playwright install --with-deps inside workflow job",
 					),
 				});
 			},
 		);
 	});
 
-	it("allows self-hosted workflows to use runner temp cache indirection and venv installs", async () => {
+	it("allows governed workflows to use runner temp cache indirection and venv installs", async () => {
 		await withTempWorkflow(
-			"openui-workflow-governance-self-hosted-safe-",
+			"openui-workflow-governance-hosted-safe-",
 			[
-				"name: governance-self-hosted-safe",
+				"name: governance-hosted-safe",
 				"on: [push]",
 				"jobs:",
 				"  sample:",
-				'    runs-on: ["self-hosted", "shared-pool"]',
+				"    runs-on: ubuntu-latest",
 				"    timeout-minutes: 5",
 				"    env:",
 				`      PLAYWRIGHT_BROWSERS_PATH: \${{ runner.temp }}/ms-playwright`,
@@ -834,7 +835,7 @@ jobs:
 					"on: [push]",
 					"jobs:",
 					"  sample:",
-					'    runs-on: ["self-hosted", "shared-pool"]',
+					"    runs-on: ubuntu-latest",
 					"    timeout-minutes: 5",
 					"    steps:",
 					"      - id: swallow",

@@ -17,6 +17,7 @@ const REQUIRED_REMOTE_IDS = new Set([
 	"push_protection",
 	"code_scanning",
 	"private_vulnerability_reporting",
+	"live_gemini_environment",
 ]);
 const STRICT_MAX_AGE_HOURS = 36;
 const DEFAULT_PUBLIC_READY_REQUIRED_VALUES = {
@@ -27,6 +28,7 @@ const DEFAULT_PUBLIC_READY_REQUIRED_VALUES = {
 	push_protection: ["enabled"],
 	code_scanning: ["enabled"],
 	private_vulnerability_reporting: ["enabled"],
+	live_gemini_environment: ["protected_review_required"],
 };
 
 function toPosixPath(filePath) {

@@ -13,7 +13,7 @@ Start here if you are trying to answer "what does this project do for me?"
 - [`docs/first-minute-walkthrough.md`](./first-minute-walkthrough.md)
 - [`docs/proof-and-faq.md`](./proof-and-faq.md)
 - [`docs/evaluator-checklist.md`](./evaluator-checklist.md)
-- [`docs/architecture.md`](./architecture.md)
+- [`docs/architecture.md`](./architecture.md) - system shape, default flow, and capability layers
 
 ## For Evaluators
 

@@ -67,6 +67,7 @@ function buildMarkdown(report) {
 		`| Secret scanning | ${report.platform.secretScanning} |`,
 		`| Push protection | ${report.platform.pushProtection} |`,
 		`| Private vulnerability reporting | ${report.platform.privateVulnerabilityReporting} |`,
+		`| Live Gemini environment | ${report.platform.liveGeminiEnvironment.status} |`,
 		`| Code scanning analyses | ${report.platform.codeScanningAnalyses} |`,
 		`| Community health | ${report.platform.communityHealthPercentage} |`,
 		"",
@@ -219,6 +220,47 @@ async function runMirrorAudits(rootDir, originUrl) {
 	}
 }
 
+function summarizeLiveGeminiEnvironment(environment) {
+	if (!environment || typeof environment !== "object") {
+		return {
+			status: "missing",
+			reviewers: [],
+			preventSelfReview: false,
+			protectedBranchesOnly: false,
+		};
+	}
+
+	const protectionRules = Array.isArray(environment.protection_rules)
+		? environment.protection_rules
+		: [];
+	const requiredReviewersRule =
+		protectionRules.find((rule) => rule?.type === "required_reviewers") ?? null;
+	const reviewers = Array.isArray(requiredReviewersRule?.reviewers)
+		? requiredReviewersRule.reviewers
+				.map((entry) => readString(entry?.reviewer?.login))
+				.filter(Boolean)
+		: [];
+	const deploymentBranchPolicy =
+		typeof environment.deployment_branch_policy === "object" &&
+		environment.deployment_branch_policy !== null
+			? environment.deployment_branch_policy
+			: {};
+	const protectedBranchesOnly =
+		deploymentBranchPolicy.protected_branches === true &&
+		deploymentBranchPolicy.custom_branch_policies === false;
+	const preventSelfReview = requiredReviewersRule?.prevent_self_review === true;
+
+	return {
+		status:
+			reviewers.length > 0 && protectedBranchesOnly
+				? "protected_review_required"
+				: "present_but_unprotected",
+		reviewers,
+		preventSelfReview,
+		protectedBranchesOnly,
+	};
+}
+
 function computeVerdict(report) {
 	const statuses = [
 		report.mirrorAudit.baselineGitleaks.status,
@@ -232,6 +274,7 @@ function computeVerdict(report) {
 		report.platform.secretScanning !== "enabled" ||
 		report.platform.pushProtection !== "enabled" ||
 		report.platform.privateVulnerabilityReporting !== "enabled" ||
+		report.platform.liveGeminiEnvironment.status !== "protected_review_required" ||
 		report.branchProtection.requiredChecks.length === 0
 	) {
 		return "clean with accepted caveats";
@@ -278,6 +321,16 @@ async function runRemoteCanonicalReview(options = {}) {
 		["api", `repos/${repoView.nameWithOwner}/code-scanning/analyses?per_page=1`],
 		{ cwd: rootDir },
 	);
+	let liveGeminiEnvironment = null;
+	try {
+		liveGeminiEnvironment = execJson(
+			"gh",
+			["api", `repos/${repoView.nameWithOwner}/environments/live-gemini-manual`],
+			{ cwd: rootDir },
+		);
+	} catch {
+		liveGeminiEnvironment = null;
+	}
 	const originUrl = readString(
 		execFileSync("git", ["remote", "get-url", "origin"], {
 			cwd: rootDir,
@@ -313,6 +366,7 @@ async function runRemoteCanonicalReview(options = {}) {
 				"unknown",
 			privateVulnerabilityReporting:
 				privateVulnerabilityReporting.enabled === true ? "enabled" : "disabled",
+			liveGeminiEnvironment: summarizeLiveGeminiEnvironment(liveGeminiEnvironment),
 			codeScanningAnalyses: Array.isArray(codeScanningAnalyses)
 				? codeScanningAnalyses.length
 				: 0,
