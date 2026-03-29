@@ -169,23 +169,56 @@ describe("space maintain", () => {
 			await Promise.all([
 				writeFile(path.join(rootDir, "apps", "web", ".next", "trace"), "trace"),
 				writeFile(
-					path.join(rootDir, ".runtime-cache", "tmp", "repo-verify-final", "cache.bin"),
+					path.join(
+						rootDir,
+						".runtime-cache",
+						"tmp",
+						"repo-verify-final",
+						"cache.bin",
+					),
 					"x".repeat(4096),
 				),
 				writeFile(
-					path.join(rootDir, ".runtime-cache", "tmp", "ci-runtime-smoke", "cache.bin"),
+					path.join(
+						rootDir,
+						".runtime-cache",
+						"tmp",
+						"ci-runtime-smoke",
+						"cache.bin",
+					),
 					"x".repeat(4096),
 				),
 				writeFile(
-					path.join(rootDir, ".runtime-cache", "runs", "run-old", "logs", "runtime.jsonl"),
+					path.join(
+						rootDir,
+						".runtime-cache",
+						"runs",
+						"run-old",
+						"logs",
+						"runtime.jsonl",
+					),
 					"old",
 				),
 				writeFile(
-					path.join(rootDir, ".runtime-cache", "runs", "run-new-1", "logs", "runtime.jsonl"),
+					path.join(
+						rootDir,
+						".runtime-cache",
+						"runs",
+						"run-new-1",
+						"logs",
+						"runtime.jsonl",
+					),
 					"new-1",
 				),
 				writeFile(
-					path.join(rootDir, ".runtime-cache", "runs", "run-new-2", "logs", "runtime.jsonl"),
+					path.join(
+						rootDir,
+						".runtime-cache",
+						"runs",
+						"run-new-2",
+						"logs",
+						"runtime.jsonl",
+					),
 					"new-2",
 				),
 				writeFile(
@@ -257,10 +290,14 @@ describe("space maintain", () => {
 
 			expect(apply.ok).toBe(true);
 			await expect(
-				fs.stat(path.join(rootDir, ".runtime-cache", "tmp", "repo-verify-final")),
+				fs.stat(
+					path.join(rootDir, ".runtime-cache", "tmp", "repo-verify-final"),
+				),
 			).rejects.toMatchObject({ code: "ENOENT" });
 			await expect(
-				fs.stat(path.join(rootDir, ".runtime-cache", "tmp", "ci-runtime-smoke")),
+				fs.stat(
+					path.join(rootDir, ".runtime-cache", "tmp", "ci-runtime-smoke"),
+				),
 			).rejects.toMatchObject({ code: "ENOENT" });
 			await expect(
 				fs.stat(path.join(rootDir, "apps", "web", ".next")),

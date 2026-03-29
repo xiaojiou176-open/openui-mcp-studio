@@ -90,10 +90,9 @@ describe("cache tier governance", () => {
 					},
 				},
 			);
-			await fs.mkdir(
-				path.join(rootDir, ".runtime-cache", "quality-trend"),
-				{ recursive: true },
-			);
+			await fs.mkdir(path.join(rootDir, ".runtime-cache", "quality-trend"), {
+				recursive: true,
+			});
 			await writeFile(
 				path.join(rootDir, ".runtime-cache", "quality-trend", "report.json"),
 				"{}\n",

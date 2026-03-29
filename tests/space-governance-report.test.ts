@@ -89,7 +89,13 @@ describe("space governance report", () => {
 					"ok",
 				),
 				writeFile(
-					path.join(rootDir, ".runtime-cache", "tmp", "repo-verify-final", "trace.txt"),
+					path.join(
+						rootDir,
+						".runtime-cache",
+						"tmp",
+						"repo-verify-final",
+						"trace.txt",
+					),
 					"x".repeat(2048),
 				),
 				writeFile(

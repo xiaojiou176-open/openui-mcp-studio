@@ -28,9 +28,7 @@ describe("managed install surface", () => {
 			});
 
 			expect(result.managed).toBe(true);
-			expect(
-				shouldUseManagedInstallSurface(rootDir, targetRoot),
-			).toBe(true);
+			expect(shouldUseManagedInstallSurface(rootDir, targetRoot)).toBe(true);
 
 			const nodeModulesPath = path.join(targetRoot, "node_modules");
 			const nodeModulesStat = await fs.lstat(nodeModulesPath);
@@ -70,7 +68,10 @@ describe("managed install surface", () => {
 			});
 			expect(result.managed).toBe(false);
 			expect(
-				shouldUseManagedInstallSurface(rootDir, path.join(rootDir, "apps", "web")),
+				shouldUseManagedInstallSurface(
+					rootDir,
+					path.join(rootDir, "apps", "web"),
+				),
 			).toBe(false);
 		} finally {
 			await fs.rm(rootDir, { recursive: true, force: true });
