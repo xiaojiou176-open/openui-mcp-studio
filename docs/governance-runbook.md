@@ -145,6 +145,8 @@ These commands are the repository front desk.
   Keep it manual-only behind `workflow_dispatch` plus an explicit
   `run_live_gemini` opt-in, rather than auto-running on `main`, `release/*`, or
   scheduled coverage lanes.
+  Bind that lane to the protected `live-gemini-manual` environment so a
+  reviewer must approve the secret-bearing run before it starts.
 - Gemini-backed maintenance workflows stay manual-only as well.
   Mutation, quality-trend, and weekly env audit remain available for explicit
   operator review, but they should not auto-run on a time-based schedule in the
@@ -164,6 +166,9 @@ These commands are the repository front desk.
 - External readonly validation remains report-only and stays separate from the
   default blocking path.
 - Long-running tasks must keep heartbeat output and preserve run-scoped evidence.
+- Local container-parity runs should keep their host-side runtime/cache mounts
+  under `.runtime-cache/ci-local-host/` by default so full verification does
+  not spill machine-managed marker directories into the repository root.
 - `root-pristine` means allowlisted root hygiene. It is not a promise that the
   visible repository root stays empty after normal runtime activity.
 - Space governance is a separate maintenance lane:

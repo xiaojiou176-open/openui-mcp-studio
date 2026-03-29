@@ -1,11 +1,11 @@
 # OpenUI MCP Studio
 
-Turn a UI brief into real React and shadcn files you can preview, inspect, and
-verify before you trust them.
+Turn one UI brief into React and shadcn files you can preview, inspect, and
+verify before you ship them.
 
-OpenUI MCP Studio turns a prompt into a governed UI shipping workflow. It does
-not stop at code generation. It writes files, runs quality gates, and keeps a
-default proof target ready for smoke, visual, and UI/UX validation.
+OpenUI MCP Studio is for teams that want one practical flow: start from a
+prompt, write real frontend files into a workspace, and keep a default proof
+target ready before trusting the output.
 
 Local bootstrap remains a construction-only bridge. Public release confidence
 still depends on explicit repository checks such as `npm run security:oss:audit`
@@ -33,11 +33,23 @@ maintenance.
 [Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions) |
 [Docs Index](./docs/index.md)
 
+![OpenUI MCP Studio preview card](./docs/assets/openui-mcp-studio-preview.svg)
+
 <p align="center">
   <strong>Prompt to UI</strong> |
   <strong>Apply into workspace</strong> |
   <strong>Verify before ship</strong>
 </p>
+
+## First Practical Win
+
+Pick the shortest path that matches what you actually want to learn first:
+
+| I want to... | Run this first | What I get |
+| --- | --- | --- |
+| watch one real prompt-to-UI delivery | `npm run demo:ship` | one genuine brief-to-ship payload from the current repo |
+| trust the repo surface before investing more time | `npm run repo:doctor` | a fast structural check over contracts, runtime, evidence, and release-readiness inputs |
+| follow the first human-readable path | [docs/first-minute-walkthrough.md](./docs/first-minute-walkthrough.md) | the fastest guided route from brief to applied UI and proof target |
 
 <p align="center">
   <img
@@ -96,6 +108,8 @@ maintenance.
 - A deterministic front-door gate by default, while live Gemini, mutation, and
   strict docs evidence stay in explicit manual or release lanes instead of
   blocking every routine push.
+- A protected live-provider lane, so secret-bearing Gemini verification stays
+  manual and review-gated instead of leaking into routine public PR traffic.
 
 <p align="center">
   <img
@@ -104,6 +118,65 @@ maintenance.
     width="100%"
   />
 </p>
+
+## Capability Layers
+
+Read this repository in three layers so the primary product story stays clear.
+
+### 1. Core shipping workflow
+
+This is the mainline capability surface and the shortest honest answer to
+"what does OpenUI MCP Studio really do?"
+
+- `openui_detect_shadcn_paths`
+- `openui_generate_ui`
+- `openui_convert_react_shadcn`
+- `openui_make_react_page`
+- `openui_apply_files`
+- `openui_quality_gate`
+- `openui_next_smoke`
+- `openui_ship_react_page`
+
+These tools own the default prompt -> generate -> convert -> apply -> verify
+workflow. If you only remember one tool, remember
+`openui_ship_react_page`.
+
+### 2. Supporting review and runtime tools
+
+These tools are real and maintained, but they support the mainline workflow
+instead of replacing it.
+
+- `openui_refine_ui`
+- `openui_review_uiux`
+- `openui_list_models`
+- `openui_embed_content`
+
+Use them when you need iteration, review, or provider/runtime inspection around
+the core shipping path.
+
+### 3. Advanced or non-primary surfaces
+
+These tools exist in the live MCP server, but they are not the first thing this
+repository should be judged by.
+
+- `openui_rag_upsert`
+- `openui_rag_search`
+- `openui_observe_screen`
+- `openui_execute_ui_action`
+- `openui_computer_use_loop`
+
+Treat them as advanced or exploratory surfaces. The public product story of
+this repository still centers on governed UI shipping, not on generic RAG or
+computer-use orchestration.
+
+Important boundary notes:
+
+- The RAG tools use a local in-memory index for the current server process.
+  They help with session-scoped retrieval experiments; they are not the
+  repository's durable knowledge-storage story.
+- The computer-use tools currently provide Gemini observation plus guarded
+  action and loop semantics with safety confirmation. They should not be read
+  as a full browser-driving runtime by themselves.
 
 ## Proof Ladder
 
@@ -115,6 +188,12 @@ Use the lightest path that answers your real question.
 | `npm run repo:doctor` | you want a fast structural trust check | the repo-side contracts, runtime, evidence, upstream policy, and release-readiness inputs are healthy | not full local parity and not remote platform closure by itself |
 | `npm run repo:verify:full` | you want the stronger repo-local verification lane | the local container-parity verification path still holds | not remote GitHub governance truth by itself |
 | `npm run release:public-safe:check` | you want the strict repo-side public-safe verdict | docs, remote evidence, and history hygiene agree on a strict repo-side verdict | not legal sign-off, product judgment, or rollout approval |
+
+The live Gemini lane stays outside the default PR hot path:
+
+- manual `workflow_dispatch` only
+- explicit `run_live_gemini=true` opt-in
+- protected GitHub environment review before the live job starts
 
 ## Fastest Visible Proof
 

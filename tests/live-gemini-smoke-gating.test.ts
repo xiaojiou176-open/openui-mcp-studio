@@ -69,6 +69,7 @@ describe("live gemini smoke gating strategy", () => {
 		expect(normalizedIfExpression).not.toContain("release/");
 		expect(normalizedIfExpression).not.toContain("github.base_ref");
 		expect(hardGateSection).toContain("name: Live Gemini hard gate");
+		expect(hardGateSection).toContain("environment: live-gemini-manual");
 		expect(hardGateSection).toContain("Validate GEMINI_API_KEY for hard gate");
 		expect(hardGateSection).toContain(
 			"Live Gemini hard gate requires GEMINI_API_KEY secret.",

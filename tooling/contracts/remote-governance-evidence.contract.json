@@ -5,7 +5,7 @@
     "name": "openui-mcp-studio",
     "visibility": "public"
   },
-  "checkedAt": "2026-03-27T23:54:03Z",
+  "checkedAt": "2026-03-29T12:42:53Z",
   "statusModel": [
     "verified",
     "repo_asserted",
@@ -18,7 +18,8 @@
       "codeowners_enforcement": ["enforced"],
       "secret_scanning": ["enabled"],
       "code_scanning": ["enabled"],
-      "private_vulnerability_reporting": ["enabled"]
+      "private_vulnerability_reporting": ["enabled"],
+      "live_gemini_environment": ["protected_review_required"]
     }
   },
   "repoLocalControls": [
@@ -226,6 +227,23 @@
         {
           "type": "command_observation",
           "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/private-vulnerability-reporting -> {\"enabled\":true}"
+        }
+      ]
+    },
+    {
+      "id": "live_gemini_environment",
+      "label": "Protected live Gemini environment",
+      "status": "verified",
+      "value": "protected_review_required",
+      "summary": "The manual live Gemini lane is bound to a protected GitHub environment that requires an admin reviewer and protected-branch deployment policy before secrets enter the job.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": ".github/workflows/ci.yml"
+        },
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/environments/live-gemini-manual -> required_reviewers=[leilei999lei-lab], prevent_self_review=true, deployment_branch_policy.protected_branches=true"
         }
       ]
     }

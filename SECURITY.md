@@ -89,3 +89,6 @@ Important boundary:
 - `security:pii:audit` is a separate heuristic tracked-content sweep for email addresses and phone-like contact data; it complements secret scanning but does not replace legal/privacy review
 - `.github/workflows/codeql.yml` is the repository-owned CodeQL entrypoint for
   GitHub code-scanning alerts
+- live-provider verification remains manual-only and should enter the protected
+  `live-gemini-manual` environment before repository secrets are exposed to the
+  job

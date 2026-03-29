@@ -85,6 +85,7 @@ describe("remote governance evidence", () => {
 					makeControl("push_protection", "unverified"),
 					makeControl("code_scanning", "unverified"),
 					makeControl("private_vulnerability_reporting", "unverified"),
+					makeControl("live_gemini_environment", "unverified"),
 				],
 			},
 		);
@@ -159,6 +160,7 @@ describe("remote governance evidence", () => {
 					makeControl("push_protection", "unverified"),
 					makeControl("code_scanning", "unverified"),
 					makeControl("private_vulnerability_reporting", "unverified"),
+					makeControl("live_gemini_environment", "unverified"),
 				],
 			},
 		);
@@ -204,6 +206,10 @@ describe("remote governance evidence", () => {
 					makeControl("push_protection"),
 					makeControl("code_scanning"),
 					makeControl("private_vulnerability_reporting"),
+					{
+						...makeControl("live_gemini_environment"),
+						value: "protected_review_required",
+					},
 				],
 			},
 		);
@@ -254,6 +260,7 @@ describe("remote governance evidence", () => {
 						push_protection: ["enabled"],
 						code_scanning: ["enabled"],
 						private_vulnerability_reporting: ["enabled"],
+						live_gemini_environment: ["protected_review_required"],
 					},
 				},
 				remotePlatformControls: [
@@ -285,6 +292,10 @@ describe("remote governance evidence", () => {
 					{
 						...makeControl("private_vulnerability_reporting"),
 						value: "enabled",
+					},
+					{
+						...makeControl("live_gemini_environment"),
+						value: "protected_review_required",
 					},
 				],
 			},

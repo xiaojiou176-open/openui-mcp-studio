@@ -42,14 +42,6 @@ const CI_LARGE_TASK_JOB_IDS = new Set([
 	"nightly_coverage_gate",
 	"rollback_drill",
 ]);
-const CI_LARGE_TASK_RUNNER_SELECTOR_ALLOWED_JOB_IDS = new Set([
-	"quality",
-	"functional_strict",
-	"live_gemini_hard_gate",
-	"nightly_cross_browser",
-	"nightly_coverage_gate",
-	"rollback_drill",
-]);
 const CI_REQUIRED_NEEDS_BY_JOB = new Map([
 	["live_gemini_hard_gate", ["quality", "functional_strict"]],
 ]);
@@ -61,8 +53,6 @@ const HIGH_RISK_PERMISSIONS_LINE_PATTERN =
 	/^\s*permissions:\s*(?:"write-all"|'write-all'|write-all)\s*(?:#.*)?$/i;
 const COMMIT_SHA_REF_PATTERN = /^[0-9a-f]{40}$/i;
 const DOCKER_DIGEST_REF_PATTERN = /^sha256:[0-9a-f]{64}$/i;
-const SELF_HOSTED_SHARED_POOL_RUNS_ON_PATTERN =
-	/^\s*runs-on:\s*\["self-hosted",\s*"shared-pool"\]\s*$/;
 const UBUNTU_LATEST_RUNS_ON_PATTERN = /^\s*runs-on:\s*ubuntu-latest\s*$/;
 const RUNNER_SELECTOR_RUNS_ON_PATTERN =
 	/^\s*runs-on:\s+\${{\s*fromJSON\(needs\.runner_selector\.outputs\.runs_on_json\)\s*}}\s*$/;
@@ -349,33 +339,18 @@ function validateCiRunnerPolicy(fileName, lines, jobBlocks, errors) {
 			continue;
 		}
 		const blockLines = getBlockLines(lines, block);
-		const usesPinnedRunner = blockContainsLine(
-			blockLines,
-			SELF_HOSTED_SHARED_POOL_RUNS_ON_PATTERN,
-		);
 		const usesRunnerSelector = blockContainsLine(
 			blockLines,
 			RUNNER_SELECTOR_RUNS_ON_PATTERN,
 		);
-		if (CI_LARGE_TASK_RUNNER_SELECTOR_ALLOWED_JOB_IDS.has(jobId)) {
-			if (!usesPinnedRunner && !usesRunnerSelector) {
-				errors.push(
-					`${fileName}: large-task job "${jobId}" must run on ["self-hosted", "shared-pool"] or fromJSON(needs.runner_selector.outputs.runs_on_json).`,
-				);
-			}
-			if (
-				usesRunnerSelector &&
-				!blockContainsLine(blockLines, /^\s*-\s+runner_selector\s*$/)
-			) {
-				errors.push(
-					`${fileName}: large-task job "${jobId}" must depend on runner_selector when using fallback routing.`,
-				);
-			}
-			continue;
-		}
-		if (!usesPinnedRunner) {
+		if (!usesRunnerSelector) {
 			errors.push(
-				`${fileName}: large-task job "${jobId}" must be pinned to ["self-hosted", "shared-pool"].`,
+				`${fileName}: large-task job "${jobId}" must run on fromJSON(needs.runner_selector.outputs.runs_on_json) under the hosted-first contract.`,
+			);
+		}
+		if (!blockContainsLine(blockLines, /^\s*-\s+runner_selector\s*$/)) {
+			errors.push(
+				`${fileName}: large-task job "${jobId}" must depend on runner_selector.`,
 			);
 		}
 	}
@@ -540,13 +515,9 @@ function validateNoRunnerRegistrationCommands(fileName, lines, errors) {
 	}
 }
 
-function validateSharedPoolRunsOn(fileName, lines, jobBlocks, errors) {
+function validateWorkflowRunsOn(fileName, lines, jobBlocks, errors) {
 	for (const block of jobBlocks) {
 		const blockLines = getBlockLines(lines, block);
-		const hasSharedPoolRunner = blockContainsLine(
-			blockLines,
-			SELF_HOSTED_SHARED_POOL_RUNS_ON_PATTERN,
-		);
 		const hasHostedRunner = blockContainsLine(blockLines, UBUNTU_LATEST_RUNS_ON_PATTERN);
 		const usesRunnerSelector = blockContainsLine(
 			blockLines,
@@ -557,16 +528,16 @@ function validateSharedPoolRunsOn(fileName, lines, jobBlocks, errors) {
 			continue;
 		}
 		if (fileName === CI_WORKFLOW_FILE) {
-			if (!hasHostedRunner && !hasSharedPoolRunner && !usesRunnerSelector) {
+			if (!hasHostedRunner && !usesRunnerSelector) {
 				errors.push(
-					`${fileName}: job "${block.jobId}" must run on ubuntu-latest or fromJSON(needs.runner_selector.outputs.runs_on_json).`,
+					`${fileName}: job "${block.jobId}" must run on ubuntu-latest or fromJSON(needs.runner_selector.outputs.runs_on_json) under the hosted-first contract.`,
 				);
 			}
 			continue;
 		}
-		if (!hasSharedPoolRunner && !hasHostedRunner) {
+		if (!hasHostedRunner) {
 			errors.push(
-				`${fileName}: job "${block.jobId}" must run on ["self-hosted", "shared-pool"] or ubuntu-latest when explicitly allowlisted.`,
+				`${fileName}: job "${block.jobId}" must run on ubuntu-latest in tracked public workflows.`,
 			);
 		}
 	}
@@ -581,13 +552,6 @@ function normalizeYamlScalarValue(rawValue) {
 		return trimmed.slice(1, -1).trim();
 	}
 	return trimmed;
-}
-
-function isSelfHostedJobBlock(blockLines) {
-	return (
-		blockContainsLine(blockLines, SELF_HOSTED_SHARED_POOL_RUNS_ON_PATTERN) ||
-		blockContainsLine(blockLines, RUNNER_SELECTOR_RUNS_ON_PATTERN)
-	);
 }
 
 function validateCheckoutCleanFalse(fileName, lines, errors) {
@@ -615,12 +579,8 @@ function validateNoDirectHomeCachePaths(fileName, lines, errors) {
 	}
 }
 
-function validateSelfHostedInstallPolicy(fileName, lines, jobBlocks, errors) {
+function validateWorkflowInstallPolicy(fileName, lines, jobBlocks, errors) {
 	for (const block of jobBlocks) {
-		const blockLines = getBlockLines(lines, block);
-		if (!isSelfHostedJobBlock(blockLines)) {
-			continue;
-		}
 		for (let lineIndex = block.start; lineIndex <= block.end; lineIndex += 1) {
 			const line = lines[lineIndex];
 			if (
@@ -628,7 +588,7 @@ function validateSelfHostedInstallPolicy(fileName, lines, jobBlocks, errors) {
 				!/\b(?:\.venv|venv)\/bin\/python\b/.test(line)
 			) {
 				errors.push(
-					`${fileName}:${lineIndex + 1} runs global python -m pip install inside self-hosted job "${block.jobId}". Create and use a venv instead.`,
+					`${fileName}:${lineIndex + 1} runs global python -m pip install inside workflow job "${block.jobId}". Create and use a venv instead.`,
 				);
 			}
 			if (
@@ -636,7 +596,7 @@ function validateSelfHostedInstallPolicy(fileName, lines, jobBlocks, errors) {
 				/(?:^|\s)--with-deps(?:\s|$)/.test(line)
 			) {
 				errors.push(
-					`${fileName}:${lineIndex + 1} runs playwright install --with-deps inside self-hosted job "${block.jobId}", which is forbidden. Pre-bake OS deps or install browsers without --with-deps.`,
+					`${fileName}:${lineIndex + 1} runs playwright install --with-deps inside workflow job "${block.jobId}", which is forbidden. Pre-bake OS deps or install browsers without --with-deps.`,
 				);
 			}
 		}
@@ -832,13 +792,13 @@ async function main() {
 		validateWorkflowActionPinning(fileName, lines, errors);
 		validateWorkflowPermissions(fileName, lines, errors);
 		validateNoRunnerRegistrationCommands(fileName, lines, errors);
-		validateSharedPoolRunsOn(fileName, lines, jobBlocks, errors);
+		validateWorkflowRunsOn(fileName, lines, jobBlocks, errors);
 		validateCheckoutCleanFalse(fileName, lines, errors);
-			validateNoDirectHomeCachePaths(fileName, lines, errors);
-			validateSelfHostedInstallPolicy(fileName, lines, jobBlocks, errors);
-			validatePinnedNodeVersion(fileName, lines, errors);
-			validateContainerExecutionContracts(fileName, lines, jobBlocks, errors);
-			validateBuildCiImageSupplyChain(fileName, lines, errors);
+		validateNoDirectHomeCachePaths(fileName, lines, errors);
+		validateWorkflowInstallPolicy(fileName, lines, jobBlocks, errors);
+		validatePinnedNodeVersion(fileName, lines, errors);
+		validateContainerExecutionContracts(fileName, lines, jobBlocks, errors);
+		validateBuildCiImageSupplyChain(fileName, lines, errors);
 
 		for (let lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
 			const line = lines[lineIndex];

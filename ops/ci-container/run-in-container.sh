@@ -232,7 +232,7 @@ maybe_fallback_to_local_bootstrap() {
 }
 
 mkdir -p "${WORKSPACE}/.runtime-cache"
-HOST_RUNTIME_ROOT="${OPENUI_HOST_RUNTIME_ROOT:-${RUNNER_TEMP:-${TMPDIR:-/tmp}}/openui-ci-runtime}"
+HOST_RUNTIME_ROOT="${OPENUI_HOST_RUNTIME_ROOT:-${WORKSPACE}/.runtime-cache/ci-local-host}"
 PLAYWRIGHT_CACHE_HOST_PATH="${HOST_RUNTIME_ROOT}/ms-playwright"
 HOST_OPENUI_HOME="${HOST_RUNTIME_ROOT}/openui-home"
 HOST_TMPDIR="${HOST_RUNTIME_ROOT}/tmp"

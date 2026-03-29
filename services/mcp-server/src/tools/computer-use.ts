@@ -234,7 +234,7 @@ export function registerComputerUseTool(server: McpServer): void {
 		"openui_observe_screen",
 		{
 			description:
-				"Analyze current screen inputs and return Gemini observation.",
+				"Analyze current screen inputs and return Gemini observation without executing actions.",
 			inputSchema: ObserveInputSchema,
 		},
 		async (args) => {
@@ -281,7 +281,7 @@ export function registerComputerUseTool(server: McpServer): void {
 		"openui_execute_ui_action",
 		{
 			description:
-				"Validate and execute a single UI action with safety confirmation.",
+				"Validate and acknowledge a single UI action with safety confirmation. This tool does not drive a browser by itself.",
 			inputSchema: ExecuteActionInputSchema,
 		},
 		async (args) => {
@@ -361,7 +361,8 @@ export function registerComputerUseTool(server: McpServer): void {
 	server.registerTool(
 		"openui_computer_use_loop",
 		{
-			description: "Run observe-plan-act loop with safety confirmation guard.",
+			description:
+				"Run an observe-plan-act loop with safety confirmation guard and structured execution records. This tool is not a standalone browser driver.",
 			inputSchema: LoopInputSchema,
 		},
 		async (args) => {

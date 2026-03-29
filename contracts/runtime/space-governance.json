@@ -18,6 +18,7 @@
   ],
   "baselineTargets": [
     ".runtime-cache",
+    ".runtime-cache/ci-local-host",
     ".runtime-cache/go-mod",
     ".runtime-cache/precommit-full-home",
     ".runtime-cache/go-cache",

@@ -57,7 +57,7 @@ export function registerRagTool(server: McpServer): void {
 		"openui_rag_upsert",
 		{
 			description:
-				"Upsert documents into local RAG index using Gemini embeddings.",
+				"Upsert documents into the session-local in-memory RAG index using Gemini embeddings.",
 			inputSchema: RagUpsertInputSchema,
 		},
 		async (args) => {
@@ -104,7 +104,8 @@ export function registerRagTool(server: McpServer): void {
 	server.registerTool(
 		"openui_rag_search",
 		{
-			description: "Search local RAG index using Gemini embeddings.",
+			description:
+				"Search the session-local in-memory RAG index using Gemini embeddings.",
 			inputSchema: RagSearchInputSchema,
 		},
 		async (args) => {

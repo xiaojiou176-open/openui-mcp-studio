@@ -173,6 +173,9 @@ Additional governed keysets (same registry file):
 - Security and release evidence reporting is separate from runtime operation:
   - `npm run security:evidence:final` writes final repo-side evidence summaries under `.runtime-cache/reports/security/`
   - `npm run governance:remote:review` writes remote canonical review summaries under `.runtime-cache/reports/release-readiness/`
+- Local container-parity helper state defaults to `.runtime-cache/ci-local-host/`
+  so repo-owned full verification stays inside the registered runtime surface
+  instead of leaving root-level marker directories behind.
 - Space-governance hard rule: repo-local runtime truth remains `.runtime-cache/*`; shared layers such as Docker, `~/.npm`, `~/.cache/pre-commit`, and Playwright browser caches stay outside repo-local cleanup scope unless separately approved as machine-level maintenance.
 - Tool cache hard rule: pre-commit and Go tooling caches must resolve outside the workspace; only canonical repo-local runtime evidence remains under `.runtime-cache/*`.
 - Repo-local verification tmp roots that execute from `.runtime-cache/tmp/*` must reuse the external workspace-token tooling cache for Playwright browsers, managed install surfaces, and npm cache; tmp roots should keep only light overlay state plus an ownership manifest.

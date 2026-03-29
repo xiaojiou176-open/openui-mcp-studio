@@ -108,6 +108,18 @@
 			],
 			"recreateOnClean": false
 		},
+		"ciLocalHost": {
+			"owner": "tooling-root",
+			"schema": "local-container-parity-runtime",
+			"ttlDays": 7,
+			"cleanMode": "purge",
+			"rebuildStrategy": "rerun-local-container-verify",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 24,
+			"retainLatestCount": 0,
+			"paths": [".runtime-cache/ci-local-host"],
+			"recreateOnClean": true
+		},
 		"mutation": {
 			"owner": "tooling-root",
 			"schema": "mutation-artifacts",
@@ -139,6 +151,7 @@
 			".runtime-cache/runs",
 			".runtime-cache/mutation",
 			".runtime-cache/coverage",
+			".runtime-cache/ci-local-host",
 			".runtime-cache/reports/quality-trend",
 			".runtime-cache/reports/history-audit",
 			".runtime-cache/reports/release-readiness",
@@ -190,7 +203,7 @@
 		{
 			"path": "ops/ci-container/run-in-container.sh",
 			"mustInclude": [
-				"RUNNER_TEMP",
+				".runtime-cache/ci-local-host",
 				"XDG_CACHE_HOME",
 				"OPENUI_CONTAINER_HOME"
 			],

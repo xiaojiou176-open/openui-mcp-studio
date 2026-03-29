@@ -23,6 +23,55 @@
 - `services/mcp-server/src/public/index.ts` is the aggregate public entrypoint for external consumers.
 - `tooling/` must not import private implementation paths such as `src/providers/*`, `src/tools/*`, or `src/next-smoke/*` directly. It must go through `src/public/*` or `packages/*` public surfaces.
 
+## Tool Surface Layers
+
+The MCP server registers more than one kind of tool. Read them in layers so the
+runtime entrypoint does not blur the product priority.
+
+### Core workflow tools
+
+These tools define the primary repository promise:
+
+- `openui_detect_shadcn_paths`
+- `openui_generate_ui`
+- `openui_convert_react_shadcn`
+- `openui_make_react_page`
+- `openui_apply_files`
+- `openui_quality_gate`
+- `openui_next_smoke`
+- `openui_ship_react_page`
+
+If an external consumer asks what this server is primarily for, start here.
+
+### Supporting tools
+
+These tools support review, iteration, or provider visibility around the core
+workflow:
+
+- `openui_refine_ui`
+- `openui_review_uiux`
+- `openui_list_models`
+- `openui_embed_content`
+
+### Advanced or non-primary tools
+
+These tools are still part of the live server, but they should not overshadow
+the governed UI shipping path:
+
+- `openui_rag_upsert`
+- `openui_rag_search`
+- `openui_observe_screen`
+- `openui_execute_ui_action`
+- `openui_computer_use_loop`
+
+Operational boundary notes:
+
+- `openui_rag_upsert` and `openui_rag_search` use a local in-memory index owned
+  by the current server process. They are not a durable datastore contract.
+- The computer-use tools provide observation and guarded action-loop semantics
+  with confirmation controls. They are not a claim that this module already
+  owns a full browser-driving executor.
+
 ## Runtime
 
 - Development entrypoint: `npm run dev`
