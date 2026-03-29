@@ -321,16 +321,17 @@ async function runRemoteCanonicalReview(options = {}) {
 		["api", `repos/${repoView.nameWithOwner}/code-scanning/analyses?per_page=1`],
 		{ cwd: rootDir },
 	);
-	let liveGeminiEnvironment = null;
-	try {
-		liveGeminiEnvironment = execJson(
-			"gh",
-			["api", `repos/${repoView.nameWithOwner}/environments/live-gemini-manual`],
-			{ cwd: rootDir },
-		);
-	} catch {
-		liveGeminiEnvironment = null;
-	}
+	const liveGeminiEnvironment = (() => {
+		try {
+			return execJson(
+				"gh",
+				["api", `repos/${repoView.nameWithOwner}/environments/live-gemini-manual`],
+				{ cwd: rootDir },
+			);
+		} catch {
+			return null;
+		}
+	})();
 	const originUrl = readString(
 		execFileSync("git", ["remote", "get-url", "origin"], {
 			cwd: rootDir,
