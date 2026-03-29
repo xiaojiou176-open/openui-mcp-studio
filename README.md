@@ -1,11 +1,11 @@
 # OpenUI MCP Studio
 
-Turn a UI brief into real React and shadcn files you can preview, inspect, and
-verify before you trust them.
+Turn one UI brief into React and shadcn files you can preview, inspect, and
+verify before you ship them.
 
-OpenUI MCP Studio turns a prompt into a governed UI shipping workflow. It does
-not stop at code generation. It writes files, runs quality gates, and keeps a
-default proof target ready for smoke, visual, and UI/UX validation.
+OpenUI MCP Studio is for teams that want one practical flow: start from a
+prompt, write real frontend files into a workspace, and keep a default proof
+target ready before trusting the output.
 
 Local bootstrap remains a construction-only bridge. Public release confidence
 still depends on explicit repository checks such as `npm run security:oss:audit`
@@ -33,11 +33,23 @@ maintenance.
 [Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions) |
 [Docs Index](./docs/index.md)
 
+![OpenUI MCP Studio preview card](./docs/assets/openui-mcp-studio-preview.svg)
+
 <p align="center">
   <strong>Prompt to UI</strong> |
   <strong>Apply into workspace</strong> |
   <strong>Verify before ship</strong>
 </p>
+
+## First Practical Win
+
+Pick the shortest path that matches what you actually want to learn first:
+
+| I want to... | Run this first | What I get |
+| --- | --- | --- |
+| watch one real prompt-to-UI delivery | `npm run demo:ship` | one genuine brief-to-ship payload from the current repo |
+| trust the repo surface before investing more time | `npm run repo:doctor` | a fast structural check over contracts, runtime, evidence, and release-readiness inputs |
+| follow the first human-readable path | [docs/first-minute-walkthrough.md](./docs/first-minute-walkthrough.md) | the fastest guided route from brief to applied UI and proof target |
 
 <p align="center">
   <img
