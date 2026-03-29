@@ -122,6 +122,12 @@ Important boundary:
     such as literal `$HOME/`, repo-local Go caches, or repo-local pre-commit
     tool homes exist, or when unknown heavy non-canonical runtime subtrees
     remain under `.runtime-cache/`
+- `npm run repo:space:verify`
+  - reports contract verification candidates plus repo-local maintenance candidates; this is an eligibility report, not a delete command
+- `npm run repo:space:maintain:dry-run`
+  - the no-delete maintenance lane; use it to inspect projected reclaimable bytes and skip reasons before any apply wave
+- `npm run repo:space:maintain`
+  - explicit repo-local maintenance apply; shared layers remain outside this default lane
 - `npm run governance:remote:review`
   - writes a remote canonical review summary plus fresh mirror audit outputs
 
@@ -135,6 +141,7 @@ Important boundary:
 ## Runtime Evidence
 
 - Playwright and visual evidence belong under `.runtime-cache/runs/<run_id>/...`.
+- Cross-run report files belong under `.runtime-cache/reports/*`, including the canonical quality-trend root at `.runtime-cache/reports/quality-trend/`.
 - Long-running tasks must keep heartbeat output.
 - Current CI uses host orchestration with container execution for the main gate.
 - Always-run CI evidence helpers such as env inventory, `summary.json`, and

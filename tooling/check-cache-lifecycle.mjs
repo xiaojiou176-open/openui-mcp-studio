@@ -15,7 +15,16 @@ async function runCacheLifecycleCheck(options = {}) {
 	const categoryPaths = new Set();
 
 	for (const [categoryId, entry] of Object.entries(registry.categories ?? {})) {
-		for (const field of ["owner", "schema", "ttlDays", "cleanMode", "rebuildStrategy"]) {
+		for (const field of [
+			"owner",
+			"schema",
+			"ttlDays",
+			"cleanMode",
+			"rebuildStrategy",
+			"cleanupClass",
+			"maintenanceMinAgeHours",
+			"retainLatestCount",
+		]) {
 			if (!(field in entry)) {
 				errors.push(`runtime category "${categoryId}" is missing lifecycle field "${field}"`);
 			}

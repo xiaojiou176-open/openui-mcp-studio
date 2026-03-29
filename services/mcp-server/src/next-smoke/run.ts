@@ -97,6 +97,7 @@ export async function runNextSmoke(
 			}
 		: await ensureDependenciesInstalled({
 				cwd: selected.validation.root,
+				workspaceRoot,
 				logs,
 				timeoutMs: DEFAULT_INSTALL_TIMEOUT_MS,
 				requiredPackages: REQUIRED_NEXT_RUNTIME_PACKAGES,

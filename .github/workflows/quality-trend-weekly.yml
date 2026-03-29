@@ -44,7 +44,7 @@ jobs:
         if: always()
         shell: bash
         run: |
-          mkdir -p .runtime-cache/quality-trend
+          mkdir -p .runtime-cache/reports/quality-trend
           ci_gate_status="1"
           if [[ "${{ steps.ci_gate_run.outcome }}" == "success" ]]; then
             ci_gate_status="0"
@@ -53,7 +53,7 @@ jobs:
           if [[ "${{ steps.mutation_run.outcome }}" == "success" ]]; then
             mutation_status="0"
           fi
-          cat > .runtime-cache/quality-trend/input-status.json <<EOF
+          cat > .runtime-cache/reports/quality-trend/input-status.json <<EOF
           {
             "ci_gate_status": "${ci_gate_status}",
             "mutation_status": "${mutation_status}",
@@ -64,7 +64,7 @@ jobs:
 
       - name: Reset quality trend runtime cache
         if: always()
-        run: rm -f .runtime-cache/quality-trend/report.json .runtime-cache/quality-trend/report.md .runtime-cache/quality-trend/quality-score-calibration.json
+        run: rm -f .runtime-cache/reports/quality-trend/report.json .runtime-cache/reports/quality-trend/report.md .runtime-cache/reports/quality-trend/quality-score-calibration.json
 
       - name: Build quality trend report
         if: steps.ci_gate_run.outcome == 'success' && steps.mutation_run.outcome == 'success'
@@ -89,7 +89,7 @@ jobs:
           name: quality-trend-report-${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
           retention-days: 30
-          path: .runtime-cache/quality-trend/**
+          path: .runtime-cache/reports/quality-trend/**
 
       - name: Upload quality trend gate status
         if: always()
@@ -98,7 +98,7 @@ jobs:
           name: quality-trend-status-${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
           retention-days: 30
-          path: .runtime-cache/quality-trend/input-status.json
+          path: .runtime-cache/reports/quality-trend/input-status.json
 
       - name: Fail workflow when gate inputs fail
         if: always()

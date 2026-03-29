@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readJsonFile, toPosixPath } from "./shared/governance-utils.mjs";
+import { resolveToolCacheRoots } from "./shared/tool-cache-env.mjs";
 
 const DEFAULT_ROOT_ALLOWLIST_PATH = "contracts/governance/root-allowlist.json";
 
@@ -50,13 +51,43 @@ async function withManagedInstallSurfaceMoved(rootDir, action) {
 		"htmlcov",
 	]);
 	const staged = [];
-	const stashRoot = path.resolve(
+	const manifestRoot = path.resolve(
 		rootDir,
 		".runtime-cache",
 		"tmp",
 		"verify-clean-room-managed-install-surface",
 	);
-	await fs.mkdir(stashRoot, { recursive: true });
+	await fs.mkdir(manifestRoot, { recursive: true });
+	const roots = await resolveToolCacheRoots({
+		rootDir,
+		validateAmbientEnv: false,
+	});
+	await fs.mkdir(roots.managedInstallRoot, { recursive: true });
+	await fs.writeFile(
+		path.join(roots.managedInstallRoot, ".openui-platform"),
+		`${roots.runtimeMarker}\n`,
+		"utf8",
+	);
+	await fs.writeFile(
+		path.join(manifestRoot, "manifest.json"),
+		`${JSON.stringify(
+			{
+				ownerCommand: "verify:clean-room",
+				createdAt: new Date().toISOString(),
+				runtimeMarker: roots.runtimeMarker,
+				rebuildCommand: "npm run verify:clean-room",
+				cleanupClass: "verify-first-maintain",
+				usesExternalPlaywrightCache: true,
+				usesExternalInstallSurface: true,
+				managedInstallRoot: toPosixPath(roots.managedInstallRoot),
+				playwrightBrowsersPath: toPosixPath(roots.playwrightBrowsersPath),
+				npmCacheRoot: toPosixPath(roots.npmCacheRoot),
+			},
+			null,
+			2,
+		)}\n`,
+		"utf8",
+	);
 
 	try {
 		for (const relativePath of managedInstallSurface) {
@@ -67,12 +98,15 @@ async function withManagedInstallSurfaceMoved(rootDir, action) {
 			try {
 				await fs.access(sourcePath);
 			} catch {
-				continue;
-			}
-			const targetPath = path.resolve(stashRoot, relativePath);
-			await fs.rm(targetPath, { recursive: true, force: true });
-			await fs.rename(sourcePath, targetPath);
-			staged.push({ sourcePath, targetPath });
+					continue;
+				}
+				const targetPath =
+					relativePath === "node_modules"
+						? roots.managedInstallRoot
+						: path.resolve(roots.managedInstallRoot, relativePath);
+				await fs.rm(targetPath, { recursive: true, force: true });
+				await fs.rename(sourcePath, targetPath);
+				staged.push({ sourcePath, targetPath });
 		}
 		return await action();
 	} finally {

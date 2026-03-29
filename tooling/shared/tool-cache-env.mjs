@@ -9,6 +9,11 @@ import {
 } from "./governance-utils.mjs";
 
 const TOOL_CACHE_ROOT_NAME = "openui-tooling-cache";
+const TOOL_ASSET_DIRECTORIES = Object.freeze({
+	playwright: "playwright",
+	install: "install",
+	npm: "npm",
+});
 const TOOL_ENV_KEYS = Object.freeze([
 	"HOME",
 	"XDG_CACHE_HOME",
@@ -32,6 +37,21 @@ function resolveDefaultExternalToolCacheRoot(rootDir, tempRoot = os.tmpdir()) {
 		TOOL_CACHE_ROOT_NAME,
 		createWorkspaceToken(rootDir),
 	);
+}
+
+async function computeRuntimeMarker(rootDir) {
+	const runtimeFingerprint = [
+		process.platform,
+		process.arch,
+		process.version.replace(/^v/u, "v"),
+	];
+	const lockfilePath = path.resolve(rootDir, "package-lock.json");
+	let lockHash = "no-lockfile";
+	if (await pathExists(lockfilePath)) {
+		const lockfileBuffer = await fs.readFile(lockfilePath);
+		lockHash = crypto.createHash("sha256").update(lockfileBuffer).digest("hex");
+	}
+	return `${runtimeFingerprint.join("-")}-${lockHash}`;
 }
 
 function expandHomePath(filePath, homeDir = os.homedir()) {
@@ -93,13 +113,32 @@ async function resolveToolCacheRoots(options = {}) {
 	const validateAmbientEnv = options.validateAmbientEnv !== false;
 	const toolCacheRoot =
 		typeof options.toolCacheRoot === "string" && options.toolCacheRoot.trim()
-			? path.resolve(options.toolCacheRoot)
-			: resolveDefaultExternalToolCacheRoot(rootDir, options.tempRoot ?? os.tmpdir());
+				? path.resolve(options.toolCacheRoot)
+				: resolveDefaultExternalToolCacheRoot(rootDir, options.tempRoot ?? os.tmpdir());
+	const runtimeMarker =
+		typeof options.runtimeMarker === "string" && options.runtimeMarker.trim()
+			? options.runtimeMarker.trim()
+			: await computeRuntimeMarker(rootDir);
 
 	await assertPathOutsideWorkspace(rootDir, toolCacheRoot, "tool cache root");
 
 	const roots = {
 		toolCacheRoot,
+		runtimeMarker,
+		playwrightBrowsersPath: path.join(
+			toolCacheRoot,
+			TOOL_ASSET_DIRECTORIES.playwright,
+		),
+		managedInstallRoot: path.join(
+			toolCacheRoot,
+			TOOL_ASSET_DIRECTORIES.install,
+			runtimeMarker,
+		),
+		npmCacheRoot: path.join(
+			toolCacheRoot,
+			TOOL_ASSET_DIRECTORIES.npm,
+			runtimeMarker,
+		),
 		home: path.join(toolCacheRoot, "home"),
 		xdgCacheHome: path.join(toolCacheRoot, "home", ".cache"),
 		preCommitHome: path.join(toolCacheRoot, "pre-commit"),
@@ -153,6 +192,22 @@ async function buildSafeToolCacheEnv(options = {}) {
 	};
 }
 
+async function buildManagedToolingEnv(options = {}) {
+	const roots = await resolveToolCacheRoots(options);
+	const safeEnv = await buildSafeToolCacheEnv(options);
+	return {
+		roots,
+		env: {
+			...safeEnv,
+			PLAYWRIGHT_BROWSERS_PATH: roots.playwrightBrowsersPath,
+			NPM_CONFIG_CACHE: roots.npmCacheRoot,
+			npm_config_cache: roots.npmCacheRoot,
+			OPENUI_MANAGED_INSTALL_ROOT: roots.managedInstallRoot,
+			OPENUI_RUNTIME_MARKER: roots.runtimeMarker,
+		},
+	};
+}
+
 async function collectToolCacheEnvStatus(options = {}) {
 	const rootDir = path.resolve(options.rootDir ?? process.cwd());
 	const env = options.env ?? process.env;
@@ -202,10 +257,12 @@ async function collectToolCacheEnvStatus(options = {}) {
 }
 
 export {
+	buildManagedToolingEnv,
 	TOOL_CACHE_ROOT_NAME,
 	TOOL_ENV_KEYS,
 	assertPathOutsideWorkspace,
 	buildSafeToolCacheEnv,
+	computeRuntimeMarker,
 	collectToolCacheEnvStatus,
 	expandHomePath,
 	resolveDefaultExternalToolCacheRoot,

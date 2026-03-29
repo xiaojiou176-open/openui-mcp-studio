@@ -9,8 +9,36 @@ import {
 	waitForExitWithTimeout,
 } from "./process-exit.js";
 
+type PrepareManagedInstallSurface = (input?: {
+	rootDir?: string;
+	targetRoot?: string;
+	env?: NodeJS.ProcessEnv;
+	ownerCommand?: string;
+	rebuildCommand?: string;
+	cleanupClass?: string;
+}) => Promise<{
+	managed: boolean;
+	env: NodeJS.ProcessEnv;
+	roots: {
+		toolCacheRoot: string;
+		runtimeMarker: string;
+		playwrightBrowsersPath: string;
+		managedInstallRoot: string;
+		npmCacheRoot: string;
+	};
+	manifestPath: string | null;
+}>;
+
+const requireFromCurrentFile = createRequire(import.meta.url);
+const { prepareManagedInstallSurface } = requireFromCurrentFile(
+	"../../../../tooling/shared/managed-install-surface.mjs",
+) as {
+	prepareManagedInstallSurface: PrepareManagedInstallSurface;
+};
+
 export async function ensureDependenciesInstalled(input: {
 	cwd: string;
+	workspaceRoot?: string;
 	logs: LogTailBuffer;
 	timeoutMs: number;
 	requiredPackages: readonly string[];
@@ -38,7 +66,14 @@ export async function ensureDependenciesInstalled(input: {
 		`Installing dependencies (${missingPackages.join(", ")}): ${command}`,
 	);
 	const startedAt = Date.now();
-	const childEnv = buildChildEnvFromAllowlist();
+	const managedSurface = await prepareManagedInstallSurface({
+		rootDir: input.workspaceRoot ?? process.cwd(),
+		targetRoot: input.cwd,
+		env: process.env,
+		ownerCommand: "smoke:e2e",
+		rebuildCommand: "npm run smoke:e2e",
+	});
+	const childEnv = buildChildEnvFromAllowlist(managedSurface.env);
 
 	try {
 		const child = spawn(

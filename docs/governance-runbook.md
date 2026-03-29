@@ -170,8 +170,11 @@ These commands are the repository front desk.
   - `repo:space:report` writes machine-readable snapshots under `.runtime-cache/reports/space-governance/`
   - `repo:space:check` is now part of the front-door governance path through `repo:doctor`, `repo:verify:fast`, and `governance:final:check`
   - `repo:space:check` fails on hard-fail pollution such as literal `$HOME/`, repo-local Go caches, and repo-local pre-commit tool homes, plus unknown heavy non-canonical runtime subtrees
-  - `repo:space:verify` reports whether `verificationCandidates` are currently eligible for controlled cleanup
+  - `repo:space:verify` reports contract verification candidates plus repo-local maintenance candidates, including active refs, age, cleanup class, and skip reason
+  - `repo:space:maintain:dry-run` is the explicit no-delete planning lane for repo-local maintenance
+  - `repo:space:maintain` is the default repo-local bulk-maintenance lane and writes `maintenance-latest.*` under `.runtime-cache/reports/space-governance/`
   - `repo:space:clean:dry-run` is allowlist-only and must not target shared layers or the `.runtime-cache` root
+  - machine-level shared layers such as Docker.raw, `~/.npm`, `~/.cache/pre-commit`, Playwright browser caches, and editor global stores remain report-only in repo-local governance and require separate operator approval
 
 ## Tracked-Surface Rules
 

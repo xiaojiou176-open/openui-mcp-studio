@@ -9,10 +9,12 @@ import {
 	toPosixPath,
 } from "./governance-utils.mjs";
 import {
+	findRuntimeCategoryForPath,
 	listAllRegistryPaths,
 	listAllowedRuntimeTopLevelDirectories,
 	readRuntimePathRegistry,
 } from "./runtime-path-registry.mjs";
+import { resolveToolCacheRoots } from "./tool-cache-env.mjs";
 
 const DEFAULT_SPACE_GOVERNANCE_CONTRACT_PATH =
 	"contracts/runtime/space-governance.json";
@@ -245,6 +247,32 @@ async function collectTopFiles(rootDir, limit) {
 	return topFiles;
 }
 
+async function collectDirectChildren(relativePath, absolutePath, limit = 10) {
+	const exists = await pathExists(absolutePath);
+	if (!exists) {
+		return [];
+	}
+	const entries = await fs.readdir(absolutePath, { withFileTypes: true });
+	const children = await Promise.all(
+		entries.map(async (entry) => {
+			const childAbsolutePath = path.join(absolutePath, entry.name);
+			const description = await describePath(childAbsolutePath);
+			return {
+				relativePath: toPosixPath(path.join(relativePath, entry.name)),
+				absolutePath: childAbsolutePath,
+				sizeBytes: description.sizeBytes,
+				sizeHuman: description.sizeHuman,
+				mtimeIso: description.mtimeIso,
+				isDirectory: description.isDirectory,
+				exists: description.exists,
+			};
+		}),
+	);
+	return children
+		.sort((left, right) => right.sizeBytes - left.sizeBytes)
+		.slice(0, limit);
+}
+
 async function collectRuntimeSubtrees(rootDir, registry) {
 	const runtimeSurfaceRelative = String(
 		registry.runtimeSurface ?? ".runtime-cache",
@@ -277,6 +305,82 @@ async function collectRuntimeSubtrees(rootDir, registry) {
 			}),
 	);
 	return subtrees.sort((left, right) => right.sizeBytes - left.sizeBytes);
+}
+
+function getRuntimePathMetadata(relativePath, registry) {
+	const match = findRuntimeCategoryForPath(registry, relativePath);
+	if (!match) {
+		return null;
+	}
+	return {
+		categoryId: match.categoryId,
+		registeredPath: match.registeredPath,
+		owner: String(match.entry?.owner ?? "").trim() || null,
+		schema: String(match.entry?.schema ?? "").trim() || null,
+		ttlDays:
+			typeof match.entry?.ttlDays === "number" ? match.entry.ttlDays : null,
+		cleanMode: String(match.entry?.cleanMode ?? "").trim() || null,
+		rebuildStrategy:
+			String(match.entry?.rebuildStrategy ?? "").trim() || null,
+		cleanupClass: String(match.entry?.cleanupClass ?? "").trim() || null,
+		maintenanceMinAgeHours:
+			typeof match.entry?.maintenanceMinAgeHours === "number"
+				? match.entry.maintenanceMinAgeHours
+				: 0,
+		retainLatestCount:
+			typeof match.entry?.retainLatestCount === "number"
+				? match.entry.retainLatestCount
+				: 0,
+	};
+}
+
+function computeAgeHours(mtimeIso, now = new Date()) {
+	if (!mtimeIso) {
+		return null;
+	}
+	const value = Date.parse(mtimeIso);
+	if (!Number.isFinite(value)) {
+		return null;
+	}
+	return Number((((now.getTime() - value) / (60 * 60 * 1000)) || 0).toFixed(2));
+}
+
+async function describeRepoSpecificExternalTargets(rootDir, contract = {}) {
+	const roots = await resolveToolCacheRoots({
+		rootDir,
+		validateAmbientEnv: false,
+	});
+	const configuredTargets = Array.isArray(contract.repoSpecificExternalTargets)
+		? contract.repoSpecificExternalTargets
+		: [];
+	const targetMap = {
+		"tool-cache-root": roots.toolCacheRoot,
+		playwright: roots.playwrightBrowsersPath,
+		install: roots.managedInstallRoot,
+		npm: roots.npmCacheRoot,
+	};
+	return Promise.all(
+		configuredTargets.map(async (entry) => {
+			const id = String(entry?.id ?? "").trim();
+			const absolutePath = targetMap[id];
+			const detail = absolutePath
+				? await describePath(absolutePath)
+				: {
+						exists: false,
+						absolutePath: null,
+						sizeBytes: 0,
+						sizeHuman: "0 B",
+						mtimeIso: null,
+						isDirectory: false,
+					};
+			return {
+				id,
+				kind: String(entry?.kind ?? "").trim() || "unknown",
+				reason: String(entry?.reason ?? "").trim(),
+				...detail,
+			};
+		}),
+	);
 }
 
 function summarizeRuntimeSubtrees(subtrees) {
@@ -325,13 +429,17 @@ export {
 	buildSpaceGovernanceContext,
 	collectRootEntries,
 	collectRuntimeSubtrees,
+	collectDirectChildren,
 	collectTopFiles,
+	computeAgeHours,
 	computePathSizeBytes,
 	describeExternalPath,
 	describePath,
+	describeRepoSpecificExternalTargets,
 	describeRepoLocalPath,
 	expandHomePath,
 	formatBytes,
+	getRuntimePathMetadata,
 	isCanonicalRuntimePath,
 	readSpaceGovernanceContract,
 	resolveRepoLocalPath,

@@ -10,6 +10,7 @@ import {
 import { resolveNextBuildDir } from "../packages/shared-runtime/src/next-build-dir.js";
 import { runProcess } from "../packages/shared-runtime/src/process-utils.js";
 import { pathExists } from "../packages/shared-runtime/src/runtime-ops.js";
+import { prepareManagedInstallSurface } from "./shared/managed-install-surface.mjs";
 
 const DEFAULT_TIMEOUT_MS = 180_000;
 const REQUIRED_NEXT_BUILD_PACKAGES = [
@@ -144,12 +145,13 @@ async function runCommand(input: {
 	args: string[];
 	cwd: string;
 	timeoutMs: number;
+	env?: NodeJS.ProcessEnv;
 }): Promise<void> {
 	const result = await runProcess({
 		command: input.command,
 		args: input.args,
 		cwd: input.cwd,
-		env: process.env,
+		env: input.env ?? process.env,
 		timeoutMs: input.timeoutMs,
 		stdio: ["ignore", "pipe", "pipe"],
 	});
@@ -178,12 +180,20 @@ async function ensureRuntimeDeps(root: string): Promise<void> {
 	if (allInstalled) {
 		return;
 	}
+	const managedSurface = await prepareManagedInstallSurface({
+		rootDir: process.cwd(),
+		targetRoot: root,
+		env: process.env,
+		ownerCommand: "prepare-next-app",
+		rebuildCommand: "npm run prepare:next-app",
+	});
 
 	await runCommand({
 		command: getNpmCommand(),
 		args: ["install", "--no-audit", "--no-fund"],
 		cwd: root,
 		timeoutMs: DEFAULT_TIMEOUT_MS,
+		env: managedSurface.env,
 	});
 }
 

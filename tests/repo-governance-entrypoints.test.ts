@@ -124,6 +124,12 @@ describe("repo governance entrypoints", () => {
 		expect(packageJson.scripts["repo:space:clean"]).toBe(
 			"node tooling/space-clean.mjs",
 		);
+		expect(packageJson.scripts["repo:space:maintain"]).toBe(
+			"node tooling/space-maintain.mjs --apply",
+		);
+		expect(packageJson.scripts["repo:space:maintain:dry-run"]).toBe(
+			"node tooling/space-maintain.mjs",
+		);
 		expect(packageJson.scripts["security:evidence:final"]).toBe(
 			"node tooling/security-final-evidence.mjs",
 		);

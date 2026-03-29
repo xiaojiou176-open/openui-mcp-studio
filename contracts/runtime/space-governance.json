@@ -3,6 +3,7 @@
   "reportRoot": ".runtime-cache/reports/space-governance",
   "topN": 10,
   "nonCanonicalRuntimeHeavyThresholdBytes": 10485760,
+  "giantTmpSubtreeThresholdBytes": 1073741824,
   "hardFailNonCanonicalPaths": [
     ".runtime-cache/go-mod",
     ".runtime-cache/go-cache",
@@ -30,10 +31,27 @@
   ],
   "lowRiskCleanupTargets": [
     "apps/web/.next",
+    ".runtime-cache/tmp/public-assets",
     ".runtime-cache/go-cache",
     ".runtime-cache/precommit-venv",
     ".runtime-cache/precommit-full-venv"
   ],
+  "maintenancePolicy": {
+    "safeAutoMaintainTargets": [
+      "apps/web/.next",
+      ".runtime-cache/tmp/public-assets"
+    ],
+    "manualOptInTargets": [
+      "node_modules"
+    ],
+    "neverRepoLocalTargets": [
+      ".git",
+      ".runtime-cache"
+    ],
+    "latestManifestRoot": ".runtime-cache/reports/space-governance",
+    "latestManifestBaseName": "maintenance-latest",
+    "sharedLayerApplyMode": "report-only"
+  },
   "verificationCandidates": [
     {
       "path": ".runtime-cache/go-mod",
@@ -76,6 +94,28 @@
     {
       "path": "~/Library/Application Support/Cursor/User/globalStorage",
       "reason": "Editor global cache with unclear repo attribution."
+    }
+  ],
+  "repoSpecificExternalTargets": [
+    {
+      "id": "tool-cache-root",
+      "kind": "tool-cache-root",
+      "reason": "Workspace-token external tooling cache root for repo-local heavy asset reuse."
+    },
+    {
+      "id": "playwright",
+      "kind": "tool-cache-path",
+      "reason": "External Playwright browser cache for repo-local verification paths."
+    },
+    {
+      "id": "install",
+      "kind": "tool-cache-path",
+      "reason": "External managed install surface for temp verification paths."
+    },
+    {
+      "id": "npm",
+      "kind": "tool-cache-path",
+      "reason": "External npm cache root for temp verification paths."
     }
   ]
 }
