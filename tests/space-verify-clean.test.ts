@@ -460,10 +460,9 @@ describe("space verify and clean", () => {
 
 			const originalRm = fs.rm.bind(fs);
 			const rmSpy = vi.spyOn(fs, "rm");
-			let rmCount = 0;
 			rmSpy.mockImplementation(async (targetPath, options) => {
-				rmCount += 1;
-				if (rmCount === 2) {
+				const normalizedTarget = String(targetPath).replace(/\\/g, "/");
+				if (normalizedTarget.endsWith("/.runtime-cache/go-cache")) {
 					throw new Error("simulated rm failure");
 				}
 				return originalRm(targetPath, options);
