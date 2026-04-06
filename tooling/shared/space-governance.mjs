@@ -258,13 +258,19 @@ async function describeRepoLocalPath(rootDir, relativePath) {
 	};
 }
 
-async function describeExternalPath(rawPath) {
+async function describeExternalPath(rawPath, options = {}) {
 	const expandedPath = expandHomePath(rawPath);
-	const description = await describePath(expandedPath);
+	const measurement =
+		String(options.measurement ?? "").trim() || "recursive";
+	const description =
+		measurement === "shallow"
+			? await describePathShallow(expandedPath)
+			: await describePath(expandedPath);
 	return {
 		...description,
 		rawPath,
 		expandedPath: description.absolutePath,
+		measurement,
 	};
 }
 
@@ -453,6 +459,8 @@ async function describeRepoSpecificExternalTargets(rootDir, contract = {}, optio
 		String(policy.scope ?? "").trim() || "repo-specific-external";
 	const defaultApplyMode =
 		String(policy.applyMode ?? "").trim() || metadata.applyMode || "managed";
+	const defaultMeasurement =
+		String(options.defaultMeasurement ?? "").trim() || "recursive";
 	const targetMap = new Map(
 		metadata.targets.map((entry) => [entry.id, entry]),
 	);
@@ -461,7 +469,7 @@ async function describeRepoSpecificExternalTargets(rootDir, contract = {}, optio
 			const id = String(entry?.id ?? "").trim();
 			const target = targetMap.get(id);
 			const measurement =
-				String(target?.measurement ?? "").trim() || "recursive";
+				String(target?.measurement ?? "").trim() || defaultMeasurement;
 			const reportRole =
 				String(target?.reportRole ?? "").trim() || "sized-target";
 			const detail = target?.path
@@ -521,13 +529,18 @@ async function describeRepoSpecificExternalContext(rootDir, contract = {}, optio
 async function describeRepoSpecificPersistentAssets(
 	rootDir,
 	contract = {},
+	options = {},
 ) {
 	const assets = Array.isArray(contract.repoSpecificPersistentAssets)
 		? contract.repoSpecificPersistentAssets
 		: [];
+	const measurement =
+		String(options.measurement ?? "").trim() || "recursive";
 	return Promise.all(
 		assets.map(async (entry) => {
-			const detail = await describeExternalPath(entry?.path ?? "");
+			const detail = await describeExternalPath(entry?.path ?? "", {
+				measurement,
+			});
 			return {
 				id: String(entry?.id ?? "").trim(),
 				kind: String(entry?.kind ?? "").trim() || "persistent-asset",
@@ -536,6 +549,7 @@ async function describeRepoSpecificPersistentAssets(
 					"repo-specific-persistent-browser-asset",
 				applyMode: String(entry?.applyMode ?? "").trim() || "report-only",
 				janitorExcluded: entry?.janitorExcluded === true,
+				measurement,
 				reason: String(entry?.reason ?? "").trim(),
 				path: detail.absolutePath ? toPosixPath(detail.absolutePath) : null,
 				...detail,

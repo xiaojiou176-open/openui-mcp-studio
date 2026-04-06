@@ -590,6 +590,7 @@ async function collectTopTmpSubtrees(context, topN) {
 
 async function generateSpaceVerificationReport(options = {}) {
 	const context = await buildSpaceGovernanceContext(options);
+	const externalMeasurement = "shallow";
 	const contractCandidates = await collectContractVerificationCandidates({
 		rootDir: context.rootDir,
 		contractPath: context.contractPath,
@@ -611,7 +612,9 @@ async function generateSpaceVerificationReport(options = {}) {
 		(context.contract.deferredSharedLayers ?? []).map(async (entry) => ({
 			path: String(entry?.path ?? "").trim(),
 			reason: String(entry?.reason ?? "").trim(),
-			...(await describeExternalPath(entry?.path ?? "")),
+			...(await describeExternalPath(entry?.path ?? "", {
+				measurement: externalMeasurement,
+			})),
 		})),
 	);
 	const repoSpecificExternalContext = await describeRepoSpecificExternalContext(
@@ -622,10 +625,15 @@ async function generateSpaceVerificationReport(options = {}) {
 	const reportedOnlyExternalTargets = await describeRepoSpecificExternalTargets(
 		context.rootDir,
 		context.contract,
-		{ env: options.env },
+		{
+			defaultMeasurement: externalMeasurement,
+			env: options.env,
+		},
 	);
 	const reportedOnlyPersistentBrowserAssets =
-		await describeRepoSpecificPersistentAssets(context.rootDir, context.contract);
+		await describeRepoSpecificPersistentAssets(context.rootDir, context.contract, {
+			measurement: externalMeasurement,
+		});
 	const browserLanePolicy = await describeBrowserLanePolicy(
 		context.rootDir,
 		context.contract,
@@ -633,7 +641,9 @@ async function generateSpaceVerificationReport(options = {}) {
 	);
 	const repoSpecificExternalRootDetail =
 		repoSpecificExternalContext?.toolCacheBaseRoot
-			? await describeExternalPath(repoSpecificExternalContext.toolCacheBaseRoot)
+			? await describeExternalPath(repoSpecificExternalContext.toolCacheBaseRoot, {
+					measurement: externalMeasurement,
+				})
 			: {
 					exists: false,
 					absolutePath: null,

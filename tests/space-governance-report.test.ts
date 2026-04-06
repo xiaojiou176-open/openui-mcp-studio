@@ -293,6 +293,7 @@ describe("space governance report", () => {
 
 			const { report } = await generateSpaceGovernanceReport({
 				rootDir,
+				profile: "maintenance",
 				env: {
 					...process.env,
 					OPENUI_TOOL_CACHE_ROOT: toolCacheBaseRoot,

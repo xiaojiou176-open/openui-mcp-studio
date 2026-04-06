@@ -398,6 +398,7 @@ async function generateSpaceGovernanceReport(options = {}) {
 	const context = await buildSpaceGovernanceContext(options);
 	const topN = Number(context.contract.topN ?? 10);
 	const profile = String(options.profile ?? "full").trim() || "full";
+	const externalMeasurement = "shallow";
 	const includeTopFiles = profile !== "maintenance";
 	const includeTmpBreakdown = profile !== "maintenance";
 	const includeExternalLayers = profile !== "maintenance";
@@ -439,17 +440,22 @@ async function generateSpaceGovernanceReport(options = {}) {
 				? (context.contract.deferredSharedLayers ?? []).map(async (entry) => ({
 						path: String(entry?.path ?? ""),
 						reason: String(entry?.reason ?? "").trim(),
-						...(await describeExternalPath(entry?.path ?? "")),
+						...(await describeExternalPath(entry?.path ?? "", {
+							measurement: externalMeasurement,
+						})),
 					}))
 				: [],
 		),
 		includeExternalLayers
 			? describeRepoSpecificExternalTargets(context.rootDir, context.contract, {
+					defaultMeasurement: externalMeasurement,
 					env: options.env,
 				})
 			: Promise.resolve([]),
 		includeExternalLayers
-			? describeRepoSpecificPersistentAssets(context.rootDir, context.contract)
+			? describeRepoSpecificPersistentAssets(context.rootDir, context.contract, {
+					measurement: externalMeasurement,
+				})
 			: Promise.resolve([]),
 		describeRepoLocalPath(context.rootDir, "."),
 		describeRepoLocalPath(
@@ -476,6 +482,9 @@ async function generateSpaceGovernanceReport(options = {}) {
 		repoSpecificExternalContext?.toolCacheBaseRoot
 			? await describeExternalPath(
 					repoSpecificExternalContext.toolCacheBaseRoot,
+					{
+						measurement: externalMeasurement,
+					},
 				)
 			: {
 					exists: false,

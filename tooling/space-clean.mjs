@@ -12,6 +12,7 @@ import { generateSpaceGovernanceReport } from "./space-governance-report.mjs";
 import { collectSpaceVerificationCandidates } from "./space-verify-candidates.mjs";
 
 const PROTECTED_REPO_TARGETS = new Set([".git", "node_modules"]);
+const SNAPSHOT_PROFILE = "maintenance";
 
 function parseCliArgs(argv = process.argv.slice(2)) {
 	const options = {
@@ -181,6 +182,7 @@ async function runSpaceClean(options = {}) {
 	await generateSpaceGovernanceReport({
 		rootDir: context.rootDir,
 		label: `${labelPrefix}-pre-apply`,
+		profile: SNAPSHOT_PROFILE,
 	});
 	try {
 		for (const entry of selected) {
@@ -197,6 +199,7 @@ async function runSpaceClean(options = {}) {
 			const reportResult = await generateSpaceGovernanceReport({
 				rootDir: context.rootDir,
 				label: `${labelPrefix}-post-apply`,
+				profile: SNAPSHOT_PROFILE,
 			});
 			const postApplyReportPath = path.relative(
 				context.rootDir,
@@ -211,6 +214,7 @@ async function runSpaceClean(options = {}) {
 	const reportResult = await generateSpaceGovernanceReport({
 		rootDir: context.rootDir,
 		label: `${labelPrefix}-post-apply`,
+		profile: SNAPSHOT_PROFILE,
 	});
 	const postApplyReportPath = path.relative(
 		context.rootDir,
