@@ -1,0 +1,353 @@
+minimum_pre_commit_version: "3.6.0"
+fail_fast: true
+default_install_hook_types:
+  - pre-commit
+  - pre-push
+  - commit-msg
+default_stages:
+  - pre-commit
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+      - id: check-ast
+        files: ^.*\.py$
+      - id: check-builtin-literals
+        files: ^.*\.py$
+      - id: check-case-conflict
+      - id: check-docstring-first
+        files: ^.*\.py$
+      - id: check-executables-have-shebangs
+      - id: check-illegal-windows-names
+      - id: check-json
+        files: ^.*\.json$
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-toml
+        files: ^.*\.toml$
+      - id: check-vcs-permalinks
+        files: ^.*\.(md|markdown)$
+      - id: check-xml
+        files: ^.*\.xml$
+      - id: check-yaml
+        args: ["--unsafe"]
+        files: ^.*\.(yml|yaml)$
+      - id: debug-statements
+        files: ^.*\.py$
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+      - id: name-tests-test
+        files: ^(tests?/.*|python/.*/tests?/.*)\.py$
+      - id: no-commit-to-branch
+        args: ["--branch", "main", "--branch", "master"]
+        stages: [pre-push]
+      - id: pretty-format-json
+        args: ["--autofix", "--indent", "2"]
+        files: ^.*\.json$
+        stages: [manual]
+      - id: requirements-txt-fixer
+        files: ^.*requirements.*\.txt$
+        stages: [manual]
+      - id: sort-simple-yaml
+        files: ^(\.github/workflows/.*|k8s/.*|manifests/.*)\.(yml|yaml)$
+        stages: [manual]
+      - id: trailing-whitespace
+        args: ["--markdown-linebreak-ext=md"]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+        args: ["protect", "--staged", "--redact", "--config=.gitleaks.toml"]
+        pass_filenames: false
+
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.43.5
+    hooks:
+      - id: typos
+        files: ^(README\.md|AGENTS\.md|docs/.*\.md)$
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.21.0
+    hooks:
+      - id: markdownlint-cli2
+        files: ^(README\.md|docs/.*\.(md|markdown))$
+
+  - repo: https://github.com/thibaudcolas/pre-commit-stylelint
+    rev: v16.16.0
+    hooks:
+      - id: stylelint
+        name: stylelint (frontend css quality)
+        files: ^src/.*\.(css|scss|sass|less)$
+        args: ["--fix"]
+        additional_dependencies:
+          - stylelint@16.16.0
+          - stylelint-config-standard@38.0.0
+          - stylelint-config-recommended-scss@14.1.0
+          - "@stylistic/stylelint-plugin@3.1.2"
+
+  - repo: https://github.com/shssoichiro/oxipng
+    rev: v9.1.4
+    hooks:
+      - id: oxipng
+        name: oxipng (lossless png optimization)
+        args: ["-o", "4", "--strip", "safe", "--alpha"]
+        files: \.png$
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.2
+    hooks:
+      - id: ruff
+        name: ruff (python/)
+        files: ^python/.*\.py$
+        args: ["--fix"]
+      - id: ruff-format
+        name: ruff-format (python/)
+        files: ^python/.*\.py$
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.19.1
+    hooks:
+      - id: mypy
+        files: ^python/.*\.py$
+        args: ["--ignore-missing-imports"]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.13.9
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 4.0.4
+    hooks:
+      - id: sqlfluff-lint
+        files: ^.*\.sql$
+      - id: sqlfluff-fix
+        files: ^.*\.sql$
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.105.0
+    hooks:
+      - id: terraform_fmt
+        files: ^.*\.tf$
+      - id: terraform_validate
+        files: ^.*\.tf$
+      - id: terraform_tflint
+        files: ^.*\.tf$
+
+  - repo: https://github.com/aquasecurity/tfsec
+    rev: v1.28.13
+    hooks:
+      - id: tfsec
+        files: ^.*\.tf$
+
+  - repo: local
+    hooks:
+      - id: biome-check
+        name: biome check (js/ts/json/css)
+        entry: bash -c 'command -v npx >/dev/null 2>&1 || exit 0; npx --yes @biomejs/biome check --write --diagnostic-level=error --error-on-warnings --files-ignore-unknown=true "$@"' --
+        language: system
+        files: ^.*\.(js|jsx|ts|tsx|json|jsonc|css|scss)$
+
+      - id: no-todo-in-prod
+        name: block TODO/FIXME/HACK in source
+        entry: >-
+          bash -c 'set -euo pipefail; matches=$(rg -n --no-heading "(TODO|FIXME|HACK)" "$@" || true); if [ -n "$matches" ]; then echo "[pre-commit] TODO/FIXME/HACK markers found:"; echo "$matches"; exit 1; fi' --
+        language: system
+        files: ^(src|scripts|python)/.*\.(ts|tsx|js|jsx|mjs|cjs|py|go|rs)$
+        pass_filenames: true
+
+      - id: no-console-log
+        name: block console.log
+        entry: >-
+          bash -c 'set -euo pipefail; matches=$(rg -n --no-heading "console\.log\(" "$@" || true); if [ -n "$matches" ]; then echo "[pre-commit] console.log detected:"; echo "$matches"; exit 1; fi' --
+        language: system
+        files: ^src/.*\.(ts|tsx|js|jsx|mjs|cjs)$
+        pass_filenames: true
+
+      - id: gofmt
+        name: gofmt
+        entry: bash -c 'command -v gofmt >/dev/null 2>&1 || exit 0; gofmt -w "$@"' --
+        language: system
+        files: ^.*\.go$
+
+      - id: gofumpt
+        name: gofumpt
+        entry: bash -c 'command -v gofumpt >/dev/null 2>&1 || exit 0; gofumpt -w "$@"' --
+        language: system
+        files: ^.*\.go$
+
+      - id: golangci-lint
+        name: golangci-lint
+        entry: bash -c 'command -v golangci-lint >/dev/null 2>&1 || exit 0; golangci-lint run ./...'
+        language: system
+        pass_filenames: false
+        files: ^.*\.go$
+
+      - id: rustfmt
+        name: rustfmt
+        entry: bash -c 'command -v rustfmt >/dev/null 2>&1 || exit 0; rustfmt "$@"' --
+        language: system
+        files: ^.*\.rs$
+
+      - id: cargo-clippy
+        name: cargo clippy
+        entry: bash -c 'command -v cargo >/dev/null 2>&1 || exit 0; cargo clippy --all-targets --all-features -- -D warnings'
+        language: system
+        pass_filenames: false
+        files: ^.*\.rs$
+
+      - id: shellcheck
+        name: shellcheck
+        entry: bash -c 'command -v shellcheck >/dev/null 2>&1 || exit 0; shellcheck "$@"' --
+        language: system
+        files: ^.*\.(sh|bash)$
+
+      - id: hadolint
+        name: hadolint
+        entry: bash -c 'command -v hadolint >/dev/null 2>&1 || exit 0; hadolint --ignore DL3008 "$@"' --
+        language: system
+        files: (^|/)([Dd]ockerfile|.*\.Dockerfile)$
+
+      - id: actionlint
+        name: actionlint
+        entry: bash -c 'command -v actionlint >/dev/null 2>&1 || exit 0; actionlint'
+        language: system
+        pass_filenames: false
+        files: ^\.github/workflows/.*\.(yml|yaml)$
+
+      - id: dotenv-linter
+        name: dotenv-linter
+        entry: bash -c 'command -v dotenv-linter >/dev/null 2>&1 || exit 0; dotenv-linter "$@"' --
+        language: system
+        files: ^\.env(\..+)?(\.example)?$
+
+      - id: kube-linter
+        name: kube-linter
+        entry: bash -c 'command -v kube-linter >/dev/null 2>&1 || exit 0; kube-linter lint -c .kubelinter/config.yaml "$@"' --
+        language: system
+        files: ^(k8s|kubernetes|manifests|helm)/.*\.(yml|yaml)$
+
+      - id: markdownlint-local
+        name: markdownlint (repo docs scope)
+        entry: npm run -s docs:lint
+        language: system
+        pass_filenames: false
+        files: ^(README\.md|docs/.*\.md)$
+
+      - id: design-token-usage
+        name: design token usage check (frontend)
+        entry: >-
+          bash -c 'set -euo pipefail;
+          files=("$@");
+          [ ${#files[@]} -eq 0 ] && exit 0;
+          violations=$(rg -n --color=never
+            -e "(#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\()"
+            "${files[@]}" || true);
+          if [ -n "$violations" ]; then
+            echo "[pre-commit] design token check failed: hardcoded color values detected.";
+            echo "$violations";
+            echo "[pre-commit] use design tokens or theme variables instead of raw color literals.";
+            exit 1;
+          fi'
+        language: system
+        files: ^src/.*\.(tsx|jsx|css|scss)$
+
+      - id: gemini-uiux-audit
+        name: gemini uiux semantic audit (flash, pre-push)
+        stages: [pre-push]
+        entry: npm run -s uiux:audit:strict -- --mode=changed --max-files=8
+        language: system
+        pass_filenames: false
+        files: ^(src|tests/e2e)/.*\.(tsx|jsx|ts|js|html)$
+
+      - id: no-real-env-committed
+        name: block real .env files
+        entry: >-
+          bash -c 'set -euo pipefail; files=$(git diff --cached --name-only --diff-filter=ACM || true); [ -z "$files" ] && exit 0; blocked=$(printf "%s\n" "$files" | rg -e "(^|/)\.env(\..+)?$" | rg -v -e "(^|/)\.env(\.development|\.staging|\.production)?\.example$" || true); if [ -n "$blocked" ]; then echo "[pre-commit] blocked: real .env files are staged:"; echo "$blocked"; exit 1; fi'
+        language: system
+        pass_filenames: false
+
+      - id: env-count-check
+        name: env key count check (.env.example vs env-contract)
+        entry: npm run -s env:keyset:drift
+        language: system
+        pass_filenames: false
+
+      - id: env-var-count-limit
+        name: env var upper bound check (.env.example <= 50)
+        entry: >-
+          bash -c 'set -euo pipefail; [ ! -f .env.example ] && exit 0; count=$(grep -cE "^[A-Z_][A-Z0-9_]*=" .env.example || true); if [ "$count" -gt 50 ]; then echo "[pre-commit] .env.example contains $count variables (limit 50)."; exit 1; fi; echo "[pre-commit] .env.example variable count: $count/50";'
+        language: system
+        pass_filenames: false
+
+      - id: no-direct-env-access
+        name: block direct process.env/os.getenv access
+        entry: >-
+          bash -c 'set -euo pipefail; matches=$(rg -n --no-heading "(process\.env\.[A-Z_][A-Z0-9_]*|os\.getenv\(|os\.environ\[)" "$@" | rg -v "(src/env-contract\.ts|src/constants\.ts|tooling/env-contract/|\.test\.|\.spec\.)" || true); if [ -n "$matches" ]; then echo "[pre-commit] direct env access detected; use env contract/config modules:"; echo "$matches"; exit 1; fi' --
+        language: system
+        files: ^src/.*\.(ts|tsx|js|jsx|mjs|cjs)$
+        exclude: ^src/(shared|providers|next-smoke)/.*\.(ts|tsx|js|jsx|mjs|cjs)$
+        pass_filenames: true
+
+      - id: ai-context-files-check
+        name: AI context files pair check (AGENTS/CLAUDE)
+        entry: >-
+          bash -c 'set -euo pipefail;
+          mapfile -t agent_files < <(find . \( -path ./.git -o -path ./node_modules \) -prune -o -name AGENTS.md -print | sed "s#^\\./##" | sort);
+          mapfile -t claude_files < <(find . \( -path ./.git -o -path ./node_modules \) -prune -o -name CLAUDE.md -print | sed "s#^\\./##" | sort);
+          missing=();
+          [ -f AGENTS.md ] || missing+=("AGENTS.md");
+          [ -f CLAUDE.md ] || missing+=("CLAUDE.md");
+          for f in "${agent_files[@]}"; do pair="${f%AGENTS.md}CLAUDE.md"; [ -f "$pair" ] || missing+=("$pair"); done;
+          for f in "${claude_files[@]}"; do pair="${f%CLAUDE.md}AGENTS.md"; [ -f "$pair" ] || missing+=("$pair"); done;
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "[pre-commit] missing AI context files:";
+            printf "%s\n" "${missing[@]}" | sort -u;
+            exit 1;
+          fi;
+          total=$(( ${#agent_files[@]} + ${#claude_files[@]} ));
+          echo "[pre-commit] AI context files OK ($total files)"'
+        language: system
+        pass_filenames: false
+
+      - id: jscpd-duplication
+        name: jscpd duplication gate (>3% blocked)
+        stages: [pre-push]
+        entry: bash -c 'command -v npx >/dev/null 2>&1 || exit 0; npx --yes jscpd . --threshold 3 --min-lines 5 --min-tokens 50 --reporters console'
+        language: system
+        pass_filenames: false
+
+      - id: check-pre-commit-outdated
+        name: check pre-commit hook updates (pre-push)
+        stages: [pre-push]
+        entry: >-
+          bash -c 'set -euo pipefail;
+          cfg=.pre-commit-config.yaml;
+          backup=$(mktemp);
+          cp "$cfg" "$backup";
+          cleanup() { cp "$backup" "$cfg"; rm -f "$backup"; };
+          trap cleanup EXIT;
+          if ! pre-commit autoupdate >/tmp/pre-commit-autoupdate.log 2>&1; then
+            echo "[pre-push] warn: pre-commit autoupdate check skipped (network/tool issue).";
+            tail -n 40 /tmp/pre-commit-autoupdate.log || true;
+            exit 0;
+          fi;
+          if ! git diff --quiet -- "$cfg"; then
+            echo "[pre-push] outdated hooks detected. Run: pre-commit autoupdate";
+            git --no-pager diff -- "$cfg" | sed -n "1,120p";
+            exit 1;
+          fi;
+          echo "[pre-push] pre-commit hook revisions are up-to-date."'
+        language: system
+        pass_filenames: false

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "strategy": "progressive",
+  "stages": [
+    {
+      "name": "canary-5",
+      "percentage": 5,
+      "holdMinutes": 30
+    },
+    {
+      "name": "canary-25",
+      "percentage": 25,
+      "holdMinutes": 45
+    },
+    {
+      "name": "canary-50",
+      "percentage": 50,
+      "holdMinutes": 60
+    },
+    {
+      "name": "full-100",
+      "percentage": 100,
+      "holdMinutes": 0
+    }
+  ],
+  "promotionChecks": [
+    {
+      "metric": "tool_request_error_rate",
+      "operator": "<=",
+      "threshold": 0.01
+    },
+    {
+      "metric": "tool_request_latency_p95_ms",
+      "operator": "<=",
+      "threshold": 12000
+    }
+  ],
+  "autoRollback": {
+    "enabled": true,
+    "condition": "Any promotion check fails for two consecutive intervals.",
+    "maxDetectionMinutes": 10
+  }
+}

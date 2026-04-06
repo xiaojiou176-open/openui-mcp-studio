@@ -1,0 +1,24 @@
+{
+	"version": 1,
+	"runtimeRoot": ".runtime-cache",
+	"runsRoot": ".runtime-cache/runs",
+	"logChannels": ["runtime", "tests", "ci", "upstream"],
+	"requiredRunFiles": [
+		"summary.json",
+		"quality-score.json",
+		"meta/run.json",
+		"evidence/index.json"
+	],
+	"requiredRunDirectories": ["meta", "logs", "artifacts", "evidence"],
+	"requiredLogFiles": [
+		"logs/runtime.jsonl",
+		"logs/tests.jsonl",
+		"logs/ci.jsonl",
+		"logs/upstream.jsonl"
+	],
+	"reportRoots": [
+		".runtime-cache/reports/quality-trend",
+		".runtime-cache/reports/release-readiness",
+		".runtime-cache/reports/upstream"
+	]
+}

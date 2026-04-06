@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"lib": ["ES2023"],
+		"strict": true,
+		"noEmitOnError": true,
+		"incremental": true,
+		"tsBuildInfoFile": ".runtime-cache/build/ts/tsconfig.tsbuildinfo",
+		"rootDir": ".",
+		"outDir": ".runtime-cache/build/mcp-server",
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"include": ["services/mcp-server/src/**/*.ts", "packages/**/*.ts"],
+	"exclude": [".runtime-cache/build/mcp-server", "node_modules"]
+}

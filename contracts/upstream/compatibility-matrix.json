@@ -1,0 +1,41 @@
+{
+	"version": 1,
+	"entries": [
+		{
+			"id": "ci-image-vs-node-runtime",
+			"inventoryIds": ["ghcr-ci-image"],
+			"blockingScope": "pull_request",
+			"executionCadence": "per-required-run",
+			"owner": "devinfra",
+			"validatedBy": ["governance:workflow:check", "iac:check", "ci:gate"],
+			"notes": "CI image lock and runtime node version must remain aligned with tracked workflow contracts."
+		},
+		{
+			"id": "gemini-runtime-chain",
+			"inventoryIds": ["gemini-api", "python-sidecar-dependencies"],
+			"blockingScope": "main-and-release",
+			"executionCadence": "live-gate",
+			"owner": "openui-platform",
+			"validatedBy": ["test:live", "py:smoke", "tests/gemini-sidecar-contract.test.ts"],
+			"notes": "Gemini runtime integration requires env contract, sidecar package set, and live gate alignment."
+		},
+		{
+			"id": "playwright-e2e-chain",
+			"inventoryIds": ["playwright-browser-assets", "ghcr-ci-image"],
+			"blockingScope": "pull_request",
+			"executionCadence": "per-required-run",
+			"owner": "devinfra",
+			"validatedBy": ["test:e2e", "visual:qa", "ci:gate"],
+			"notes": "Browser assets, runner image, and E2E/visual gates must remain in compatible lockstep."
+		},
+		{
+			"id": "upstream-sync-governance",
+			"inventoryIds": ["upstream-sync-remotes", "patch-package-surface"],
+			"blockingScope": "manual-sync",
+			"executionCadence": "per-sync",
+			"owner": "devinfra",
+			"validatedBy": ["sync:upstream:check", "sync:upstream:dryrun", "governance:upstream:check"],
+			"notes": "Upstream sync flow and patch replay must stay mutually governed."
+		}
+	]
+}

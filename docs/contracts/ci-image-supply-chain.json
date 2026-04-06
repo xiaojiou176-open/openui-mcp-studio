@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "imageLockPath": ".github/ci-image.lock.json",
+  "buildWorkflowPath": ".github/workflows/build-ci-image.yml",
+  "releaseWorkflowPath": ".github/workflows/release-readiness.yml",
+  "metadataArtifactPrefix": "ci-image-metadata-",
+  "metadataArtifactPath": ".runtime-cache/ci-image-artifact/",
+  "statusArtifactPath": ".runtime-cache/ci-image-artifact/status.json",
+  "supplyChainArtifactFields": [
+    "statusArtifactPath",
+    "buildMetadataPath",
+    "sbom",
+    "provenance",
+    "registryAttestation"
+  ],
+  "sbom": {
+    "enabled": true,
+    "mode": "buildx-inline"
+  },
+  "provenance": {
+    "enabled": true,
+    "mode": "buildx-attest-max"
+  },
+  "registryAttestation": {
+    "enabled": true,
+    "provider": "actions/attest-build-provenance",
+    "pushToRegistry": true,
+    "availability": "platform-dependent",
+    "failurePolicy": "non-blocking-when-feature-unavailable"
+  },
+  "bootstrapTransitionAllowed": false
+}

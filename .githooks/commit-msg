@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+set -eu
+
+if ! command -v npx >/dev/null 2>&1; then
+  echo "[commit-msg] npx not found in PATH"
+  exit 1
+fi
+
+msg_file="${1:-}"
+if [ -z "$msg_file" ] || [ ! -f "$msg_file" ]; then
+  echo "[commit-msg] commit message file is missing"
+  exit 1
+fi
+
+npx --no-install commitlint --edit "$msg_file"
+
+# Inject trailer so CI can detect whether local hooks ran.
+# If this hook executes, the commit was NOT created with --no-verify
+# (--no-verify skips ALL hooks including commit-msg).
+if ! grep -q "^Pre-commit-hook:" "$msg_file" 2>/dev/null; then
+  # Ensure trailing newline before trailer
+  if [ -s "$msg_file" ] && [ "$(tail -c1 "$msg_file" | wc -l)" -eq 0 ]; then
+    printf '\n' >> "$msg_file"
+  fi
+  printf '\nPre-commit-hook: passed\n' >> "$msg_file"
+fi

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "rtoMinutes": 15,
+  "drillCommand": "npm run rollback:drill",
+  "drillCadence": "weekly",
+  "runbookPath": "docs/governance-runbook.md",
+  "owner": "platform-oncall",
+  "failureDomains": [
+    "model-provider-regression",
+    "quality-gate-regression",
+    "workflow-governance-regression"
+  ]
+}
