@@ -35,15 +35,24 @@ describe("sensitive surface audit", () => {
 		const root = await mkTempRoot("openui-sensitive-surface-pass-");
 		const placeholderChromeRoot = `${MACOS_USER_PREFIX}.../Library/Application Support/Google/Chrome`;
 		await writeJson(
-			path.join(root, "tooling", "contracts", "sensitive-surface-audit.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"sensitive-surface-audit.contract.json",
+			),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/security/sensitive-surface-audit.json",
+				reportPath:
+					".runtime-cache/reports/security/sensitive-surface-audit.json",
 				historyReportPath:
 					".runtime-cache/reports/security/history-sensitive-surface-audit.json",
 				allowedEmailDomains: ["example.com"],
 				allowedEmailAddresses: ["git@github.com"],
-				allowedHostPathRegexes: ["^\\x2fUsers\\x2f\\.\\.\\.\\x2f", "^\\x2fhome\\x2fdev(?:\\x2f.*)?$"],
+				allowedHostPathRegexes: [
+					"^\\x2fUsers\\x2f\\.\\.\\.\\x2f",
+					"^\\x2fhome\\x2fdev(?:\\x2f.*)?$",
+				],
 				ignoredPathRegexes: [],
 			},
 		);
@@ -66,10 +75,16 @@ describe("sensitive surface audit", () => {
 		const root = await mkTempRoot("openui-sensitive-surface-fail-");
 		const personalChromeRoot = `${MACOS_USER_PREFIX}real-user/Library/Application Support/Google/Chrome`;
 		await writeJson(
-			path.join(root, "tooling", "contracts", "sensitive-surface-audit.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"sensitive-surface-audit.contract.json",
+			),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/security/sensitive-surface-audit.json",
+				reportPath:
+					".runtime-cache/reports/security/sensitive-surface-audit.json",
 				historyReportPath:
 					".runtime-cache/reports/security/history-sensitive-surface-audit.json",
 				allowedEmailDomains: ["example.com"],

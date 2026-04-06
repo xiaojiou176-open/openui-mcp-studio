@@ -45,10 +45,16 @@ describe("history sensitive surface audit", () => {
 		await git(root, ["config", "user.email", "ci@example.com"]);
 		await git(root, ["config", "user.name", "ci"]);
 		await writeJson(
-			path.join(root, "tooling", "contracts", "sensitive-surface-audit.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"sensitive-surface-audit.contract.json",
+			),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/security/sensitive-surface-audit.json",
+				reportPath:
+					".runtime-cache/reports/security/sensitive-surface-audit.json",
 				historyReportPath:
 					".runtime-cache/reports/security/history-sensitive-surface-audit.json",
 				allowedEmailDomains: ["example.com"],
@@ -81,10 +87,16 @@ describe("history sensitive surface audit", () => {
 		await git(root, ["config", "user.email", "ci@example.com"]);
 		await git(root, ["config", "user.name", "ci"]);
 		await writeJson(
-			path.join(root, "tooling", "contracts", "sensitive-surface-audit.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"sensitive-surface-audit.contract.json",
+			),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/security/sensitive-surface-audit.json",
+				reportPath:
+					".runtime-cache/reports/security/sensitive-surface-audit.json",
 				historyReportPath:
 					".runtime-cache/reports/security/history-sensitive-surface-audit.json",
 				allowedEmailDomains: ["example.com"],
@@ -100,7 +112,10 @@ describe("history sensitive surface audit", () => {
 		await git(root, ["add", "."]);
 		await git(root, ["commit", "-m", "bad history"]);
 		await git(root, ["tag", "v0.0.1"]);
-		await writeFile(path.join(root, "docs", "guide.md"), 'owner = "redacted@example.com"\n');
+		await writeFile(
+			path.join(root, "docs", "guide.md"),
+			'owner = "redacted@example.com"\n',
+		);
 		await git(root, ["add", "docs/guide.md"]);
 		await git(root, ["commit", "-m", "sanitize head only"]);
 
@@ -114,6 +129,10 @@ describe("history sensitive surface audit", () => {
 			email_address: 1,
 			macos_user_path: 1,
 		});
-		expect(result.report.findings.every((finding) => typeof finding.commit === "string")).toBe(true);
+		expect(
+			result.report.findings.every(
+				(finding) => typeof finding.commit === "string",
+			),
+		).toBe(true);
 	});
 });

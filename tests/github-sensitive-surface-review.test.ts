@@ -30,10 +30,16 @@ describe("github sensitive surface review", () => {
 	it("passes when GitHub public surfaces and pull refs are clean", async () => {
 		const root = await mkTempRoot("openui-gh-sensitive-pass-");
 		await writeJson(
-			path.join(root, "tooling", "contracts", "sensitive-surface-audit.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"sensitive-surface-audit.contract.json",
+			),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/security/sensitive-surface-audit.json",
+				reportPath:
+					".runtime-cache/reports/security/sensitive-surface-audit.json",
 				historyReportPath:
 					".runtime-cache/reports/security/history-sensitive-surface-audit.json",
 				allowedEmailDomains: ["example.com"],
@@ -84,10 +90,16 @@ describe("github sensitive surface review", () => {
 	it("fails when GitHub code scanning or pull refs still expose sensitive surfaces", async () => {
 		const root = await mkTempRoot("openui-gh-sensitive-fail-");
 		await writeJson(
-			path.join(root, "tooling", "contracts", "sensitive-surface-audit.contract.json"),
+			path.join(
+				root,
+				"tooling",
+				"contracts",
+				"sensitive-surface-audit.contract.json",
+			),
 			{
 				version: 1,
-				reportPath: ".runtime-cache/reports/security/sensitive-surface-audit.json",
+				reportPath:
+					".runtime-cache/reports/security/sensitive-surface-audit.json",
 				historyReportPath:
 					".runtime-cache/reports/security/history-sensitive-surface-audit.json",
 				allowedEmailDomains: ["example.com"],
