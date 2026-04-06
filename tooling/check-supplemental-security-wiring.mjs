@@ -95,7 +95,9 @@ async function readRequiredFile(filePath) {
 	} catch (error) {
 		const detail =
 			error instanceof Error ? error.message : String(error);
-		throw new Error(`${path.relative(ROOT, filePath)} is missing: ${detail}`);
+		throw new Error(`${path.relative(ROOT, filePath)} is missing: ${detail}`, {
+			cause: error,
+		});
 	}
 }
 
