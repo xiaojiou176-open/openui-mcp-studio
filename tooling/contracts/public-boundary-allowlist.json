@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "publicInfraBoundary": {
+    "scanPaths": [
+      ".github/workflows/build-ci-image.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/mutation-weekly.yml",
+      ".github/workflows/quality-trend-weekly.yml",
+      ".github/workflows/release-readiness.yml",
+      ".github/workflows/reusable-quality-gate.yml",
+      ".github/workflows/security-supplemental.yml",
+      ".github/workflows/shared-runner-health.yml",
+      ".github/workflows/weekly-cleanup.yml",
+      ".github/workflows/weekly-env-audit.yml"
+    ],
+    "allowedExceptions": [
+    ]
+  },
+  "languageBoundary": {
+	    "scanPaths": [
+	      "README.md",
+	      "AGENTS.md",
+	      "CLAUDE.md",
+	      "SECURITY.md",
+	      "CONTRIBUTING.md",
+	      "SUPPORT.md",
+	      "CODE_OF_CONDUCT.md",
+	      "CHANGELOG.md",
+	      ".github/ISSUE_TEMPLATE/bug_report.md",
+	      ".github/ISSUE_TEMPLATE/support_request.md",
+	      ".github/ISSUE_TEMPLATE/config.yml",
+	      ".github/pull_request_template.md",
+	      "docs/index.md",
+	      "docs/architecture.md",
+	      "docs/environment-governance.md",
+	      "docs/governance-runbook.md",
+	      "docs/testing.md",
+	      "docs/release-readiness.md",
+	      "docs/upstream-sync-sop.md",
+	      "docs/secrets-incident-runbook.md",
+	      "ops/AGENTS.md",
+	      "ops/CLAUDE.md",
+      "ops/README.md",
+      "ops/ci-container/README.md",
+      "services/mcp-server/README.md",
+      "services/gemini-sidecar/README.md",
+      "apps/web/README.md",
+      "packages/README.md",
+      "tooling/README.md",
+      "tooling/check-docs-cochange.mjs"
+    ],
+    "allowedNonAsciiPaths": []
+  }
+}

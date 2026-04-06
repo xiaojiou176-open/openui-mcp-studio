@@ -1,0 +1,150 @@
+{
+	"version": 1,
+	"surfaces": [
+		{
+			"id": "contracts-env-contract",
+			"file": "packages/contracts/src/env-contract.ts",
+			"owner": "packages-contracts"
+		},
+		{
+			"id": "shared-runtime-child-env",
+			"file": "packages/shared-runtime/src/child-env.ts",
+			"owner": "packages-shared-runtime"
+		},
+		{
+			"id": "shared-runtime-idempotency",
+			"file": "packages/shared-runtime/src/idempotency-store.ts",
+			"owner": "packages-shared-runtime"
+		},
+		{
+			"id": "shared-runtime-path-utils",
+			"file": "packages/shared-runtime/src/path-utils.ts",
+			"owner": "packages-shared-runtime"
+		},
+		{
+			"id": "shared-runtime-next-build-dir",
+			"file": "packages/shared-runtime/src/next-build-dir.ts",
+			"owner": "packages-shared-runtime"
+		},
+		{
+			"id": "shared-runtime-process-utils",
+			"file": "packages/shared-runtime/src/process-utils.ts",
+			"owner": "packages-shared-runtime"
+		},
+		{
+			"id": "shared-runtime-runtime-ops",
+			"file": "packages/shared-runtime/src/runtime-ops.ts",
+			"owner": "packages-shared-runtime"
+		},
+		{
+			"id": "shared-runtime-target-build-manifest",
+			"file": "packages/shared-runtime/src/target-build-manifest.ts",
+			"owner": "packages-shared-runtime"
+		},
+		{
+			"id": "runtime-observability-redact",
+			"file": "packages/runtime-observability/src/redact.ts",
+			"owner": "packages-runtime-observability"
+		},
+		{
+			"id": "runtime-observability-cache-retention",
+			"file": "packages/runtime-observability/src/cache-retention.ts",
+			"owner": "packages-runtime-observability"
+		},
+		{
+			"id": "runtime-observability-run-context",
+			"file": "packages/runtime-observability/src/run-context.ts",
+			"owner": "packages-runtime-observability"
+		},
+		{
+			"id": "service-runtime-config",
+			"file": "services/mcp-server/src/constants.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-index",
+			"file": "services/mcp-server/src/public/index.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-builder-surface",
+			"file": "services/mcp-server/src/public/builder-surface.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-uiux-audit-foundation",
+			"file": "services/mcp-server/src/public/uiux-audit-foundation.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-server",
+			"file": "services/mcp-server/src/public/server.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-openui-client",
+			"file": "services/mcp-server/src/public/openui-client.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-provider-testing",
+			"file": "services/mcp-server/src/public/provider-testing.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-tool-shared",
+			"file": "services/mcp-server/src/public/tool-shared.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-ship",
+			"file": "services/mcp-server/src/public/ship.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-computer-use",
+			"file": "services/mcp-server/src/public/computer-use.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-next-smoke",
+			"file": "services/mcp-server/src/public/next-smoke.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-workflow-summary",
+			"file": "services/mcp-server/src/public/workflow-summary.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "service-public-visual-diff",
+			"file": "services/mcp-server/src/public/visual-diff.ts",
+			"owner": "services-mcp-server"
+		},
+		{
+			"id": "skills-kit-public-entry",
+			"file": "packages/skills-kit/index.mjs",
+			"owner": "packages-skills-kit"
+		},
+		{
+			"id": "sdk-public-entry",
+			"file": "packages/sdk/index.mjs",
+			"owner": "packages-sdk"
+		},
+		{
+			"id": "hosted-api-public-entry",
+			"file": "packages/hosted-api/src/index.ts",
+			"owner": "packages-hosted-api"
+		},
+		{
+			"id": "hosted-api-cli-entry",
+			"file": "packages/hosted-api/src/cli.ts",
+			"owner": "packages-hosted-api"
+		},
+		{
+			"id": "service-uiux-audit-foundation",
+			"file": "services/mcp-server/src/uiux/audit-foundation.ts",
+			"owner": "services-mcp-server"
+		}
+	]
+}

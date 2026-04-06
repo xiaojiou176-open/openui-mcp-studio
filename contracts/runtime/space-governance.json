@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "reportRoot": ".runtime-cache/reports/space-governance",
+  "topN": 10,
+  "nonCanonicalRuntimeHeavyThresholdBytes": 10485760,
+  "giantTmpSubtreeThresholdBytes": 1073741824,
+  "hardFailNonCanonicalPaths": [
+    ".runtime-cache/go-mod",
+    ".runtime-cache/go-cache",
+    ".runtime-cache/precommit-full-home",
+    ".runtime-cache/precommit-venv",
+    ".runtime-cache/precommit-full-venv",
+    "$HOME",
+    "$HOME/.cache/pre-commit"
+  ],
+  "rootAnomalies": [
+    "$HOME"
+  ],
+  "baselineTargets": [
+    ".runtime-cache",
+    ".runtime-cache/ci-local-host",
+    ".runtime-cache/go-mod",
+    ".runtime-cache/precommit-full-home",
+    ".runtime-cache/go-cache",
+    ".runtime-cache/precommit-venv",
+    ".runtime-cache/precommit-full-venv",
+    "$HOME",
+    "$HOME/.cache/pre-commit",
+    "apps/web/.next",
+    "node_modules",
+    ".git"
+  ],
+  "lowRiskCleanupTargets": [
+    "apps/web/.next",
+    ".runtime-cache/tmp/public-assets",
+    ".runtime-cache/go-cache",
+    ".runtime-cache/precommit-venv",
+    ".runtime-cache/precommit-full-venv"
+  ],
+  "maintenancePolicy": {
+    "safeAutoMaintainTargets": [
+      "apps/web/.next",
+      ".runtime-cache/tmp/public-assets"
+    ],
+    "manualOptInTargets": [
+      "node_modules"
+    ],
+    "neverRepoLocalTargets": [
+      ".git",
+      ".runtime-cache"
+    ],
+    "latestManifestRoot": ".runtime-cache/reports/space-governance",
+    "latestManifestBaseName": "maintenance-latest",
+    "sharedLayerApplyMode": "report-only"
+  },
+  "repoSpecificExternalPolicy": {
+    "scope": "repo-specific-external",
+    "applyMode": "managed",
+    "defaultRoot": "~/.cache/openui-mcp-studio/tooling",
+    "ttlDays": 3,
+    "maxBytes": 5368709120,
+    "cleanIntervalMinutes": 60,
+    "reason": "Repo-specific external cache roots must stay under ~/.cache/openui-mcp-studio/, use TTL-first plus capacity-prune janitor semantics, and keep receipts inside repo-local space-governance reports."
+  },
+  "browserLanePolicy": {
+    "scope": "repo-specific-persistent-browser-asset",
+    "defaultUserDataDir": "~/.cache/openui-mcp-studio/browser/chrome-user-data",
+    "defaultProfileDirectory": "Profile 1",
+    "defaultCdpPort": 9343,
+    "defaultVerifyUrl": "https://myaccount.google.com/",
+    "maxLiveBrowserInstancesBeforeWait": 6,
+    "janitorExcluded": true,
+    "reason": "The repo-owned real Chrome lane is a persistent identity/session asset. It must stay outside TTL/cap janitors and use a single-instance CDP attach model."
+  },
+  "verificationCandidates": [
+    {
+      "path": ".runtime-cache/go-mod",
+      "reason": "Non-canonical Go module download cache with clear rebuild path through Go-based tool invocations."
+    },
+    {
+      "path": ".runtime-cache/precommit-full-home",
+      "reason": "Non-canonical pre-commit tool home that should rebuild from hook bootstrap when needed."
+    },
+    {
+      "path": "$HOME",
+      "reason": "Unexpected literal HOME root inside the repository; treat as path-governance drift first."
+    },
+    {
+      "path": "$HOME/.cache/pre-commit",
+      "reason": "Unexpected pre-commit cache mirror inside repo-local literal HOME tree."
+    }
+  ],
+  "deferredSharedLayers": [
+    {
+      "path": "~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw",
+      "reason": "Shared container VM layer; machine-level cleanup only."
+    },
+    {
+      "path": "~/.npm",
+      "reason": "Shared npm cache; not repo-local cleanup scope."
+    },
+    {
+      "path": "~/.cache/pre-commit",
+      "reason": "Shared pre-commit cache; not repo-local cleanup scope."
+    },
+    {
+      "path": "~/Library/Caches/ms-playwright",
+      "reason": "Shared Playwright browser cache; not repo-local cleanup scope."
+    },
+    {
+      "path": "~/Library/Application Support/Cursor/User/workspaceStorage",
+      "reason": "Editor workspace cache; treat repo-specific slices separately."
+    },
+    {
+      "path": "~/Library/Application Support/Cursor/User/globalStorage",
+      "reason": "Editor global cache with unclear repo attribution."
+    }
+  ],
+  "repoSpecificExternalTargets": [
+    {
+      "id": "tool-cache-root",
+      "kind": "tool-cache-root",
+      "reason": "Workspace-token external tooling cache root for repo-local heavy asset reuse under ~/.cache/openui-mcp-studio/tooling."
+    },
+    {
+      "id": "playwright",
+      "kind": "tool-cache-path",
+      "reason": "Repo-specific external Playwright browser cache inside ~/.cache/openui-mcp-studio/tooling."
+    },
+    {
+      "id": "install",
+      "kind": "tool-cache-path",
+      "reason": "Repo-specific managed install surface inside ~/.cache/openui-mcp-studio/tooling."
+    },
+    {
+      "id": "npm",
+      "kind": "tool-cache-path",
+      "reason": "Repo-specific npm cache root inside ~/.cache/openui-mcp-studio/tooling."
+    },
+    {
+      "id": "home",
+      "kind": "tool-cache-path",
+      "reason": "Repo-specific external HOME root for verification paths that keep tool homes outside the workspace."
+    },
+    {
+      "id": "pre-commit",
+      "kind": "tool-cache-path",
+      "reason": "Repo-specific external pre-commit cache root inside ~/.cache/openui-mcp-studio/tooling."
+    },
+    {
+      "id": "go-mod",
+      "kind": "tool-cache-path",
+      "reason": "Repo-specific external Go module cache inside ~/.cache/openui-mcp-studio/tooling."
+    },
+    {
+      "id": "go-build",
+      "kind": "tool-cache-path",
+      "reason": "Repo-specific external Go build cache inside ~/.cache/openui-mcp-studio/tooling."
+    },
+    {
+      "id": "go-path",
+      "kind": "tool-cache-path",
+      "reason": "Repo-specific external GOPATH cache inside ~/.cache/openui-mcp-studio/tooling."
+    }
+  ],
+  "repoSpecificPersistentAssets": [
+    {
+      "id": "chrome-user-data-root",
+      "kind": "persistent-browser-root",
+      "path": "~/.cache/openui-mcp-studio/browser/chrome-user-data",
+      "scope": "repo-specific-persistent-browser-asset",
+      "applyMode": "report-only",
+      "janitorExcluded": true,
+      "reason": "Repo-owned isolated Chrome user-data root for the single-instance real-browser CDP lane."
+    }
+  ]
+}

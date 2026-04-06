@@ -1,0 +1,48 @@
+{
+	"version": 1,
+	"requiredScriptCommands": [
+		"governance:identity-alignment:check",
+		"governance:language-boundary:check",
+		"governance:open-source-surface:check",
+		"governance:ssot:check",
+		"governance:topology:check",
+		"governance:public-surface:check",
+		"governance:module-readme:check",
+		"governance:runtime:check",
+		"governance:runtime-layout:check",
+		"governance:cache-lifecycle:check",
+		"governance:upstream-policy:check",
+		"governance:observability:check",
+		"governance:run-correlation:check",
+		"governance:root-pristine:check",
+		"governance:final:check",
+		"verify:clean-room",
+		"sync:upstream:init"
+	],
+	"requiredWorkspaceGlobs": [
+		"apps/*",
+		"packages/*",
+		"services/mcp-server"
+	],
+	"requiredContractFiles": [
+		"contracts/governance/module-topology.json",
+		"contracts/governance/public-surfaces.json",
+		"contracts/runtime/path-registry.json",
+		"contracts/runtime/run-layout.json",
+		"contracts/observability/log-event.schema.json",
+		"contracts/upstream/inventory.json",
+		"contracts/upstream/pinned-sources.json",
+		"contracts/upstream/compatibility-matrix.json",
+		"contracts/upstream/patch-registry.json",
+		"contracts/upstream/glue-surfaces.json",
+		".github/ci-image.lock.json"
+	],
+	"requiredRootRuntimeSurface": ".runtime-cache",
+	"scoring": {
+		"architecture": 30,
+		"cache": 20,
+		"logging": 20,
+		"rootCleanliness": 10,
+		"upstreamIntegration": 20
+	}
+}

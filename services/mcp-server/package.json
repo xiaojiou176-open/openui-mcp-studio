@@ -1,0 +1,24 @@
+{
+	"name": "@openui/mcp-server",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./main": "./src/main.ts",
+		"./ai-client": "./src/ai-client.ts",
+		"./constants": "./src/constants.ts",
+		"./file-ops": "./src/file-ops.ts",
+		"./json-utils": "./src/json-utils.ts",
+		"./logger": "./src/logger.ts",
+		"./next-smoke": "./src/next-smoke.ts",
+		"./openui-client": "./src/openui-client.ts",
+		"./path-detection": "./src/path-detection.ts",
+		"./quality-gate": "./src/quality-gate.ts",
+		"./visual-diff": "./src/visual-diff.ts",
+		"./providers/*": "./src/providers/*.ts",
+		"./retrieval/*": "./src/retrieval/*.ts",
+		"./tools/*": "./src/tools/*.ts",
+		"./uiux/*": "./src/uiux/*.ts",
+		"./next-smoke/*": "./src/next-smoke/*.ts"
+	}
+}

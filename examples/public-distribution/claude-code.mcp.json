@@ -1,0 +1,24 @@
+{
+  "client": "Claude Code",
+  "transport": "stdio",
+  "displayName": "openui",
+  "config": {
+    "command": "node",
+    "args": [
+      "/ABS/PATH/openui-mcp-studio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+    ],
+    "env": {
+      "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+    }
+  },
+  "installCommand": "claude mcp add --transport stdio --env GEMINI_API_KEY=your_key openui -- node /ABS/PATH/openui-mcp-studio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
+  "proofCommands": [
+    "claude mcp list",
+    "node tooling/cli/openui.mjs ecosystem-guide --json",
+    "npm run demo:ship"
+  ],
+  "notFor": [
+    "claiming a Claude Code marketplace or plugin listing",
+    "claiming a managed hosted runtime"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "reportPath": ".runtime-cache/reports/security/sensitive-surface-audit.json",
+  "historyReportPath": ".runtime-cache/reports/security/history-sensitive-surface-audit.json",
+  "allowedEmailDomains": [
+    "example.com",
+    "example.org",
+    "example.net",
+    "users.noreply.github.com"
+  ],
+  "allowedEmailAddresses": [
+    "git@github.com"
+  ],
+  "allowedPhoneRegexes": [
+    "^\\+?1?[ .()-]*[2-9][0-9]{2}[ .()-]*555[ .()-]*[0-9]{4}$"
+  ],
+  "allowedHostPathRegexes": [
+    "^\\x2fUsers\\x2f\\.\\.\\.\\x2f",
+    "^\\x2fhome\\x2fdev(?:\\x2f.*)?$",
+    "^C:\\\\Users\\\\\\.\\.\\.\\\\"
+  ],
+  "ignoredPathRegexes": [
+    "^node_modules/",
+    "^\\.runtime-cache/",
+    "^\\.secrets\\.baseline$",
+    "^tests/pii-audit\\.test\\.ts$",
+    "^tests/sensitive-surface-audit\\.test\\.ts$",
+    "^tests/history-sensitive-surface-audit\\.test\\.ts$"
+  ]
+}

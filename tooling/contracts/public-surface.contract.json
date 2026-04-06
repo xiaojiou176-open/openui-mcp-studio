@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "repository": {
+    "owner": "xiaojiou176",
+    "name": "openui-mcp-studio"
+  },
+  "about": {
+    "description": "MCP-native UI/UX delivery and review workflow for Codex and Claude Code: turn UI briefs into React + shadcn delivery with proof and review.",
+    "homepageUrl": "",
+    "discussionsEnabled": true
+  },
+  "topics": [
+    "agent-tools",
+    "ai-ui",
+    "design-to-code",
+    "developer-tools",
+    "frontend-workflow",
+    "codex",
+    "claude-code",
+    "mcp",
+    "mcp-server",
+    "nextjs",
+    "openui",
+    "quality-gates",
+    "react",
+    "shadcn",
+    "tailwind",
+    "ui-ux",
+    "ui-generation",
+    "ui-testing"
+  ],
+  "discussionCategories": [
+    "Announcements",
+    "General",
+    "Ideas",
+    "Polls",
+    "Q&A",
+    "Show and tell"
+  ],
+  "requiredDiscussionTitles": [
+    "Start here: OpenUI MCP Studio public surface refresh",
+    "General: what are you trying to evaluate or build?",
+    "Ideas backlog: what should OpenUI MCP Studio prove next?",
+    "Poll: what should matter most on the public surface?",
+    "Q&A kickoff: ask setup or evaluation questions here",
+    "Show and tell: share what you built or evaluated"
+  ],
+  "release": {
+    "requiredAssets": [
+      "openui-mcp-studio-demo.gif",
+      "openui-mcp-studio-social-preview.png",
+      "openui-mcp-studio-workbench.png",
+      "openui-mcp-studio-workflow-overview.png",
+      "openui-mcp-studio-comparison.png",
+      "openui-mcp-studio-trust-stack.png",
+      "openui-mcp-studio-use-cases.png",
+      "openui-mcp-studio-visitor-paths.png"
+    ]
+  }
+}

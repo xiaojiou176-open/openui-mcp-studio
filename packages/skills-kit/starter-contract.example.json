@@ -1,0 +1,67 @@
+{
+  "status": "starter-example-only",
+  "id": "openui.repo-workflow-ready.starter",
+  "label": "Repo Workflow Ready Packet Starter",
+  "summary": "Starter contract for a maintainer-facing skill-shaped slice that reads repo-local workflow truth, pairs it with the current GitHub-connected summary, and prepares a non-mutating readiness packet.",
+  "invocation": {
+    "primarySurface": "local-stdio-mcp",
+    "mcpTool": "openui_repo_workflow_summary",
+    "openApiBridge": {
+      "enabled": true,
+      "path": "docs/contracts/openui-mcp.openapi.json#/paths/~1mcp~1tools~1call/post",
+      "note": "Compatibility bridge only. This does not claim a hosted API product."
+    },
+    "repoLocalPacket": {
+      "enabled": true,
+      "command": "npm run repo:workflow:ready",
+      "note": "Maintainer-facing only. This packet reshapes truth for review readiness but does not mutate GitHub."
+    }
+  },
+  "inputs": [
+    {
+      "name": "workspaceRoot",
+      "required": true,
+      "description": "Workspace root for the repo-local workflow summary or readiness packet."
+    },
+    {
+      "name": "failedRunsLimit",
+      "required": false,
+      "description": "Optional cap for recent failed GitHub workflow runs when building the readiness packet."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "workflowSummary",
+      "description": "Read-only repo-local plus GitHub-connected workflow snapshot."
+    },
+    {
+      "name": "workflowReadyPacket",
+      "description": "Maintainer-facing readiness packet with repo-local, GitHub-connected, remote-mutation, and external-blocker separation."
+    }
+  ],
+  "limitations": [
+    "Local stdio MCP is still the primary builder surface.",
+    "The OpenAPI mention is a compatibility bridge, not a hosted API promise.",
+    "The repo-local packet is maintainer-facing and intentionally non-mutating.",
+    "This example does not prove a formal Skills product, plugin distribution, SDK packaging, or write-capable remote MCP surface."
+  ],
+  "proofAnchors": [
+    {
+      "path": "README.md",
+      "why": "Freezes the builder-surface order and states the current install and product boundaries."
+    },
+    {
+      "path": "docs/contracts/openui-ecosystem-productization.json",
+      "why": "Locks the public-facing skills, SDK, and hosted-api boundaries."
+    },
+    {
+      "path": "docs/discovery-surfaces.md",
+      "why": "Explains the current install-ready discovery surfaces and plugin-like boundary."
+    }
+  ],
+  "nextActivationBoundary": [
+    "If this starter slice becomes a marketplace or vendor integration, document the official support matrix in the same change.",
+    "If this slice gains formal runtime registration, add contract-aware verification for the new invocation path.",
+    "If this slice becomes more than starter packaging, decide whether it belongs to the SDK or hosted-api line before widening the wording."
+  ]
+}

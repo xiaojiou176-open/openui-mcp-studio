@@ -1,0 +1,21 @@
+{
+	"name": "@openui/hosted-api",
+	"version": "0.3.1",
+	"private": true,
+	"type": "module",
+	"description": "Internal source package for the self-hosted OpenUI MCP Studio HTTP runtime surfaced through the repo CLI.",
+	"exports": {
+		".": "./src/index.ts",
+		"./cli": "./src/cli.ts",
+		"./package.json": "./package.json"
+	},
+	"keywords": [
+		"openui",
+		"hosted-api",
+		"mcp",
+		"workflow",
+		"codex",
+		"claude-code"
+	],
+	"license": "MIT"
+}

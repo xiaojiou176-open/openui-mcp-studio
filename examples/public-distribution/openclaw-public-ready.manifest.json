@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "id": "openui.openclaw-public-ready",
+  "technicalName": "OpenUI MCP Studio",
+  "frontdoorLabel": "OneClickUI.ai",
+  "status": "public-ready",
+  "summary": "Public-ready OpenClaw / ClawHub bundle for OpenUI MCP Studio. It includes registry-facing metadata, install/proof notes, and supporting starter-pack artifacts without claiming that a ClawHub listing is already live.",
+  "officialSurfaceEvidence": [
+    "https://github.com/openclaw/openclaw",
+    "https://github.com/openclaw/clawhub",
+    "https://docs.openclaw.ai/tools/skills"
+  ],
+  "discoverySurface": "Official OpenClaw surfaces now expose ClawHub as a public skill registry. This repo therefore promotes OpenClaw from bridge-only language to a public-ready bundle, while still refusing to claim a live listing before publication.",
+  "artifacts": [
+    {
+      "id": "openclaw-note",
+      "role": "human-readable OpenClaw install and proof note",
+      "path": "examples/public-distribution/openclaw-install-and-proof.md"
+    },
+    {
+      "id": "generic-config",
+      "role": "generic stdio MCP launch contract for OpenClaw-style local hosts",
+      "path": "examples/public-distribution/generic-mcp.json"
+    },
+    {
+      "id": "skills-starter-manifest",
+      "role": "repo-owned starter-pack artifact for skill registry submissions",
+      "path": "examples/skills/public-starter.manifest.json"
+    },
+    {
+      "id": "distribution-manifest",
+      "role": "shared package-ready distribution manifest",
+      "path": "examples/public-distribution/public-distribution.manifest.json"
+    }
+  ],
+  "installPath": [
+    "Read examples/public-distribution/openclaw-install-and-proof.md",
+    "Start from examples/public-distribution/generic-mcp.json plus examples/skills/public-starter.manifest.json",
+    "Use examples/public-distribution/troubleshooting.md if the host expects a different launch wrapper"
+  ],
+  "proofLoop": [
+    "node tooling/public-distribution-proof.mjs",
+    "node tooling/cli/openui.mjs skills starter --json",
+    "node tooling/skills-install-proof.mjs"
+  ],
+  "notFor": [
+    "claiming a live ClawHub listing",
+    "claiming a verified OpenClaw runtime inside another host",
+    "claiming operator-owned publication or review has already completed"
+  ],
+  "operatorOnlyTail": [
+    "Create or submit the actual ClawHub registry entry",
+    "Complete any platform review or account-owned publish step",
+    "Re-run fresh verification after publication before claiming the listing is live"
+  ]
+}

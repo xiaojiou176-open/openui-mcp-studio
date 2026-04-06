@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "id": "openui.public-distribution-bundle",
+  "technicalName": "OpenUI MCP Studio",
+  "frontdoorLabel": "OneClickUI.ai",
+  "status": "package-ready",
+  "summary": "Plugin-grade public distribution bundle for Codex, Claude Code, and other stdio MCP hosts. It ships sample configs, install notes, proof loop guidance, and troubleshooting without claiming an official marketplace listing.",
+  "audience": [
+    "builders who want the quickest honest install path for Codex or Claude Code",
+    "maintainers preparing repo-owned public distribution assets",
+    "integrators adapting the same stdio MCP contract for another local-first host"
+  ],
+  "currentTruth": {
+    "codex": "Official MCP install docs exist and this repo now ships a package-ready public distribution bundle for that path.",
+    "claudeCode": "Official MCP install docs exist and this repo now ships a package-ready public distribution bundle for that path.",
+    "genericMcpHost": "A repo-owned stdio launch contract is included for other hosts that can spawn a local MCP server."
+  },
+  "artifacts": [
+    {
+      "id": "codex-config",
+      "role": "sample Codex MCP config contract",
+      "path": "examples/public-distribution/codex.mcp.json"
+    },
+    {
+      "id": "codex-marketplace-sample",
+      "role": "repo-scoped marketplace sample for the official local Codex plugin directory",
+      "path": "examples/codex/marketplace.sample.json"
+    },
+    {
+      "id": "claude-code-config",
+      "role": "sample Claude Code MCP config contract",
+      "path": "examples/public-distribution/claude-code.mcp.json"
+    },
+    {
+      "id": "claude-marketplace-entry",
+      "role": "marketplace-compatible Claude Code bundle entry",
+      "path": ".claude-plugin/marketplace.json"
+    },
+    {
+      "id": "claude-plugin-bundle",
+      "role": "repo-owned Claude Code and OpenClaw-compatible plugin bundle",
+      "path": "plugins/openui-workspace-delivery/.claude-plugin/plugin.json"
+    },
+    {
+      "id": "codex-plugin-bundle",
+      "role": "repo-owned Codex plugin-grade bundle",
+      "path": "plugins/openui-codex-delivery/.codex-plugin/plugin.json"
+    },
+    {
+      "id": "generic-mcp-config",
+      "role": "sample generic stdio MCP launch contract",
+      "path": "examples/public-distribution/generic-mcp.json"
+    },
+    {
+      "id": "install-proof-note",
+      "role": "human-readable install and proof loop",
+      "path": "examples/public-distribution/install-and-proof.md"
+    },
+    {
+      "id": "troubleshooting",
+      "role": "fast local recovery guide",
+      "path": "examples/public-distribution/troubleshooting.md"
+    }
+  ],
+  "installPath": [
+    "Read examples/public-distribution/install-and-proof.md",
+    "Start from examples/public-distribution/codex.mcp.json or examples/public-distribution/claude-code.mcp.json",
+    "Use examples/codex/marketplace.sample.json when you want a repo-scoped Codex plugin directory sample",
+    "Use .claude-plugin/marketplace.json when you want a marketplace-compatible Claude bundle entry",
+    "Build the repo so .runtime-cache/build/mcp-server/services/mcp-server/src/main.js exists before you add the MCP entry"
+  ],
+  "proofLoop": [
+    "node tooling/cli/openui.mjs surface-guide",
+    "node tooling/cli/openui.mjs ecosystem-guide --json",
+    "node tooling/public-distribution-proof.mjs",
+    "node tooling/skills-install-proof.mjs"
+  ],
+  "troubleshootingPath": [
+    "examples/public-distribution/troubleshooting.md"
+  ],
+  "notFor": [
+    "claiming a Codex marketplace item",
+    "claiming a Claude Code plugin listing",
+    "claiming a hosted builder or managed SaaS deployment",
+    "claiming per-host verification for every MCP-capable client"
+  ],
+  "operatorOnlyTail": [
+    "Any future official marketplace or vendor catalog submission",
+    "Any remote settings or platform approval required by a client host",
+    "Any public release publication or external storefront promotion"
+  ]
+}

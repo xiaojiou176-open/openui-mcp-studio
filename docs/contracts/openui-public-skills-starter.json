@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "technicalName": "OpenUI MCP Studio",
+  "surface": "formal-public-skills-starter",
+  "status": "public-starter",
+  "distributionTier": "plugin-grade-public-distribution-package",
+  "summary": "Public starter-bundle contract for OpenUI skill-shaped integrations. This surface now includes plugin-grade starter bundles, proof loops, and troubleshooting for Codex, Claude Code, and OpenClaw-style hosts without claiming an official listing.",
+  "officialPublicSurfaces": {
+    "codex": {
+      "status": "plugin-directory-ready",
+      "currentTruth": "The repo ships a Codex Plugin Directory-ready bundle and MCP config, but it does not claim an official directory listing."
+    },
+    "claudeCode": {
+      "status": "marketplace-ready",
+      "currentTruth": "The repo ships a Claude Code marketplace-ready bundle and MCP config, but it does not claim an official marketplace listing."
+    },
+    "openclaw": {
+      "status": "clawhub-ready",
+      "currentTruth": "The repo ships an OpenClaw / ClawHub-ready skill bundle and MCP config, but it does not claim an official listing."
+    }
+  },
+  "audience": [
+    "maintainers packaging repo-native OpenUI skill flows",
+    "builders evaluating a formal starter before plugin or marketplace publication",
+    "agent operators who need a machine-readable starter manifest and honest proof anchors",
+    "builders assembling public-ready repo-owned bundles for OpenClaw-style or other skill-shaped hosts"
+  ],
+  "installPath": [
+    "packages/skills-kit/README.md",
+    "packages/skills-kit/manifest.json",
+    "examples/skills/README.md",
+    "examples/skills/public-starter.manifest.json",
+    "examples/skills/install-use-note.md",
+    "examples/skills/codex.mcp.json",
+    "examples/skills/claude-code.mcp.json",
+    "examples/skills/openclaw.mcp.json",
+    "packages/skills-kit/starter-bundles/codex-plugin/",
+    "packages/skills-kit/starter-bundles/claude-code-plugin/",
+    "packages/skills-kit/starter-bundles/openclaw-skill/",
+    "openui-mcp-studio skills starter --json"
+  ],
+  "verificationPath": [
+    "node tooling/cli/openui.mjs skills starter --json",
+    "node tooling/cli/openui.mjs ecosystem-guide --json",
+    "node tooling/skills-install-proof.mjs",
+    "npm run repo:doctor",
+    "npm run demo:ship"
+  ],
+  "troubleshootingPath": ["packages/skills-kit/starter-troubleshooting.md"],
+  "proofLoop": [
+    "openui-mcp-studio skills starter --json",
+    "openui-mcp-studio ecosystem-guide --json",
+    "npm run repo:doctor",
+    "npm run demo:ship"
+  ],
+  "surfaces": [
+    {
+      "id": "starter-manifest",
+      "title": "Installable skills-kit manifest",
+      "role": "machine-readable public package manifest",
+      "path": "packages/skills-kit/manifest.json"
+    },
+    {
+      "id": "starter-install",
+      "title": "Public starter install note",
+      "role": "human-readable install/use path",
+      "path": "examples/skills/install-use-note.md"
+    },
+    {
+      "id": "starter-example",
+      "title": "Starter example contract",
+      "role": "copyable example bounded by current builder truth",
+      "path": "examples/skills/starter-contract.example.json"
+    },
+    {
+      "id": "starter-bundles",
+      "title": "Plugin-grade starter bundles",
+      "role": "copyable host configs for Codex, Claude Code, and OpenClaw-style bridges",
+      "path": "packages/skills-kit/starter-bundles/"
+    },
+    {
+      "id": "starter-troubleshooting",
+      "title": "Starter bundle troubleshooting",
+      "role": "bounded self-serve recovery note for install and proof failures",
+      "path": "packages/skills-kit/starter-troubleshooting.md"
+    },
+    {
+      "id": "codex-plugin-bundle",
+      "title": "Codex Plugin Directory-ready bundle",
+      "role": "repo-owned Codex bundle with plugin manifest, MCP config, and a shared delivery skill",
+      "path": "packages/skills-kit/starter-bundles/codex-plugin/"
+    },
+    {
+      "id": "claude-code-plugin-bundle",
+      "title": "Claude Code marketplace-ready bundle",
+      "role": "repo-owned Claude bundle with plugin manifest, MCP config, and a shared delivery skill",
+      "path": "packages/skills-kit/starter-bundles/claude-code-plugin/"
+    },
+    {
+      "id": "openclaw-skill-bundle",
+      "title": "OpenClaw / ClawHub-ready skill bundle",
+      "role": "repo-owned skill bundle that makes OpenClaw public-ready without claiming listing truth",
+      "path": "packages/skills-kit/starter-bundles/openclaw-skill/"
+    }
+  ],
+  "notFor": [
+    "claiming a public marketplace item",
+    "claiming a managed Skills runtime",
+    "claiming SDK or hosted API publication by implication",
+    "claiming an official OpenClaw or ClawHub listing"
+  ],
+  "officialSupportMatrix": {
+    "codex": "MCP server installation is officially supported; this starter bundle adds plugin-grade public packaging, not a Codex marketplace item.",
+    "claudeCode": "MCP server installation is officially supported; this starter bundle adds plugin-grade public packaging, not a Claude Code marketplace item.",
+    "genericSkillHost": "This starter bundle is a repo-owned bridge surface for skill-shaped hosts and registries, but it does not prove vendor approval or publication.",
+    "openclaw": "OpenClaw can be described as repo-owned public-ready through this starter bundle and the OpenClaw sample artifact; no official OpenClaw listing or verified runtime is claimed.",
+    "marketplace": "No marketplace claim is made by this starter contract."
+  }
+}

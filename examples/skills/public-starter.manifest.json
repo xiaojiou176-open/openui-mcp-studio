@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "id": "openui.public-skills-starter",
+  "label": "OpenUI Public Skills Starter",
+  "status": "public-starter",
+  "distributionTier": "plugin-grade-public-distribution-package",
+  "technicalName": "OpenUI MCP Studio",
+  "summary": "Formal public starter bundle for plugin-grade MCP distribution. This surface packages current contract templates, sample host configs, proof loops, and install/use guidance without claiming a marketplace listing or a managed runtime.",
+  "officialPublicSurfaces": {
+    "codex": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
+    "claudeCode": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
+    "openclaw": "ClawHub exists as the official public surface, but this manifest does not claim a live OpenUI listing there."
+  },
+  "audience": [
+    "maintainers designing skill-shaped integrations",
+    "builders who need a bounded starter pack before any future Skills runtime exists",
+    "operators who want plugin-grade starter bundles for Codex, Claude Code, or OpenClaw-style hosts"
+  ],
+  "role": "Public starter bundle for honest host installs and public-ready packaging.",
+  "packageShape": {
+    "type": "starter-pack",
+    "artifacts": [
+      "examples/skills/starter-contract.md",
+      "examples/skills/starter-contract.template.json",
+      "examples/skills/starter-contract.example.json",
+      "examples/skills/integration-note.md",
+      "examples/skills/install-use-note.md",
+      "examples/public-distribution/codex.mcp.json",
+      "examples/public-distribution/claude-code.mcp.json",
+      "examples/public-distribution/openclaw-public-ready.manifest.json",
+      "examples/public-distribution/troubleshooting.md"
+    ]
+  },
+  "installPath": [
+    "Read examples/skills/install-use-note.md",
+    "Copy the host config that matches your client from examples/public-distribution/*.json",
+    "Use examples/skills/starter-contract.template.json only when you need to draft a repo-specific skill contract",
+    "Use examples/public-distribution/openclaw-public-ready.manifest.json when you need the repo-owned OpenClaw public-ready bundle"
+  ],
+  "starterBundles": [
+    {
+      "path": "examples/public-distribution/codex.mcp.json",
+      "host": "Codex",
+      "status": "install-ready"
+    },
+    {
+      "path": "examples/public-distribution/claude-code.mcp.json",
+      "host": "Claude Code",
+      "status": "install-ready"
+    },
+    {
+      "path": "examples/public-distribution/openclaw-public-ready.manifest.json",
+      "host": "OpenClaw",
+      "status": "public-ready"
+    }
+  ],
+  "usePath": [
+    "Start from the current local stdio MCP builder surface",
+    "Only mention the OpenAPI contract as a compatibility bridge",
+    "Only mention repo-local workflow packets as maintainer-facing read-only surfaces",
+    "Use proof anchors from repo-owned files instead of future-product promises",
+    "Pair the starter bundle with openui-mcp-studio ecosystem-guide --json and npm run repo:doctor when you need the shortest proof loop"
+  ],
+  "proofLoop": [
+    "openui-mcp-studio skills starter --json",
+    "openui-mcp-studio ecosystem-guide --json",
+    "npm run repo:doctor",
+    "npm run demo:ship",
+    "node tooling/skills-install-proof.mjs"
+  ],
+  "proofAnchors": [
+    {
+      "path": "README.md",
+      "why": "States the current builder-surface order and keeps Skills honest."
+    },
+    {
+      "path": "docs/proof-and-faq.md",
+      "why": "Repeats the builder-order boundary and non-goals."
+    },
+    {
+      "path": "docs/contracts/openui-mcp.openapi.json",
+      "why": "Defines the compatibility-bridge boundary without turning it into a hosted API claim."
+    },
+    {
+      "path": "tooling/cli/openui.mjs",
+      "why": "Exposes repo-local builder commands that this starter pack points readers toward."
+    },
+    {
+      "path": "examples/public-distribution/openclaw-public-ready.manifest.json",
+      "why": "Provides the repo-owned OpenClaw public-ready bundle without claiming an official catalog."
+    }
+  ],
+  "notFor": [
+    "claiming a shipped formal Skills runtime",
+    "claiming marketplace or plugin listing support",
+    "claiming SDK or hosted API maturity",
+    "reframing OpenUI MCP Studio as a generic external integration platform",
+    "claiming an official OpenClaw runtime or ClawHub listing"
+  ],
+  "troubleshootingPath": [
+    "examples/public-distribution/troubleshooting.md"
+  ],
+  "operatorOnlyFollowThrough": [
+    "If this starter pack is later promoted into a public runtime, shared docs, contracts, CLI, and verification must all be updated in the same wave.",
+    "Any future marketplace submission or vendor review remains outside this starter pack."
+  ]
+}

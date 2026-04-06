@@ -1,0 +1,244 @@
+{
+	"version": 2,
+	"installSurfaces": [],
+	"runtimeSurface": ".runtime-cache",
+	"topLevelRuntimeDirectories": [".runtime-cache"],
+	"forbiddenTopLevelDirectories": [
+		"build",
+		"cache",
+		"coverage",
+		"dist",
+		"htmlcov",
+		"logs",
+		"playwright-report",
+		"tmp"
+	],
+	"forbiddenRepoRuntimeDirectories": [
+		".runtime-cache/artifacts",
+		".runtime-cache/ci-gate",
+		".runtime-cache/evidence",
+		".runtime-cache/logs",
+		".runtime-cache/ms-playwright",
+		".runtime-cache/openui-home",
+		".runtime-cache/quality-trend"
+	],
+	"categories": {
+		"build": {
+			"owner": "tooling-root",
+			"schema": "build-artifacts",
+			"ttlDays": 14,
+			"cleanMode": "reset",
+			"rebuildStrategy": "recompile",
+			"cleanupClass": "skip-maintenance",
+			"maintenanceMinAgeHours": 0,
+			"retainLatestCount": 0,
+			"paths": [".runtime-cache/build"],
+			"recreateOnClean": true
+		},
+		"runLogs": {
+			"owner": "packages-runtime-observability",
+			"schema": "per-run-log-layout",
+			"ttlDays": 7,
+			"cleanMode": "purge",
+			"rebuildStrategy": "new-run-only",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 72,
+			"retainLatestCount": 2,
+			"paths": [".runtime-cache/runs"],
+			"recreateOnClean": true
+		},
+		"cache": {
+			"owner": "packages-shared-runtime",
+			"schema": "cache-entries",
+			"ttlDays": 7,
+			"cleanMode": "retention",
+			"rebuildStrategy": "lazy-rebuild",
+			"cleanupClass": "skip-maintenance",
+			"maintenanceMinAgeHours": 0,
+			"retainLatestCount": 0,
+			"paths": [".runtime-cache/cache"],
+			"recreateOnClean": true
+		},
+		"reports": {
+			"owner": "tooling-root",
+			"schema": "cross-run-reports",
+			"ttlDays": 30,
+			"cleanMode": "purge",
+			"rebuildStrategy": "rerun-report-jobs",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 336,
+			"retainLatestCount": 1,
+			"paths": [
+				".runtime-cache/reports/quality-trend",
+				".runtime-cache/reports/history-audit",
+				".runtime-cache/reports/release-readiness",
+				".runtime-cache/reports/security",
+				".runtime-cache/reports/space-governance",
+				".runtime-cache/reports/upstream"
+			],
+			"recreateOnClean": false
+		},
+		"tmp": {
+			"owner": "tooling-root",
+			"schema": "temporary-run-state",
+			"ttlDays": 1,
+			"cleanMode": "purge",
+			"rebuildStrategy": "ephemeral-only",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 24,
+			"retainLatestCount": 0,
+			"paths": [".runtime-cache/tmp", ".runtime-cache/locks"],
+			"recreateOnClean": true
+		},
+		"toolMeta": {
+			"owner": "tooling-root",
+			"schema": "tool-reports-and-metadata",
+			"ttlDays": 30,
+			"cleanMode": "purge",
+			"rebuildStrategy": "rerun-tooling",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 168,
+			"retainLatestCount": 0,
+			"paths": [
+				".runtime-cache/ci-image",
+				".runtime-cache/next-smoke-tests",
+				".runtime-cache/stress",
+				".runtime-cache/env-governance",
+				".runtime-cache/env-keyset-drift"
+			],
+			"recreateOnClean": false
+		},
+		"ciLocalHost": {
+			"owner": "tooling-root",
+			"schema": "local-container-parity-runtime",
+			"ttlDays": 3,
+			"cleanMode": "purge",
+			"rebuildStrategy": "rerun-local-container-verify",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 72,
+			"retainLatestCount": 0,
+			"paths": [".runtime-cache/ci-local-host"],
+			"recreateOnClean": true
+		},
+		"mutation": {
+			"owner": "tooling-root",
+			"schema": "mutation-artifacts",
+			"ttlDays": 14,
+			"cleanMode": "purge",
+			"rebuildStrategy": "rerun-mutation",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 168,
+			"retainLatestCount": 0,
+			"paths": [".runtime-cache/mutation"],
+			"recreateOnClean": false
+		},
+		"coverage": {
+			"owner": "tooling-root",
+			"schema": "coverage-reports",
+			"ttlDays": 14,
+			"cleanMode": "purge",
+			"rebuildStrategy": "rerun-coverage",
+			"cleanupClass": "verify-first-maintain",
+			"maintenanceMinAgeHours": 168,
+			"retainLatestCount": 0,
+			"paths": [".runtime-cache/coverage"],
+			"recreateOnClean": false
+		}
+	},
+	"cleanPolicy": {
+		"resetOnClean": [".runtime-cache/build", ".runtime-cache/cache"],
+		"purgeOnClean": [
+			".runtime-cache/runs",
+			".runtime-cache/mutation",
+			".runtime-cache/coverage",
+			".runtime-cache/locks",
+			".runtime-cache/ci-local-host",
+			".runtime-cache/reports/quality-trend",
+			".runtime-cache/reports/history-audit",
+			".runtime-cache/reports/release-readiness",
+			".runtime-cache/reports/security",
+			".runtime-cache/reports/space-governance",
+			".runtime-cache/reports/upstream",
+			".runtime-cache/next-smoke-tests",
+			".runtime-cache/stress"
+		],
+		"retentionOnly": [".runtime-cache/cache", ".runtime-cache/runs"]
+	},
+	"pathExpectations": [
+		{
+			"path": "playwright.config.ts",
+			"mustInclude": [".runtime-cache/runs", "artifacts/playwright"],
+			"mustExclude": ["playwright-report"]
+		},
+		{
+			"path": "tooling/ci-gate/stages.mjs",
+			"mustInclude": [
+				".runtime-cache/runs",
+				"artifacts/playwright-firefox",
+				"artifacts/playwright-webkit",
+				"artifacts/visual"
+			],
+			"mustExclude": ["playwright-report"]
+		},
+		{
+			"path": "tooling/ci-gate.mjs",
+			"mustInclude": [".runtime-cache/runs", "summary.json", "quality-score.json"],
+			"mustExclude": [".runtime-cache/ci-gate"]
+		},
+		{
+			"path": "tooling/evidence-index.mjs",
+			"mustInclude": [".runtime-cache/runs", "evidence/index.json", "logPaths"],
+			"mustExclude": [".runtime-cache/evidence", ".runtime-cache/logs/openui-mcp.log.jsonl"]
+		},
+		{
+			"path": "tooling/clean-runtime.mjs",
+			"mustInclude": [
+				"readRuntimePathRegistry",
+				"listCleanPolicyPaths"
+			],
+			"mustExclude": [
+				".runtime-cache/ms-playwright",
+				".runtime-cache/openui-home"
+			]
+		},
+		{
+			"path": "ops/ci-container/run-in-container.sh",
+			"mustInclude": [
+				".runtime-cache/ci-local-host",
+				"XDG_CACHE_HOME",
+				"OPENUI_CONTAINER_HOME"
+			],
+			"mustExclude": [
+				".runtime-cache/ms-playwright",
+				".runtime-cache/openui-home"
+			]
+		},
+		{
+			"path": ".github/workflows/ci.yml",
+			"mustInclude": [
+				".runtime-cache/runs/**/artifacts/playwright/**",
+				".runtime-cache/runs/**/artifacts/playwright-firefox/**",
+				".runtime-cache/runs/**/artifacts/playwright-webkit/**"
+			],
+			"mustExclude": ["playwright-report/**"]
+		},
+		{
+			"path": ".github/workflows/quality-trend-weekly.yml",
+			"mustInclude": [
+				".runtime-cache/reports/quality-trend"
+			],
+			"mustExclude": [
+				".runtime-cache/quality-trend"
+			]
+		},
+		{
+			"path": "tooling/quality-score-calibrate.mjs",
+			"mustInclude": [
+				".runtime-cache/reports/quality-trend"
+			],
+			"mustExclude": [
+				".runtime-cache/quality-trend"
+			]
+		}
+	]
+}

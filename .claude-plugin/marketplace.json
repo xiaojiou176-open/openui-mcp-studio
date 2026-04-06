@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "name": "openui-mcp-studio-distribution-starter",
+  "owner": {
+    "name": "xiaojiou176"
+  },
+  "metadata": {
+    "description": "Marketplace-compatible Claude Code entry for the repo-owned OpenUI install, proof, and review bundle."
+  },
+  "plugins": [
+    {
+      "name": "openui-workspace-delivery",
+      "source": "./plugins/openui-workspace-delivery"
+    }
+  ]
+}

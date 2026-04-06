@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "packageName": "@openui/sdk",
+  "packageVersion": "0.3.1",
+  "status": "current-package",
+  "summary": "Public SDK for the self-hosted OpenUI Hosted API surface.",
+  "installPath": [
+    "npm pack packages/sdk",
+    "npm install ./openui-sdk-0.3.1.tgz"
+  ],
+  "importPath": [
+    "import { createOpenuiHostedClient } from \"@openui/sdk\";"
+  ],
+  "bestFor": [
+    "typed access to hosted discovery endpoints",
+    "workflow summary calls against the self-hosted OpenUI Hosted API",
+    "authenticated tool discovery and tool execution"
+  ],
+  "verificationPath": [
+    "node --import tsx tooling/sdk-install-proof.ts"
+  ],
+  "notFor": [
+    "claiming npm publication has already happened",
+    "claiming the SDK replaces the local stdio MCP runtime",
+    "claiming a managed hosted SaaS already exists"
+  ]
+}

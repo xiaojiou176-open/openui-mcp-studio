@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "technicalName": "OpenUI MCP Studio",
+  "package": {
+    "name": "@openui/sdk",
+    "entrypoint": "packages/sdk/index.mjs"
+  },
+  "audience": "developers integrating against the self-hosted OpenUI Hosted API",
+  "installPath": [
+    "packages/sdk",
+    "npm install /ABS/PATH/openui-mcp-studio/packages/sdk",
+    "import { createOpenuiHostedClient } from '@openui/sdk';"
+  ],
+  "currentSurface": {
+    "client": "thin client for the self-hosted OpenUI Hosted API",
+    "methods": [
+      "health",
+      "getInfo",
+      "frontdoor",
+      "ecosystem",
+      "skillsManifest",
+      "openapi",
+      "workflowSummary",
+      "listTools",
+      "callTool"
+    ]
+  },
+  "notFor": [
+    "claiming a browser extension",
+    "claiming a marketplace plugin",
+    "claiming an OpenUI-managed cloud service"
+  ]
+}

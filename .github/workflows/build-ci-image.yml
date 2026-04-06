@@ -1,0 +1,265 @@
+name: Build CI Image
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+    paths:
+      - ".devcontainer/**"
+      - ".node-version"
+      - ".nvmrc"
+      - "package.json"
+      - "package-lock.json"
+      - "services/gemini-sidecar/requirements.txt"
+      - "services/gemini-sidecar/constraints.txt"
+      - ".github/actions/run-in-ci-container/**"
+      - "ops/ci-container/**"
+      - ".github/workflows/build-ci-image.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
+concurrency:
+  group: build-ci-image-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_ci_image:
+    name: Build + Push GHCR CI Image
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      TZ: UTC
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      OPENUI_NODE_VERSION: "22.22.0"
+      OPENUI_CI_STABLE_TAG: node22-bookworm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Derive image metadata
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          repo_name="${GITHUB_REPOSITORY##*/}"
+          image_repo="ghcr.io/${GITHUB_REPOSITORY_OWNER}/${repo_name}-ci"
+          dockerfile_hash="$(sha256sum .devcontainer/Dockerfile | awk '{print $1}')"
+          lockfile_hash="$(sha256sum package-lock.json | awk '{print $1}')"
+          created_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          {
+            echo "image_repo=${image_repo}"
+            echo "dockerfile_hash=${dockerfile_hash}"
+            echo "lockfile_hash=${lockfile_hash}"
+            echo "created_at=${created_at}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Login to GHCR
+        shell: bash
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          printf '%s' "${GHCR_TOKEN}" | docker login ghcr.io --username "${GITHUB_ACTOR}" --password-stdin
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@d91f340399fb2345e3e45f5461e116862b08261d
+        with:
+          cache-binary: false
+          driver: docker-container
+          use: true
+          version: latest
+          buildkitd-flags: --debug
+
+      - name: Build and push CI image
+        id: build_push
+        shell: bash
+        env:
+          IMAGE_REPO: ${{ steps.meta.outputs.image_repo }}
+          CREATED_AT: ${{ steps.meta.outputs.created_at }}
+          DOCKERFILE_HASH: ${{ steps.meta.outputs.dockerfile_hash }}
+          LOCKFILE_HASH: ${{ steps.meta.outputs.lockfile_hash }}
+        run: |
+          set -euo pipefail
+          image_repo="${IMAGE_REPO}"
+          mkdir -p .runtime-cache/ci-image
+          docker buildx build \
+            --file .devcontainer/Dockerfile \
+            --tag "${image_repo}:sha-${GITHUB_SHA}" \
+            --tag "${image_repo}:${OPENUI_CI_STABLE_TAG}" \
+            --metadata-file .runtime-cache/ci-image/build-metadata.json \
+            --sbom=true \
+            --attest type=provenance,mode=max \
+            --label "org.opencontainers.image.title=openui-mcp-studio-ci" \
+            --label "org.opencontainers.image.description=Hermetic CI runtime for OpenUI MCP repository" \
+            --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
+            --label "org.opencontainers.image.revision=${GITHUB_SHA}" \
+            --label "org.opencontainers.image.created=${CREATED_AT}" \
+            --label "org.opencontainers.image.version=${OPENUI_NODE_VERSION}" \
+            --label "io.openui.node.version=${OPENUI_NODE_VERSION}" \
+            --label "io.openui.dockerfile.sha256=${DOCKERFILE_HASH}" \
+            --label "io.openui.lockfile.sha256=${LOCKFILE_HASH}" \
+            --push \
+            .
+
+      - name: Capture pushed digest
+        id: digest
+        shell: bash
+        env:
+          IMAGE_REPO: ${{ steps.meta.outputs.image_repo }}
+          DOCKERFILE_HASH: ${{ steps.meta.outputs.dockerfile_hash }}
+          LOCKFILE_HASH: ${{ steps.meta.outputs.lockfile_hash }}
+          CREATED_AT: ${{ steps.meta.outputs.created_at }}
+        run: |
+          set -euo pipefail
+          image_repo="${IMAGE_REPO}"
+          digest="$(docker buildx imagetools inspect "${image_repo}:sha-${GITHUB_SHA}" | awk '/Digest:/ {print $2; exit}')"
+          if [ -z "${digest}" ]; then
+            echo "::error title=Digest missing::Unable to resolve pushed digest for ${image_repo}:sha-${GITHUB_SHA}"
+            exit 1
+          fi
+          cat > .runtime-cache/ci-image/metadata.json <<EOF
+          {
+            "imageRepo": "${image_repo}",
+            "stableTag": "${OPENUI_CI_STABLE_TAG}",
+            "shaTag": "sha-${GITHUB_SHA}",
+            "digest": "${digest}",
+            "nodeVersion": "${OPENUI_NODE_VERSION}",
+            "dockerfileHash": "${DOCKERFILE_HASH}",
+            "lockfileHash": "${LOCKFILE_HASH}",
+            "createdAt": "${CREATED_AT}",
+            "sourceRepository": "${GITHUB_REPOSITORY}",
+            "sourceRevision": "${GITHUB_SHA}"
+          }
+          EOF
+          cat > .runtime-cache/ci-image/ci-image.lock.json <<EOF
+          {
+            "version": 1,
+            "imageRepo": "${image_repo}",
+            "digest": "${digest}",
+            "bootstrap": {
+              "dockerfile": ".devcontainer/Dockerfile",
+              "context": "."
+            },
+            "notes": "Sync this file back to .github/ci-image.lock.json when rotating the canonical CI image digest."
+          }
+          EOF
+          cat > .runtime-cache/ci-image/supply-chain-evidence.json <<EOF
+          {
+            "version": 1,
+            "imageRepo": "${image_repo}",
+            "digest": "${digest}",
+            "lockPath": ".github/ci-image.lock.json",
+            "buildMetadataPath": ".runtime-cache/ci-image/build-metadata.json",
+            "metadataArtifact": "ci-image-metadata-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}",
+            "sbom": {
+              "enabled": true,
+              "mode": "buildx-inline"
+            },
+            "provenance": {
+              "enabled": true,
+              "mode": "buildx-attest-max"
+            },
+            "registryAttestation": {
+              "enabled": true,
+              "provider": "actions/attest-build-provenance"
+            }
+          }
+          EOF
+          echo "digest=${digest}" >> "${GITHUB_OUTPUT}"
+
+      - name: Attest build provenance
+        id: registry_attestation
+        continue-on-error: true
+        uses: actions/attest-build-provenance@10334b5f1e684784025c3fc0a277c88c19089275
+        with:
+          subject-name: ${{ steps.meta.outputs.image_repo }}
+          subject-digest: ${{ steps.digest.outputs.digest }}
+          push-to-registry: true
+
+      - name: Publish image summary
+        if: always()
+        shell: bash
+        env:
+          IMAGE_REPO: ${{ steps.meta.outputs.image_repo }}
+          DIGEST: ${{ steps.digest.outputs.digest }}
+          REGISTRY_ATTESTATION_OUTCOME: ${{ steps.registry_attestation.outcome }}
+          BUILD_PUSH_OUTCOME: ${{ steps.build_push.outcome }}
+          DIGEST_OUTCOME: ${{ steps.digest.outcome }}
+        run: |
+          {
+            echo "### CI Image Published"
+            echo ""
+            echo "- Image: \`${IMAGE_REPO}\`"
+            echo "- Stable tag: \`${OPENUI_CI_STABLE_TAG}\`"
+            echo "- Immutable tag: \`sha-${GITHUB_SHA}\`"
+            echo "- Digest: \`${DIGEST}\`"
+            echo "- Canonical lock artifact: \`ci-image.lock.json\`"
+            echo "- SBOM: \`buildx --sbom=true\`"
+            echo "- Provenance: \`buildx --attest type=provenance,mode=max\`"
+            echo "- Registry attestation step outcome: \`${REGISTRY_ATTESTATION_OUTCOME}\`"
+            echo "- Node: \`${OPENUI_NODE_VERSION}\`"
+            echo "- Build + push step outcome: \`${BUILD_PUSH_OUTCOME}\`"
+            echo "- Digest capture outcome: \`${DIGEST_OUTCOME}\`"
+            if [ "${BUILD_PUSH_OUTCOME}" != "success" ]; then
+              echo ""
+              echo "> Build + push did not complete successfully."
+              echo "> If GHCR login succeeded but blob upload returned 403, treat this as a remote package linkage or package-permission boundary."
+              echo "> Inspect the staged metadata artifact for partial build evidence."
+            fi
+            if [ "${REGISTRY_ATTESTATION_OUTCOME}" != "success" ]; then
+              echo ""
+              echo "> Registry attestation did not complete successfully."
+              echo "> The image digest and metadata artifact are still authoritative."
+              echo "> Follow-up is required only if the repository/org later enables GitHub attestation persistence."
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Stage CI image metadata payload
+        if: always()
+        shell: bash
+        env:
+          IMAGE_REPO: ${{ steps.meta.outputs.image_repo }}
+          BUILD_PUSH_OUTCOME: ${{ steps.build_push.outcome }}
+          DIGEST_OUTCOME: ${{ steps.digest.outcome }}
+          REGISTRY_ATTESTATION_OUTCOME: ${{ steps.registry_attestation.outcome }}
+        run: |
+          set -euo pipefail
+          artifact_dir=".runtime-cache/ci-image-artifact"
+          mkdir -p "${artifact_dir}"
+          cat > "${artifact_dir}/status.json" <<EOF
+          {
+            "imageRepo": "${IMAGE_REPO}",
+            "stableTag": "${OPENUI_CI_STABLE_TAG}",
+            "shaTag": "sha-${GITHUB_SHA}",
+            "buildPushOutcome": "${BUILD_PUSH_OUTCOME}",
+            "digestOutcome": "${DIGEST_OUTCOME}",
+            "registryAttestationOutcome": "${REGISTRY_ATTESTATION_OUTCOME}"
+          }
+          EOF
+          for file in \
+            .runtime-cache/ci-image/metadata.json \
+            .runtime-cache/ci-image/ci-image.lock.json \
+            .runtime-cache/ci-image/build-metadata.json \
+            .runtime-cache/ci-image/supply-chain-evidence.json; do
+            if [ -f "${file}" ]; then
+              cp "${file}" "${artifact_dir}/"
+            fi
+          done
+
+      - name: Upload CI image metadata artifact
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: ci-image-metadata-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 14
+          path: .runtime-cache/ci-image-artifact/

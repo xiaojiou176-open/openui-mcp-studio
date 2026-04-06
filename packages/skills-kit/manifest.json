@@ -1,0 +1,61 @@
+{
+  "packageName": "@openui/skills-kit",
+  "version": "0.1.0",
+  "summary": "Plugin-grade public starter bundle for OpenUI skill-shaped integrations across Codex, Claude Code, and OpenClaw-style hosts.",
+  "status": "plugin-grade-public-package",
+  "audience": "maintainers, builders, and agent teams that need sample configs, proof loops, and bounded starter metadata on top of the current OpenUI surfaces",
+  "role": "starter contracts, starter bundles, manifest metadata, troubleshooting, and boundary-first examples",
+  "installPath": [
+    "npm install /ABS/PATH/openui-mcp-studio/packages/skills-kit",
+    "import { OPENUI_SKILLS_KIT_MANIFEST } from '@openui/skills-kit'",
+    "Inspect starter-bundles/codex.mcp.json or starter-bundles/claude-code.mcp.json for ready-to-adapt host config",
+    "Inspect starter-bundles/codex-plugin/ or starter-bundles/claude-code-plugin/ for official-surface-ready bundle directories",
+    "Inspect starter-bundles/openclaw.mcp.json or starter-bundles/openclaw-skill/ for the repo-owned OpenClaw public-ready bundle"
+  ],
+  "verificationPath": [
+    "node tooling/cli/openui.mjs skills starter --json",
+    "node tooling/cli/openui.mjs ecosystem-guide --json",
+    "npm run repo:doctor",
+    "npm run demo:ship",
+    "node tooling/skills-install-proof.mjs",
+    "node --input-type=module -e \"import { OPENUI_SKILLS_KIT_MANIFEST } from '@openui/skills-kit'; console.log(OPENUI_SKILLS_KIT_MANIFEST.packageName)\""
+  ],
+  "starterBundles": [
+    "starter-bundles/codex.mcp.json",
+    "starter-bundles/claude-code.mcp.json",
+    "starter-bundles/openclaw.mcp.json",
+    "starter-bundles/codex-plugin/",
+    "starter-bundles/claude-code-plugin/",
+    "starter-bundles/openclaw-skill/"
+  ],
+  "troubleshootingPath": [
+    "starter-troubleshooting.md"
+  ],
+  "officialPublicSurfaces": {
+    "codex": {
+      "status": "plugin-directory-ready",
+      "currentTruth": "The repo ships a Codex Plugin Directory-ready bundle and MCP config, but it does not claim an official directory listing.",
+      "operatorOnlyTail": "Official directory publication remains platform-managed."
+    },
+    "claudeCode": {
+      "status": "marketplace-ready",
+      "currentTruth": "The repo ships a Claude Code marketplace-ready bundle and MCP config, but it does not claim an official marketplace listing.",
+      "operatorOnlyTail": "Marketplace submission and approval remain operator/platform actions."
+    },
+    "openclaw": {
+      "status": "clawhub-ready",
+      "currentTruth": "The repo ships an OpenClaw / ClawHub-ready skill bundle and MCP config, but it does not claim an official listing.",
+      "operatorOnlyTail": "ClawHub publication and review remain operator/platform actions."
+    }
+  },
+  "supportingParkedLanes": [
+    "@openui/sdk",
+    "openui-mcp-studio hosted ..."
+  ],
+  "notFor": [
+    "claiming a marketplace listing",
+    "claiming a hosted skills runtime",
+    "claiming a plugin registry integration that does not exist",
+    "claiming an official OpenClaw or ClawHub listing"
+  ]
+}

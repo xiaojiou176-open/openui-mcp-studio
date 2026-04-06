@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "name": "OpenUI repo-scoped Codex marketplace",
+  "plugins": [
+    {
+      "id": "openui-codex-delivery",
+      "source": {
+        "path": "./../../plugins/openui-codex-delivery"
+      },
+      "interface": {
+        "displayName": "OpenUI Workspace Delivery",
+        "description": "Repo-owned Codex bundle for local OpenUI MCP install, proof, and review."
+      }
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "version": 1,
+  "repository": {
+    "owner": "xiaojiou176",
+    "name": "openui-mcp-studio",
+    "visibility": "public"
+  },
+  "checkedAt": "2026-04-05T14:42:24Z",
+  "statusModel": [
+    "verified",
+    "repo_asserted",
+    "unverified"
+  ],
+  "publicReadyRequirements": {
+    "requiredValues": {
+      "branch_protection_main": ["enabled"],
+      "required_checks_main": ["enforced"],
+      "codeowners_enforcement": ["enforced"],
+      "secret_scanning": ["enabled"],
+      "code_scanning": ["enabled"],
+      "private_vulnerability_reporting": ["enabled"],
+      "live_gemini_environment": ["protected_review_required"]
+    }
+  },
+  "repoLocalControls": [
+    {
+      "id": "workflow_governance",
+      "label": "Workflow governance contract",
+      "status": "verified",
+      "summary": "Repository-owned workflow governance checks are wired and passing locally.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": "tooling/check-workflow-governance.mjs"
+        },
+        {
+          "type": "repo_path",
+          "value": ".github/workflows/ci.yml"
+        },
+        {
+          "type": "command_observation",
+          "value": "npm run governance:workflow:check -> exit 0"
+        }
+      ]
+    },
+    {
+      "id": "public_infra_boundary",
+      "label": "Public infra boundary guard",
+      "status": "verified",
+      "summary": "Repository checks forbid known internal topology markers in selected public workflow surfaces.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": "tooling/check-public-infra-boundary.mjs"
+        },
+        {
+          "type": "command_observation",
+          "value": "node tooling/check-public-infra-boundary.mjs -> exit 0"
+        }
+      ]
+    },
+    {
+      "id": "open_source_surface",
+      "label": "Open-source surface routing",
+      "status": "verified",
+      "summary": "Required public-facing repository files exist and are routed from README.md and docs/index.md.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": "tooling/check-open-source-surface.mjs"
+        },
+        {
+          "type": "command_observation",
+          "value": "npm run governance:open-source-surface:check -> exit 0"
+        }
+      ]
+    }
+  ],
+  "remotePlatformControls": [
+    {
+      "id": "default_branch",
+      "label": "Default branch",
+      "status": "verified",
+      "value": "main",
+      "summary": "GitHub repository API confirms the default branch value.",
+      "evidence": [
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio -> default_branch=main"
+        }
+      ]
+    },
+    {
+      "id": "branch_protection_main",
+      "label": "Branch protection on main",
+      "status": "verified",
+      "value": "enabled",
+      "summary": "GitHub branch metadata reports main is protected, and the protection endpoint returns an active protection policy.",
+      "evidence": [
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio/branches/main -> protected=true"
+        },
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio/branches/main/protection -> required_status_checks.strict=true"
+        }
+      ]
+    },
+    {
+      "id": "required_checks_main",
+      "label": "Required status checks on main",
+      "status": "verified",
+      "value": "enforced",
+      "expectedChecks": [
+        "Quality (Node 22.22.0)",
+        "Workflow Lint",
+        "secret_scan"
+      ],
+      "summary": "Branch protection requires a stable aggregate quality gate together with workflow lint and secret scan before merge.",
+      "evidence": [
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio/branches/main/protection/required_status_checks -> contexts=[secret_scan, Workflow Lint, Quality (Node 22.22.0)]"
+        },
+        {
+          "type": "repo_path",
+          "value": ".github/workflows/ci.yml"
+        },
+        {
+          "type": "repo_path",
+          "value": "docs/secrets-incident-runbook.md"
+        }
+      ]
+    },
+    {
+      "id": "codeowners_enforcement",
+      "label": "CODEOWNERS enforcement",
+      "status": "verified",
+      "value": "enforced",
+      "summary": "The remote repository enforces CODEOWNERS review on main through branch protection.",
+      "evidence": [
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio/contents/CODEOWNERS -> file exists"
+        },
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio/branches/main/protection -> require_code_owner_reviews=true"
+        },
+        {
+          "type": "repo_path",
+          "value": "CODEOWNERS"
+        },
+        {
+          "type": "repo_path",
+          "value": ".github/pull_request_template.md"
+        }
+      ]
+    },
+    {
+      "id": "secret_scanning",
+      "label": "GitHub secret scanning",
+      "status": "verified",
+      "value": "enabled",
+      "summary": "Repository-local gitleaks coverage is verified, and the GitHub secret-scanning REST endpoint currently reports zero open alerts for the public repository.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": ".gitleaks.toml"
+        },
+        {
+          "type": "repo_path",
+          "value": "docs/secrets-incident-runbook.md"
+        },
+        {
+          "type": "command_observation",
+          "value": "gh api 'repos/xiaojiou176/openui-mcp-studio/secret-scanning/alerts?state=open&per_page=100' -> []"
+        }
+      ]
+    },
+    {
+      "id": "push_protection",
+      "label": "GitHub push protection",
+      "status": "verified",
+      "value": "enabled",
+      "summary": "GitHub repository security settings report secret-scanning push protection as enabled for the current public repository posture.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": "README.md"
+        },
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio --jq '.security_and_analysis.secret_scanning_push_protection.status' -> enabled"
+        }
+      ]
+    },
+    {
+      "id": "code_scanning",
+      "label": "GitHub code scanning",
+      "status": "verified",
+      "value": "enabled",
+      "summary": "GitHub code-scanning alerts are available for the repository, and the current REST query reports zero open alerts.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": "docs/secrets-incident-runbook.md"
+        },
+        {
+          "type": "command_observation",
+          "value": "gh api 'repos/xiaojiou176/openui-mcp-studio/code-scanning/alerts?state=open&per_page=100' -> []"
+        }
+      ]
+    },
+    {
+      "id": "private_vulnerability_reporting",
+      "label": "Private vulnerability reporting",
+      "status": "verified",
+      "value": "enabled",
+      "summary": "GitHub private vulnerability reporting is enabled for the current public repository posture.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": "SECURITY.md"
+        },
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio/private-vulnerability-reporting -> {\"enabled\":true}"
+        }
+      ]
+    },
+    {
+      "id": "live_gemini_environment",
+      "label": "Protected live Gemini environment",
+      "status": "verified",
+      "value": "protected_review_required",
+      "summary": "The manual live Gemini lane is bound to a protected GitHub environment that requires an admin reviewer and protected-branch deployment policy before secrets enter the job.",
+      "evidence": [
+        {
+          "type": "repo_path",
+          "value": ".github/workflows/ci.yml"
+        },
+        {
+          "type": "command_observation",
+          "value": "gh api repos/xiaojiou176/openui-mcp-studio/environments/live-gemini-manual -> required_reviewers=[leilei999lei-lab], prevent_self_review=true, deployment_branch_policy.protected_branches=true"
+        }
+      ]
+    }
+  ]
+}

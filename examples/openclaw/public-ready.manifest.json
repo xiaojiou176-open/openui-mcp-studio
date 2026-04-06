@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "surface": "openclaw-public-ready",
+  "status": "public-ready",
+  "summary": "Repo-owned OpenClaw public-ready bundle for OpenUI MCP Studio using a Claude-compatible plugin bundle, starter config, and proof loop.",
+  "installPath": [
+    "openclaw plugins install ./plugins/openui-workspace-delivery",
+    "packages/skills-kit/starter-bundles/openclaw.mcp.json",
+    "examples/openclaw/README.md"
+  ],
+  "proofPath": [
+    "openui-mcp-studio ecosystem-guide --json",
+    "openui-mcp-studio skills starter --json",
+    "npm run repo:doctor",
+    "docs/proof-and-faq.md"
+  ],
+  "discoverableArtifacts": [
+    ".claude-plugin/marketplace.json",
+    "plugins/openui-workspace-delivery/.claude-plugin/plugin.json",
+    "packages/skills-kit/starter-bundles/openclaw.mcp.json",
+    "docs/contracts/openui-ecosystem-productization.json"
+  ],
+  "notFor": [
+    "claiming a ClawHub listing",
+    "claiming official OpenClaw catalog approval",
+    "claiming managed hosted runtime support"
+  ]
+}

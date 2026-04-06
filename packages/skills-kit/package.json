@@ -1,0 +1,27 @@
+{
+  "name": "@openui/skills-kit",
+  "version": "0.1.0",
+  "description": "Public starter kit for OpenUI skill-shaped integrations without marketplace overclaim.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./index.mjs",
+    "./manifest": "./manifest.json",
+    "./starter-contract.template": "./starter-contract.template.json",
+    "./starter-contract.example": "./starter-contract.example.json",
+    "./starter-bundles/codex": "./starter-bundles/codex.mcp.json",
+    "./starter-bundles/claude-code": "./starter-bundles/claude-code.mcp.json",
+    "./starter-bundles/openclaw": "./starter-bundles/openclaw.mcp.json",
+    "./starter-troubleshooting": "./starter-troubleshooting.md",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "README.md",
+    "index.mjs",
+    "manifest.json",
+    "starter-contract.template.json",
+    "starter-contract.example.json",
+    "starter-bundles",
+    "starter-troubleshooting.md"
+  ]
+}

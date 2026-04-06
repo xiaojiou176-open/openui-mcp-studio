@@ -1,0 +1,317 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenUI MCP Compatibility Surface",
+    "version": "0.3.0",
+    "summary": "Compatibility bridge for the local stdio MCP builder surface.",
+    "description": "Contract-oriented HTTP projection of the local stdio MCP interface for compatibility, bridge consumers, and breaking-change review. This document mirrors the repo-side builder surface boundary exposed through services/mcp-server/src/public/index.ts. It is not the primary contract for the separate self-hosted Hosted API or public SDK product lines, and it does not imply a remote-write control plane."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:7878",
+      "description": "Compatibility projection only; runtime transport remains stdio and the primary builder surface remains local MCP."
+    }
+  ],
+  "tags": [
+    {
+      "name": "Compatibility Bridge",
+      "description": "Secondary bridge for contract review and adapter compatibility. Read this after the local stdio MCP surface, not instead of it."
+    }
+  ],
+  "x-openui-transport": "stdio-mcp",
+  "x-openui-public-export-entrypoint": "services/mcp-server/src/public/index.ts",
+  "x-openui-builder-surface-order": [
+    {
+      "position": 1,
+      "id": "local-stdio-mcp",
+      "status": "current",
+      "surface": "Local stdio MCP",
+      "audience": "builder",
+      "bestFor": "Starting a real MCP-native prompt-to-workspace integration from the canonical local runtime.",
+      "readWhen": "Read this first when the question is how to execute OpenUI from Codex, Claude Code, or another MCP client.",
+      "notFor": "Hosted API expectations, remote mutation assumptions, or schema-only review without the MCP runtime.",
+      "entrypoints": [
+        "services/mcp-server/src/main.ts",
+        "services/mcp-server/src/public/server.ts",
+        "openui-mcp-studio mcp"
+      ],
+      "description": "Primary builder surface for Codex, Claude Code, and other MCP clients."
+    },
+    {
+      "position": 2,
+      "id": "compatibility-openapi-bridge",
+      "status": "current",
+      "surface": "Compatibility OpenAPI bridge",
+      "audience": "builder-contract-reader",
+      "bestFor": "Compatibility review, adapter shaping, and HTTP-facing contract inspection after the MCP path is clear.",
+      "readWhen": "Read this second when you need schema-oriented inspection instead of the primary runtime entrypoint.",
+      "notFor": "Treating the compatibility bridge itself as the primary hosted API, SDK, or remote-write builder control-plane contract.",
+      "entrypoints": [
+        "docs/contracts/openui-mcp.openapi.json",
+        "openui-mcp-studio openapi"
+      ],
+      "description": "Secondary bridge for contract review and adapter compatibility; the self-hosted Hosted API and public SDK live on separate product-line contracts."
+    },
+    {
+      "position": 3,
+      "id": "repo-local-workflow-readiness",
+      "status": "current",
+      "surface": "Repo-local workflow readiness slice",
+      "audience": "maintainer-operator",
+      "bestFor": "Repo-local plus GitHub-connected readiness checks and non-mutating handoff packets for maintainers.",
+      "readWhen": "Read this third when the question becomes whether the repo is ready to move toward PR or checks review.",
+      "notFor": "Replacing the MCP runtime, acting like a public workflow service, or mutating remote state.",
+      "entrypoints": [
+        "services/mcp-server/src/public/workflow-summary.ts",
+        "npm run repo:workflow:summary",
+        "npm run repo:workflow:ready",
+        "openui-mcp-studio workflow summary",
+        "openui-mcp-studio workflow ready"
+      ],
+      "description": "Maintainer-facing read-only workflow packet that stays separate from remote mutation."
+    }
+  ],
+  "x-openui-builder-dispatcher": {
+    "cli": "openui-mcp-studio",
+    "surfaceGuideCommand": "openui-mcp-studio surface-guide",
+    "description": "Repo-local dispatcher and formal entry helper for the current builder surface order."
+  },
+  "x-openui-builder-surface-guide": {
+    "audience": "Zero-context builders evaluating or integrating OpenUI MCP Studio from the repo itself.",
+    "startWith": "Begin with the local stdio MCP surface because it is the canonical runtime entrypoint and the rest of the builder layer only explains or supports that runtime.",
+    "openapiWhen": "Read the OpenAPI bridge after the MCP-first flow is clear and you need compatibility review, adapter shaping, or breaking-change inspection.",
+    "workflowPacketWhen": "Read the workflow packet when you are in maintainer/operator mode and need repo-local plus GitHub-connected readiness without remote mutation.",
+    "skillsStarterWhen": "Open examples/skills only after the first three surfaces are clear and you need a starter contract for a future skill-shaped integration.",
+    "notFor": [
+      "Treating the builder-order guide as the primary SDK or hosted API product contract",
+      "Claiming the SDK or self-hosted Hosted API replaces local stdio MCP in the builder order",
+      "Plugin or marketplace distribution",
+      "Write-capable remote MCP claims"
+    ]
+  },
+  "x-openui-later-lanes": [
+    {
+      "id": "registry-publication",
+      "status": "later",
+      "description": "Registry publication for package surfaces remains operator-owned."
+    },
+    {
+      "id": "managed-hosted-deployment",
+      "status": "later",
+      "description": "Managed hosted deployment remains later/operator-owned even though the self-hosted Hosted API runtime is current."
+    },
+    {
+      "id": "write-capable-remote-mcp",
+      "status": "later",
+      "description": "Remote mutation remains out of scope for the current builder-facing contract."
+    },
+    {
+      "id": "plugin-marketplace-or-skills-distribution",
+      "status": "later",
+      "description": "Plugin, marketplace, and formal skills packaging stay in later productization lanes."
+    }
+  ],
+  "paths": {
+    "/mcp/tools/list": {
+      "get": {
+        "tags": [
+          "Compatibility Bridge"
+        ],
+        "summary": "List tool contracts",
+        "description": "List tool metadata available through the compatibility bridge. Read this as a projection of the local stdio MCP registry, not as evidence of a separate hosted control plane.",
+        "operationId": "listMcpToolsBridge",
+        "responses": {
+          "200": {
+            "description": "Compatibility-bridge tool metadata payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/McpToolListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp/tools/call": {
+      "post": {
+        "tags": [
+          "Compatibility Bridge"
+        ],
+        "summary": "Invoke MCP tool via compatibility bridge",
+        "description": "Invoke one MCP tool through a compatibility adapter. The canonical runtime remains the local stdio MCP server, and response envelopes may vary by adapter.",
+        "operationId": "callMcpToolBridge",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/McpToolCallRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful compatibility-bridge tool response payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/McpToolCallResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompatibilityError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unhandled runtime error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompatibilityError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ToolArguments": {
+        "type": "object",
+        "description": "Bridge-projected tool arguments. Shape depends on the selected MCP tool input schema.",
+        "additionalProperties": true
+      },
+      "McpToolCallRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "arguments"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Registered MCP tool name."
+          },
+          "arguments": {
+            "$ref": "#/components/schemas/ToolArguments"
+          }
+        },
+        "additionalProperties": false
+      },
+      "McpToolDescriptor": {
+        "type": "object",
+        "description": "Compatibility projection of tool metadata. Concrete adapter payloads may include additional fields.",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "inputSchema": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "outputSchema": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "annotations": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "McpToolListResponse": {
+        "type": "object",
+        "description": "Compatibility bridge response for tool discovery. The payload stays intentionally bridge-oriented and does not imply a hosted REST-native SDK contract.",
+        "properties": {
+          "transport": {
+            "type": "string",
+            "example": "stdio-mcp"
+          },
+          "primaryBuilderSurface": {
+            "type": "string",
+            "example": "local-stdio-mcp"
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/McpToolDescriptor"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "McpContentBlock": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "text"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "McpToolCallResponse": {
+        "type": "object",
+        "description": "Compatibility projection of an MCP tool result. Content blocks and extra metadata can vary by adapter.",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/McpContentBlock"
+            }
+          },
+          "isError": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "CompatibilityError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

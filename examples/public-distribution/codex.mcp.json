@@ -1,0 +1,24 @@
+{
+  "client": "Codex",
+  "transport": "stdio",
+  "displayName": "openui",
+  "config": {
+    "command": "node",
+    "args": [
+      "/ABS/PATH/openui-mcp-studio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+    ],
+    "env": {
+      "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+    }
+  },
+  "installCommand": "codex mcp add openui --env GEMINI_API_KEY=your_key -- node /ABS/PATH/openui-mcp-studio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
+  "proofCommands": [
+    "codex mcp list",
+    "node tooling/cli/openui.mjs surface-guide",
+    "npm run demo:ship"
+  ],
+  "notFor": [
+    "claiming a Codex marketplace item",
+    "claiming vendor approval beyond the documented MCP install path"
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "technicalName": "OpenUI MCP Studio",
+  "frontdoorLabel": "OneClickUI.ai",
+  "summary": "Current ecosystem packaging truth for OpenUI MCP Studio. This contract explains the plugin-grade public distribution package for Codex and Claude Code, the repo-owned OpenClaw public-ready bundle, and which supporting lanes remain parked or operator-only.",
+  "currentTruth": {
+    "codex": "The official Codex Plugin Directory exists and this repo now ships a Plugin Directory-ready package through MCP configuration, starter bundles, proof loop, and troubleshooting.",
+    "claudeCode": "The official Claude Code marketplace exists and this repo now ships a marketplace-ready package through MCP configuration, starter bundles, proof loop, and troubleshooting.",
+    "genericMcpHost": "A reusable stdio MCP launch template is documented for other MCP-capable hosts.",
+    "formalSkills": "Installable public starter pack through @openui/skills-kit plus repo-owned examples/skills mirror.",
+    "pluginLikePackaging": "Plugin-grade public distribution package is current inside the repo-owned starter surface, not marketplace packaging.",
+    "openclawBridge": "The official OpenClaw public surface exists as ClawHub, and the repo now ships a ClawHub-ready public package through starter bundles, install/proof loop, and discoverable contract artifacts, without claiming listing approval.",
+    "sdk": "Supporting or parked package surface through @openui/sdk.",
+    "hostedApi": "Supporting or parked self-hosted runtime through the repo CLI and hosted API contract."
+  },
+  "clientSupportMatrix": [
+    {
+      "client": "Codex",
+      "status": "plugin-directory-ready",
+      "why": "The official Codex Plugin Directory exists, and local stdio MCP installation, starter bundles, proof loop, and troubleshooting are documented as one repo-owned distribution surface.",
+      "repoOwnedProof": [
+        "README.md",
+        "docs/discovery-surfaces.md",
+        "docs/contracts/openui-mcp.openapi.json",
+        "examples/skills/codex.mcp.json",
+        "examples/codex/marketplace.sample.json",
+        "docs/contracts/openui-public-skills-starter.json"
+      ],
+      "notFor": "Claiming a Codex marketplace item or any vendor-approved plugin listing."
+    },
+    {
+      "client": "Claude Code",
+      "status": "marketplace-ready",
+      "why": "The official Claude Code marketplace exists, and local stdio MCP installation, starter bundles, proof loop, and troubleshooting are documented as one repo-owned distribution surface.",
+      "repoOwnedProof": [
+        "README.md",
+        "docs/discovery-surfaces.md",
+        "docs/contracts/openui-mcp.openapi.json",
+        "examples/skills/claude-code.mcp.json",
+        ".claude-plugin/marketplace.json",
+        "docs/contracts/openui-public-skills-starter.json"
+      ],
+      "notFor": "Claiming a Claude Code plugin listing or managed hosted runtime."
+    },
+    {
+      "client": "Generic MCP host",
+      "status": "template-ready",
+      "why": "The repo documents a reusable stdio launch contract for MCP-capable hosts beyond Codex and Claude Code.",
+      "repoOwnedProof": [
+        "README.md",
+        "docs/discovery-surfaces.md",
+        "docs/contracts/openui-mcp.openapi.json"
+      ],
+      "notFor": "Claiming vendor-native verification, a marketplace listing, or a host-specific support promise."
+    },
+    {
+      "client": "OpenHands",
+      "status": "positioning-only",
+      "why": "The repo compares itself against broader coding-agent traffic but does not ship a dedicated install or discovery path for OpenHands today.",
+      "repoOwnedProof": [
+        "docs/strategy/product-positioning-naming-distribution.md"
+      ],
+      "notFor": "Claiming current install-ready packaging or an official OpenHands integration."
+    },
+    {
+      "client": "OpenCode",
+      "status": "positioning-only",
+      "why": "The repo treats OpenCode as a comparison/binding reference, not a current packaging surface.",
+      "repoOwnedProof": [
+        "docs/strategy/product-positioning-naming-distribution.md"
+      ],
+      "notFor": "Claiming current install-ready packaging or an official OpenCode integration."
+    },
+    {
+      "client": "OpenClaw",
+      "status": "clawhub-ready",
+      "why": "The official OpenClaw public surface exists as ClawHub, and the repo now exposes a repo-owned OpenClaw public-ready bundle: starter config, public starter pack, proof loop, and discoverable contract artifacts. That is still not an official OpenClaw integration or verified runtime lane.",
+      "repoOwnedProof": [
+        "README.md",
+        "docs/discovery-surfaces.md",
+        "examples/skills/openclaw.mcp.json",
+        "examples/openclaw/public-ready.manifest.json",
+        "examples/skills/public-starter.manifest.json",
+        "docs/contracts/openui-public-skills-starter.json"
+      ],
+      "notFor": "Claiming a verified OpenClaw runtime, ClawHub listing, marketplace item, or official plugin/skills publication."
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "formal-skills",
+      "title": "Public Skills starter kit",
+      "status": "current-packaging",
+      "audience": "maintainers and builders drafting future skill-shaped integrations or OpenClaw-style bridge experiments",
+      "role": "installable starter pack with repo mirror and bounded contract examples",
+      "packageShape": "public package @openui/skills-kit plus repo mirror under examples/skills",
+      "installPath": [
+        "packages/skills-kit/README.md",
+        "packages/skills-kit/manifest.json",
+        "examples/skills/README.md",
+        "examples/skills/public-starter.manifest.json",
+        "openui-mcp-studio skills starter --json",
+        "openui-mcp-studio ecosystem-guide --json"
+      ],
+      "verificationPath": [
+        "node tooling/cli/openui.mjs skills starter --json",
+        "node tooling/skills-install-proof.mjs"
+      ],
+      "notFor": "claiming a shipped public Skills runtime, marketplace item, or hosted integration platform"
+    },
+    {
+      "id": "plugin-like-install-packaging",
+      "title": "Codex and Claude plugin-grade public distribution package",
+      "status": "official-surface-ready",
+      "audience": "Codex, Claude Code, and other MCP-capable hosts that can spawn local stdio servers",
+      "role": "configuration snippets, starter bundles, CLI guidance, proof loop, and troubleshooting for local MCP installation",
+      "packageShape": "CLI guide plus host-adaptable config snippets, starter bundles, proof metadata, and official-surface-ready samples; not a listed marketplace artifact",
+      "installPath": [
+        "README.md",
+        "docs/discovery-surfaces.md",
+        "examples/skills/codex.mcp.json",
+        "examples/skills/claude-code.mcp.json",
+        "examples/codex/marketplace.sample.json",
+        ".claude-plugin/marketplace.json",
+        "examples/skills/starter-troubleshooting.md",
+        "openui-mcp-studio ecosystem-guide --json"
+      ],
+      "verificationPath": [
+        "node tooling/cli/openui.mjs ecosystem-guide --json",
+        "npm run repo:doctor",
+        "npm run demo:ship"
+      ],
+      "notFor": "claiming a Codex marketplace item, a published Claude Code plugin, or vendor-native verification for every MCP-capable host"
+    },
+    {
+      "id": "openclaw-public-ready",
+      "title": "OpenClaw public-ready repo-owned package",
+      "status": "clawhub-ready",
+      "audience": "OpenClaw-side builders and operators who need a discoverable install/proof path before any official listing exists",
+      "role": "repo-owned OpenClaw starter bundle with sample config, proof loop, and discoverable artifacts",
+      "packageShape": "starter bundle plus contracts and docs for a ClawHub-ready artifact, not an official listing artifact",
+      "installPath": [
+        "examples/skills/openclaw.mcp.json",
+        "examples/openclaw/public-ready.manifest.json",
+        "docs/discovery-surfaces.md",
+        "docs/contracts/openui-public-skills-starter.json",
+        "docs/contracts/openui-ecosystem-productization.json"
+      ],
+      "verificationPath": [
+        "node tooling/cli/openui.mjs ecosystem-guide --json",
+        "npm run repo:doctor",
+        "npm run demo:ship"
+      ],
+      "notFor": "claiming a verified OpenClaw runtime, ClawHub listing, or official marketplace approval"
+    },
+    {
+      "id": "public-sdk",
+      "title": "Hosted client SDK",
+      "status": "supporting-parked",
+      "audience": "developers evaluating future thin-client or package surfaces",
+      "role": "thin client for the self-hosted OpenUI Hosted API kept as a supporting lane",
+      "packageShape": "@openui/sdk package",
+      "installPath": [
+        "packages/sdk",
+        "npm install /ABS/PATH/openui-mcp-studio/packages/sdk",
+        "import { createOpenuiHostedClient } from '@openui/sdk'"
+      ],
+      "verificationPath": [
+        "node --import tsx tooling/sdk-install-proof.ts"
+      ],
+      "notFor": "claiming registry publication, front-door primary status, replacing the local stdio MCP runtime, or implying managed SaaS"
+    },
+    {
+      "id": "hosted-api",
+      "title": "Self-hosted OpenUI Hosted API",
+      "status": "supporting-parked",
+      "audience": "adapter authors and future hosted-surface planners",
+      "role": "self-hosted HTTP runtime surfaced through the root CLI and retained as a supporting lane",
+      "packageShape": "repo CLI entrypoint plus internal hosted-api source package",
+      "installPath": [
+        "openui-mcp-studio hosted info",
+        "openui-mcp-studio hosted openapi",
+        "openui-mcp-studio hosted serve"
+      ],
+      "verificationPath": [
+        "node --import tsx tooling/hosted-api-smoke.ts"
+      ],
+      "notFor": "claiming a managed SaaS deployment, front-door primary status, control plane, or remote write surface"
+    }
+  ],
+  "operatorOnlyActions": [
+    "GitHub Homepage or custom landing-site settings",
+    "GitHub Social Preview selection and verification",
+    "publishing releases and refreshing attached public assets",
+    "official marketplace or catalog submission",
+    "marketplace or vendor account submission",
+    "domain, DNS, TLS, and hosted infrastructure setup"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+	"version": 1,
+	"surfaces": [
+		{
+			"id": "gemini-runtime",
+			"owner": "services-mcp-server",
+			"entryFile": "services/mcp-server/src/providers/gemini-provider.ts",
+			"testFiles": ["tests/gemini-sidecar-contract.test.ts"],
+			"docsEntry": "docs/architecture.md",
+			"runbook": "docs/environment-governance.md"
+		},
+		{
+			"id": "openui-upstream-reference",
+			"owner": "tooling-root",
+			"entryFile": "tooling/sync-upstream-check.mjs",
+			"testFiles": ["tests/upstream-governance.test.ts"],
+			"docsEntry": "docs/upstream-sync-sop.md",
+			"runbook": "docs/governance-runbook.md"
+		},
+		{
+			"id": "ci-image-runner",
+			"owner": "ops-ci-container",
+			"entryFile": "ops/ci-container/run-in-container.sh",
+			"testFiles": ["tests/ci-workflow-hardening.test.ts"],
+			"docsEntry": "docs/release-readiness.md",
+			"runbook": "docs/governance-runbook.md"
+		},
+		{
+			"id": "playwright-browser-runtime",
+			"owner": "tooling-root",
+			"entryFile": "playwright.config.ts",
+			"testFiles": ["tests/e2e/critical-flow.spec.ts", "tests/uiux-a11y-engine.test.ts"],
+			"docsEntry": "docs/testing.md",
+			"runbook": "docs/governance-runbook.md"
+		},
+		{
+			"id": "python-sidecar-runtime",
+			"owner": "services-gemini-sidecar",
+			"entryFile": "services/gemini-sidecar/server.py",
+			"testFiles": ["tests/gemini-sidecar-contract.test.ts"],
+			"docsEntry": "services/gemini-sidecar/README.md",
+			"runbook": "docs/environment-governance.md"
+		},
+		{
+			"id": "upstream-sync-git-remote",
+			"owner": "tooling-root",
+			"entryFile": "tooling/sync-upstream-check.mjs",
+			"testFiles": ["tests/upstream-governance.test.ts"],
+			"docsEntry": "docs/upstream-sync-sop.md",
+			"runbook": "docs/governance-runbook.md"
+		},
+		{
+			"id": "patch-replay-layer",
+			"owner": "tooling-root",
+			"entryFile": "ops/upstream/patches/patch-package/README.md",
+			"testFiles": ["tests/upstream-governance.test.ts"],
+			"docsEntry": "ops/upstream/patches/patch-package/README.md",
+			"runbook": "docs/upstream-sync-sop.md"
+		}
+	]
+}

@@ -1,0 +1,51 @@
+name: Weekly Cleanup
+
+on:
+  schedule:
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: weekly-cleanup-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cleanup:
+    name: Runtime Cleanup
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      INCLUDE_E2E: "false"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Run cache retention cleanup
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run clean:runtime -- --cache-retention-only
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report cleanup summary
+        if: always()
+        run: |
+          {
+            echo "## Cleanup Summary"
+            echo ""
+            echo "- **Timestamp**: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo ""
+            echo "### Directories Cleaned"
+            echo "- .runtime-cache/runs"
+            echo "- .runtime-cache/cache"
+            echo "- .runtime-cache/reports"
+            echo "- .runtime-cache/coverage"
+            echo "- .runtime-cache/stress-leak-*"
+            echo "- Root log files (*.log, *.out)"
+          } >> "$GITHUB_STEP_SUMMARY"

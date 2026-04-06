@@ -1,0 +1,13 @@
+{
+  "host": "Codex",
+  "starterBundle": "packages/skills-kit/starter-bundles/codex.mcp.json",
+  "proofLoop": [
+    "openui-mcp-studio surface-guide --json",
+    "openui-mcp-studio ecosystem-guide --json",
+    "npm run repo:doctor"
+  ],
+  "notFor": [
+    "claiming an official Plugin Directory listing",
+    "claiming vendor approval beyond local plugin-grade packaging"
+  ]
+}

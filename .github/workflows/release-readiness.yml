@@ -1,0 +1,46 @@
+name: Release Readiness
+
+on:
+  push:
+    branches:
+      - release/*
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release_readiness:
+    name: Release Readiness Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run release readiness check in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: node tooling/check-release-readiness.mjs --output=.runtime-cache/reports/release-readiness/report.json
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload release readiness artifact
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: release-readiness-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 14
+          path: .runtime-cache/reports/release-readiness/report.json

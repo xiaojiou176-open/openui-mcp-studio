@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "service": "openui-mcp-studio",
+  "generatedAt": "2026-03-03",
+  "window": "7d",
+  "budgets": [
+    {
+      "metric": "tool_request_latency_p95_ms",
+      "max": 12000,
+      "description": "P95 latency budget for end-to-end tool execution."
+    },
+    {
+      "metric": "tool_request_latency_p99_ms",
+      "max": 20000,
+      "description": "P99 latency budget for end-to-end tool execution."
+    },
+    {
+      "metric": "tool_request_error_rate",
+      "max": 0.01,
+      "description": "Total tool error ratio budget (1%)."
+    }
+  ],
+  "sourceOfTruth": [
+    ".runtime-cache/runs/<run_id>/summary.json",
+    ".runtime-cache/runs/<run_id>/quality-score.json"
+  ]
+}

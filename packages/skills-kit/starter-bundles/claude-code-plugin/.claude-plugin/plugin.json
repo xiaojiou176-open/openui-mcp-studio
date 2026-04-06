@@ -1,0 +1,15 @@
+{
+  "name": "OpenUI MCP Studio",
+  "slug": "openui-mcp-studio",
+  "status": "marketplace-ready",
+  "runtime": "local-stdio-mcp",
+  "configPath": "../claude-code.mcp.json",
+  "proof": [
+    "node tooling/cli/openui.mjs ecosystem-guide --json",
+    "node tooling/public-distribution-proof.mjs"
+  ],
+  "notFor": [
+    "claiming a live Claude Code marketplace listing",
+    "claiming publication or platform approval"
+  ]
+}

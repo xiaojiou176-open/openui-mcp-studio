@@ -1,0 +1,22 @@
+{
+  "host": "Codex",
+  "status": "plugin-grade-public-package",
+  "transport": "stdio",
+  "displayName": "OpenUI MCP Studio",
+  "command": "node",
+  "args": [
+    "/ABS/PATH/openui-mcp-studio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+  ],
+  "env": {
+    "GEMINI_API_KEY": "your_key"
+  },
+  "proofLoop": [
+    "codex mcp add openui --env GEMINI_API_KEY=your_key -- node /ABS/PATH/openui-mcp-studio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
+    "openui-mcp-studio surface-guide --json",
+    "npm run repo:doctor"
+  ],
+  "notFor": [
+    "claiming a Codex marketplace item",
+    "claiming vendor approval beyond stdio MCP installation"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "client": "Generic MCP host",
+  "transport": "stdio",
+  "config": {
+    "command": "node",
+    "args": [
+      "/ABS/PATH/openui-mcp-studio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+    ],
+    "env": {
+      "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+    }
+  },
+  "proofCommands": [
+    "node tooling/public-distribution-proof.mjs",
+    "node tooling/cli/openui.mjs surface-guide"
+  ],
+  "notFor": [
+    "claiming a vendor-native integration",
+    "claiming a verified host-specific support promise without fresh proof"
+  ]
+}

@@ -1,0 +1,67 @@
+name: Weekly Env Audit
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: weekly-env-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  OPENUI_ALLOW_QUALITY_SCORE_BYPASS: "0"
+  OPENUI_ALLOW_MUTATION_SKIP: "0"
+
+jobs:
+  weekly_env_audit:
+    name: Weekly env governance audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Generate env inventory in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: mkdir -p .runtime-cache/env-governance && node tooling/env-inventory.mjs > .runtime-cache/env-governance/weekly-env-inventory.json
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate env governance report in CI container
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run env:governance:report
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Env governance gate in CI container (weekly)
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: npm run env:governance:check -- --ci
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Env keyset drift check in CI container (weekly)
+        uses: ./.github/actions/run-in-ci-container
+        with:
+          command: node tooling/env-keyset-drift.mjs
+          working_directory: .
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload weekly env audit artifact
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        with:
+          name: weekly-env-audit-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            .runtime-cache/env-governance/weekly-env-inventory.json
+            .runtime-cache/env-governance/report.json
+            .runtime-cache/env-governance/report.md
+            .runtime-cache/env-keyset-drift/report.json
+            .runtime-cache/env-keyset-drift/report.md

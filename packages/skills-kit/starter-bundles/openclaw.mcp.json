@@ -1,0 +1,28 @@
+{
+  "host": "OpenClaw",
+  "status": "public-ready-unlisted",
+  "transport": "stdio-compatible bridge",
+  "displayName": "OpenUI MCP Studio",
+  "command": "node",
+  "args": [
+    "/ABS/PATH/openui-mcp-studio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+  ],
+  "env": {
+    "GEMINI_API_KEY": "your_key"
+  },
+  "proofLoop": [
+    "Open the repo-owned OpenClaw install note and starter metadata",
+    "Adapt the stdio MCP launch contract to the current OpenClaw-side config surface",
+    "Run openui-mcp-studio ecosystem-guide --json",
+    "Run npm run repo:doctor"
+  ],
+  "discoverableArtifacts": [
+    "packages/skills-kit/starter-bundles/openclaw.mcp.json",
+    "docs/contracts/openui-ecosystem-productization.json",
+    "docs/discovery-surfaces.md"
+  ],
+  "notFor": [
+    "claiming an official OpenClaw runtime integration",
+    "claiming a ClawHub listing or official catalog approval"
+  ]
+}

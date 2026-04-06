@@ -1,0 +1,155 @@
+{
+	"version": 1,
+	"nonContractKeys": [
+		{
+			"key": "OPENUI_RUNTIME_RUN_ID",
+			"reason": "Authoritative runtime run identifier injected by repo wrappers and ci-gate for run-scoped evidence/log layout."
+		}
+	],
+	"ciOnlyKeys": [
+		{
+			"key": "CI",
+			"reason": "CI runtime detection in visual and mutation gates."
+		},
+		{
+			"key": "RUN_EXTERNAL_E2E",
+			"reason": "Feature flag for external readonly E2E execution."
+		},
+		{
+			"key": "OPENUI_E2E_MAX_RETRIES",
+			"reason": "Playwright retry override in ci-gate."
+		},
+		{
+			"key": "OPENUI_COVERAGE_SUMMARY_PATH",
+			"reason": "Coverage summary path override for coverage gate."
+		},
+		{
+			"key": "OPENUI_MUTATION_SUMMARY_PATH",
+			"reason": "Mutation summary path override for mutation gate."
+		},
+		{
+			"key": "OPENUI_MUTATION_MIN_SCORE",
+			"reason": "Mutation score threshold override."
+		},
+		{
+			"key": "OPENUI_MUTATION_MIN_SAMPLES_PER_MODULE",
+			"reason": "Mutation minimum sample-count threshold per key module."
+		},
+		{
+			"key": "OPENUI_MUTATION_MIN_SAMPLES_PER_OPERATOR",
+			"reason": "Mutation minimum sample-count threshold per mutation operator."
+		},
+		{
+			"key": "OPENUI_MUTATION_MIN_TOTAL",
+			"reason": "Mutation minimum total sample threshold."
+		},
+		{
+			"key": "OPENUI_MUTATION_MIN_MODULE_KILL_RATIO",
+			"reason": "Mutation minimum per-module kill ratio threshold."
+		},
+		{
+			"key": "OPENUI_MUTATION_MIN_OPERATOR_KILL_RATIO",
+			"reason": "Mutation minimum per-operator kill ratio threshold."
+		},
+		{
+			"key": "OPENUI_MUTATION_ENFORCE_MIN_SAMPLES",
+			"reason": "Emergency downgrade switch for mutation minimum sample-count enforcement (default is blocking; set 0 only for temporary local fallback)."
+		},
+		{
+			"key": "OPENUI_ALLOW_MUTATION_SKIP",
+			"reason": "Local-only skip switch for missing mutation summary."
+		},
+		{
+			"key": "OPENUI_MUTATION_HEARTBEAT_INTERVAL_MS",
+			"reason": "Mutation smoke heartbeat interval override."
+		},
+		{
+			"key": "OPENUI_MUTATION_FORCE_KILL_GRACE_MS",
+			"reason": "Mutation smoke forced-termination grace period override."
+		},
+		{
+			"key": "CI_GATE_TIMEOUT_MS",
+			"reason": "Global timeout override for ci-gate pipeline."
+		},
+		{
+			"key": "CI_GATE_TASK_TIMEOUT_MS",
+			"reason": "Per-task timeout override for ci-gate."
+		},
+		{
+			"key": "CI_GATE_HEARTBEAT_INTERVAL_MS",
+			"reason": "Heartbeat interval override for ci-gate."
+		},
+		{
+			"key": "CI_GATE_MAX_STDOUT_BYTES",
+			"reason": "Stdout capture cap override for ci-gate tasks."
+		},
+		{
+			"key": "CI_GATE_MAX_STDERR_BYTES",
+			"reason": "Stderr capture cap override for ci-gate tasks."
+		},
+		{
+			"key": "CI_GATE_SUMMARY_PATH",
+			"reason": "Summary file override for ci-gate."
+		},
+		{
+			"key": "OPENUI_CI_GATE_RUN_KEY",
+			"reason": "Per-ci-gate run identifier used to isolate shared coverage caching within a single pipeline execution."
+		},
+		{
+			"key": "FILE_GOVERNANCE_INCLUDE_ROOTS",
+			"reason": "File governance include roots override."
+		},
+		{
+			"key": "FILE_GOVERNANCE_EXCLUDE_DIRS",
+			"reason": "File governance exclude directories override."
+		},
+		{
+			"key": "OPENUI_DEP_REVIEW_BASE",
+			"reason": "Dependency review preflight base ref override for CI and PR-local verification."
+		},
+		{
+			"key": "OPENUI_DEP_REVIEW_HEAD",
+			"reason": "Dependency review preflight head ref override for CI and PR-local verification."
+		}
+	],
+	"testOnlyKeys": [
+		{
+			"key": "OPENUI_GEMINI_SIDECAR_HEALTH_TIMEOUT_MS",
+			"reason": "Python sidecar health checker RPC timeout."
+		},
+		{
+			"key": "OPENUI_SMOKE_TARGET_ROOT",
+			"reason": "Smoke test target root override."
+		},
+		{
+			"key": "OPENUI_SMOKE_FALLBACK_ROOT",
+			"reason": "Smoke test fallback root override for explicit compat or recovery scenarios."
+		},
+		{
+			"key": "OPENUI_ENABLE_LIVE_GEMINI_SMOKE",
+			"reason": "Internal live smoke mode flag set by test runner."
+		},
+		{
+			"key": "OPENUI_LIVE_TEST_RUN_ID",
+			"reason": "Trace identifier for live smoke runs."
+		},
+		{
+			"key": "LIVE_TEST_MAX_RETRIES",
+			"reason": "Live test retry ceiling override in tooling/run-live-tests.mjs."
+		},
+		{
+			"key": "LIVE_TEST_HEARTBEAT_INTERVAL_MS",
+			"reason": "Live test heartbeat interval override in tooling/run-live-tests.mjs."
+		},
+		{
+			"key": "LIVE_TEST_RETRY_BASE_DELAY_MS",
+			"reason": "Live test retry backoff base delay override."
+		},
+		{
+			"key": "LIVE_TEST_RETRY_MAX_DELAY_MS",
+			"reason": "Live test retry backoff max delay override."
+		}
+	],
+	"deprecatedKeys": [],
+	"envExampleExceptions": []
+}

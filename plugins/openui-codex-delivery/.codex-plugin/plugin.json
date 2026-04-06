@@ -1,0 +1,6 @@
+{
+  "name": "openui-codex-delivery",
+  "version": "0.1.0",
+  "description": "Codex bundle for installing OpenUI MCP Studio from a local repo checkout and running the proof loop honestly.",
+  "skills": "./skills/"
+}

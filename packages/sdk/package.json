@@ -1,0 +1,21 @@
+{
+	"name": "@openui/sdk",
+	"version": "0.3.1",
+	"type": "module",
+	"description": "Public SDK client for the self-hosted OpenUI Hosted API surface.",
+	"main": "./index.mjs",
+	"types": "./index.d.ts",
+	"exports": {
+		".": "./index.mjs",
+		"./package.json": "./package.json"
+	},
+	"files": ["README.md", "index.mjs", "index.d.ts", "package.json"],
+	"keywords": [
+		"openui",
+		"sdk",
+		"hosted-api",
+		"codex",
+		"claude-code"
+	],
+	"license": "MIT"
+}
