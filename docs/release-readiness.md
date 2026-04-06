@@ -256,7 +256,10 @@ These machine-consumed inputs stay under `docs/contracts/`:
 
 These JSON files are intentionally retained even in the minimal docs profile.
 
-## Fresh Endgame Update (2026-04-01 PDT)
+## Historical Endgame Update (2026-04-01 PDT)
+
+This section is historical context from the 2026-04-01 endgame wave.
+Do not treat it as the current GitHub or release-readiness truth.
 
 - latest fully completed repo-local hard-gate packet in this turn:
   `ci-gate-1775040222373-67326`
@@ -298,45 +301,57 @@ These JSON files are intentionally retained even in the minimal docs profile.
 
 ## Current Closeout Snapshot
 
-Fresh Final Unified Endgame evidence keeps the release-readiness story split
-into three different layers:
+Fresh 2026-04-06 evidence keeps the release-readiness story split into four
+different layers:
 
-- repo-local sub-gates now green individually
-  - `npm run lint`
-  - `npm run typecheck`
-  - `npm run docs:check`
-  - `git diff --check`
-  - `npm run test`
-  - `npm run -s test:fast:gate`
-  - `npm run -s governance:root:check`
-  - `npm run -s governance:runtime:check`
-- coverage is no longer stuck below the hard branch floor
-  - a fresh required-coverage artifact was regenerated in this execution wave
-  - `.runtime-cache/coverage/vitest/coverage-summary.json` now reports
-    `global branches = 95.03%`
-- the latest complete `npm run ci:gate` packet in this wave is still not green
-  - the freshest completed packet is
-    `ci-gate-1775041151397-80305`
-  - that packet fails at `governance:runtime:check` because
-    `.runtime-cache/temp/ci-gate-bg.log` remained under an unregistered runtime
-    subtree
-  - that temp log was removed locally immediately afterward and a fresh
-    standalone `npm run -s governance:runtime:check` is green now
-  - however, the follow-up full `npm run ci:gate` reruns in this same session
-    did not leave a fresh completed `summary.json` artifact after the cleanup,
-    so there is still no single end-to-end completed packet proving that all
-    repo-local stages are green in one authoritative run
-- remote/operator blockers remain separate
-  - GitHub homepage still points at the blob URL for
-    `docs/first-minute-walkthrough.md`
-  - live CodeQL still shows the two known alerts until a maintainer pushes the
-    repo-local fixes and GitHub re-analyzes the branch
-  - `main` branch protection still requires review plus the three named checks
+- repo-local engineering
+  - the current worktree is intentionally carrying a closeout diff, not a clean
+    tree yet
+  - the tracked supplemental workflow now exists for:
+    - pull-request Dependency Review
+    - Zizmor
+    - Trivy filesystem scanning
+  - `npm run public:assets:render` and `npm run visual:qa:update` now both end
+    with repo-owned `oxipng` normalization instead of leaving PNG compression
+    to CI discovery
+- repo-local verification
+  - `npm run precommit:gate` = pass
+  - `npm run prepush:gate` = pass
+  - `npm run lint` = pass
+  - `npm run typecheck` = pass
+  - `npm run -s public:assets:check` = pass
+  - `npm run test` is **not** green in this execution wave:
+    - `tests/space-governance-report.test.ts`
+      `ignores an empty legacy .runtime-cache/temp directory when collecting drift`
+      timed out
+    - `tests/hosted-api-service.test.ts`
+      `serves public discovery plus auth-protected workflow and tool routes`
+      timed out, and its `afterEach` hook also timed out
+- GitHub live truth
+  - open PRs = `0`
+  - open issues = `0`
+  - open CodeQL alerts = `0`
+  - open secret-scanning alerts = `0`
+  - latest `main` CodeQL run = success
+  - latest `main` CI run is **not** fully green because `Pre-commit Gate`
+    failed after `oxipng` rewrote tracked PNG assets on the runner
+  - the current GitHub homepage field is intentionally empty
+  - local `origin/codex/*` refs were stale tracking refs, not live GitHub
+    branches
+- public/operator truth
+  - Git tags exist, but the GitHub Releases page currently has no published
+    release
+  - release notes, release assets, and release-page closure therefore remain
+    operator-owned follow-through rather than current public truth
 
 Use `npm run repo:workflow:summary` and `npm run repo:workflow:ready` for the
 latest read-only readiness packet, but do not treat those commands as proof
-that the repo-local full-gate story is fully closed until a fresh completed
-`ci:gate` packet also lands.
+that the repo-local full-gate story is fully closed until:
+
+- the current repo-local test failures are resolved
+- the current closeout diff is landed and re-run through fresh GitHub checks
+- the remaining operator-owned public surfaces are either completed or
+  explicitly kept out of the verdict
 
 ## Historical Closure Snapshot (2026-04-01 PDT)
 

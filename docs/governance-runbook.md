@@ -28,7 +28,7 @@ These commands are the repository front desk.
 | `npm run repo:verify:fast` | fast structural truth for identity, English-only tracked docs, tracked-surface hygiene, runtime, evidence, and docs alignment | not a replacement for authoritative container parity |
 | `npm run repo:verify:full` | local authoritative container-parity path | not proof of trusted remote CI supply-chain closure by itself |
 | `npm run repo:upstream:check` | upstream inventory, compatibility, patch governance, post-fetch history hygiene, and a non-blocking clone-local sync-preflight readout | not approval for whole-repo merge or rebase, and not proof that the current clone already has `upstream` attached |
-| `npm run release:public-safe:check` | strict repository-side public-safe verdict across release evidence, remote governance, canonical history hygiene, local heads/tags sensitive-surface history, and GitHub public-surface review | does not rotate credentials or rewrite Git history or clear GitHub read-only refs by itself |
+| `npm run release:public-safe:check` | strict repository-side public-safe verdict across release evidence, dependency-review local preflight, Zizmor audit, Trivy filesystem audit, remote governance, canonical history hygiene, local heads/tags sensitive-surface history, and GitHub public-surface review | does not rotate credentials or rewrite Git history or clear GitHub read-only refs by itself |
 
 ## Security Entrypoints
 
@@ -42,8 +42,11 @@ These commands are the repository front desk.
 | `npm run security:sensitive-surface:audit` | heuristic tracked-text scan for personal contact fields and host-local absolute paths | not a replacement for tracked-surface log hygiene or remote GitHub review |
 | `npm run security:history:sensitive:audit` | heuristic local heads/tags history scan for personal contact fields and host-local absolute paths | does not inspect GitHub-managed read-only refs such as `refs/pull/*` |
 | `npm run security:github:public:audit` | read-only GitHub public-surface review across open secret-scanning alerts, open code-scanning alerts, code search, comment surfaces, and fetchable pull refs | does not remove read-only PR refs by itself |
+| `npm run security:dependency-review:local` | local dependency-delta preflight for changed manifests before the GitHub PR dependency-review workflow runs | not a replacement for the GitHub pull-request dependency graph verdict |
+| `npm run security:zizmor:audit` | local Zizmor workflow audit across tracked workflows, local composite actions, and Dependabot config | not a replacement for the live GitHub Zizmor workflow run |
+| `npm run security:trivy:audit` | local Trivy filesystem audit over the tracked repository surface | not a replacement for the live GitHub Trivy workflow run |
 | `npm run security:evidence:final` | consolidated repo-side PII + sensitive-surface + local history-sensitive + ScanCode final evidence pack under `.runtime-cache/reports/security/` | not a replacement for formal DLP, legal sign-off, or GitHub Support cleanup |
-| `npm run security:oss:audit` | repo-local security bundle across all of the commands above | not automatic remediation |
+| `npm run security:oss:audit` | repo-local security bundle across all of the commands above, including dependency-review preflight, Zizmor, and Trivy | not automatic remediation |
 | `npm run governance:remote:review` | remote canonical review plus fresh mirror audit summary | not proof that upstream repositories are also clean |
 
 ## Platform Security Surface
@@ -52,6 +55,8 @@ These commands are the repository front desk.
   CodeQL code scanning must stay enabled on the canonical public repository.
 - `.github/workflows/codeql.yml` is the repository-owned CodeQL entrypoint for
   GitHub code-scanning alerts.
+- `.github/workflows/security-supplemental.yml` is the tracked entrypoint for
+  pull-request Dependency Review, Zizmor, and Trivy filesystem scanning.
 
 ## Docs Truth Rules
 
@@ -119,6 +124,10 @@ These commands are the repository front desk.
   pre-commit path currently needs a host compiler toolchain for the `oxipng`
   Rust hook, while the locked CI container remains the source of truth for the
   downstream main quality gate.
+- PNG-producing maintenance flows should end with repo-owned lossless
+  normalization instead of waiting for CI to discover stale screenshots.
+  `npm run public:assets:render` and `npm run visual:qa:update` now both finish
+  by running the tracked `oxipng` normalization step.
 - Repository-wide `biome check --write` runs may reflow `package.json` together
   with test and fixture files as part of tracked formatting hygiene; treat that
   as a docs-synced governance change instead of silently reclassifying it as a

@@ -69,11 +69,16 @@ pretending the old one still represents the repo.
 When the public message changes:
 
 - update `README.md`
-- update release notes or the release template
+- update release notes or the release template when a published GitHub release
+  actually exists
 - keep About and Topics aligned with the same product sentence
 
 If README says one thing and Releases say another, the repo starts feeling
 unmaintained even when the code is healthy.
+
+If the repository has tags but no published GitHub release yet, keep that truth
+explicit. Do not leave a release badge or navigation link in place if it makes
+an empty Releases page look like a closed public surface.
 
 ### 3.1 Homepage And Social Preview Must Be Honest
 
@@ -95,6 +100,9 @@ unmaintained even when the code is healthy.
   attached asset checks.
 - If the repo only has a draft release, public-surface follow-through is still
   incomplete even when all local assets are ready.
+- If the repo currently has no published GitHub release, point readers at tags,
+  templates, or operator-owned follow-through instead of implying that a live
+  release page already exists.
 
 ### 4. Discussions Should Feel Alive
 
@@ -135,7 +143,8 @@ Preferred regeneration pattern:
 3. run `npm run public:assets:check`
 4. verify the repo-owned social preview route still serves the refreshed image
 5. update README or docs references if the asset meaning changed
-6. upload the asset to the latest release if it belongs in the release bundle
+6. upload the asset to the latest published release only if a published release
+   exists and that asset really belongs in the release bundle
 
 Visual quality floor:
 
@@ -146,8 +155,8 @@ Visual quality floor:
 
 ## Release Asset Checklist
 
-When the public story changes materially, the latest release should expose the
-updated public assets:
+When the public story changes materially and a published GitHub release exists,
+the latest release should expose the updated public assets:
 
 - `openuistudio-demo.gif`
 - `openuistudio-workbench.png`

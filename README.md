@@ -53,7 +53,7 @@ and `npm run release:public-safe:check`.
 English is the canonical source of truth for repository governance and
 maintenance.
 
-[![Release](https://img.shields.io/github/v/release/xiaojiou176/openuistudio?display_name=tag&label=release)](https://github.com/xiaojiou176/openuistudio/releases)
+[![Tag](https://img.shields.io/github/v/tag/xiaojiou176/openuistudio?label=tag)](https://github.com/xiaojiou176/openuistudio/tags)
 [![Discussions](https://img.shields.io/github/discussions/xiaojiou176/openuistudio?label=discussions)](https://github.com/xiaojiou176/openuistudio/discussions)
 [![License](https://img.shields.io/github/license/xiaojiou176/openuistudio)](./LICENSE)
 [![Proof Surface](https://img.shields.io/badge/proof-apps%2Fweb-blue)](./docs/proof-and-faq.md)
@@ -66,7 +66,7 @@ maintenance.
 [Evaluator Checklist](./docs/evaluator-checklist.md) |
 [Public Surface Guide](./docs/public-surface-guide.md) |
 [Architecture](./docs/architecture.md) |
-[Releases](https://github.com/xiaojiou176/openuistudio/releases) |
+[Tags](https://github.com/xiaojiou176/openuistudio/tags) |
 [Discussions](https://github.com/xiaojiou176/openuistudio/discussions) |
 [Docs Index](./docs/index.md)
 
@@ -1039,7 +1039,10 @@ In plain language:
 
 - Discussions are the home for questions, ideas, and show-and-tell threads.
 - Issues stay focused on reproducible bugs and workflow failures.
-- Releases should explain what users gained, not just list commits.
+- Git tags exist as version anchors, but the GitHub Releases page currently has
+  no published release.
+- Treat release notes and attached release assets as operator-owned follow-through
+  until a real published release exists.
 - Homepage, Social Preview, published release assets, and Discussions seeding
   are still operator-managed public surfaces. The repo can prepare the story
   and the assets, but it cannot prove those settings are live by itself.
