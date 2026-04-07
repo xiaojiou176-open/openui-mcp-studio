@@ -310,33 +310,21 @@ jobs:
 		);
 	});
 
-	it("contains dedicated functional strict gate jobs by section", async () => {
+	it("keeps runtime checks inside quality instead of a duplicate functional lane", async () => {
 		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
 		const workflow = await fs.readFile(workflowPath, "utf8");
-		const functionalStrictSection = getJobSection(
-			workflow,
-			"functional_strict",
-		);
+		const qualitySection = getJobSection(workflow, "quality");
 		const workflowGovernanceSection = getJobSection(
 			workflow,
 			"workflow_governance",
 		);
 
-		expect(functionalStrictSection).toContain("name: Functional Strict Gate");
-		expect(functionalStrictSection).toContain("Acceptance contracts gate");
-		expect(functionalStrictSection).toContain(
-			"Network resilience functional gate",
-		);
-		expect(functionalStrictSection).toContain("Runtime smoke functional gate");
-		expect(functionalStrictSection).toContain(
-			"command: node tooling/run-with-heartbeat.mjs --label=functional-smoke -- npm run smoke:e2e",
-		);
+		expect(workflow).not.toContain("\n  functional_strict:\n");
+		expect(qualitySection).toContain("Full quality gate in CI container");
+		expect(qualitySection).toContain("command: npm run ci:gate:container");
 		expect(workflowGovernanceSection).toContain("name: Workflow Governance");
 		expect(workflowGovernanceSection).toContain(
 			"command: npm run governance:workflow:check",
-		);
-		expect(functionalStrictSection).toContain(
-			"command: node tooling/run-with-heartbeat.mjs --label=functional-resilience -- npm run test:e2e:resilience",
 		);
 	});
 
@@ -388,26 +376,6 @@ jobs:
 		);
 	});
 
-	it("keeps functional_strict short-before-long order", async () => {
-		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
-		const workflow = await fs.readFile(workflowPath, "utf8");
-		const functionalStrictSection = getJobSection(
-			workflow,
-			"functional_strict",
-		);
-
-		const smokeIndex = functionalStrictSection.indexOf(
-			"--label=functional-smoke -- npm run smoke:e2e",
-		);
-		const resilienceIndex = functionalStrictSection.indexOf(
-			"--label=functional-resilience -- npm run test:e2e:resilience",
-		);
-
-		expect(smokeIndex).toBeGreaterThan(-1);
-		expect(resilienceIndex).toBeGreaterThan(-1);
-		expect(smokeIndex).toBeLessThan(resilienceIndex);
-	});
-
 	it("enforces fast-before-long dependency for live hard gate", async () => {
 		const workflowPath = path.join(repoRoot, ".github/workflows/ci.yml");
 		const workflow = await fs.readFile(workflowPath, "utf8");
@@ -421,7 +389,7 @@ jobs:
 		expect(liveGateSection).toContain("name: Live Gemini hard gate");
 		expect(liveGateSection).toContain("environment: live-gemini-manual");
 		expect(liveGateNeeds).toContain("quality");
-		expect(liveGateNeeds).toContain("functional_strict");
+		expect(liveGateNeeds).not.toContain("functional_strict");
 		expect(nightlyCrossBrowserSection).toContain(
 			`command: node tooling/run-with-heartbeat.mjs --label=nightly-cross-browser-\${{ matrix.project }} -- npx playwright test --config=playwright.config.ts --project=\${{ matrix.project }}`,
 		);

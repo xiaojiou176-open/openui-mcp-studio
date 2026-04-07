@@ -53,9 +53,9 @@ and `npm run release:public-safe:check`.
 English is the canonical source of truth for repository governance and
 maintenance.
 
-[![Tag](https://img.shields.io/github/v/tag/xiaojiou176/openui-mcp-studio?label=tag)](https://github.com/xiaojiou176/openui-mcp-studio/tags)
-[![Discussions](https://img.shields.io/github/discussions/xiaojiou176/openui-mcp-studio?label=discussions)](https://github.com/xiaojiou176/openui-mcp-studio/discussions)
-[![License](https://img.shields.io/github/license/xiaojiou176/openui-mcp-studio)](./LICENSE)
+[![Tag](https://img.shields.io/github/v/tag/xiaojiou176-open/openui-mcp-studio?label=tag)](https://github.com/xiaojiou176-open/openui-mcp-studio/tags)
+[![Discussions](https://img.shields.io/github/discussions/xiaojiou176-open/openui-mcp-studio?label=discussions)](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions)
+[![License](https://img.shields.io/github/license/xiaojiou176-open/openui-mcp-studio)](./LICENSE)
 [![Proof Surface](https://img.shields.io/badge/proof-apps%2Fweb-blue)](./docs/proof-and-faq.md)
 
 [Quick Start](#quick-start) |
@@ -66,8 +66,8 @@ maintenance.
 [Evaluator Checklist](./docs/evaluator-checklist.md) |
 [Public Surface Guide](./docs/public-surface-guide.md) |
 [Architecture](./docs/architecture.md) |
-[Tags](https://github.com/xiaojiou176/openui-mcp-studio/tags) |
-[Discussions](https://github.com/xiaojiou176/openui-mcp-studio/discussions) |
+[Tags](https://github.com/xiaojiou176-open/openui-mcp-studio/tags) |
+[Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions) |
 [Docs Index](./docs/index.md)
 
 ![OpenUI MCP Studio preview card](./docs/assets/openui-mcp-studio-preview.svg)
@@ -139,7 +139,7 @@ Pick the shortest path that matches what you actually want to learn first:
     </td>
     <td width="33%">
       <strong>Where to start</strong><br />
-      Jump to <a href="#quick-start">Quick Start</a>, <a href="./docs/proof-and-faq.md#demo-proof">Demo Proof</a>, or <a href="https://github.com/xiaojiou176/openui-mcp-studio/discussions">Discussions</a>.
+      Jump to <a href="#quick-start">Quick Start</a>, <a href="./docs/proof-and-faq.md#demo-proof">Demo Proof</a>, or <a href="https://github.com/xiaojiou176-open/openui-mcp-studio/discussions">Discussions</a>.
     </td>
   </tr>
 </table>
@@ -598,7 +598,8 @@ Use the lightest path that answers your real question.
 | --- | --- | --- | --- |
 | `npm run demo:ship` | your machine is already ready and you want one fast proof | one real ship-tool payload from the current repo | not a cold-start setup, not `repo:verify:full`, not a public-safe verdict |
 | `npm run repo:doctor` | you want a fast structural trust check | the repo-side contracts, runtime, evidence, upstream policy, and release-readiness inputs are healthy | not full local parity and not remote platform closure by itself |
-| `npm run repo:verify:full` | you want the stronger repo-local verification lane | the local container-parity verification path still holds | not remote GitHub governance truth by itself |
+| `npm run repo:verify:fast` | you want a stronger deterministic local check without replaying the full CI container lane | the local structural governance path still holds | not container parity and not remote GitHub governance truth by itself |
+| `npm run repo:verify:full` | you intentionally want the manual heavy local parity lane | the local container-parity verification path still holds | not remote GitHub governance truth by itself and not a routine everyday command |
 | `npm run release:public-safe:check` | you want the strict repo-side public-safe verdict | docs, remote evidence, canonical history hygiene, local heads/tags sensitive-surface history, and GitHub public-surface review agree on a strict repo-side verdict | not legal sign-off, product judgment, or rollout approval |
 | `npm run pages:build` | you want the GitHub Pages-ready static export of the current front door | `apps/web` can be exported as a project-pages artifact for `xiaojiou176-open/openui-mcp-studio` | not proof that GitHub Pages is already enabled or deployed by itself |
 
@@ -782,6 +783,7 @@ run the repo-side verification lane:
 
 ```bash
 npm run repo:doctor
+npm run repo:verify:fast
 npm run repo:space:report
 npm run repo:space:check
 npm run repo:space:verify
@@ -789,11 +791,18 @@ npm run repo:space:maintain:dry-run
 npm run smoke:e2e
 ```
 
-If you want the authoritative local parity path rather than the lighter front
-door checks, run:
+If you intentionally want the manual heavy local parity path rather than the
+lighter front-door checks, run:
 
 ```bash
 npm run repo:verify:full
+```
+
+If the locked CI image is unavailable and you explicitly want this machine to
+bootstrap it locally first, use:
+
+```bash
+npm run ci:local:container:bootstrap
 ```
 
 ### Full Governed Path

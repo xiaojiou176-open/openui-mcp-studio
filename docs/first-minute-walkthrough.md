@@ -74,6 +74,7 @@ If you want the fastest honest repo-side proof, run:
 
 ```bash
 npm run repo:doctor
+npm run repo:verify:fast
 npm run smoke:e2e
 ```
 
@@ -81,21 +82,22 @@ What you are looking for:
 
 - `demo:ship` tells you whether the repo can produce one real ship payload fast
 - `repo:doctor` tells you whether the repository is in a healthy public-ready state
+- `repo:verify:fast` tells you whether the deterministic local structural lane still holds
 - `smoke:e2e` tells you the front door app still behaves like a real app
 - `test:e2e` tells you the `/workbench` interaction contract still holds
 - `docs/proof-and-faq.md` remains the canonical page for what each proof command
   does and does **not** prove
 
-## If You Need The Authoritative Local Parity Path
+## If You Need The Manual Local Parity Path
 
-Use this command when you want more than a warm-start proof:
+Use this command when you intentionally want more than the fast local path:
 
 ```bash
 npm run repo:verify:full
 ```
 
-That path is slower, but it is the local parity lane instead of the quick
-visibility lane.
+That path is slower and heavier by design. It is the manual local parity lane,
+not the default front-door path.
 
 ## If You Want More Than One Minute
 
@@ -103,4 +105,4 @@ visibility lane.
 - Use [Discovery Surfaces](./discovery-surfaces.md) if you are deciding how to
   read `/llms.txt`, `/api/frontdoor`, or the current builder order.
 - Use [Public Surface Guide](./public-surface-guide.md) if you are maintaining the public story.
-- Use [Discussions](https://github.com/xiaojiou176/openui-mcp-studio/discussions) if you want to see how the repo is meant to be talked about in public.
+- Use [Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions) if you want to see how the repo is meant to be talked about in public.

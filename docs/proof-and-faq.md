@@ -81,8 +81,9 @@ looking at?"
 | --- | --- | --- | --- | --- |
 | Warm-start visible proof | `npm run demo:ship` | already-configured local evaluation | the real ship tool can return one rerunnable payload quickly | not a full gate, not a public-safe verdict |
 | Front-door repo health | `npm run repo:doctor` | quick structural trust check | repo-side contracts, runtime, evidence, upstream policy, and release-readiness inputs are in a healthy shape | not full local parity and not remote platform closure by itself |
+| Fast local structural verify | `npm run repo:verify:fast` | stronger deterministic local verification without replaying the full CI container lane | the local structural governance path still holds | not local container parity and not remote GitHub governance truth |
 | Default proof target runtime proof | `npm run smoke:e2e` | proving the sample surface is alive | `apps/web` still boots and answers like a real app | not proof that every generated UI should ship |
-| Authoritative local parity | `npm run repo:verify:full` | deeper repo-side confidence | the local container-parity verification path still holds | not remote GitHub governance truth by itself |
+| Manual local parity | `npm run repo:verify:full` | deeper repo-side confidence when you intentionally want the heavy local parity lane | the local container-parity verification path still holds | not remote GitHub governance truth by itself and not the default front-door path |
 | Public-safe release verdict | `npm run release:public-safe:check` | deciding whether repo-side public claims are safe | docs, release-readiness, remote evidence, and history hygiene agree on a strict repo-side verdict | not legal sign-off, product judgment, or rollout approval |
 
 ## Demo Proof

@@ -13,7 +13,7 @@ This directory provides the containerized execution entrypoint that runs reposit
 ## Dependencies
 
 - depends on `.github/ci-image.lock.json`
-- is invoked by `.github/actions/run-in-ci-container/action.yml` and the public `repo:verify:full` entrypoint
+- is invoked by `.github/actions/run-in-ci-container/action.yml`, the manual `repo:verify:full` entrypoint, and the opt-in `ci:local:container:bootstrap` script when a local image bootstrap is explicitly requested
 
 ## Runtime
 

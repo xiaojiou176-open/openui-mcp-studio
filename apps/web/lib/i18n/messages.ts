@@ -1139,7 +1139,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
             "把它误解成 hosted builder 接入页，或通用 agent marketplace 入口",
           body: "当前最真实的集成故事从 stdio MCP server 开始，而不是 hosted API 承诺。想要真实 prompt-to-workspace delivery，就先走 MCP client setup。",
           cta: "打开 MCP 接入指南",
-          href: "https://github.com/xiaojiou176/openui-mcp-studio/blob/main/docs/discovery-surfaces.md",
+          href: "https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/docs/discovery-surfaces.md",
         },
         {
           step: "第 2 步",
@@ -1152,7 +1152,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
           notFor: "把 compatibility bridge 误说成正式 hosted API 或 SDK 承诺",
           body: "当你需要 read-only HTTP projection 做 review、contract check 或 bridge consumer 时，再看 OpenAPI compatibility document。",
           cta: "打开 OpenAPI 契约",
-          href: "https://github.com/xiaojiou176/openui-mcp-studio/blob/main/docs/contracts/openui-mcp.openapi.json",
+          href: "https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/docs/contracts/openui-mcp.openapi.json",
         },
         {
           step: "第 3 步",
@@ -1165,7 +1165,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
           notFor: "假装仓库会自己改远端状态、自动落 PR，或替代 GitHub 运维动作",
           body: "当你需要本地 + GitHub readiness 的证据包，但又不想假装仓库会自行修改远端状态时，就用 raw summary 和 maintainer-ready packet。",
           cta: "打开 readiness 文档",
-          href: "https://github.com/xiaojiou176/openui-mcp-studio/blob/main/docs/index.md",
+          href: "https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/docs/index.md",
         },
       ],
       machineReadableTitle: "机读发现面与 SEO 护栏",
