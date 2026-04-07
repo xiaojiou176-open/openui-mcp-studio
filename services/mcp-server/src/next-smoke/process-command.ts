@@ -11,7 +11,7 @@ export function getNpmCommand(): string {
 }
 
 export function getNominalCommand(step: "build" | "start"): string {
-	return step === "build" ? "next build --webpack" : "next start";
+	return step === "build" ? "next build" : "next start";
 }
 
 export function getCommandForStep(input: {
@@ -37,7 +37,7 @@ export function getCommandForStep(input: {
 	return {
 		executable,
 		command: getNominalCommand(input.step),
-		args: input.step === "build" ? ["build", "--webpack"] : ["start"],
+		args: input.step === "build" ? ["build"] : ["start"],
 	};
 }
 

@@ -1,34 +1,16 @@
 import fs from "node:fs/promises";
-import { existsSync } from "node:fs";
-import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 export const SOCIAL_PREVIEW_ROUTE = "/api/social-preview";
 export const SOCIAL_PREVIEW_CACHE_CONTROL = "public, max-age=3600, s-maxage=3600";
 
-const SOCIAL_PREVIEW_RELATIVE_PATH = path.join(
-	"docs",
-	"assets",
-	"openui-mcp-studio-social-preview.png",
+const SOCIAL_PREVIEW_ASSET_URL = new URL(
+	"../../../docs/assets/openui-mcp-studio-social-preview.png",
+	import.meta.url,
 );
 
-function resolveRepoRootFromCwd(): string {
-	let currentDir = process.cwd();
-
-	while (true) {
-		if (existsSync(path.join(currentDir, SOCIAL_PREVIEW_RELATIVE_PATH))) {
-			return currentDir;
-		}
-
-		const parentDir = path.dirname(currentDir);
-		if (parentDir === currentDir) {
-			return process.cwd();
-		}
-		currentDir = parentDir;
-	}
-}
-
 export function resolveSocialPreviewAssetPath(): string {
-	return path.join(resolveRepoRootFromCwd(), SOCIAL_PREVIEW_RELATIVE_PATH);
+	return fileURLToPath(SOCIAL_PREVIEW_ASSET_URL);
 }
 
 export async function buildSocialPreviewResponse(input?: {

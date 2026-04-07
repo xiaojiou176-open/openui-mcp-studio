@@ -11,12 +11,14 @@ import {
 } from "@/lib/frontdoor-content";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { SOCIAL_PREVIEW_ROUTE } from "@/lib/social-preview";
-import { getResolvedSiteUrlObject } from "@/lib/site-metadata";
+import { getResolvedSiteUrlObject, resolveSiteHref } from "@/lib/site-metadata";
 
 import "./globals.css";
 
 const siteUrl = getResolvedSiteUrlObject();
-const defaultSocialPreviewImage = siteUrl ? [SOCIAL_PREVIEW_ROUTE] : undefined;
+const defaultSocialPreviewImage = siteUrl
+  ? [resolveSiteHref(SOCIAL_PREVIEW_ROUTE, siteUrl)]
+  : undefined;
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,

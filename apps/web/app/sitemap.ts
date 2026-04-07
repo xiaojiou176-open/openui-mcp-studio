@@ -1,6 +1,12 @@
 import type { MetadataRoute } from "next";
 
-import { getResolvedSiteUrl, shouldIndexFrontdoor } from "@/lib/site-metadata";
+import {
+  getResolvedSiteUrl,
+  resolveSiteHref,
+  shouldIndexFrontdoor,
+} from "@/lib/site-metadata";
+
+export const dynamic = "force-static";
 
 const ROUTES = [
 	"/",
@@ -18,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   return ROUTES.map((route) => ({
-    url: new URL(route, siteUrl).toString(),
+    url: resolveSiteHref(route, siteUrl),
     changeFrequency: route === "/" ? "weekly" : "monthly",
     priority: route === "/" ? 1 : route === "/workbench" ? 0.8 : 0.7,
   }));

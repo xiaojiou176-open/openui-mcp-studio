@@ -173,6 +173,7 @@
 		"mutation:run:gate": "npm run -s mutation:run:full && npm run -s mutation:gate",
 		"patch:apply": "patch-package --patch-dir ops/upstream/patches/patch-package",
 		"patch:create": "patch-package --patch-dir ops/upstream/patches/patch-package",
+		"pages:build": "OPENUI_DEPLOY_TARGET=github-pages npm --workspace apps/web run build",
 		"postinstall": "node tooling/apply-patches-if-present.mjs",
 		"preprepare:next-app": "node -e \"process.exit(0)\"",
 		"precommit:container": "node tooling/check-container-env.mjs --require-container && npm run precommit:gate",

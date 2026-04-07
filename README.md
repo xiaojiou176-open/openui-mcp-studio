@@ -600,6 +600,7 @@ Use the lightest path that answers your real question.
 | `npm run repo:doctor` | you want a fast structural trust check | the repo-side contracts, runtime, evidence, upstream policy, and release-readiness inputs are healthy | not full local parity and not remote platform closure by itself |
 | `npm run repo:verify:full` | you want the stronger repo-local verification lane | the local container-parity verification path still holds | not remote GitHub governance truth by itself |
 | `npm run release:public-safe:check` | you want the strict repo-side public-safe verdict | docs, remote evidence, canonical history hygiene, local heads/tags sensitive-surface history, and GitHub public-surface review agree on a strict repo-side verdict | not legal sign-off, product judgment, or rollout approval |
+| `npm run pages:build` | you want the GitHub Pages-ready static export of the current front door | `apps/web` can be exported as a project-pages artifact for `xiaojiou176-open/openui-mcp-studio` | not proof that GitHub Pages is already enabled or deployed by itself |
 
 The live Gemini lane stays outside the default PR hot path:
 
@@ -976,6 +977,8 @@ real engineering trail.
   - is purged by the registered runtime cleanup lane instead of failing runtime-governance as an unknown subtree
 - `npm run smoke:e2e`
   - confirms the default proof surface boots and behaves like a real app
+- `npm run pages:build`
+  - exports the current front door into `apps/web/out` for GitHub Pages deployment
 - `npm run release:public-safe:check`
   - confirms public-release discipline rather than "it worked on my machine"
   - runs the strict docs lane in addition to release-readiness and remote/history checks

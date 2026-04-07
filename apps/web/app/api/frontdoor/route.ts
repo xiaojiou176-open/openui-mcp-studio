@@ -1,6 +1,8 @@
 import { buildFrontdoorPayload } from "../../../lib/frontdoor-api-payload";
 import { getResolvedSiteUrl, shouldIndexFrontdoor } from "../../../lib/site-metadata";
 
+export const dynamic = "force-static";
+
 export function GET(): Response {
 	const siteUrl = getResolvedSiteUrl();
 	const payload = buildFrontdoorPayload({

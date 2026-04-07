@@ -16,12 +16,14 @@ import {
 	LOCALE_COOKIE_NAME,
 	SUPPORTED_LOCALES,
 } from "../../lib/i18n/config";
-import { getResolvedSiteUrl } from "../../lib/site-metadata";
+import { getResolvedSiteUrl, resolveSiteHref } from "../../lib/site-metadata";
+
+export const dynamic = "force-static";
 
 function resolveFrontdoorUrl(path: string): string {
 	const siteUrl = getResolvedSiteUrl();
 	if (siteUrl) {
-		return new URL(path, siteUrl).toString();
+		return resolveSiteHref(path, siteUrl);
 	}
 	return path;
 }

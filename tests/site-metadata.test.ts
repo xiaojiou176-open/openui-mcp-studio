@@ -33,8 +33,12 @@ describe("site metadata", () => {
 			},
 		});
 		expect(metadata.openGraph?.locale).toBe("en_US");
-		expect(metadata.openGraph?.images).toEqual(["/api/social-preview"]);
-		expect(metadata.twitter?.images).toEqual(["/api/social-preview"]);
+		expect(metadata.openGraph?.images).toEqual([
+			"https://oneclickui.ai/api/social-preview",
+		]);
+		expect(metadata.twitter?.images).toEqual([
+			"https://oneclickui.ai/api/social-preview",
+		]);
 		expect(metadata.keywords).toEqual(
 			expect.arrayContaining([
 				"Codex MCP UI workflow",
