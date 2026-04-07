@@ -3,16 +3,16 @@ export const SITE_BRAND = {
   frontdoorName: "OneClickUI.ai",
   frontdoorLabel: "OneClickUI.ai front door",
   poweredBy: "Powered by OpenUIStudio",
-  repoUrl: "https://github.com/xiaojiou176/openuistudio",
+  repoUrl: "https://github.com/xiaojiou176-open/openuistudio",
   docs: {
-    readme: "https://github.com/xiaojiou176/openuistudio#readme",
+    readme: "https://github.com/xiaojiou176-open/openuistudio#readme",
     docsHub: "/docs",
     proofFaq: "/docs#proof-faq",
     walkthrough: "/docs#first-minute-walkthrough",
     apiContract:
-      "https://github.com/xiaojiou176/openuistudio/blob/main/docs/contracts/openui-mcp.openapi.json",
+      "https://github.com/xiaojiou176-open/openuistudio/blob/main/docs/contracts/openui-mcp.openapi.json",
     ecosystemContract:
-      "https://github.com/xiaojiou176/openuistudio/blob/main/docs/contracts/openui-ecosystem-productization.json",
+      "https://github.com/xiaojiou176-open/openuistudio/blob/main/docs/contracts/openui-ecosystem-productization.json",
     docsIndex: "/docs#docs-index",
     discoveryGuide: "/docs#discovery-chain",
     evaluatorChecklist: "/docs#evaluator-checklist",
@@ -23,7 +23,7 @@ export const SITE_BRAND = {
     publicSkillsLedger: "/docs#public-skills-ledger",
     sdkHostedLedger: "/docs#sdk-hosted-ledger",
     publicDistributionBundle:
-      "https://github.com/xiaojiou176/openuistudio/blob/main/examples/public-distribution/README.md",
+      "https://github.com/xiaojiou176-open/openuistudio/blob/main/examples/public-distribution/README.md",
   },
 } as const;
 

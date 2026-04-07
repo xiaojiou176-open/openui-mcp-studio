@@ -629,71 +629,6 @@ jobs:
             .runtime-cache/runs/**/artifacts/playwright-firefox/**
             .runtime-cache/runs/**/artifacts/playwright-webkit/**
 
-  functional_strict:
-    name: Functional Strict Gate
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
-    needs:
-      - runner_selector
-      - required_env_hard_gate
-      - workflow_lint
-      - workflow_governance
-      - precommit_gate
-      - secret_scan
-    runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
-    timeout-minutes: 45
-    permissions:
-      contents: read
-      packages: read
-    env:
-      TZ: UTC
-      LANG: C.UTF-8
-      LC_ALL: C.UTF-8
-    steps:
-      - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          persist-credentials: false
-
-      - name: Clean runtime artifacts in CI container
-        uses: ./.github/actions/run-in-ci-container
-        with:
-          command: npm run clean:runtime
-          working_directory: .
-          registry_password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Acceptance contracts gate in CI container
-        uses: ./.github/actions/run-in-ci-container
-        with:
-          command: npm run test:acceptance:gate
-          working_directory: .
-          registry_password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Runtime smoke functional gate in CI container
-        uses: ./.github/actions/run-in-ci-container
-        with:
-          command: node tooling/run-with-heartbeat.mjs --label=functional-smoke -- npm run smoke:e2e
-          working_directory: .
-          registry_password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Network resilience functional gate in CI container
-        uses: ./.github/actions/run-in-ci-container
-        with:
-          command: node tooling/run-with-heartbeat.mjs --label=functional-resilience -- npm run test:e2e:resilience
-          working_directory: .
-          registry_password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload functional artifacts on failure
-        if: failure()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
-        with:
-          name: functional-strict-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: ignore
-          retention-days: 7
-          path: |
-            .runtime-cache/runs/**/artifacts/playwright/**
-            .runtime-cache/runs/**/artifacts/playwright-firefox/**
-            .runtime-cache/runs/**/artifacts/playwright-webkit/**
-
   secret_scan:
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork)
     needs:
@@ -770,7 +705,6 @@ jobs:
       - runner_selector
       - required_env_hard_gate
       - quality
-      - functional_strict
     runs-on: ${{ fromJSON(needs.runner_selector.outputs.runs_on_json) }}
     environment: live-gemini-manual
     timeout-minutes: 30

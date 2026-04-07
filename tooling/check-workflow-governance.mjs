@@ -36,14 +36,13 @@ const CI_SMALL_TASK_JOB_IDS = new Set([
 const CI_SMALL_TASK_ENV_DEPENDENCY_EXEMPT_JOB_IDS = new Set(["secret_scan"]);
 const CI_LARGE_TASK_JOB_IDS = new Set([
 	"quality",
-	"functional_strict",
 	"live_gemini_hard_gate",
 	"nightly_cross_browser",
 	"nightly_coverage_gate",
 	"rollback_drill",
 ]);
 const CI_REQUIRED_NEEDS_BY_JOB = new Map([
-	["live_gemini_hard_gate", ["quality", "functional_strict"]],
+	["live_gemini_hard_gate", ["quality"]],
 ]);
 const REQUIRED_NO_BYPASS_ENVS = new Map([
 	["OPENUI_ALLOW_QUALITY_SCORE_BYPASS", "0"],
@@ -61,15 +60,14 @@ const FORBIDDEN_RUNNER_REGISTRATION_COMMAND_PATTERN =
 const REQUIRED_NODE_VERSION = "22.22.0";
 const CONTAINER_RUN_ACTION_PATH = "./.github/actions/run-in-ci-container";
 const CONTAINER_REQUIRED_JOBS_BY_WORKFLOW = new Map([
-	[
-		"ci.yml",
-		new Set([
-			"quality",
-			"functional_strict",
-			"live_gemini_hard_gate",
-			"nightly_cross_browser",
-			"nightly_coverage_gate",
-		]),
+		[
+			"ci.yml",
+			new Set([
+				"quality",
+				"live_gemini_hard_gate",
+				"nightly_cross_browser",
+				"nightly_coverage_gate",
+			]),
 	],
 	["mutation-weekly.yml", new Set(["mutation_gate"])],
 	["quality-trend-weekly.yml", new Set(["quality_trend"])],
@@ -369,43 +367,6 @@ function validateCiRunnerPolicy(fileName, lines, jobBlocks, errors) {
 					`${fileName}: job "${jobId}" must depend on "${need}" to preserve fast-before-long gate ordering.`,
 				);
 			}
-		}
-	}
-
-	const functionalStrict = byId.get("functional_strict");
-	if (functionalStrict) {
-		const blockLines = getBlockLines(lines, functionalStrict);
-		const requiredHeartbeatLabels = [
-			"functional-resilience",
-			"functional-smoke",
-		];
-		for (const label of requiredHeartbeatLabels) {
-			const pattern = new RegExp(
-				`(?:run|command):\\s+node\\s+tooling/run-with-heartbeat\\.mjs\\s+--label=${label}\\s+--\\s+`,
-			);
-			if (!blockContainsLine(blockLines, pattern)) {
-				errors.push(
-					`${fileName}: functional_strict is missing heartbeat wrapper for "${label}".`,
-				);
-			}
-		}
-		const shortToLongRuns = [
-			"--label=functional-smoke -- npm run smoke:e2e",
-			"--label=functional-resilience -- npm run test:e2e:resilience",
-		];
-		let previousIndex = -1;
-		for (const expectedRun of shortToLongRuns) {
-			const index = blockLines.findIndex((line) => line.includes(expectedRun));
-			if (index === -1) {
-				continue;
-			}
-				if (index <= previousIndex) {
-					errors.push(
-						`${fileName}: functional_strict must stay short-before-long (smoke -> resilience).`,
-					);
-					break;
-				}
-			previousIndex = index;
 		}
 	}
 

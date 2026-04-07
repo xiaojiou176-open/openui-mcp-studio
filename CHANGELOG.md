@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed the remaining repository identity hotspots from
   `openuistudio-ui-generator` to `openuistudio`.
 - Replaced the previous remote history with a new canonical public `main`.
-- Re-created the canonical GitHub repository under `xiaojiou176/openuistudio`.
+- Re-created the canonical GitHub repository under `xiaojiou176-open/openuistudio`.
 - Re-enabled branch protection, secret scanning, push protection, and private
   vulnerability reporting on the rebuilt remote.
 - Rebuilt `README.md` into a product-style public landing page with stronger

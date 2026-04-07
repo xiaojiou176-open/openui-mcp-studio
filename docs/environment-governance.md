@@ -8,7 +8,9 @@ Provider secrets are loaded at MCP runtime (not committed in this repo).
 Runtime baseline for CI parity:
 - Canonical Node version: `22.22.0`.
 - CI execution mode: host orchestration + container execution (main quality gates run inside repository CI image).
-- Local recommended parity path: devcontainer or `npm run repo:verify:full`.
+- Local recommended front-door path: `npm run repo:doctor`, `npm run repo:verify:fast`, and targeted proof commands such as `npm run smoke:e2e`.
+- Manual local parity path: devcontainer or `npm run repo:verify:full`.
+- Local CI image bootstrap is opt-in only: use `npm run ci:local:container:bootstrap` only when you intentionally want this machine to build the locked CI image.
 
 ## Source of Truth
 
