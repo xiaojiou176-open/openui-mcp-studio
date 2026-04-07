@@ -177,7 +177,7 @@ Current Prompt 4 release-readiness handling should keep one boundary explicit:
   - remove the unsupported `experimental.webpackBuildWorker` drift from
     `apps/web/next.config.mjs`
 - in the current final Prompt 4 worktree, clean direct
-  `apps/web` `next build --webpack` reruns pass, and the official
+  `apps/web` `next build` reruns pass, and the official
   `smoke:e2e` / `visual:qa` chain is green
 - keep the old direct-build failure only as a regression pattern to watch,
   not as a current release-readiness blocker
@@ -186,7 +186,7 @@ Current Prompt 4 release-readiness handling should keep one boundary explicit:
 
 ## Diagnostic Build Boundary
 
-Treat `apps/web` direct `next build --webpack` as a diagnostic reliability path,
+Treat `apps/web` direct `next build` as a diagnostic reliability path,
 not as a stronger release truth than the repository-owned gates.
 
 - `npm run smoke:e2e` and `npm run visual:qa` remain the current public product

@@ -154,11 +154,40 @@ const RETRYABLE_NEXT_BUILD_MARKERS = [
   "app-path-routes-manifest.json",
 ] as const;
 
+const REQUIRED_RUNTIME_BUILD_ARTIFACTS = [
+  "BUILD_ID",
+  "required-server-files.json",
+  "routes-manifest.json",
+  "prerender-manifest.json",
+] as const;
+
 export function shouldRetryPrepareBuild(error: unknown): boolean {
   const message = error instanceof Error ? error.message : String(error);
   return RETRYABLE_NEXT_BUILD_MARKERS.some((marker) =>
     message.includes(marker),
   );
+}
+
+export async function isPreparedBuildReusable(input: {
+  buildDir: string;
+  latestSourceMtimeMs: number;
+}): Promise<boolean> {
+  const buildMarker = path.resolve(input.buildDir, "BUILD_ID");
+  if (!(await pathExists(buildMarker))) {
+    return false;
+  }
+
+  const requiredArtifactsPresent = await Promise.all(
+    REQUIRED_RUNTIME_BUILD_ARTIFACTS.map((relativePath) =>
+      pathExists(path.resolve(input.buildDir, relativePath)),
+    ),
+  );
+  if (!requiredArtifactsPresent.every(Boolean)) {
+    return false;
+  }
+
+  const buildStat = await fs.stat(buildMarker);
+  return input.latestSourceMtimeMs <= buildStat.mtimeMs;
 }
 
 async function runCommand(input: {
@@ -287,17 +316,16 @@ async function getLatestMtimeMs(dirPath: string): Promise<number> {
 
 async function ensureBuild(root: string): Promise<void> {
   const buildDir = await resolveNextBuildDir(root);
-  const buildMarker = path.resolve(buildDir, "BUILD_ID");
   const appDir = path.resolve(root, "app");
+  const latestSourceMtime = await getLatestMtimeMs(appDir);
 
-  if (await pathExists(buildMarker)) {
-    const [buildStat, latestSourceMtime] = await Promise.all([
-      fs.stat(buildMarker),
-      getLatestMtimeMs(appDir),
-    ]);
-    if (latestSourceMtime <= buildStat.mtimeMs) {
-      return;
-    }
+  if (
+    await isPreparedBuildReusable({
+      buildDir,
+      latestSourceMtimeMs: latestSourceMtime,
+    })
+  ) {
+    return;
   }
 
   await fs.rm(buildDir, {
@@ -310,7 +338,7 @@ async function ensureBuild(root: string): Promise<void> {
   const runBuild = async () =>
     await runCommand({
       command: getNextBinPath(root),
-      args: ["build", "--webpack"],
+      args: ["build"],
       cwd: root,
       timeoutMs: DEFAULT_TIMEOUT_MS,
     });

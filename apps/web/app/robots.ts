@@ -1,6 +1,12 @@
 import type { MetadataRoute } from "next";
 
-import { getResolvedSiteUrl, shouldIndexFrontdoor } from "@/lib/site-metadata";
+import {
+  getResolvedSiteUrl,
+  resolveSiteHref,
+  shouldIndexFrontdoor,
+} from "@/lib/site-metadata";
+
+export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   const siteUrl = getResolvedSiteUrl();
@@ -16,7 +22,7 @@ export default function robots(): MetadataRoute.Robots {
           userAgent: "*",
           disallow: "/",
         },
-    sitemap: siteUrl ? [`${siteUrl}sitemap.xml`] : undefined,
-    host: siteUrl ?? undefined,
+    sitemap: siteUrl ? [resolveSiteHref("/sitemap.xml", siteUrl)] : undefined,
+    host: siteUrl ? new URL(siteUrl).origin : undefined,
   };
 }

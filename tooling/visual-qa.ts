@@ -337,7 +337,7 @@ async function ensureNextBuild(targetRoot: string): Promise<void> {
 
 	await runCommand({
 		command: getNextBinPath(targetRoot),
-		args: ["build", "--webpack"],
+		args: ["build"],
 		cwd: targetRoot,
 		timeoutMs: DEFAULT_BUILD_TIMEOUT_MS,
 	});

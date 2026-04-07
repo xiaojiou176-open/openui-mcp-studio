@@ -1,4 +1,5 @@
 import { SITE_BRAND } from "./frontdoor-content";
+import { resolveSiteHref } from "./site-metadata";
 
 export function serializeJsonLd(value: unknown): string {
   return JSON.stringify(value)
@@ -29,7 +30,7 @@ export function buildStructuredDiscoveryJsonLd(
     return null;
   }
 
-  const pageUrl = new URL(input.path, input.siteUrl).toString();
+  const pageUrl = resolveSiteHref(input.path, input.siteUrl);
   const pageJsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": input.type,

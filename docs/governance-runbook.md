@@ -29,6 +29,7 @@ These commands are the repository front desk.
 | `npm run repo:verify:full` | local authoritative container-parity path | not proof of trusted remote CI supply-chain closure by itself |
 | `npm run repo:upstream:check` | upstream inventory, compatibility, patch governance, post-fetch history hygiene, and a non-blocking clone-local sync-preflight readout | not approval for whole-repo merge or rebase, and not proof that the current clone already has `upstream` attached |
 | `npm run release:public-safe:check` | strict repository-side public-safe verdict across release evidence, dependency-review local preflight, Zizmor audit, Trivy filesystem audit, remote governance, canonical history hygiene, local heads/tags sensitive-surface history, and GitHub public-surface review | does not rotate credentials or rewrite Git history or clear GitHub read-only refs by itself |
+| `npm run pages:build` | GitHub Pages-ready static export of `apps/web` for the canonical front door | not proof that GitHub Pages is already enabled or deployed |
 
 ## Security Entrypoints
 

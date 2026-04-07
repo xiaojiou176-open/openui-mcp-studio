@@ -20,10 +20,11 @@ import {
 	LOCALE_COOKIE_NAME,
 	SUPPORTED_LOCALES,
 } from "./i18n/config";
+import { resolveSiteHref } from "./site-metadata";
 
 function resolveFrontdoorUrl(pathValue: string, siteUrl?: string | null): string {
 	if (siteUrl) {
-		return new URL(pathValue, siteUrl).toString();
+		return resolveSiteHref(pathValue, siteUrl);
 	}
 	return pathValue;
 }
