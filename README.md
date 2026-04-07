@@ -1051,13 +1051,13 @@ In plain language:
 
 - Discussions are the home for questions, ideas, and show-and-tell threads.
 - Issues stay focused on reproducible bugs and workflow failures.
-- Git tags exist as version anchors, but the GitHub Releases page currently has
-  no published release.
-- Treat release notes and attached release assets as operator-owned follow-through
-  until a real published release exists.
-- Homepage, Social Preview, published release assets, and Discussions seeding
-  are still operator-managed public surfaces. The repo can prepare the story
-  and the assets, but it cannot prove those settings are live by itself.
+- The latest published GitHub release is `v0.3.0`, and it already carries the
+  current public asset bundle used across the proof and storefront surfaces.
+- Release notes, future release-asset refreshes, and future Discussions curation
+  still need operator follow-through when the public story changes again.
+- The GitHub Homepage field and Social Preview remain operator-managed settings.
+  The repo can prepare the story and the assets, but those settings still need
+  explicit operator verification whenever they change.
 - `npm run repo:workflow:ready` is the maintainer-facing PR/checks-ready packet.
   It stays read-only on purpose: repo-local state + live GitHub truth in one
   packet, but no push, PR mutation, or settings changes.

@@ -76,6 +76,10 @@ When the public message changes:
 If README says one thing and Releases say another, the repo starts feeling
 unmaintained even when the code is healthy.
 
+The current repository already has a published `v0.3.0` GitHub release, so the
+README, release page, and attached asset bundle should all acknowledge the same
+current public story.
+
 If the repository has tags but no published GitHub release yet, keep that truth
 explicit. Do not leave a release badge or navigation link in place if it makes
 an empty Releases page look like a closed public surface.
@@ -196,11 +200,13 @@ These stay outside repo-local closure:
 
 - Homepage field
 - Social Preview selection and verification
-- publishing or refreshing release assets
-- Discussions seeding and curation
+- publishing future releases or refreshing attached release assets after the
+  public story changes again
+- future Discussions seeding and curation beyond the currently live baseline
 
 The repo can prepare the story and the assets.
-It cannot prove those GitHub settings are live by itself.
+It can only prove those GitHub settings when live GitHub verification is
+available in the current execution environment.
 
 ## Automation Entry Points
 

@@ -147,13 +147,14 @@ Treat these as separate from repo-local readiness:
 
 - GitHub Homepage
 - GitHub Social Preview
-- publishing draft releases
-- refreshing attached release assets
-- Discussions seeding and curation
+- publishing future releases
+- refreshing attached release assets after future public-story changes
+- future Discussions seeding and curation beyond the current live baseline
 
 Those are operator-managed public surfaces.
-The repo can prepare their wording, assets, and contracts, but it cannot prove
-the settings are live by itself.
+The repo can prepare their wording, assets, and contracts, but it can only
+prove the settings are live when the current execution environment can reach
+GitHub's live surfaces.
 
 ## i18n Boundary
 
@@ -328,27 +329,26 @@ different layers:
       `serves public discovery plus auth-protected workflow and tool routes`
       timed out, and its `afterEach` hook also timed out
 - GitHub live truth
-  - open PRs = `0`
-  - open issues = `0`
-  - open CodeQL alerts = `0`
-  - open secret-scanning alerts = `0`
-  - latest `main` CodeQL run = success
-  - latest `main` CI run is **not** fully green because `Pre-commit Gate`
-    failed after `oxipng` rewrote tracked PNG assets on the runner
+  - public GitHub pages currently show `2` open PRs (`#10` and `#13`)
+  - both remaining open PRs are workflow-only Dependabot bumps and their
+    visible CI suites are green
   - the current GitHub homepage field is intentionally empty
-  - local `origin/codex/*` refs were stale tracking refs, not live GitHub
-    branches
+  - the latest published GitHub release is `v0.3.0`
+  - the current release page already exposes the expected public asset bundle
+  - the seeded Discussions baseline is currently live
 - public/operator truth
-  - Git tags exist, but the GitHub Releases page currently has no published
-    release
-  - release notes, release assets, and release-page closure therefore remain
-    operator-owned follow-through rather than current public truth
+  - release notes, future release-asset refreshes, Homepage changes, Social
+    Preview changes, and future Discussions curation still remain
+    operator-owned follow-through
+  - `npm run public:remote:check` is the canonical scripted proof path, but it
+    still depends on live `gh`/GitHub API reachability in the current
+    execution environment
 
 Use `npm run repo:workflow:summary` and `npm run repo:workflow:ready` for the
 latest read-only readiness packet, but do not treat those commands as proof
 that the repo-local full-gate story is fully closed until:
 
-- the current repo-local test failures are resolved
+- the remaining open PRs are legally merged through the protected-branch PR path
 - the current closeout diff is landed and re-run through fresh GitHub checks
 - the remaining operator-owned public surfaces are either completed or
   explicitly kept out of the verdict
