@@ -162,10 +162,12 @@ These are outside repo-local closure:
 
 - GitHub Homepage field
 - GitHub Social Preview selection and verification
-- publishing draft releases and refreshing attached assets
+- publishing future releases and refreshing attached assets after the public
+  story changes again
 - official marketplace or catalog submission
-- Discussions seeding and curation
+- future Discussions seeding and curation beyond the currently live baseline
 - domain, DNS, TLS, and deployment for `OneClickUI.ai`
 
 The repo can prepare the story and the assets.
-It cannot prove those remote settings are live by itself.
+It cannot prove those remote settings are live by itself unless a live GitHub
+verification path is available in the current environment.
