@@ -3,7 +3,7 @@
 		"openui-mcp-studio": "./tooling/cli/openui.mjs"
 	},
 	"dependencies": {
-		"@modelcontextprotocol/sdk": "^1.27.1",
+		"@modelcontextprotocol/sdk": "^1.29.0",
 		"zod": "^4.3.6"
 	},
 	"description": "Local stdio MCP server and repo-aware workflow for generating, applying, and verifying React + shadcn UI from natural-language briefs.",
