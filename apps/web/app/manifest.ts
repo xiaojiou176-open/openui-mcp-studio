@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getResolvedSiteUrl, resolveSiteHref } from "@/lib/site-metadata";
+import { getResolvedSiteUrl, resolveSiteHref } from "../lib/site-metadata";
 
 export const dynamic = "force-static";
 
