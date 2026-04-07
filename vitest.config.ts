@@ -1,4 +1,3 @@
-import path from "node:path";
 import { defineConfig } from "vitest/config";
 
 const isBatchCoverageRun = /^(1|true|yes|on)$/i.test(
@@ -43,11 +42,6 @@ export const VITEST_COVERAGE_THRESHOLDS = {
 } as const;
 
 export default defineConfig({
-	resolve: {
-		alias: {
-			"@": path.resolve(process.cwd(), "apps/web"),
-		},
-	},
 	test: {
 		include: [
 			"tests/**/*.test.ts",
