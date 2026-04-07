@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "imageRepo": "ghcr.io/xiaojiou176/openui-mcp-studio-ci",
+  "imageRepo": "ghcr.io/xiaojiou176-open/openui-mcp-studio-ci",
   "digest": "sha256:f694f7f8e1af64dc612180952d9a64b05ddd38d819c3b1672d69464fde979506",
   "bootstrap": {
     "dockerfile": ".devcontainer/Dockerfile",

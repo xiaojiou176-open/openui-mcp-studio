@@ -103,4 +103,4 @@ visibility lane.
 - Use [Discovery Surfaces](./discovery-surfaces.md) if you are deciding how to
   read `/llms.txt`, `/api/frontdoor`, or the current builder order.
 - Use [Public Surface Guide](./public-surface-guide.md) if you are maintaining the public story.
-- Use [Discussions](https://github.com/xiaojiou176/openui-mcp-studio/discussions) if you want to see how the repo is meant to be talked about in public.
+- Use [Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions) if you want to see how the repo is meant to be talked about in public.

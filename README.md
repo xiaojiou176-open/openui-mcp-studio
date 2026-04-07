@@ -53,9 +53,9 @@ and `npm run release:public-safe:check`.
 English is the canonical source of truth for repository governance and
 maintenance.
 
-[![Tag](https://img.shields.io/github/v/tag/xiaojiou176/openui-mcp-studio?label=tag)](https://github.com/xiaojiou176/openui-mcp-studio/tags)
-[![Discussions](https://img.shields.io/github/discussions/xiaojiou176/openui-mcp-studio?label=discussions)](https://github.com/xiaojiou176/openui-mcp-studio/discussions)
-[![License](https://img.shields.io/github/license/xiaojiou176/openui-mcp-studio)](./LICENSE)
+[![Tag](https://img.shields.io/github/v/tag/xiaojiou176-open/openui-mcp-studio?label=tag)](https://github.com/xiaojiou176-open/openui-mcp-studio/tags)
+[![Discussions](https://img.shields.io/github/discussions/xiaojiou176-open/openui-mcp-studio?label=discussions)](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions)
+[![License](https://img.shields.io/github/license/xiaojiou176-open/openui-mcp-studio)](./LICENSE)
 [![Proof Surface](https://img.shields.io/badge/proof-apps%2Fweb-blue)](./docs/proof-and-faq.md)
 
 [Quick Start](#quick-start) |
@@ -66,8 +66,8 @@ maintenance.
 [Evaluator Checklist](./docs/evaluator-checklist.md) |
 [Public Surface Guide](./docs/public-surface-guide.md) |
 [Architecture](./docs/architecture.md) |
-[Tags](https://github.com/xiaojiou176/openui-mcp-studio/tags) |
-[Discussions](https://github.com/xiaojiou176/openui-mcp-studio/discussions) |
+[Tags](https://github.com/xiaojiou176-open/openui-mcp-studio/tags) |
+[Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions) |
 [Docs Index](./docs/index.md)
 
 ![OpenUI MCP Studio preview card](./docs/assets/openui-mcp-studio-preview.svg)
@@ -139,7 +139,7 @@ Pick the shortest path that matches what you actually want to learn first:
     </td>
     <td width="33%">
       <strong>Where to start</strong><br />
-      Jump to <a href="#quick-start">Quick Start</a>, <a href="./docs/proof-and-faq.md#demo-proof">Demo Proof</a>, or <a href="https://github.com/xiaojiou176/openui-mcp-studio/discussions">Discussions</a>.
+      Jump to <a href="#quick-start">Quick Start</a>, <a href="./docs/proof-and-faq.md#demo-proof">Demo Proof</a>, or <a href="https://github.com/xiaojiou176-open/openui-mcp-studio/discussions">Discussions</a>.
     </td>
   </tr>
 </table>

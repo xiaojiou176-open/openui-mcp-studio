@@ -1,7 +1,7 @@
 {
   "version": 1,
   "repository": {
-    "owner": "xiaojiou176",
+    "owner": "xiaojiou176-open",
     "name": "openui-mcp-studio",
     "visibility": "public"
   },
@@ -86,7 +86,7 @@
       "evidence": [
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio -> default_branch=main"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio -> default_branch=main"
         }
       ]
     },
@@ -99,11 +99,11 @@
       "evidence": [
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio/branches/main -> protected=true"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/branches/main -> protected=true"
         },
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio/branches/main/protection -> required_status_checks.strict=true"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/branches/main/protection -> required_status_checks.strict=true"
         }
       ]
     },
@@ -121,7 +121,7 @@
       "evidence": [
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio/branches/main/protection/required_status_checks -> contexts=[secret_scan, Workflow Lint, Quality (Node 22.22.0)]"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/branches/main/protection/required_status_checks -> contexts=[secret_scan, Workflow Lint, Quality (Node 22.22.0)]"
         },
         {
           "type": "repo_path",
@@ -142,11 +142,11 @@
       "evidence": [
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio/contents/CODEOWNERS -> file exists"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/contents/CODEOWNERS -> file exists"
         },
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio/branches/main/protection -> require_code_owner_reviews=true"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/branches/main/protection -> require_code_owner_reviews=true"
         },
         {
           "type": "repo_path",
@@ -175,7 +175,7 @@
         },
         {
           "type": "command_observation",
-          "value": "gh api 'repos/xiaojiou176/openui-mcp-studio/secret-scanning/alerts?state=open&per_page=100' -> []"
+          "value": "gh api 'repos/xiaojiou176-open/openui-mcp-studio/secret-scanning/alerts?state=open&per_page=100' -> []"
         }
       ]
     },
@@ -192,7 +192,7 @@
         },
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio --jq '.security_and_analysis.secret_scanning_push_protection.status' -> enabled"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio --jq '.security_and_analysis.secret_scanning_push_protection.status' -> enabled"
         }
       ]
     },
@@ -209,7 +209,7 @@
         },
         {
           "type": "command_observation",
-          "value": "gh api 'repos/xiaojiou176/openui-mcp-studio/code-scanning/alerts?state=open&per_page=100' -> []"
+          "value": "gh api 'repos/xiaojiou176-open/openui-mcp-studio/code-scanning/alerts?state=open&per_page=100' -> []"
         }
       ]
     },
@@ -226,7 +226,7 @@
         },
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio/private-vulnerability-reporting -> {\"enabled\":true}"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/private-vulnerability-reporting -> {\"enabled\":true}"
         }
       ]
     },
@@ -243,7 +243,7 @@
         },
         {
           "type": "command_observation",
-          "value": "gh api repos/xiaojiou176/openui-mcp-studio/environments/live-gemini-manual -> required_reviewers=[leilei999lei-lab], prevent_self_review=true, deployment_branch_policy.protected_branches=true"
+          "value": "gh api repos/xiaojiou176-open/openui-mcp-studio/environments/live-gemini-manual -> required_reviewers=[leilei999lei-lab], prevent_self_review=true, deployment_branch_policy.protected_branches=true"
         }
       ]
     }

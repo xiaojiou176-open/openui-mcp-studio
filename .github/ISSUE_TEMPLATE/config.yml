@@ -1,17 +1,17 @@
 blank_issues_enabled: false
 contact_links:
   - name: GitHub Discussions
-    url: https://github.com/xiaojiou176/openui-mcp-studio/discussions
+    url: https://github.com/xiaojiou176-open/openui-mcp-studio/discussions
     about: Use Discussions for ideas, setup questions, comparisons, and show-and-tell threads instead of opening a bug.
   - name: Private vulnerability reporting
-    url: https://github.com/xiaojiou176/openui-mcp-studio/security/advisories/new
+    url: https://github.com/xiaojiou176-open/openui-mcp-studio/security/advisories/new
     about: Private vulnerability reporting is enabled. Use this non-public intake instead of opening a public issue for security-sensitive findings.
   - name: Security policy
-    url: https://github.com/xiaojiou176/openui-mcp-studio/blob/main/SECURITY.md
+    url: https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/SECURITY.md
     about: Read the repository security policy and fallback routing guidance before reporting sensitive issues.
   - name: Repository support guide
-    url: https://github.com/xiaojiou176/openui-mcp-studio/blob/main/SUPPORT.md
+    url: https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/SUPPORT.md
     about: Start here for non-bug support questions and maintainer expectations.
   - name: Documentation index
-    url: https://github.com/xiaojiou176/openui-mcp-studio/blob/main/docs/index.md
+    url: https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/docs/index.md
     about: Review the documentation router before opening workflow or setup questions.
