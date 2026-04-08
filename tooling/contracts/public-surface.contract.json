@@ -5,7 +5,7 @@
     "name": "openui-mcp-studio"
   },
   "about": {
-    "description": "MCP-native UI/UX delivery and review workflow for Codex and Claude Code: turn UI briefs into React + shadcn delivery with proof and review.",
+    "description": "Public repo for MCP-native UI delivery and review across Codex, Claude Code, OpenCode, and OpenClaw.",
     "homepageUrl": "https://xiaojiou176-open.github.io/openui-mcp-studio/",
     "discussionsEnabled": true
   },

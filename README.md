@@ -73,6 +73,7 @@ Use the shortest path that matches the question in your head:
 
 - this repo is the main product surface and the main thing you evaluate, star, clone, and hand to another builder
 - the canonical builder order stays `local stdio MCP -> compatibility OpenAPI -> repo-local workflow packet`
+- local bootstrap remains a construction-only bridge into that workflow, not a competing product front door
 - Codex and Claude Code have repo-owned install surfaces today
 - OpenCode can reuse the same generic MCP contract, but it is not a dedicated vendor-native install shelf
 - OpenClaw is now part of the official repo-owned skill product line, but remains unlisted and not vendor-verified
