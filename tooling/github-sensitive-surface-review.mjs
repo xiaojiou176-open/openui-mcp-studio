@@ -202,6 +202,14 @@ function buildCommentFindings({
 	return findings;
 }
 
+function isGitHubCodeSearchRateLimit(error) {
+	const message = error instanceof Error ? error.message : String(error);
+	return (
+		message.includes("search/code") &&
+		message.toLowerCase().includes("api rate limit exceeded")
+	);
+}
+
 async function runDefaultMirrorAudit({
 	rootDir,
 	originUrl,
@@ -423,15 +431,26 @@ async function runGithubSensitiveSurfaceReview(options = {}) {
 
 	if (!blockingFindingsAlreadyPresent) {
 		for (const query of CODE_SEARCH_QUERIES) {
-			const results = await ghJsonRunner([
-				"search",
-				"code",
-				`${query} repo:${repoSlug}`,
-				"--limit",
-				"20",
-				"--json",
-				"path",
-			]);
+			let results;
+			try {
+				results = await ghJsonRunner([
+					"search",
+					"code",
+					`${query} repo:${repoSlug}`,
+					"--limit",
+					"20",
+					"--json",
+					"path",
+				]);
+			} catch (error) {
+				if (isGitHubCodeSearchRateLimit(error)) {
+					notes.push(
+						"GitHub code search was skipped because the search API rate limit was exceeded during this review.",
+					);
+					break;
+				}
+				throw error;
+			}
 			for (const result of Array.isArray(results) ? results : []) {
 				codeSearchFindings.push({
 					query,

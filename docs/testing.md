@@ -50,6 +50,8 @@ it out of the default blocking PR path.
 
 Dependabot is intentionally separate from this table.
 It is dependency-inbox automation, not a sixth CI governance lane.
+The current final-distribution posture keeps security updates available while
+disabling routine version-update PR churn through `open-pull-requests-limit: 0`.
 
 ## Delivery Surface Gates
 
