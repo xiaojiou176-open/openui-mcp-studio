@@ -25,6 +25,9 @@ on GitHub.
 Start here if your question is "what does this project do right now?"
 
 - [`README.md`](../README.md)
+- [`DISTRIBUTION.md`](../DISTRIBUTION.md)
+- [`INTEGRATIONS.md`](../INTEGRATIONS.md)
+- [`manifest.yaml`](../manifest.yaml)
 - `/`, `/proof`, `/walkthrough`, `/workbench`
 - [`docs/first-minute-walkthrough.md`](./first-minute-walkthrough.md)
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
@@ -47,6 +50,9 @@ needs human judgment?"
 Start here if your question is "what builder surface is actually current?"
 
 - [`README.md`](../README.md)
+- [`DISTRIBUTION.md`](../DISTRIBUTION.md)
+- [`INTEGRATIONS.md`](../INTEGRATIONS.md)
+- [`manifest.yaml`](../manifest.yaml)
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
 - [`docs/contracts/openui-mcp.openapi.json`](./contracts/openui-mcp.openapi.json)
 - [`docs/contracts/openui-ecosystem-productization.json`](./contracts/openui-ecosystem-productization.json)
@@ -75,6 +81,9 @@ Use these files when you need the current shared wording rather than a single
 worker-scoped note:
 
 - [`README.md`](../README.md)
+- [`DISTRIBUTION.md`](../DISTRIBUTION.md)
+- [`INTEGRATIONS.md`](../INTEGRATIONS.md)
+- [`manifest.yaml`](../manifest.yaml)
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
 - [`docs/public-surface-guide.md`](./public-surface-guide.md)
 - [`docs/testing.md`](./testing.md)

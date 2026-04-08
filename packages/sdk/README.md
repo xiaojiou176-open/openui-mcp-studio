@@ -17,7 +17,7 @@ pack/install-ready SDK package inside this repository.
 import { createOpenuiHostedClient } from "@openui/sdk";
 
 const client = createOpenuiHostedClient({
-  baseUrl: "http://127.0.0.1:8787",
+  baseUrl: "http://127.0.0.1:7878",
   token: "replace-with-your-bearer-token",
 });
 ```

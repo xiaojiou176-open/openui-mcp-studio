@@ -15,6 +15,7 @@ const TOOL_CACHE_RECEIPT_BASENAME = "tool-cache-janitor-latest";
 const TOOL_ASSET_DIRECTORIES = Object.freeze({
 	playwright: "playwright",
 	install: "install",
+	trivy: "trivy",
 	npm: "npm",
 	preCommit: "pre-commit",
 });
@@ -211,6 +212,26 @@ function pruneToolCacheDirectorySync(policy) {
 	};
 }
 
+function pruneLegacyToolCacheRootSync(policy) {
+	fsSync.mkdirSync(path.dirname(policy.cacheDir), { recursive: true });
+	const files = collectCacheFilesSync(policy.cacheDir);
+	const bytesBefore = files.reduce((sum, file) => sum + file.size, 0);
+	if (!policy.dryRun && fsSync.existsSync(policy.cacheDir)) {
+		fsSync.rmSync(policy.cacheDir, { recursive: true, force: true });
+	}
+	return {
+		cacheDir: policy.cacheDir,
+		scannedFiles: files.length,
+		removedExpiredFiles: files.length,
+		removedCapacityFiles: 0,
+		removedExpiredPaths: files.map((file) => file.filePath),
+		removedCapacityPaths: [],
+		bytesBefore,
+		bytesAfter: 0,
+		dryRun: policy.dryRun,
+	};
+}
+
 async function computeRuntimeMarker(rootDir) {
 	const runtimeFingerprint = [
 		process.platform,
@@ -390,6 +411,8 @@ async function resolveToolCacheRoots(options = {}) {
 		toolCacheRoot,
 		workspaceToken,
 		runtimeMarker,
+		legacyInstallRoot: path.join(toolCacheBaseRoot, TOOL_ASSET_DIRECTORIES.install),
+		trivyCacheRoot: path.join(toolCacheBaseRoot, TOOL_ASSET_DIRECTORIES.trivy),
 		playwrightBrowsersPath: path.join(
 			toolCacheRoot,
 			TOOL_ASSET_DIRECTORIES.playwright,
@@ -552,28 +575,80 @@ async function runToolCacheJanitor(options = {}) {
 			nowMs,
 			governance.cleanIntervalMinutes,
 		);
-	const cacheDirExists = await pathExists(governance.roots.toolCacheRoot);
+	const janitorRoots = [
+		{
+			cacheDir: governance.roots.toolCacheRoot,
+			pruneMode: "ttl-cap",
+		},
+		{
+			cacheDir: governance.roots.legacyInstallRoot,
+			pruneMode: "legacy-reset",
+		},
+		{
+			cacheDir: governance.roots.trivyCacheRoot,
+			pruneMode: "legacy-reset",
+		},
+	].filter(
+		(entry, index, entries) =>
+			entries.findIndex((candidate) => candidate.cacheDir === entry.cacheDir) ===
+			index,
+	);
+	const emptyResult = {
+		cacheDir: governance.roots.toolCacheRoot,
+		scannedFiles: 0,
+		removedExpiredFiles: 0,
+		removedCapacityFiles: 0,
+		removedExpiredPaths: [],
+		removedCapacityPaths: [],
+		bytesBefore: 0,
+		bytesAfter: 0,
+		dryRun,
+	};
 	const result =
-		due && (cacheDirExists || !dryRun)
-			? pruneToolCacheDirectorySync({
-					cacheDir: governance.roots.toolCacheRoot,
-					retentionDays: governance.retentionDays,
-					maxBytes: governance.maxBytes,
-					cleanIntervalMinutes: governance.cleanIntervalMinutes,
-					nowMs,
-					dryRun,
-				})
-			: {
-					cacheDir: governance.roots.toolCacheRoot,
-					scannedFiles: 0,
-					removedExpiredFiles: 0,
-					removedCapacityFiles: 0,
-					removedExpiredPaths: [],
-					removedCapacityPaths: [],
-					bytesBefore: 0,
-					bytesAfter: 0,
-					dryRun,
-				};
+		due
+			? await janitorRoots.reduce((accumulator, entry) => {
+					return accumulator.then(async (current) => {
+						const { cacheDir, pruneMode } = entry;
+						const cacheDirExists = await pathExists(cacheDir);
+						if (!cacheDirExists) {
+							return current;
+						}
+						const next =
+							pruneMode === "legacy-reset"
+								? pruneLegacyToolCacheRootSync({
+										cacheDir,
+										dryRun,
+									})
+								: pruneToolCacheDirectorySync({
+										cacheDir,
+										retentionDays: governance.retentionDays,
+										maxBytes: governance.maxBytes,
+										cleanIntervalMinutes: governance.cleanIntervalMinutes,
+										nowMs,
+										dryRun,
+									});
+						return {
+							cacheDir: governance.roots.toolCacheRoot,
+							scannedFiles: current.scannedFiles + next.scannedFiles,
+							removedExpiredFiles:
+								current.removedExpiredFiles + next.removedExpiredFiles,
+							removedCapacityFiles:
+								current.removedCapacityFiles + next.removedCapacityFiles,
+							removedExpiredPaths: [
+								...current.removedExpiredPaths,
+								...next.removedExpiredPaths,
+							],
+							removedCapacityPaths: [
+								...current.removedCapacityPaths,
+								...next.removedCapacityPaths,
+							],
+							bytesBefore: current.bytesBefore + next.bytesBefore,
+							bytesAfter: current.bytesAfter + next.bytesAfter,
+							dryRun,
+						};
+					});
+				}, Promise.resolve(emptyResult))
+			: emptyResult;
 	const mode = dryRun ? "dry-run" : due ? "apply" : "skipped";
 	const lastCleanupCompletedAt =
 		!dryRun && due
@@ -590,6 +665,7 @@ async function runToolCacheJanitor(options = {}) {
 		runtimeMarker: governance.roots.runtimeMarker,
 		toolCacheBaseRoot: toPosixPath(governance.roots.toolCacheBaseRoot),
 		toolCacheRoot: toPosixPath(governance.roots.toolCacheRoot),
+		janitorRoots: janitorRoots.map((entry) => toPosixPath(entry.cacheDir)),
 		retentionDays: governance.retentionDays,
 		maxBytes: governance.maxBytes,
 		cleanIntervalMinutes: governance.cleanIntervalMinutes,
@@ -644,6 +720,8 @@ async function buildRepoSpecificExternalToolCacheMetadata(options = {}) {
 		toolCacheBaseRoot: toPosixPath(governance.roots.toolCacheBaseRoot),
 		workspaceToken: governance.roots.workspaceToken,
 		toolCacheRoot: toPosixPath(governance.roots.toolCacheRoot),
+		legacyInstallRoot: toPosixPath(governance.roots.legacyInstallRoot),
+		trivyCacheRoot: toPosixPath(governance.roots.trivyCacheRoot),
 		runtimeMarker: governance.roots.runtimeMarker,
 		latestReceipt,
 		policy: {
@@ -680,15 +758,33 @@ async function buildRepoSpecificExternalToolCacheMetadata(options = {}) {
 				scope,
 				path: toPosixPath(governance.roots.playwrightBrowsersPath),
 			},
-			{
-				applyMode,
-				id: "install",
-				kind: "tool-cache-path",
-				measurement: "recursive",
-				reportRole: "sized-target",
-				scope,
-				path: toPosixPath(governance.roots.managedInstallRoot),
-			},
+				{
+					applyMode,
+					id: "install",
+					kind: "tool-cache-path",
+					measurement: "recursive",
+					reportRole: "sized-target",
+					scope,
+					path: toPosixPath(governance.roots.legacyInstallRoot),
+				},
+				{
+					applyMode,
+					id: "managed-install",
+					kind: "tool-cache-path",
+					measurement: "recursive",
+					reportRole: "sized-target",
+					scope,
+					path: toPosixPath(governance.roots.managedInstallRoot),
+				},
+				{
+					applyMode,
+					id: "trivy",
+					kind: "tool-cache-path",
+					measurement: "recursive",
+					reportRole: "sized-target",
+					scope,
+					path: toPosixPath(governance.roots.trivyCacheRoot),
+				},
 			{
 				applyMode,
 				id: "npm",
