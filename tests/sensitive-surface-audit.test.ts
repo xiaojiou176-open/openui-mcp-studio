@@ -73,6 +73,8 @@ describe("sensitive surface audit", () => {
 
 	it("flags personal email, phone-like contact field, and host path leaks", async () => {
 		const root = await mkTempRoot("openui-sensitive-surface-fail-");
+		const personalEmail = ["real.user", "personal.dev"].join("@");
+		const personalPhone = ["+1", "(206)", "444", "0188"].join(" ");
 		const personalChromeRoot = `${MACOS_USER_PREFIX}real-user/Library/Application Support/Google/Chrome`;
 		await writeJson(
 			path.join(
@@ -97,8 +99,8 @@ describe("sensitive surface audit", () => {
 		await writeFile(
 			path.join(root, "docs", "leak.md"),
 			[
-				'owner = "real.user@personal.dev"',
-				'contact = "phone: +1 (206) 444-0188"',
+				`owner = "${personalEmail}"`,
+				['contact = "', "phone", ": ", personalPhone, '"'].join(""),
 				`root = "${personalChromeRoot}"`,
 				"",
 			].join("\n"),

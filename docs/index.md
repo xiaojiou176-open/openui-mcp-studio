@@ -64,11 +64,9 @@ and usable.
 - repo-local workflow bridge:
   - `openui_repo_workflow_summary`
   - `npm run repo:workflow:ready`
-- current shared truth ledgers:
-  - [`docs/strategy/openui-external-activation-ledger.md`](./strategy/openui-external-activation-ledger.md)
-  - [`docs/strategy/openui-ecosystem-productization-ledger.md`](./strategy/openui-ecosystem-productization-ledger.md)
-  - [`docs/strategy/openui-public-skills-plugin-ledger.md`](./strategy/openui-public-skills-plugin-ledger.md)
-  - [`docs/strategy/openui-sdk-hosted-api-ledger.md`](./strategy/openui-sdk-hosted-api-ledger.md)
+- historical or strategy reference:
+  - use the historical/reference appendix below when you need older
+    activation, packaging, or product-line decision ledgers
 
 Evaluator note:
 
@@ -94,16 +92,8 @@ Start here if your question is "what builder surface is actually current?"
 - `openui-mcp-studio skills starter --json`
 - `openui_repo_workflow_summary`
 - `npm run repo:workflow:ready`
-- [`docs/strategy/openui-uiux-truth-ledger.md`](./strategy/openui-uiux-truth-ledger.md)
-- [`docs/strategy/openui-external-activation-ledger.md`](./strategy/openui-external-activation-ledger.md)
-- [`docs/strategy/openui-ecosystem-productization-ledger.md`](./strategy/openui-ecosystem-productization-ledger.md)
-- [`docs/strategy/openui-public-skills-plugin-ledger.md`](./strategy/openui-public-skills-plugin-ledger.md)
-- [`docs/strategy/openui-sdk-hosted-api-ledger.md`](./strategy/openui-sdk-hosted-api-ledger.md)
-- [`docs/strategy/openui-uiux-vertical-gap-ledger.md`](./strategy/openui-uiux-vertical-gap-ledger.md)
-- [`docs/strategy/openui-builder-surface-formalization-ledger.md`](./strategy/openui-builder-surface-formalization-ledger.md)
-- [`docs/architecture/uiux-engine-round1.md`](./architecture/uiux-engine-round1.md)
-- [`docs/architecture/frontdoor-surface-round1-worker-b.md`](./architecture/frontdoor-surface-round1-worker-b.md)
-- [`docs/architecture/builder-surface-round1-worker-c.md`](./architecture/builder-surface-round1-worker-c.md)
+- historical/reference appendix below for archived strategy ledgers and
+  round-scoped architecture notes
 
 The honest integration order is:
 
@@ -153,17 +143,30 @@ Use these files when you need the current shared wording rather than a single
 worker-scoped note:
 
 - [`README.md`](../README.md)
-- [`docs/strategy/openui-external-activation-ledger.md`](./strategy/openui-external-activation-ledger.md)
-- [`docs/strategy/openui-ecosystem-productization-ledger.md`](./strategy/openui-ecosystem-productization-ledger.md)
-- [`docs/strategy/openui-public-skills-plugin-ledger.md`](./strategy/openui-public-skills-plugin-ledger.md)
-- [`docs/strategy/openui-sdk-hosted-api-ledger.md`](./strategy/openui-sdk-hosted-api-ledger.md)
+- [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
+- [`docs/public-surface-guide.md`](./public-surface-guide.md)
+- [`docs/testing.md`](./testing.md)
+- [`docs/governance-runbook.md`](./governance-runbook.md)
+- [`docs/release-readiness.md`](./release-readiness.md)
+- [`docs/contracts/openui-ecosystem-productization.json`](./contracts/openui-ecosystem-productization.json)
+- [`docs/contracts/openui-public-skills-starter.json`](./contracts/openui-public-skills-starter.json)
 - coordination-only task boards under `.agents/Tasks/` stay outside public docs
   routing
 - coordination-only master plans under `.agents/Plans/` stay outside public
   docs routing
 
-Use these files when you need the narrower worker-scoped evidence:
+## Historical And Reference Appendix
 
+Use these files when you need decision history, strategy ledgers, or narrower
+worker-scoped evidence rather than the current shared front door:
+
+- [`docs/strategy/openui-external-activation-ledger.md`](./strategy/openui-external-activation-ledger.md)
+- [`docs/strategy/openui-ecosystem-productization-ledger.md`](./strategy/openui-ecosystem-productization-ledger.md)
+- [`docs/strategy/openui-public-skills-plugin-ledger.md`](./strategy/openui-public-skills-plugin-ledger.md)
+- [`docs/strategy/openui-sdk-hosted-api-ledger.md`](./strategy/openui-sdk-hosted-api-ledger.md)
+- [`docs/strategy/openui-uiux-truth-ledger.md`](./strategy/openui-uiux-truth-ledger.md)
+- [`docs/strategy/openui-uiux-vertical-gap-ledger.md`](./strategy/openui-uiux-vertical-gap-ledger.md)
+- [`docs/strategy/openui-builder-surface-formalization-ledger.md`](./strategy/openui-builder-surface-formalization-ledger.md)
 - [`docs/architecture/uiux-engine-round1.md`](./architecture/uiux-engine-round1.md)
 - [`docs/architecture/frontdoor-surface-round1-worker-b.md`](./architecture/frontdoor-surface-round1-worker-b.md)
 - [`docs/architecture/builder-surface-round1-worker-c.md`](./architecture/builder-surface-round1-worker-c.md)
@@ -198,10 +201,11 @@ Maintainer note:
 
 | Truth tier | What it is for | Primary sources |
 | --- | --- | --- |
-| Shared product and builder story | what the current repo-local slice honestly helps people do | `README.md`, `docs/proof-and-faq.md`, `docs/strategy/openui-external-activation-ledger.md`, `docs/strategy/openui-ecosystem-productization-ledger.md`, `docs/strategy/openui-public-skills-plugin-ledger.md`, `docs/strategy/openui-sdk-hosted-api-ledger.md`, `examples/public-distribution/README.md` |
+| Shared product and builder story | what the current repo-local slice honestly helps people do | `README.md`, `docs/discovery-surfaces.md`, `docs/public-surface-guide.md`, `docs/proof-and-faq.md`, `examples/public-distribution/README.md` |
 | Governance and release rules | what counts as repo-safe, release-safe, or merge-ready | `docs/testing.md`, `docs/release-readiness.md`, `docs/governance-runbook.md` |
 | Machine-readable and contract mirrors | structured mirrors, allowlists, and governance registries | `docs/contracts/*`, `contracts/governance/*`, `tooling/contracts/*` |
 | Run evidence | what happened in a real execution wave | `.runtime-cache/runs/<run_id>/summary.json`, `.runtime-cache/runs/<run_id>/evidence/index.json` |
+| Historical and strategy reference | why a prior wave made a certain packaging or positioning decision | `docs/strategy/*`, round-scoped `docs/architecture/*`, coordination archaeology |
 | Delivery landed and remote state | branch, PR, checks, and privileged remote state | local Git history plus GitHub state; never inferred from docs alone |
 
 ## Authoritative Contracts

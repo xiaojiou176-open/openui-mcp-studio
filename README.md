@@ -5,39 +5,14 @@ inspect at a proof desk, move through a review workbench, and verify before
 you ship them.
 
 OpenUI MCP Studio is for teams that want one practical flow: start from a
-prompt, write real frontend files into a workspace, keep review and acceptance
-visible, and leave a default proof target ready before trusting the output.
-The README is the storefront, `/proof` is the proof desk, and `/workbench` is
-the operator surface where pipeline, review, and next-step guidance become
-easier to inspect.
+prompt, write real frontend files into a workspace, and keep proof, review,
+and acceptance visible before trusting the output.
+In short, it is a `prompt -> files -> proof -> review -> ship` workflow.
 
-It is now best read as a UI/UX vertical companion for Codex, Claude Code, and
-other MCP-first workflows: stronger on execution, proof, and review than a
-plain generator, but still intentionally narrower than a generic coding-agent
-platform.
-
-It is a local stdio MCP workflow that fits best when teams want Codex,
-Claude Code, or other MCP clients to help ship React UI and UI/UX work without
-flattening the story into a generic AI assistant or coding-agent pitch.
-
-## Host Safety Contract
-
-This repository treats host-process control like handling a sharp tool:
-precise is acceptable, broad is not.
-
-- Never use `killall`, `pkill`, `killpg(...)`, or `process.kill(...)` with `pid <= 0`.
-- Never drive desktop-wide GUI automation through `osascript`, `System Events`,
-  `loginwindow`, raw `AppleEvent` paths, or Force Quit helpers.
-- Runtime cleanup is allowed only for the exact child process handle this repo
-  spawned, or for a recorded positive pid used as a liveness probe.
-- If a process identity is missing, cleanup must fail closed instead of
-  guessing.
-- `node tooling/check-host-safety.mjs` is the repo-owned static guard that keeps
-  those rules on the local and CI hot paths.
-
-Local bootstrap remains a construction-only bridge. Public release confidence
-still depends on explicit repository checks such as `npm run security:oss:audit`
-and `npm run release:public-safe:check`.
+Use it as a local stdio MCP workflow for Codex, Claude Code, and other
+MCP-first clients when you want stronger execution, proof, and review than a
+plain generator, but a narrower and more auditable story than a generic
+coding-agent platform.
 
 > Runtime truth:
 > the real system entrypoint is `services/mcp-server/src/main.ts`.
@@ -59,6 +34,7 @@ maintenance.
 [![Proof Surface](https://img.shields.io/badge/proof-apps%2Fweb-blue)](./docs/proof-and-faq.md)
 
 [Quick Start](#quick-start) |
+[Pages Front Door](https://xiaojiou176-open.github.io/openui-mcp-studio/) |
 [Discovery Guide](./docs/discovery-surfaces.md) |
 [Ecosystem Contract](./docs/contracts/openui-ecosystem-productization.json) |
 [Demo Proof](./docs/proof-and-faq.md#demo-proof) |
@@ -107,6 +83,25 @@ Pick the shortest path that matches what you actually want to learn first:
   Use `apps/web/` routes `/`, `/proof`, `/compare`, `/walkthrough`, `/workbench`
   You get the app-level surface for product story, the proof desk,
   alternatives, walkthrough guidance, and the operator workbench.
+
+## Host Safety Contract
+
+This repository treats host-process control like handling a sharp tool:
+precise is acceptable, broad is not.
+
+- Never use `killall`, `pkill`, `killpg(...)`, or `process.kill(...)` with `pid <= 0`.
+- Never drive desktop-wide GUI automation through `osascript`, `System Events`,
+  `loginwindow`, raw `AppleEvent` paths, or Force Quit helpers.
+- Runtime cleanup is allowed only for the exact child process handle this repo
+  spawned, or for a recorded positive pid used as a liveness probe.
+- If a process identity is missing, cleanup must fail closed instead of
+  guessing.
+- `node tooling/check-host-safety.mjs` is the repo-owned static guard that keeps
+  those rules on the local and CI hot paths.
+
+Local bootstrap remains a construction-only bridge. Public release confidence
+still depends on explicit repository checks such as `npm run security:oss:audit`
+and `npm run release:public-safe:check`.
 
 <p align="center">
   <img
@@ -1055,9 +1050,10 @@ In plain language:
   current public asset bundle used across the proof and storefront surfaces.
 - Release notes, future release-asset refreshes, and future Discussions curation
   still need operator follow-through when the public story changes again.
-- The GitHub Homepage field and Social Preview remain operator-managed settings.
-  The repo can prepare the story and the assets, but those settings still need
-  explicit operator verification whenever they change.
+- The GitHub Homepage field now points at the live GitHub Pages front door:
+  `https://xiaojiou176-open.github.io/openui-mcp-studio/`.
+  Social Preview still remains a settings-managed surface that needs explicit
+  operator verification whenever it changes.
 - `npm run repo:workflow:ready` is the maintainer-facing PR/checks-ready packet.
   It stays read-only on purpose: repo-local state + live GitHub truth in one
   packet, but no push, PR mutation, or settings changes.

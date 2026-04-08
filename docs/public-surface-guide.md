@@ -87,9 +87,11 @@ an empty Releases page look like a closed public surface.
 ### 3.1 Homepage And Social Preview Must Be Honest
 
 - Prefer a real landing page or docs site for the GitHub Homepage field.
-- If no standalone landing page exists yet, leaving Homepage unset is better
-  than pointing visitors at a raw GitHub blob URL that looks like a product
-  site but behaves like source code.
+- If a truthful landing page already exists, point Homepage at that page.
+  In the current repo posture, the correct target is the GitHub Pages front
+  door, not a raw GitHub blob URL.
+- If no standalone landing page exists yet, leaving Homepage unset is still
+  better than pointing visitors at source code that looks like a product site.
 - Do not assume that shipping `docs/assets/openui-mcp-studio-social-preview.png`
   means GitHub is already using it. Treat Social Preview as a settings-level
   control that must be explicitly verified whenever the public story changes.

@@ -1,14 +1,14 @@
-name: Weekly Cleanup
+name: Runtime Cleanup Nightly
 
 on:
   schedule:
-    - cron: "0 3 * * 0"
+    - cron: "0 3 * * *"
   workflow_dispatch:
 
 permissions: {}
 
 concurrency:
-  group: weekly-cleanup-${{ github.workflow }}-${{ github.ref }}
+  group: runtime-cleanup-nightly-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

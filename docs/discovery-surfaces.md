@@ -158,9 +158,9 @@ artifact-level references inside GitHub:
 
 ## Operator-Only Public Surfaces
 
-These are outside repo-local closure:
+These are outside repo-local closure once the current GitHub Pages front door is live:
 
-- GitHub Homepage field
+- future Homepage override beyond the current GitHub Pages front door
 - GitHub Social Preview selection and verification
 - publishing future releases and refreshing attached assets after the public
   story changes again
