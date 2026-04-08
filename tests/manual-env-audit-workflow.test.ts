@@ -4,12 +4,12 @@ import { describe, expect, it } from "vitest";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
 
-describe("weekly env audit workflow", () => {
+describe("manual env audit workflow", () => {
 	it("keeps Gemini-backed maintenance workflows manual-only", async () => {
 		const workflowPaths = [
-			".github/workflows/mutation-weekly.yml",
-			".github/workflows/quality-trend-weekly.yml",
-			".github/workflows/weekly-env-audit.yml",
+			".github/workflows/mutation-manual.yml",
+			".github/workflows/quality-trend-manual.yml",
+			".github/workflows/env-audit-manual.yml",
 		];
 
 		for (const workflowPath of workflowPaths) {
@@ -26,7 +26,7 @@ describe("weekly env audit workflow", () => {
 	it("includes required audit steps and artifact payload", async () => {
 		const workflowPath = path.join(
 			repoRoot,
-			".github/workflows/weekly-env-audit.yml",
+			".github/workflows/env-audit-manual.yml",
 		);
 		const workflow = await fs.readFile(workflowPath, "utf8");
 
@@ -36,7 +36,7 @@ describe("weekly env audit workflow", () => {
 			"GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}",
 		);
 		expect(workflow).toContain(
-			"node tooling/env-inventory.mjs > .runtime-cache/env-governance/weekly-env-inventory.json",
+			"node tooling/env-inventory.mjs > .runtime-cache/env-governance/env-inventory.json",
 		);
 		expect(workflow).toContain("npm run env:governance:report");
 		expect(workflow).toContain("npm run env:governance:check -- --ci");

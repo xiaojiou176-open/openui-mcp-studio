@@ -145,7 +145,7 @@ Release-readiness and public-safe checks should now preserve these truths:
 
 Treat these as separate from repo-local readiness:
 
-- GitHub Homepage
+- future GitHub Homepage override beyond the current Pages front door
 - GitHub Social Preview
 - publishing future releases
 - refreshing attached release assets after future public-story changes
@@ -329,27 +329,27 @@ different layers:
       `serves public discovery plus auth-protected workflow and tool routes`
       timed out, and its `afterEach` hook also timed out
 - GitHub live truth
-  - public GitHub pages currently show `2` open PRs (`#10` and `#13`)
-  - both remaining open PRs are workflow-only Dependabot bumps and their
-    visible CI suites are green
-  - the current GitHub homepage field is intentionally empty
+  - open PR count is currently `0`
+  - the canonical remote now exposes only `main`
+  - the GitHub homepage field points at
+    `https://xiaojiou176-open.github.io/openui-mcp-studio/`
+  - GitHub Pages returns HTTP `200` at that URL
   - the latest published GitHub release is `v0.3.0`
   - the current release page already exposes the expected public asset bundle
   - the seeded Discussions baseline is currently live
 - public/operator truth
-  - release notes, future release-asset refreshes, Homepage changes, Social
-    Preview changes, and future Discussions curation still remain
-    operator-owned follow-through
+  - future release-note refreshes, Social Preview changes, and future
+    Discussions curation still remain operator-owned follow-through
   - `npm run public:remote:check` is the canonical scripted proof path, but it
     still depends on live `gh`/GitHub API reachability in the current
-    execution environment
+    execution environment for a fresh read-back packet
 
 Use `npm run repo:workflow:summary` and `npm run repo:workflow:ready` for the
 latest read-only readiness packet, but do not treat those commands as proof
 that the repo-local full-gate story is fully closed until:
 
-- the remaining open PRs are legally merged through the protected-branch PR path
-- the current closeout diff is landed and re-run through fresh GitHub checks
+- the current GitHub settings and alert surfaces are refreshed in the same wave
+- the current closeout diff is reflected in `main`, not just in a local packet
 - the remaining operator-owned public surfaces are either completed or
   explicitly kept out of the verdict
 
@@ -423,7 +423,7 @@ Do not treat it as the current remote or release-readiness truth.
   - latest CI / CodeQL checks on `d0b4269` were still queued or running at the
     time of the last refresh
   - GitHub description is aligned
-  - homepage remains intentionally unset
+  - the historical homepage state in that snapshot remained intentionally unset
   - open CodeQL alerts on `main` remain `2`
 
 Current honest split after this update:

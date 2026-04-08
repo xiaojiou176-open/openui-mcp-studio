@@ -128,4 +128,39 @@ describe("pii audit", () => {
 			},
 		]);
 	});
+
+	it("ignores dedicated security-audit self-tests listed in the contract", async () => {
+		const root = await mkTempRoot("openui-pii-ignored-self-tests-");
+		await writeJson(
+			path.join(root, "tooling", "contracts", "pii-audit.contract.json"),
+			{
+				version: 1,
+				reportPath: ".runtime-cache/reports/security/pii-audit.json",
+				allowedEmailDomains: ["example.com"],
+				allowedEmailAddresses: [],
+				ignoredPathRegexes: [
+					"^tests/pii-audit\\.test\\.ts$",
+					"^tests/sensitive-surface-audit\\.test\\.ts$",
+					"^tests/history-sensitive-surface-audit\\.test\\.ts$",
+				],
+			},
+		);
+		await writeFile(
+			path.join(root, "tests", "sensitive-surface-audit.test.ts"),
+			[
+				'owner = "real.user@personal.dev"',
+				'contact = "phone: +1 (206) 444-0188"',
+				"",
+			].join("\n"),
+		);
+
+		const result = await runPiiAudit({
+			rootDir: root,
+			contractPath: "tooling/contracts/pii-audit.contract.json",
+			trackedFiles: ["tests/sensitive-surface-audit.test.ts"],
+		});
+
+		expect(result.ok).toBe(true);
+		expect(result.report.findingCount).toBe(0);
+	});
 });

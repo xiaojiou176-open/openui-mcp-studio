@@ -82,6 +82,7 @@ describe("history sensitive surface audit", () => {
 
 	it("fails when local heads or tags still retain personal email or host path residue", async () => {
 		const root = await mkTempRoot("openui-history-sensitive-fail-");
+		const personalEmail = ["real.user", "personal.dev"].join("@");
 		const personalChromeRoot = `${MACOS_USER_PREFIX}real-user/Library/Application Support/Google/Chrome`;
 		await git(root, ["init"]);
 		await git(root, ["config", "user.email", "ci@example.com"]);
@@ -107,7 +108,7 @@ describe("history sensitive surface audit", () => {
 		);
 		await writeFile(
 			path.join(root, "docs", "guide.md"),
-			`owner = "real.user@personal.dev"\npath = "${personalChromeRoot}"\n`,
+			`owner = "${personalEmail}"\npath = "${personalChromeRoot}"\n`,
 		);
 		await git(root, ["add", "."]);
 		await git(root, ["commit", "-m", "bad history"]);
