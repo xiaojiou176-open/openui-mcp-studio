@@ -112,7 +112,7 @@ Read the product surfaces in this order:
   No `killall`, no broad GUI automation, and no guessing when process identity
   is missing.
 
-Local bootstrap is only the bridge into the workflow.
+Local bootstrap remains a construction-only bridge into the workflow.
 Public release confidence still depends on repository-side checks such as
 `npm run security:oss:audit` and `npm run release:public-safe:check`.
 
