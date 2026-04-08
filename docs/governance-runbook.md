@@ -167,9 +167,9 @@ These commands are the repository front desk.
   Bind that lane to the protected `live-gemini-manual` environment so a
   reviewer must approve the secret-bearing run before it starts.
 - Gemini-backed maintenance workflows stay manual-only as well.
-  Mutation, quality-trend, and weekly env audit remain available for explicit
-  operator review, but they should not auto-run on a time-based schedule in the
-  canonical default posture.
+  Mutation, quality-trend, and manual env audit remain available for explicit
+  operator review, while runtime cleanup sits in the nightly lane. None of
+  them belong on the default protected-branch hot path.
 - Mutation full runs also stay off the default `ci:gate` hot path.
   Keep them in explicit manual workflows or release-depth review lanes instead
   of making every routine PR pay the highest-cost verification bill.

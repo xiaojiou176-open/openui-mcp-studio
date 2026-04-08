@@ -845,7 +845,7 @@ describe("quality trend workflow hardening", () => {
 	it("fails when ci:gate or mutation input generation fails", async () => {
 		const workflowPath = path.join(
 			repoRoot,
-			".github/workflows/quality-trend-weekly.yml",
+			".github/workflows/quality-trend-manual.yml",
 		);
 		const workflow = await fs.readFile(workflowPath, "utf8");
 

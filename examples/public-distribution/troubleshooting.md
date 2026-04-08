@@ -41,9 +41,11 @@ If the host has its own schema, keep the same three truths:
 - args = built local MCP server path
 - env = `GEMINI_API_KEY`
 
-## OpenClaw / ClawHub is not live yet
+## OpenClaw / ClawHub listing is not claimed yet
 
-That is expected unless a real publish step has already happened.
+That is expected.
+The repo currently proves a public-ready bundle, not a live listing or a
+verified OpenClaw runtime.
 
 The current repo-owned artifact is:
 
@@ -51,9 +53,10 @@ The current repo-owned artifact is:
 
 That means:
 
-- the bundle is ready for a public listing workflow
-- the repo can prove what would be submitted
-- the repo still must **not** claim that the ClawHub listing is already live
+- the repo ships a public-ready, repo-owned starter bundle for a future listing flow
+- the repo can prove the starter bundle and proof loop it would submit
+- the repo still must **not** claim that a ClawHub listing or verified
+  OpenClaw runtime is already live
 
 ## I only want the quickest "does this work?" check
 

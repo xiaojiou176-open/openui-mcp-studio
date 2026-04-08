@@ -37,13 +37,13 @@ Current front-door routing note:
 Use this table when you want the shortest honest answer to "which lane is the
 real gate?"
 
-| Lane type                          | Default path | Typical entrypoints                                                                                 | What it is for                                              |
-| ---------------------------------- | ------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| Deterministic local front door     | yes          | `npm run precommit:gate`, `npm run prepush:gate`, `npm run repo:doctor`, `npm run repo:verify:fast` | fast local hygiene and structural truth                     |
-| Deterministic CI hot path          | yes          | `npm run ci:gate`, docs/workflow governance jobs, secret scan                                       | the default PR and push confidence path                     |
-| Advisory deterministic deep review | no           | `npm run uiux:audit:strict:gate`                                                                    | stricter UX/a11y review without blocking every routine push |
-| Manual live-provider lane          | no           | `npm run test:live`, `workflow_dispatch` with `run_live_gemini=true`, protected environment review  | explicit live Gemini verification under manual approval     |
-| Manual maintenance lane            | no           | mutation, quality trend, weekly env audit                                                           | periodic or operator-triggered maintenance evidence         |
+| Lane type | Default path | Typical entrypoints | What it is for |
+| --- | --- | --- | --- |
+| Pre-commit lane | yes | `npm run precommit:gate`, `npm run repo:doctor` | fastest local hygiene and structural truth before deeper checks |
+| Pre-push lane | yes | `npm run prepush:gate`, `npm run repo:verify:fast` | stricter repo-local confidence before remote mutation |
+| Hosted lane | yes | `npm run ci:gate`, docs/workflow governance jobs, `secret_scan` | canonical PR and merge confidence on the hosted GitHub path |
+| Nightly lane | no | `nightly_cross_browser`, `nightly_coverage_gate`, `.github/workflows/runtime-cleanup-nightly.yml` | extended deterministic coverage and scheduled cleanup |
+| Manual lane | no | `npm run test:live`, `workflow_dispatch` with `run_live_gemini=true`, `mutation-manual.yml`, `quality-trend-manual.yml`, `env-audit-manual.yml` | explicit live-provider verification and maintainer-driven review |
 
 If a lane depends on Gemini, external APIs, or unstable network behavior, keep
 it out of the default blocking PR path.
@@ -179,8 +179,10 @@ Important boundary:
   - require the protected `live-gemini-manual` environment so a reviewer must
     approve the secret-bearing lane before it starts
 - Gemini-backed maintenance workflows
-  - keep `mutation-weekly.yml`, `quality-trend-weekly.yml`, and
-    `weekly-env-audit.yml` manual-only
+  - keep `mutation-manual.yml`, `quality-trend-manual.yml`, and
+    `env-audit-manual.yml` manual-only
+  - keep `runtime-cleanup-nightly.yml` in the nightly lane instead of
+    blurring it into the manual maintenance bucket
   - do not auto-schedule model-dependent or high-variance maintenance lanes on
     the canonical repo by default
 - CI `secret_scan`

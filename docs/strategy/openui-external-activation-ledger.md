@@ -108,14 +108,14 @@ Fresh GitHub reads in this execution wave confirm:
 - default branch is `main`
 - repository is public
 - open PR count is `0`
-- Homepage remains intentionally unset
+- Homepage now points at the GitHub Pages front door
 - the latest merged `main` head is current and readable
 
 ## 7. Operator-Only Follow-Through
 
 These remain outside repo-local closure:
 
-- GitHub Homepage field if a future promoted landing/docs URL is chosen
+- future GitHub Homepage override if a promoted landing/docs URL replaces the current GitHub Pages front door
 - GitHub Social Preview settings-level visual confirmation
 - refreshing release assets after future public-surface changes
 - ongoing Discussions curation
@@ -126,8 +126,8 @@ These remain outside repo-local closure:
 
 - The repo can prepare a public bundle, but GitHub settings still decide which
   social preview image is live.
-- Homepage is intentionally blank today because a misleading URL would be worse
-  than no URL.
+- Homepage now points at the repo-owned GitHub Pages front door, but any future
+  custom landing-page swap is still a settings-level follow-through task.
 - The front-door label can improve discovery, but it must not be confused with
   an already-verified canonical deployment.
 - OpenClaw can now be described as public-ready, but not as listed or approved

@@ -1,10 +1,10 @@
-name: Quality Trend Weekly
+name: Quality Trend Manual
 
 on:
   workflow_dispatch:
 
 concurrency:
-  group: quality-trend-weekly-${{ github.workflow }}-${{ github.ref }}
+  group: quality-trend-manual-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

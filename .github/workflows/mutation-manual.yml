@@ -1,10 +1,10 @@
-name: Mutation Weekly
+name: Mutation Manual
 
 on:
   workflow_dispatch:
 
 concurrency:
-  group: mutation-weekly-${{ github.workflow }}-${{ github.ref }}
+  group: mutation-manual-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

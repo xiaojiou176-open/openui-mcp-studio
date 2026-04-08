@@ -183,7 +183,7 @@ npm run ci:gate
 Notes:
 
 - `ci:gate` is the main hard gate for lint/typecheck/test/build/e2e/smoke plus coverage-related enforcement; visual QA currently runs inside that path as an advisory stage, while `coreCoverageGate` remains blocking.
-- Mutation weekly remains in `.github/workflows/mutation-weekly.yml`, but the mainline path already includes full mutation gate semantics.
+- Mutation manual review remains in `.github/workflows/mutation-manual.yml`, but the mainline path already includes full mutation gate semantics.
 - Default Playwright baseline:
   - `retries=2`
   - `workers=1`

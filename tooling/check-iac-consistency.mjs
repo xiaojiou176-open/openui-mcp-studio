@@ -26,16 +26,16 @@ const WORKFLOW_CONTAINER_CONTRACT = Object.freeze([
 		],
 	},
 	{
-		path: ".github/workflows/mutation-weekly.yml",
+		path: ".github/workflows/mutation-manual.yml",
 		requiredSnippets: [CONTAINER_ACTION_REFERENCE],
 	},
 	{
-		path: ".github/workflows/quality-trend-weekly.yml",
+		path: ".github/workflows/quality-trend-manual.yml",
 		requiredSnippets: [CONTAINER_ACTION_REFERENCE, "id: ci_gate_run"],
 	},
 	{
-		path: ".github/workflows/weekly-env-audit.yml",
-		requiredSnippets: [CONTAINER_ACTION_REFERENCE, "weekly_env_audit:"],
+		path: ".github/workflows/env-audit-manual.yml",
+		requiredSnippets: [CONTAINER_ACTION_REFERENCE, "env_audit:"],
 	},
 	{
 		path: ".github/workflows/reusable-quality-gate.yml",

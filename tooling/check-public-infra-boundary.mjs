@@ -6,14 +6,14 @@ const DEFAULT_ALLOWLIST_PATH = "tooling/contracts/public-boundary-allowlist.json
 const DEFAULT_WORKFLOW_FILES = [
 	".github/workflows/build-ci-image.yml",
 	".github/workflows/ci.yml",
-	".github/workflows/mutation-weekly.yml",
-	".github/workflows/quality-trend-weekly.yml",
+	".github/workflows/mutation-manual.yml",
+	".github/workflows/quality-trend-manual.yml",
 	".github/workflows/release-readiness.yml",
 	".github/workflows/reusable-quality-gate.yml",
 	".github/workflows/security-supplemental.yml",
 	".github/workflows/shared-runner-health.yml",
-	".github/workflows/weekly-cleanup.yml",
-	".github/workflows/weekly-env-audit.yml",
+	".github/workflows/runtime-cleanup-nightly.yml",
+	".github/workflows/env-audit-manual.yml",
 ];
 
 const FORBIDDEN_PATTERNS = [

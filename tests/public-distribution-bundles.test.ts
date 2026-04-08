@@ -30,7 +30,7 @@ describe("public distribution bundles", () => {
 		expect(marketplace.name).toBe("openuistudio-distribution-starter");
 		expect(marketplace.owner).toEqual(
 			expect.objectContaining({
-				name: "xiaojiou176",
+				name: "xiaojiou176-open",
 			}),
 		);
 		expect(Array.isArray(plugins)).toBe(true);

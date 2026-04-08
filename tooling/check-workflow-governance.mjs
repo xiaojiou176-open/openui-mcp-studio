@@ -7,8 +7,8 @@ const ALLOWED_CONTINUE_ON_ERROR_STEPS = new Set([
 	"ci.yml:gcp_auth",
 	"ci.yml:wait_org_runners",
 	"build-ci-image.yml:registry_attestation",
-	"quality-trend-weekly.yml:ci_gate_run",
-	"quality-trend-weekly.yml:mutation_run",
+	"quality-trend-manual.yml:ci_gate_run",
+	"quality-trend-manual.yml:mutation_run",
 ]);
 const ALLOWED_SHELL_FAILURE_SUPPRESSION_STEPS = new Set([]);
 const ALLOWED_CHECKOUT_CLEAN_FALSE_STEPS = new Set([
@@ -60,26 +60,26 @@ const FORBIDDEN_RUNNER_REGISTRATION_COMMAND_PATTERN =
 const REQUIRED_NODE_VERSION = "22.22.0";
 const CONTAINER_RUN_ACTION_PATH = "./.github/actions/run-in-ci-container";
 const CONTAINER_REQUIRED_JOBS_BY_WORKFLOW = new Map([
-		[
+	[
 			"ci.yml",
 			new Set([
 				"quality",
 				"live_gemini_hard_gate",
 				"nightly_cross_browser",
 				"nightly_coverage_gate",
-			]),
+		]),
 	],
-	["mutation-weekly.yml", new Set(["mutation_gate"])],
-	["quality-trend-weekly.yml", new Set(["quality_trend"])],
-	["weekly-env-audit.yml", new Set(["weekly_env_audit"])],
+	["mutation-manual.yml", new Set(["mutation_gate"])],
+	["quality-trend-manual.yml", new Set(["quality_trend"])],
+	["env-audit-manual.yml", new Set(["env_audit"])],
 	["reusable-quality-gate.yml", new Set(["quality_gate"])],
 	["release-readiness.yml", new Set(["release_readiness"])],
 ]);
 const NODE_PIN_ENFORCED_WORKFLOWS = new Set([
 	"ci.yml",
-	"mutation-weekly.yml",
-	"quality-trend-weekly.yml",
-	"weekly-env-audit.yml",
+	"mutation-manual.yml",
+	"quality-trend-manual.yml",
+	"env-audit-manual.yml",
 	"reusable-quality-gate.yml",
 	"release-readiness.yml",
 ]);
@@ -746,7 +746,7 @@ async function main() {
 		if (
 			fileName === "ci.yml" ||
 			fileName === "reusable-quality-gate.yml" ||
-			fileName === "weekly-env-audit.yml"
+			fileName === "env-audit-manual.yml"
 		) {
 			validateNoBypassEnv(fileName, lines, errors);
 		}

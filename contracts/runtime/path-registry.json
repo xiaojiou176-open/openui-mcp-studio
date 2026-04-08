@@ -223,7 +223,7 @@
 			"mustExclude": ["playwright-report/**"]
 		},
 		{
-			"path": ".github/workflows/quality-trend-weekly.yml",
+			"path": ".github/workflows/quality-trend-manual.yml",
 			"mustInclude": [
 				".runtime-cache/reports/quality-trend"
 			],
