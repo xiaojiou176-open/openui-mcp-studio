@@ -73,6 +73,7 @@
 	"license": "MIT",
 	"main": ".runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
 	"name": "openui-mcp-studio",
+	"packageManager": "npm@11.6.0",
 	"workspaces": [
 		"apps/*",
 		"packages/*",

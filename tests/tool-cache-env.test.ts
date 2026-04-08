@@ -66,6 +66,8 @@ describe("tool cache env", () => {
 			"tool-cache-root",
 			"playwright",
 			"install",
+			"managed-install",
+			"trivy",
 			"npm",
 			"home",
 			"pre-commit",
@@ -126,6 +128,17 @@ describe("tool cache env", () => {
 			"playwright",
 			"old-expired.bin",
 		);
+		const legacyInstallPath = path.join(
+			toolCacheBaseRoot,
+			"install",
+			"old-install.bin",
+		);
+		const trivyPath = path.join(
+			toolCacheBaseRoot,
+			"trivy",
+			"db",
+			"cache.bin",
+		);
 		const oldLargePath = path.join(
 			metadata.toolCacheRoot,
 			"npm",
@@ -140,16 +153,22 @@ describe("tool cache env", () => {
 
 		await Promise.all([
 			fs.mkdir(path.dirname(expiredPath), { recursive: true }),
+			fs.mkdir(path.dirname(legacyInstallPath), { recursive: true }),
+			fs.mkdir(path.dirname(trivyPath), { recursive: true }),
 			fs.mkdir(path.dirname(oldLargePath), { recursive: true }),
 			fs.mkdir(path.dirname(freshPath), { recursive: true }),
 		]);
 		await Promise.all([
 			fs.writeFile(expiredPath, "x".repeat(80), "utf8"),
+			fs.writeFile(legacyInstallPath, "x".repeat(20), "utf8"),
+			fs.writeFile(trivyPath, "x".repeat(20), "utf8"),
 			fs.writeFile(oldLargePath, "x".repeat(70), "utf8"),
 			fs.writeFile(freshPath, "x".repeat(40), "utf8"),
 		]);
 		await Promise.all([
 			fs.utimes(expiredPath, expiredSeconds, expiredSeconds),
+			fs.utimes(legacyInstallPath, expiredSeconds, expiredSeconds),
+			fs.utimes(trivyPath, expiredSeconds, expiredSeconds),
 			fs.utimes(oldLargePath, oldSeconds, oldSeconds),
 			fs.utimes(freshPath, freshSeconds, freshSeconds),
 		]);
@@ -163,12 +182,22 @@ describe("tool cache env", () => {
 		expect(receipt.mode).toBe("apply");
 		expect(receipt.bytesReclaimed).toBeGreaterThan(0);
 		expect(receipt.removedExpiredPaths).toEqual(
-			expect.arrayContaining([expiredPath.replaceAll("\\", "/")]),
+			expect.arrayContaining([
+				expiredPath.replaceAll("\\", "/"),
+				legacyInstallPath.replaceAll("\\", "/"),
+				trivyPath.replaceAll("\\", "/"),
+			]),
 		);
 		expect(receipt.removedCapacityPaths).toEqual(
 			expect.arrayContaining([oldLargePath.replaceAll("\\", "/")]),
 		);
 		await expect(fs.stat(expiredPath)).rejects.toMatchObject({
+			code: "ENOENT",
+		});
+		await expect(fs.stat(legacyInstallPath)).rejects.toMatchObject({
+			code: "ENOENT",
+		});
+		await expect(fs.stat(trivyPath)).rejects.toMatchObject({
 			code: "ENOENT",
 		});
 		await expect(fs.stat(oldLargePath)).rejects.toMatchObject({

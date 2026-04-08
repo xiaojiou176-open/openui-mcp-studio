@@ -60,7 +60,7 @@
     "ttlDays": 3,
     "maxBytes": 5368709120,
     "cleanIntervalMinutes": 60,
-    "reason": "Repo-specific external cache roots must stay under ~/.cache/openui-mcp-studio/, use TTL-first plus capacity-prune janitor semantics, and keep receipts inside repo-local space-governance reports."
+    "reason": "Repo-specific external cache roots must stay under ~/.cache/openui-mcp-studio/, use TTL-first plus capacity-prune janitor semantics, include legacy install/trivy residue under the same governance model, and keep receipts inside repo-local space-governance reports."
   },
   "browserLanePolicy": {
     "scope": "repo-specific-persistent-browser-asset",
@@ -130,7 +130,17 @@
     {
       "id": "install",
       "kind": "tool-cache-path",
-      "reason": "Repo-specific managed install surface inside ~/.cache/openui-mcp-studio/tooling."
+      "reason": "Legacy top-level install surface inside ~/.cache/openui-mcp-studio/tooling/install that must stay visible to reports and janitor cleanup."
+    },
+    {
+      "id": "managed-install",
+      "kind": "tool-cache-path",
+      "reason": "Current runtime-marker-scoped managed install surface inside the repo-specific tool cache root."
+    },
+    {
+      "id": "trivy",
+      "kind": "tool-cache-path",
+      "reason": "Legacy Trivy cache surface inside ~/.cache/openui-mcp-studio/tooling/trivy that must stay visible to reports and janitor cleanup."
     },
     {
       "id": "npm",

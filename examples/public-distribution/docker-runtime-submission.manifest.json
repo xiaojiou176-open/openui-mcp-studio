@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "openui.docker-runtime-submission",
+  "status": "submission-ready-unlisted",
+  "summary": "Repo-owned Docker runtime distribution packet for OpenUI MCP Studio. It documents build, proof, and publish steps without claiming that a public image is already live or not yet published.",
+  "image": "ghcr.io/xiaojiou176-open/openui-mcp-studio",
+  "artifacts": [
+    "examples/public-distribution/docker-install-and-proof.md",
+    "manifest.yaml",
+    "DISTRIBUTION.md",
+    "ops/ci-container/run-in-container.sh"
+  ],
+  "proofLoop": [
+    "npm run repo:doctor",
+    "npm run public:remote:check",
+    "npm run release:public-safe:check"
+  ],
+  "notFor": [
+    "claiming a published public image",
+    "claiming a Docker-first front door",
+    "claiming hosted SaaS availability"
+  ],
+  "operatorOnlyTail": [
+    "Authenticate to GHCR or another target registry",
+    "Build and push the image from the documented operator flow",
+    "Re-run fresh verification after publication before claiming the image is live"
+  ]
+}

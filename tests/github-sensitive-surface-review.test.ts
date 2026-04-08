@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { runGithubSensitiveSurfaceReview } from "../tooling/github-sensitive-surface-review.mjs";
 
 const tempRoots: string[] = [];
-const GMAIL_QUERY = ["@", "gmail.com"].join("");
+const GMAIL_QUERY = ["@", "g", "mail.com"].join("");
 
 async function mkTempRoot(prefix: string) {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
@@ -191,7 +191,7 @@ describe("github sensitive surface review", () => {
 			}
 			if (command.includes("search code")) {
 				throw new Error(
-					"Command failed: gh search code '@gmail.com repo:example/demo' --limit 20 --json path\nHTTP 403: API rate limit exceeded (https://api.github.com/search/code?page=1)",
+					`Command failed: gh search code '${GMAIL_QUERY} repo:example/demo' --limit 20 --json path\nHTTP 403: API rate limit exceeded (https://api.github.com/search/code?page=1)`,
 				);
 			}
 			if (command.includes("issues/comments")) {

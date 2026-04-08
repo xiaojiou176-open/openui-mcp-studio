@@ -29,6 +29,9 @@ maintenance.
 [Quick Start](#quick-start) |
 [Pages Front Door](https://xiaojiou176-open.github.io/openui-mcp-studio/) |
 [Proof Desk](./docs/proof-and-faq.md) |
+[Distribution Guide](./DISTRIBUTION.md) |
+[Integrations Guide](./INTEGRATIONS.md) |
+[Submission Manifest](./manifest.yaml) |
 [Distribution Bundle](./examples/public-distribution/README.md) |
 [Discovery Guide](./docs/discovery-surfaces.md) |
 [Skills Product Line](./examples/skills/README.md) |
@@ -57,6 +60,17 @@ Use the shortest path that matches the question in your head:
 | trust the repo before going deeper | `npm run repo:doctor` | a fast structural check over contracts, runtime, evidence, and release-readiness inputs |
 | install or adapt it for another client | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) | repo-owned configs for Codex, Claude Code, generic MCP hosts, and the current OpenClaw-ready bundle |
 
+## Choose The Right Front Door
+
+Use the shortest route that matches the job in your head:
+
+| If your question is... | Start here |
+| --- | --- |
+| "What does the repo do in one screen?" | [`README.md`](./README.md) and the [Pages Front Door](https://xiaojiou176-open.github.io/openui-mcp-studio/) |
+| "How do I install, submit, or package this truthfully?" | [`DISTRIBUTION.md`](./DISTRIBUTION.md) and [`manifest.yaml`](./manifest.yaml) |
+| "Which client or host is this actually ready for?" | [`INTEGRATIONS.md`](./INTEGRATIONS.md) |
+| "Where are the repo-owned install bundles and proof loops?" | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) and [`examples/skills/README.md`](./examples/skills/README.md) |
+
 ## What You Get Today
 
 - **Primary runtime:** local `stdio` MCP through `services/mcp-server/src/main.ts`
@@ -64,8 +78,9 @@ Use the shortest path that matches the question in your head:
 - **Install-ready client surfaces:** Codex, Claude Code, and generic MCP hosts
 - **Front-row compatible clients:** OpenCode and OpenClaw through the same repo-owned MCP contract and bundle set
 - **Official repo-owned skill product line:** `@openui/skills-kit` plus the repo mirror under `examples/skills/`
+- **Submission-ready public packaging:** top-level distribution/integration guides, root `manifest.yaml`, and repo-owned Docker/OpenClaw submission packets that still refuse to claim a live listing
 - **Supporting lanes:** self-hosted Hosted API and `@openui/sdk`
-- **Planned, not current:** Docker runtime distribution, marketplace publication, registry publication, managed hosted deployment
+- **Planned, not current:** live marketplace publication, registry publication, managed hosted deployment, and any claim that a Docker image or catalog listing is already published
 
 ## What We Support And What We Do Not Claim
 

@@ -35,6 +35,27 @@ describe("public distribution bundle", () => {
 		);
 	});
 
+	it("ships a submission-ready root manifest plus Docker packaging notes without claiming a live publish", async () => {
+		const rootManifest = await readText("manifest.yaml");
+		const dockerManifest = await readJson(
+			"examples/public-distribution/docker-runtime-submission.manifest.json",
+		);
+		const dockerNote = await readText(
+			"examples/public-distribution/docker-install-and-proof.md",
+		);
+
+		expect(rootManifest).toContain("status: submission-ready-unlisted");
+		expect(rootManifest).toContain(
+			"canonical_repo: xiaojiou176-open/openui-mcp-studio",
+		);
+		expect(rootManifest).toContain("docker-runtime-submission.manifest.json");
+		expect(dockerManifest.status).toBe("submission-ready-unlisted");
+		expect(JSON.stringify(dockerManifest)).toContain("ghcr.io");
+		expect(JSON.stringify(dockerManifest)).toContain("not yet published");
+		expect(dockerNote).toContain("submission-ready-unlisted");
+		expect(dockerNote).toContain("ghcr.io/xiaojiou176-open/openui-mcp-studio");
+	});
+
 	it("ships a public-ready OpenClaw bundle without overclaiming a live listing", async () => {
 		const manifest = await readJson(
 			"examples/public-distribution/openclaw-public-ready.manifest.json",

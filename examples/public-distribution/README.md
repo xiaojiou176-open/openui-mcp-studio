@@ -26,6 +26,12 @@ The content should tell the same story, but the public repo remains the main
 distribution artifact and the package bundle remains the installable
 source-of-truth surface.
 
+Use the top-level docs when you want the single-entry summary first:
+
+- [`DISTRIBUTION.md`](../../DISTRIBUTION.md)
+- [`INTEGRATIONS.md`](../../INTEGRATIONS.md)
+- [`manifest.yaml`](../../manifest.yaml)
+
 ## What This Bundle Is For
 
 Use this bundle when you want to say something stronger than
@@ -45,6 +51,7 @@ This bundle is meant to make four things easy to discover:
 | File | Role |
 | --- | --- |
 | `public-distribution.manifest.json` | Machine-readable package-ready distribution manifest |
+| `docker-runtime-submission.manifest.json` | Machine-readable submission-ready-unlisted Docker runtime bundle manifest |
 | `codex.mcp.json` | Sample Codex MCP config contract |
 | `claude-code.mcp.json` | Sample Claude Code MCP config contract |
 | `generic-mcp.json` | Sample generic stdio MCP launch contract |
@@ -54,6 +61,7 @@ This bundle is meant to make four things easy to discover:
 | `troubleshooting.md` | Fast recovery guide for common local setup failures |
 | `openclaw-public-ready.manifest.json` | Machine-readable OpenClaw / ClawHub-ready bundle manifest |
 | `openclaw-install-and-proof.md` | Human-readable OpenClaw public-ready install and proof note |
+| `docker-install-and-proof.md` | Human-readable Docker distribution operator note |
 
 ## Hard Boundaries
 
