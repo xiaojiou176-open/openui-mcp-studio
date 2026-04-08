@@ -257,180 +257,56 @@ These machine-consumed inputs stay under `docs/contracts/`:
 
 These JSON files are intentionally retained even in the minimal docs profile.
 
-## Historical Endgame Update (2026-04-01 PDT)
+## Live Snapshot Rule
 
-This section is historical context from the 2026-04-01 endgame wave.
-Do not treat it as the current GitHub or release-readiness truth.
+Do not use this document as a scoreboard for current GitHub counts.
 
-- latest fully completed repo-local hard-gate packet in this turn:
-  `ci-gate-1775040222373-67326`
-  - security audit = pass
-  - repo governance hard gate = pass
-  - fast quality gates = pass
-  - deep coverage run completes, but `coreCoverageGate` still fails on
-    `global branches 94.97% < 95.00%`
-  - `quality score 49.33 < 85` remains downstream of that one remaining
-    branch-coverage miss
-- latest repo-local full test baseline after the newest branch-only test
-  additions:
-  - `npm run test` = pass
-  - `183` test files passed
-  - `1044` tests passed
-  - `7` skipped
-- stale blocker stories invalidated in this turn:
-  - the older Prompt 10 `coverage-*.json ENOENT` crash story is no longer the
-    best current explanation for repo-local red state
-  - the transient `.serena` root-governance drift was session-local and was
-    cleared locally
-- latest read-only GitHub workflow truth remains:
-  - open PRs = `1`
-  - open issues = `0`
-  - open CodeQL alerts = `2`
-  - open secret-scanning alerts = `0`
-  - open dependabot alerts = `0`
-  - homepage still points at the blob URL for
-    `docs/first-minute-walkthrough.md`
-  - recent failing GitHub workflow runs remain visible remotely
-- current honest boundary:
-  - repo-local is **not** yet complete because the latest completed full packet
-    still stops at `94.97%`
-  - remote/operator blockers remain separate and unchanged
-  - a subsequent clean rerun after additional tiny branch-only tests was
-    started, but it did not yield a fresh completed authoritative `summary.json`
-    packet within this turn, so repo-side completion cannot be claimed from
-    that attempt
+Use these commands for live truth instead:
 
-## Current Closeout Snapshot
+- `npm run repo:workflow:summary`
+- `npm run repo:workflow:ready`
+- `npm run security:github:public:audit`
+- `npm run public:remote:check`
 
-Fresh 2026-04-06 evidence keeps the release-readiness story split into four
-different layers:
+That split is intentional:
+
+- this document explains release-readiness rules
+- the commands above report current alert counts, branch state, and remote proof
+- historical turn-by-turn numbers belong in archive material, not in the SSOT
+
+## Current Closeout Shape
+
+Keep the release-readiness story split into four layers:
 
 - repo-local engineering
-  - the current worktree is intentionally carrying a closeout diff, not a clean
-    tree yet
-  - the tracked supplemental workflow now exists for:
-    - pull-request Dependency Review
-    - Zizmor
-    - Trivy filesystem scanning
-  - `npm run public:assets:render` and `npm run visual:qa:update` now both end
-    with repo-owned `oxipng` normalization instead of leaving PNG compression
-    to CI discovery
+  - code, docs, workflow wiring, and public assets agree on the same current
+    product story
 - repo-local verification
-  - `npm run precommit:gate` = pass
-  - `npm run prepush:gate` = pass
-  - `npm run lint` = pass
-  - `npm run typecheck` = pass
-  - `npm run -s public:assets:check` = pass
-  - `npm run test` is **not** green in this execution wave:
-    - `tests/space-governance-report.test.ts`
-      `ignores an empty legacy .runtime-cache/temp directory when collecting drift`
-      timed out
-    - `tests/hosted-api-service.test.ts`
-      `serves public discovery plus auth-protected workflow and tool routes`
-      timed out, and its `afterEach` hook also timed out
+  - the required local gates are re-run in the current wave before any done
+    claim
 - GitHub live truth
-  - open PR count is currently `0`
-  - the canonical remote now exposes only `main`
-  - the GitHub homepage field points at
-    `https://xiaojiou176-open.github.io/openui-mcp-studio/`
-  - GitHub Pages returns HTTP `200` at that URL
-  - the latest published GitHub release is `v0.3.0`
-  - the current release page already exposes the expected public asset bundle
-  - the seeded Discussions baseline is currently live
+  - branch protection, required checks, PR counts, and security alerts must be
+    refreshed from live commands in the same wave
 - public/operator truth
-  - future release-note refreshes, Social Preview changes, and future
-    Discussions curation still remain operator-owned follow-through
-  - `npm run public:remote:check` is the canonical scripted proof path, but it
-    still depends on live `gh`/GitHub API reachability in the current
-    execution environment for a fresh read-back packet
+  - Social Preview, release-note curation, future discussions seeding, and
+    other settings-level surfaces remain operator-owned unless explicitly
+    verified live
 
-Use `npm run repo:workflow:summary` and `npm run repo:workflow:ready` for the
-latest read-only readiness packet, but do not treat those commands as proof
-that the repo-local full-gate story is fully closed until:
+The release-ready question is like checking both a suitcase and a boarding
+screen:
+packing the suitcase is repo-local work, but the boarding screen is GitHub live
+state.
+You need both before calling the trip ready.
 
-- the current GitHub settings and alert surfaces are refreshed in the same wave
-- the current closeout diff is reflected in `main`, not just in a local packet
-- the remaining operator-owned public surfaces are either completed or
-  explicitly kept out of the verdict
+## Historical Snapshots
 
-## Historical Closure Snapshot (2026-04-01 PDT)
+Detailed per-wave closeout snapshots were intentionally removed from this
+document so it does not drift into a stale dashboard.
 
-This section is historical context from the 2026-04-01 closure wave.
-Do not treat it as the current plan-of-record or current GitHub truth.
+When you need historical archaeology, use:
 
-- latest authoritative completed repo-local hard-gate packet:
-  `ci-gate-1775043022067-46611`
-  - `stage0` through `stage4` all passed
-  - `quality score 100 >= 85`
-- canonical coverage summary now reports:
-  - `global branches = 95.11%`
-- repo-local release/readiness judgment:
-  - repo-side hard gates are green in the current worktree
-  - repo-local blockers are cleared
-- remote/live judgment:
-  - GitHub homepage blob drift is resolved by unsetting the homepage field
-  - open PR `#28` remains
-  - open CodeQL alerts remain until a maintainer pushes the current worktree
-    and GitHub re-analyzes the repository
-  - recent remote failed workflow history may remain visible until remote state
-    refreshes
+- `.agents/Conversations/`
+- `.agents/Tasks/` and `.agents/Plans/` as coordination history
+- archived readiness artifacts under `.runtime-cache/reports/`
 
-Current honest split:
-
-- repo-side complete = yes
-- remote/git complete = not yet
-- live/public sync complete = not yet
-- remaining work = push current worktree, let GitHub rerun checks and CodeQL,
-  then re-review remote state before claiming full public closure
-
-## Historical Remote Follow-Through Snapshot (2026-04-01 PDT)
-
-This section is historical context from the 2026-04-01 remote follow-through wave.
-Do not treat it as the current remote truth.
-
-- pushed branch: `codex/ultimate-unified-endgame`
-- open closure PR: `#29 feat: close repo-local endgame lanes`
-- GitHub homepage blob drift is resolved by leaving homepage unset
-- remaining remote/public closure now depends on:
-  - PR `#29` checks and required review
-  - PR `#28` review / merge handling
-  - GitHub CodeQL re-analysis on the newly pushed branch
-
-## Historical Maximum-Pressure Snapshot (2026-04-01 PDT)
-
-This section is historical context from the 2026-04-01 maximum-pressure wave.
-Do not treat it as the current remote or release-readiness truth.
-
-- latest authoritative completed repo-local hard-gate packet is now:
-  - `ci-gate-1775057297007-61245`
-  - `ok = true`
-  - `warningCount = 0`
-  - `quality score 100 >= 85`
-- the repo-local front-door closure is deeper than the earlier final packet:
-  - `/api/frontdoor` now exposes builder-facing JSON truth
-  - `/manifest.webmanifest` now exists as a real discovery surface
-  - `/llms.txt`, the JSON front-door, and homepage discovery content now align
-  - front-door visual goldens were intentionally refreshed and then re-run
-    through `oxipng` plus `npm run visual:qa`
-- stale remote failure explicitly invalidated:
-  - the old PR `#29` failure on `ea2d5c6` came from remote `oxipng`
-    optimization of the updated visual goldens
-  - that root cause is fixed locally and pushed on:
-    - `d0b4269 chore: optimize visual golden assets`
-- current remote judgment from the latest refresh:
-  - PR `#29` head = `d0b4269`
-  - required review is still pending
-  - latest CI / CodeQL checks on `d0b4269` were still queued or running at the
-    time of the last refresh
-  - GitHub description is aligned
-  - the historical homepage state in that snapshot remained intentionally unset
-  - open CodeQL alerts on `main` remain `2`
-
-Current honest split after this update:
-
-- repo-side complete = yes
-- remote/git complete = not yet
-- live/public sync complete = partial
-- remaining remote/public closure = wait for latest `d0b4269` checks to finish,
-  then review/merge PR `#29`, then re-check the `2` existing CodeQL alerts on
-  `main`
+Treat those as history, then re-check current truth with fresh commands.
