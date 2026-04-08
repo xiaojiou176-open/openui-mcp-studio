@@ -1,9 +1,10 @@
 # Public Distribution Bundle
 
-This directory is the repo-owned public distribution bundle for
-`OpenUI MCP Studio`.
+This directory is the supporting install bundle shelf for the public
+`OpenUI MCP Studio` repo.
 
-Think of it like the box you can hand to a new developer:
+Think of it like the install box you can hand to a new developer after they
+already understand that the public repo is the main product surface:
 
 - sample configs for Codex, Claude Code, and generic stdio MCP hosts
 - a repo-scoped Codex marketplace sample plus a marketplace-compatible Claude
@@ -21,8 +22,9 @@ Use this split to avoid accidental duplicate truth:
 - `examples/public-distribution/*` = repo-frontdoor public mirror for GitHub,
   docs, and zero-context discovery
 
-The content should tell the same story, but the package bundle remains the
-installable source-of-truth surface.
+The content should tell the same story, but the public repo remains the main
+distribution artifact and the package bundle remains the installable
+source-of-truth surface.
 
 ## What This Bundle Is For
 

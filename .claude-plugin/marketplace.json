@@ -5,7 +5,7 @@
     "name": "xiaojiou176-open"
   },
   "metadata": {
-    "description": "Marketplace-ready Claude Code starter entry for the repo-owned OpenUI install, proof, and review bundle. It does not claim a live listing."
+    "description": "Marketplace-ready Claude Code install surface for the public OpenUI repo. It is current and versioned, but it does not claim a live listing."
   },
   "plugins": [
     {

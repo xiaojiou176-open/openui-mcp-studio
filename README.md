@@ -1,25 +1,18 @@
 # OpenUI MCP Studio
 
-Turn one UI or UI/UX brief into React and shadcn files you can preview,
-inspect at a proof desk, move through a review workbench, and verify before
-you ship them.
+Turn one UI or UI/UX brief into React + shadcn files, then keep proof, review,
+and acceptance visible before you ship them.
 
-OpenUI MCP Studio is for teams that want one practical flow: start from a
-prompt, write real frontend files into a workspace, and keep proof, review,
-and acceptance visible before trusting the output.
-In short, it is a `prompt -> files -> proof -> review -> ship` workflow.
+OpenUI MCP Studio is the public repo you hand to teams using Codex, Claude
+Code, OpenCode, OpenClaw, and other MCP-first clients when they want one
+practical `prompt -> files -> proof -> review -> ship` workflow instead of a
+generic coding-agent platform.
 
-Use it as a local stdio MCP workflow for Codex, Claude Code, and other
-MCP-first clients when you want stronger execution, proof, and review than a
-plain generator, but a narrower and more auditable story than a generic
-coding-agent platform.
-
-> Runtime truth:
-> the real system entrypoint is `services/mcp-server/src/main.ts`.
-> `apps/web` is the default proof target for smoke, visual, and UI/UX checks.
-> `/` is the front door, `/proof` is the proof desk, and `/workbench` is the
-> operator and review route inside that app.
-> It is not the primary product entrypoint.
+> Primary runtime:
+> local `stdio` MCP through `services/mcp-server/src/main.ts`.
+>
+> Primary distribution artifact:
+> this public GitHub repo, plus repo-owned install bundles and proof surfaces.
 >
 > Brand split:
 > `OneClickUI.ai` is the shorter front-door label.
@@ -35,50 +28,13 @@ maintenance.
 
 [Quick Start](#quick-start) |
 [Pages Front Door](https://xiaojiou176-open.github.io/openui-mcp-studio/) |
+[Proof Desk](./docs/proof-and-faq.md) |
+[Distribution Bundle](./examples/public-distribution/README.md) |
 [Discovery Guide](./docs/discovery-surfaces.md) |
-[Ecosystem Contract](./docs/contracts/openui-ecosystem-productization.json) |
-[Demo Proof](./docs/proof-and-faq.md#demo-proof) |
-[Warm Start](./docs/first-minute-walkthrough.md) |
-[Evaluator Checklist](./docs/evaluator-checklist.md) |
-[Public Surface Guide](./docs/public-surface-guide.md) |
-[Architecture](./docs/architecture.md) |
+[Skills Product Line](./examples/skills/README.md) |
+[Docs Index](./docs/index.md) |
 [Tags](https://github.com/xiaojiou176-open/openui-mcp-studio/tags) |
-[Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions) |
-[Docs Index](./docs/index.md)
-
-![OpenUI MCP Studio preview card](./docs/assets/openui-mcp-studio-preview.svg)
-
-<p align="center">
-  <strong>Prompt to UI</strong> |
-  <strong>Apply into workspace</strong> |
-  <strong>Verify before ship</strong>
-</p>
-
-## Start Here
-
-Use the shortest path that matches the question in your head:
-
-| If you want to... | Open or run... | What you get |
-| --- | --- | --- |
-| watch one real prompt-to-UI run | `npm run demo:ship` | a genuine brief-to-ship payload from the current repo |
-| trust the repo before going deeper | `npm run repo:doctor` | a fast structural check over contracts, runtime, evidence, and release-readiness inputs |
-| follow the fastest human-readable path | [`docs/first-minute-walkthrough.md`](./docs/first-minute-walkthrough.md) | the shortest guided route from brief to proof target |
-| hand a public starter bundle to another builder | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) | sample Codex / Claude Code configs, generic MCP template, proof notes, and troubleshooting |
-
-## Front Door Map
-
-Read the product surfaces in this order:
-
-1. `README.md`
-   The storefront on GitHub.
-2. `/`
-   The front door inside `apps/web`.
-3. `/proof`
-   The proof desk that explains what the repo already proves.
-4. `/workbench`
-   The operator desk that shows the live packet, next move, and stop signs.
-5. [`docs/discovery-surfaces.md`](./docs/discovery-surfaces.md)
-   The human-readable map for `/llms.txt`, `/api/frontdoor`, `/manifest.webmanifest`, `/sitemap.xml`, and `/robots.txt`.
+[Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions)
 
 <p align="center">
   <img
@@ -88,140 +44,62 @@ Read the product surfaces in this order:
   />
 </p>
 
-> OpenUI MCP Studio is an MCP-native AI UI/UX delivery and review workbench for
-> Codex, Claude Code, and other stdio MCP workflows.
+> OpenUI MCP Studio is the public repo for MCP-native UI delivery and review
+> across Codex, Claude Code, OpenCode, OpenClaw, and other MCP-first clients.
 
-## Trust Boundaries
+## Start Fast
 
-- Runtime truth:
-  `services/mcp-server/src/main.ts` is the real entrypoint.
-  `apps/web` is the default proof target for smoke, visual, and UI/UX checks.
-- Surface split:
-  `/` is the front door, `/proof` is the proof desk, and `/workbench` is the
-  operator and review route.
-- Brand split:
-  `OneClickUI.ai` is the shorter front-door label.
-  `OpenUI MCP Studio` remains the technical product, runtime, and release name.
-- Landing split:
-  `repo-local complete` means the worktree, docs, proof surfaces, and
-  verification packet agree.
-  `delivery landed` means that approved slice is staged, committed, pushed, and
-  reflected in branch or PR state.
-- Safety split:
-  host cleanup must stay precise.
-  No `killall`, no broad GUI automation, and no guessing when process identity
-  is missing.
+Use the shortest path that matches the question in your head:
 
-Local bootstrap remains a construction-only bridge into the workflow.
-Public release confidence still depends on repository-side checks such as
-`npm run security:oss:audit` and `npm run release:public-safe:check`.
+| If you want to... | Open or run... | What you get |
+| --- | --- | --- |
+| see one real prompt-to-UI run | `npm run demo:ship` | a genuine brief-to-ship payload from the current repo |
+| trust the repo before going deeper | `npm run repo:doctor` | a fast structural check over contracts, runtime, evidence, and release-readiness inputs |
+| install or adapt it for another client | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) | repo-owned configs for Codex, Claude Code, generic MCP hosts, and the current OpenClaw-ready bundle |
 
-## Discovery And Ecosystem Truth
+## What You Get Today
 
-Read the discovery and ecosystem surfaces in this order:
+- **Primary runtime:** local `stdio` MCP through `services/mcp-server/src/main.ts`
+- **Primary distribution artifact:** this public GitHub repo
+- **Install-ready client surfaces:** Codex, Claude Code, and generic MCP hosts
+- **Front-row compatible clients:** OpenCode and OpenClaw through the same repo-owned MCP contract and bundle set
+- **Official repo-owned skill product line:** `@openui/skills-kit` plus the repo mirror under `examples/skills/`
+- **Supporting lanes:** self-hosted Hosted API and `@openui/sdk`
+- **Planned, not current:** Docker runtime distribution, marketplace publication, registry publication, managed hosted deployment
 
-1. `README.md`
-2. [`docs/discovery-surfaces.md`](./docs/discovery-surfaces.md)
-3. `/`
-4. `/walkthrough`
-5. `/compare`
-6. `/proof`
-7. `/workbench`
-8. `/docs`
-9. `/llms.txt`
-10. `/api/frontdoor`
-11. `/manifest.webmanifest`, `/sitemap.xml`, `/robots.txt`
+## What We Support And What We Do Not Claim
 
-That order matters because the repo now exposes two different truths:
+### Current support
 
-- **current repo-owned package and runtime surfaces**
-  - plugin-grade public distribution package for Codex and Claude Code
-  - OpenClaw public-ready repo-owned bundle
-  - compatibility OpenAPI bridge
-  - repo-local workflow packet
-  - repo-owned starter-pack package surface via `@openui/skills-kit`
-  - supporting SDK package surface via `@openui/sdk`
-  - supporting self-hosted OpenUI Hosted API command surface through `openui-mcp-studio hosted ...`
-- **later lanes**
-  - official plugin or marketplace listing
-  - registry publication for supporting package surfaces
-  - managed hosted deployment
-  - remote write-capable MCP
+- this repo is the main product surface and the main thing you evaluate, star, clone, and hand to another builder
+- the canonical builder order stays `local stdio MCP -> compatibility OpenAPI -> repo-local workflow packet`
+- Codex and Claude Code have repo-owned install surfaces today
+- OpenCode can reuse the same generic MCP contract, but it is not a dedicated vendor-native install shelf
+- OpenClaw is now part of the official repo-owned skill product line, but remains unlisted and not vendor-verified
 
-Use [`docs/contracts/openui-ecosystem-productization.json`](./docs/contracts/openui-ecosystem-productization.json)
-when you want the machine-readable version of that split.
+### Not claimed yet
 
-## Current Convergence Slice
+- an official Codex directory entry
+- a listed Claude Code marketplace item
+- a live OpenClaw / ClawHub listing
+- a managed hosted runtime or SaaS
+- a public Docker image or Docker-first install path
 
-The current repo-local convergence slice now includes three real lanes that
-should be read together instead of as separate archive-only stories:
+## Front Door Map
 
-- UI/UX audit lane
-  - `openui_review_uiux` now returns a structured audit frame with scope,
-    target, style-pack summary, category rollups, and next-step guidance
-  - the audit frame now also separates automated signals, manual review
-    boundaries, and the next operator move
-  - repo/workspace UI/UX auditing now has a shared foundation in
-    `services/mcp-server/src/uiux/audit-foundation.ts`
-- Product-surface lane
-  - the front door, proof desk, compare page, walkthrough, and operator
-    workbench are all thicker and more bilingual through the centralized
-    message layer
-  - `/proof` now reads more explicitly as a proof contract and packet anatomy
-    surface, while `/workbench` now makes its repo-local operator-desk status
-    more visible
-  - the product surface still stays execution/review/proof first instead of
-    widening into a generic AI-agent or hosted builder pitch
-- Builder-surface lane
-  - the root package now exposes a real repo-local CLI entrypoint through
-    `openui-mcp-studio`
-  - the package-level public surface is now a curated allowlist around
-    `services/mcp-server/src/public/index.ts`
-  - the builder layer now has a more formal read order through
-    `openui-mcp-studio surface-guide`, richer builder metadata, and thicker
-    machine-readable discovery hints
-  - `examples/skills/` is now a repo-side starter kit, not a shipped Skills
-    marketplace or SDK
+Read the product surfaces in this order:
 
-These are current repo-local capabilities.
-They are still different from `delivery landed`, which only happens after the
-approved slice is staged, committed, pushed, and represented in branch or PR
-state.
-
-Round-scoped supporting notes live here:
-
-- [`docs/architecture/uiux-engine-round1.md`](./docs/architecture/uiux-engine-round1.md)
-- [`docs/architecture/frontdoor-surface-round1-worker-b.md`](./docs/architecture/frontdoor-surface-round1-worker-b.md)
-- [`docs/architecture/builder-surface-round1-worker-c.md`](./docs/architecture/builder-surface-round1-worker-c.md)
-
-See [`docs/strategy/openui-uiux-truth-ledger.md`](./docs/strategy/openui-uiux-truth-ledger.md)
-for the canonical truth ledger.
-
-Current wave ledgers:
-
-- [`docs/strategy/openui-uiux-vertical-gap-ledger.md`](./docs/strategy/openui-uiux-vertical-gap-ledger.md)
-- [`docs/strategy/openui-builder-surface-formalization-ledger.md`](./docs/strategy/openui-builder-surface-formalization-ledger.md)
+1. `README.md` for the storefront
+2. `/` for the front door inside `apps/web`
+3. `/proof` for the proof desk
+4. `/workbench` for the operator desk
+5. [`docs/discovery-surfaces.md`](./docs/discovery-surfaces.md) for the route and machine-readable map
 
 ## Language Contract
 
-The repository now treats language in two layers:
-
 - public docs, metadata, and machine-readable routes stay English-first
-- product UI defaults to `en-US` and can switch to `zh-CN` through centralized
-  locale messages
-- the front door plus key workbench flows now use that same locale system for
-  navigation, CTA, dialog, command-bar, and state copy
-
-This keeps public discovery surfaces stable while preventing route files from
-growing scattered bilingual literals.
-
-<p align="center">
-  <img
-    src="./docs/assets/openui-mcp-studio-workflow-overview.png"
-    alt="Workflow overview showing brief, generate, apply, and verify stages"
-    width="100%"
-  />
-</p>
+- product UI defaults to `en-US` and can switch to `zh-CN` through centralized locale messages
+- the front door and key workbench flows reuse that same locale system
 
 ## Capability Layers
 
@@ -984,18 +862,17 @@ If you want the ready-made bundle files instead of copying from prose, use:
 
 ### What About OpenHands, OpenCode, And OpenClaw?
 
-Current support truth is intentionally narrow:
+Current support truth is deliberately split:
 
-- `Codex` and `Claude Code` now have a repo-owned plugin-grade public distribution package through the local stdio MCP path, starter bundles, proof loop, and troubleshooting
-- `OpenHands` and `OpenCode` are comparison / positioning references today, not dedicated install surfaces
-- `OpenClaw` is not a primary front-door binding, but the repo now exposes a repo-owned public-ready bundle for OpenClaw-style use: starter config, public Skills starter pack, and proof loop
+- `Codex` and `Claude Code` have the strongest repo-owned install surfaces today through local stdio configs, starter bundles, proof loops, and troubleshooting
+- `OpenCode` is a front-row compatibility target that should reuse the same repo-owned generic MCP contract; this repo does **not** claim a dedicated OpenCode install shelf or official integration
+- `OpenClaw` is now part of the official repo-owned skill product line through starter bundles, proof loops, and public-ready manifests, but it is still **not** claimed as listed, published, or vendor-approved
+- `OpenHands` remains comparison / positioning context, not a current install surface
 
 That means this repo can honestly help people evaluate category fit across
-those names, and it can now hand builders a concrete install bundle plus a
-public Skills starter pack when they want to prototype an OpenClaw-side bridge.
-It still cannot honestly claim an official OpenClaw integration, a live
-ClawHub listing, plugin distribution, or verified runtime support inside
-another host.
+those names, install the current repo into Codex and Claude Code, adapt the
+same MCP contract for OpenCode-style hosts, and inspect the official repo-owned
+skill product line for OpenClaw-side work.
 
 ### Sample Prompt To Paste
 
@@ -1020,22 +897,21 @@ output. It is not only a code emitter and it is not only a frontend sample.
 
 ### Is this already a plugin, SDK, or hosted API product?
 
-Yes for the repo-owned public package layer, and only as a supporting lane for
-SDK / hosted.
+The repo already ships real supporting product lines, but they are not equal.
 
-Current repo-owned product lines now include:
+Current truth is:
 
-- plugin-grade public distribution package for Codex and Claude Code
-- OpenClaw public-ready repo-owned bundle
-- a formal repo-owned starter-pack package surface via `@openui/skills-kit`
-- a supporting repo-owned SDK package surface via `@openui/sdk`
-- a supporting self-hosted OpenUI Hosted API command surface through `openui-mcp-studio hosted ...`
+- **main product and main distribution artifact:** this public GitHub repo
+- **primary runtime:** local stdio MCP
+- **supporting install surfaces:** Codex and Claude Code plugin-grade bundles
+- **official repo-owned skill product line:** `@openui/skills-kit` plus repo-owned skill/bundle mirrors, including the OpenClaw-facing line
+- **supporting / parked lanes:** `@openui/sdk` and the self-hosted Hosted API
 
 What still does **not** exist as current truth:
 
 - a live listed marketplace / plugin / ClawHub entry
-- live ClawHub publication
-- registry publication proof
+- live registry publication for the root repo artifact
+- a public Docker runtime distribution
 - managed hosted SaaS deployment
 
 ### Does it change runtime contracts?

@@ -4,13 +4,13 @@
   "technicalName": "OpenUI MCP Studio",
   "frontdoorLabel": "OneClickUI.ai",
   "status": "public-ready",
-  "summary": "Public-ready OpenClaw / ClawHub bundle for OpenUI MCP Studio. It includes registry-facing metadata, install/proof notes, and supporting starter-pack artifacts without claiming that a ClawHub listing is already live.",
+  "summary": "Official repo-owned OpenClaw skill line for OpenUI MCP Studio. It includes install/proof notes and supporting artifacts without claiming that a ClawHub listing is already live.",
   "officialSurfaceEvidence": [
     "https://github.com/openclaw/openclaw",
     "https://github.com/openclaw/clawhub",
     "https://docs.openclaw.ai/tools/skills"
   ],
-  "discoverySurface": "Official OpenClaw surfaces now expose ClawHub as a public skill registry. This repo therefore promotes OpenClaw from bridge-only language to a public-ready bundle, while still refusing to claim a live listing before publication.",
+  "discoverySurface": "Official OpenClaw surfaces now expose ClawHub as a public skill registry. This repo therefore promotes OpenClaw from bridge-only language to an official repo-owned skill line, while still refusing to claim a live listing before publication.",
   "artifacts": [
     {
       "id": "openclaw-note",

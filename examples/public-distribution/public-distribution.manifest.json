@@ -4,15 +4,15 @@
   "technicalName": "OpenUI MCP Studio",
   "frontdoorLabel": "OneClickUI.ai",
   "status": "package-ready",
-  "summary": "Plugin-grade public distribution bundle for Codex, Claude Code, and other stdio MCP hosts. It ships sample configs, install notes, proof loop guidance, and troubleshooting without claiming an official marketplace listing.",
+  "summary": "Supporting install bundle for the public OpenUI repo across Codex, Claude Code, OpenCode-adaptable MCP hosts, and other stdio clients. It ships sample configs, install notes, proof guidance, and troubleshooting without claiming an official listing.",
   "audience": [
     "builders who want the quickest honest install path for Codex or Claude Code",
     "maintainers preparing repo-owned public distribution assets",
     "integrators adapting the same stdio MCP contract for another local-first host"
   ],
   "currentTruth": {
-    "codex": "Official MCP install docs exist and this repo now ships a package-ready public distribution bundle for that path.",
-    "claudeCode": "Official MCP install docs exist and this repo now ships a package-ready public distribution bundle for that path.",
+    "codex": "Official MCP install docs exist and this repo now ships a repo-owned Codex install bundle for that path.",
+    "claudeCode": "Official MCP install docs exist and this repo now ships a repo-owned Claude Code install bundle for that path.",
     "genericMcpHost": "A repo-owned stdio launch contract is included for other hosts that can spawn a local MCP server."
   },
   "artifacts": [

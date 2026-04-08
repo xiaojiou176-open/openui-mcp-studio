@@ -1,10 +1,10 @@
 {
   "packageName": "@openui/skills-kit",
   "version": "0.1.0",
-  "summary": "Plugin-grade public starter bundle for OpenUI skill-shaped integrations across Codex, Claude Code, and OpenClaw-style hosts.",
+  "summary": "Official repo-owned skill product line for OpenUI across Codex, Claude Code, OpenCode-adaptable MCP hosts, and OpenClaw-style hosts.",
   "status": "plugin-grade-public-package",
-  "audience": "maintainers, builders, and agent teams that need sample configs, proof loops, and bounded starter metadata on top of the current OpenUI surfaces",
-  "role": "starter contracts, starter bundles, manifest metadata, troubleshooting, and boundary-first examples",
+  "audience": "maintainers, builders, and agent teams that need an official repo-owned skill product line with sample configs, proof loops, and bounded metadata on top of the current OpenUI surfaces",
+  "role": "skill contracts, skill bundles, manifest metadata, troubleshooting, and boundary-first examples for the repo-owned product line",
   "installPath": [
     "npm install /ABS/PATH/openui-mcp-studio/packages/skills-kit",
     "import { OPENUI_SKILLS_KIT_MANIFEST } from '@openui/skills-kit'",
@@ -44,7 +44,7 @@
     },
     "openclaw": {
       "status": "clawhub-ready",
-      "currentTruth": "The repo ships an OpenClaw / ClawHub-ready skill bundle and MCP config, but it does not claim an official listing.",
+      "currentTruth": "The repo ships an official repo-owned OpenClaw-ready skill bundle and MCP config, but it does not claim an official listing.",
       "operatorOnlyTail": "ClawHub publication and review remain operator/platform actions."
     }
   },

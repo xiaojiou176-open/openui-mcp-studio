@@ -1,16 +1,17 @@
-# Skills Starter Kit
+# Skills Product Line
 
-This directory is now the **formal public starter pack** for future
-builder-facing Skills work.
+This directory is the repo mirror for the **official repo-owned OpenUI skill
+product line**.
 
-That is still intentionally narrower than a shipped marketplace/plugin runtime:
+It is intentionally stronger than "just examples" and still intentionally
+narrower than a shipped marketplace/runtime:
 
-- it gives maintainers a concrete public starter surface they can copy
-- it now points at plugin-grade starter bundles for Codex and Claude Code plus
-  a repo-owned OpenClaw public-ready bundle
+- it gives maintainers and builders a real, versioned skill surface they can inspect
+- it points at plugin-grade skill bundles for Codex and Claude Code plus the
+  repo-owned OpenClaw skill line
 - it stays honest about the current builder surface
-- it does not claim that OpenUI MCP Studio already ships a formal Skills
-  runtime or marketplace listing
+- it does not claim that OpenUI MCP Studio already ships a live marketplace
+  listing, formal Skills runtime, or vendor approval
 
 ## Current Truth
 
@@ -20,8 +21,8 @@ the line at once:
 1. local `stdio` MCP is the current primary builder surface
 2. the OpenAPI file is a compatibility bridge for review and contract reading
 3. the repo-local workflow packet is a maintainer-facing readiness surface
-4. a formal public starter pack exists here, but formal runtime packaging
-   remains a later lane
+4. an official repo-owned skill product line exists here, but listing/runtime
+   publication remains a later lane
 5. the repo-owned package now also ships starter bundles and troubleshooting
    for zero-context public distribution
 
@@ -33,7 +34,7 @@ If you need the zero-context builder map first, start with:
 
 | File | Role |
 | --- | --- |
-| `public-starter.manifest.json` | Machine-readable public starter manifest with audience, role, install path, starter bundles, and boundaries |
+| `public-starter.manifest.json` | Machine-readable manifest for the repo-owned skill product line |
 | `install-use-note.md` | Human-readable install/use note for zero-context maintainers |
 | `starter-contract.md` | Defines the starter contract fields and what each one is supposed to mean |
 | `starter-contract.template.json` | Minimal template maintainers can copy before filling a repo-specific draft |
@@ -47,8 +48,8 @@ If you need the zero-context builder map first, start with:
 ## Guardrails
 
 - Treat `.agents/skills/*` as internal collaboration assets, not as an external Skills product.
-- Do not describe this starter pack as marketplace, plugin, SDK, or hosted API
-  proof.
+- Do not describe this product line as a live marketplace, SDK, or hosted API
+  publication.
 - Do not call the OpenClaw public-ready manifest an official OpenClaw runtime or
   ClawHub listing.
 - If a future change promotes this starter kit into a public-facing builder

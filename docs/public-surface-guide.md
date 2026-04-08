@@ -16,6 +16,13 @@ The public surface is the combined first impression formed by:
 - GitHub About, Topics, Homepage, and Discussions
 - visual assets under `docs/assets/`
 
+Primary product rule:
+
+- the public GitHub repo is the main distribution artifact
+- install bundles, skill bundles, plugin metadata, and machine-readable
+  contracts are supporting shelves for that repo, not separate co-equal front
+  doors
+
 Canonical split:
 
 - `README.md` sells the product in one screen
@@ -50,6 +57,8 @@ Hard rule:
 - keep the README opening screen small enough that a new visitor can answer
   "what is this, where do I start, and why should I trust it?" without opening
   three more documents first
+- keep the first screen focused on the repo itself before talking about plugin,
+  skill, SDK, or hosted follow-through lanes
 - move strategy history, packaging archaeology, and deeper ledgers behind the
   front row instead of stacking them into the README opening block
 
@@ -194,10 +203,12 @@ They should repeat the same truth:
 - `OneClickUI.ai` is the front-door label
 - current builder order remains local MCP -> compatibility OpenAPI ->
   repo-local workflow packet
-- repo-owned starter-pack packaging, plugin-grade public distribution packages,
-  and the OpenClaw public-ready bundle are current
+- the public repo is the primary distribution artifact
+- repo-owned starter-pack packaging, supporting install bundles, and the
+  OpenClaw skill product line are current
 - SDK package shape and the self-hosted command surface are supporting or
   parked, not front-stage
+- Docker runtime distribution is planned, not current
 - official listing publication, registry publication, managed deployment, and
   remote write-capable MCP remain later/operator-owned
 

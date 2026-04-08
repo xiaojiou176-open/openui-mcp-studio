@@ -29,7 +29,6 @@ Start here if your question is "what does this project do right now?"
 - [`docs/first-minute-walkthrough.md`](./first-minute-walkthrough.md)
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
 - [`docs/architecture.md`](./architecture.md)
-- [`docs/architecture.md`](./architecture.md)
 
 ### Evaluators
 
@@ -47,6 +46,7 @@ needs human judgment?"
 
 Start here if your question is "what builder surface is actually current?"
 
+- [`README.md`](../README.md)
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
 - [`docs/contracts/openui-mcp.openapi.json`](./contracts/openui-mcp.openapi.json)
 - [`docs/contracts/openui-ecosystem-productization.json`](./contracts/openui-ecosystem-productization.json)
@@ -54,12 +54,13 @@ Start here if your question is "what builder surface is actually current?"
 - `openui-mcp-studio ecosystem-guide`
 - `openui-mcp-studio skills starter --json`
 
+The public repo itself is the primary distribution artifact.
 Current builder order stays:
 
 1. local stdio MCP
 2. compatibility OpenAPI bridge
 3. repo-local workflow packet
-4. starter bundles and repo-owned public distribution examples
+4. supporting install bundles and the repo-owned skill product line
 
 ## i18n Contract
 
@@ -85,6 +86,14 @@ worker-scoped note:
   routing
 - coordination-only master plans under `.agents/Plans/` stay outside public
   docs routing
+
+Public-repo rule:
+
+- `README.md` is the storefront and the human SSOT for the public product story
+- `docs/contracts/openui-ecosystem-productization.json` is the machine-readable
+  SSOT for ecosystem/distribution truth
+- starter bundles, plugin metadata, and skill metadata are projections of that
+  story, not co-equal front doors
 
 ## Historical And Reference Appendix
 

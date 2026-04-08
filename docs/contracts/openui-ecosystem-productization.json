@@ -2,14 +2,14 @@
   "version": 1,
   "technicalName": "OpenUI MCP Studio",
   "frontdoorLabel": "OneClickUI.ai",
-  "summary": "Current ecosystem packaging truth for OpenUI MCP Studio. This contract explains the plugin-grade public distribution package for Codex and Claude Code, the repo-owned OpenClaw public-ready bundle, and which supporting lanes remain parked or operator-only.",
+  "summary": "Current ecosystem packaging truth for the public OpenUI MCP Studio repo. The repo is the main distribution artifact, while install bundles, the repo-owned skill product line, and supporting parked lanes explain how different clients consume that repo today.",
   "currentTruth": {
-    "codex": "The official Codex Plugin Directory exists and this repo now ships a Plugin Directory-ready package through MCP configuration, starter bundles, proof loop, and troubleshooting.",
-    "claudeCode": "The official Claude Code marketplace exists and this repo now ships a marketplace-ready package through MCP configuration, starter bundles, proof loop, and troubleshooting.",
+    "codex": "The public repo ships a repo-owned Codex install surface through MCP configuration, starter bundles, proof loop, and troubleshooting.",
+    "claudeCode": "The public repo ships a repo-owned Claude Code install surface through MCP configuration, starter bundles, proof loop, and troubleshooting.",
     "genericMcpHost": "A reusable stdio MCP launch template is documented for other MCP-capable hosts.",
-    "formalSkills": "Installable public starter pack through @openui/skills-kit plus repo-owned examples/skills mirror.",
-    "pluginLikePackaging": "Plugin-grade public distribution package is current inside the repo-owned starter surface, not marketplace packaging.",
-    "openclawBridge": "The official OpenClaw public surface exists as ClawHub, and the repo now ships a ClawHub-ready public package through starter bundles, install/proof loop, and discoverable contract artifacts, without claiming listing approval.",
+    "formalSkills": "The repo-owned skill product line is current through @openui/skills-kit plus the repo mirror under examples/skills.",
+    "pluginLikePackaging": "Codex and Claude Code install bundles are supporting install surfaces for the public repo, not separate primary products.",
+    "openclawBridge": "The repo-owned OpenClaw skill line is current through starter bundles, install/proof loop, and discoverable contract artifacts, without claiming listing approval or runtime verification.",
     "sdk": "Supporting or parked package surface through @openui/sdk.",
     "hostedApi": "Supporting or parked self-hosted runtime through the repo CLI and hosted API contract."
   },
@@ -17,7 +17,7 @@
     {
       "client": "Codex",
       "status": "plugin-directory-ready",
-      "why": "The official Codex Plugin Directory exists, and local stdio MCP installation, starter bundles, proof loop, and troubleshooting are documented as one repo-owned distribution surface.",
+      "why": "The public repo documents a repo-owned Codex install surface through local stdio MCP, starter bundles, proof loop, and troubleshooting.",
       "repoOwnedProof": [
         "README.md",
         "docs/discovery-surfaces.md",
@@ -31,7 +31,7 @@
     {
       "client": "Claude Code",
       "status": "marketplace-ready",
-      "why": "The official Claude Code marketplace exists, and local stdio MCP installation, starter bundles, proof loop, and troubleshooting are documented as one repo-owned distribution surface.",
+      "why": "The public repo documents a repo-owned Claude Code install surface through local stdio MCP, starter bundles, proof loop, and troubleshooting.",
       "repoOwnedProof": [
         "README.md",
         "docs/discovery-surfaces.md",
@@ -64,17 +64,20 @@
     },
     {
       "client": "OpenCode",
-      "status": "positioning-only",
-      "why": "The repo treats OpenCode as a comparison/binding reference, not a current packaging surface.",
+      "status": "compatibility-reference",
+      "why": "OpenCode can reuse the same repo-owned generic MCP launch contract as another MCP-first client, but the repo does not claim a dedicated OpenCode install shelf.",
       "repoOwnedProof": [
-        "docs/strategy/product-positioning-naming-distribution.md"
+        "README.md",
+        "docs/discovery-surfaces.md",
+        "examples/public-distribution/generic-mcp.json",
+        "docs/contracts/openui-mcp.openapi.json"
       ],
-      "notFor": "Claiming current install-ready packaging or an official OpenCode integration."
+      "notFor": "Claiming a dedicated OpenCode install surface or an official OpenCode integration."
     },
     {
       "client": "OpenClaw",
       "status": "clawhub-ready",
-      "why": "The official OpenClaw public surface exists as ClawHub, and the repo now exposes a repo-owned OpenClaw public-ready bundle: starter config, public starter pack, proof loop, and discoverable contract artifacts. That is still not an official OpenClaw integration or verified runtime lane.",
+      "why": "The repo now exposes an official repo-owned OpenClaw skill product line through starter configs, public starter pack artifacts, proof loops, and discoverable contracts. That is still not an official listing or verified runtime lane.",
       "repoOwnedProof": [
         "README.md",
         "docs/discovery-surfaces.md",
@@ -89,11 +92,11 @@
   "surfaces": [
     {
       "id": "formal-skills",
-      "title": "Public Skills starter kit",
+      "title": "Official repo-owned skill product line",
       "status": "current-packaging",
-      "audience": "maintainers and builders drafting future skill-shaped integrations or OpenClaw-style bridge experiments",
-      "role": "installable starter pack with repo mirror and bounded contract examples",
-      "packageShape": "public package @openui/skills-kit plus repo mirror under examples/skills",
+      "audience": "maintainers and builders who need a versioned, repo-owned skill product line before any future listing or vendor approval exists",
+      "role": "installable skill product line with repo mirror, starter bundles, proof loops, and bounded contract examples",
+      "packageShape": "public package @openui/skills-kit plus repo mirror under examples/skills; current as an unlisted official repo-owned skill surface",
       "installPath": [
         "packages/skills-kit/README.md",
         "packages/skills-kit/manifest.json",
@@ -110,11 +113,11 @@
     },
     {
       "id": "plugin-like-install-packaging",
-      "title": "Codex and Claude plugin-grade public distribution package",
+      "title": "Codex and Claude supporting install bundles",
       "status": "official-surface-ready",
       "audience": "Codex, Claude Code, and other MCP-capable hosts that can spawn local stdio servers",
-      "role": "configuration snippets, starter bundles, CLI guidance, proof loop, and troubleshooting for local MCP installation",
-      "packageShape": "CLI guide plus host-adaptable config snippets, starter bundles, proof metadata, and official-surface-ready samples; not a listed marketplace artifact",
+      "role": "configuration snippets, starter bundles, CLI guidance, proof loop, and troubleshooting that help people use the public repo through local MCP installation",
+      "packageShape": "supporting install shelf for the public repo; not a listed marketplace artifact and not a separate primary product",
       "installPath": [
         "README.md",
         "docs/discovery-surfaces.md",
@@ -134,11 +137,11 @@
     },
     {
       "id": "openclaw-public-ready",
-      "title": "OpenClaw public-ready repo-owned package",
+      "title": "OpenClaw repo-owned skill product line",
       "status": "clawhub-ready",
       "audience": "OpenClaw-side builders and operators who need a discoverable install/proof path before any official listing exists",
-      "role": "repo-owned OpenClaw starter bundle with sample config, proof loop, and discoverable artifacts",
-      "packageShape": "starter bundle plus contracts and docs for a ClawHub-ready artifact, not an official listing artifact",
+      "role": "repo-owned OpenClaw skill product line with sample config, proof loop, and discoverable artifacts",
+      "packageShape": "skill bundle plus contracts and docs for an unlisted OpenClaw-ready artifact, not an official listing artifact",
       "installPath": [
         "examples/skills/openclaw.mcp.json",
         "examples/openclaw/public-ready.manifest.json",

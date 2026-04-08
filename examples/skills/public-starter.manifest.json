@@ -5,7 +5,7 @@
   "status": "public-starter",
   "distributionTier": "plugin-grade-public-distribution-package",
   "technicalName": "OpenUI MCP Studio",
-  "summary": "Formal public starter bundle for plugin-grade MCP distribution. This surface packages current contract templates, sample host configs, proof loops, and install/use guidance without claiming a marketplace listing or a managed runtime.",
+  "summary": "Official repo-owned skill product line for plugin-grade MCP distribution. This surface packages current contract templates, sample host configs, proof loops, and install/use guidance without claiming a marketplace listing or a managed runtime.",
   "officialPublicSurfaces": {
     "codex": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
     "claudeCode": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
@@ -16,7 +16,7 @@
     "builders who need a bounded starter pack before any future Skills runtime exists",
     "operators who want plugin-grade starter bundles for Codex, Claude Code, or OpenClaw-style hosts"
   ],
-  "role": "Public starter bundle for honest host installs and public-ready packaging.",
+  "role": "Official repo-owned skill product line for honest host installs and unlisted packaging.",
   "packageShape": {
     "type": "starter-pack",
     "artifacts": [
