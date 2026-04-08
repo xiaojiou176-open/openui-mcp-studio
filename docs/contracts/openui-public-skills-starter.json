@@ -4,7 +4,7 @@
   "surface": "formal-public-skills-starter",
   "status": "public-starter",
   "distributionTier": "plugin-grade-public-distribution-package",
-  "summary": "Public starter-bundle contract for OpenUI skill-shaped integrations. This surface now includes plugin-grade starter bundles, proof loops, and troubleshooting for Codex, Claude Code, and OpenClaw-style hosts without claiming an official listing.",
+  "summary": "Official repo-owned skill product line contract for OpenUI skill-shaped integrations. This surface includes starter bundles, proof loops, and troubleshooting for Codex, Claude Code, OpenCode-adaptable hosts, and OpenClaw without claiming an official listing.",
   "officialPublicSurfaces": {
     "codex": {
       "status": "plugin-directory-ready",
@@ -20,8 +20,8 @@
     }
   },
   "audience": [
-    "maintainers packaging repo-native OpenUI skill flows",
-    "builders evaluating a formal starter before plugin or marketplace publication",
+    "maintainers packaging the official repo-owned OpenUI skill product line",
+    "builders evaluating a versioned skill surface before plugin or marketplace publication",
     "agent operators who need a machine-readable starter manifest and honest proof anchors",
     "builders assembling public-ready repo-owned bundles for OpenClaw-style or other skill-shaped hosts"
   ],
@@ -57,12 +57,12 @@
     {
       "id": "starter-manifest",
       "title": "Installable skills-kit manifest",
-      "role": "machine-readable public package manifest",
+      "role": "machine-readable manifest for the repo-owned skill product line",
       "path": "packages/skills-kit/manifest.json"
     },
     {
       "id": "starter-install",
-      "title": "Public starter install note",
+      "title": "Public skill install note",
       "role": "human-readable install/use path",
       "path": "examples/skills/install-use-note.md"
     },
@@ -74,8 +74,8 @@
     },
     {
       "id": "starter-bundles",
-      "title": "Plugin-grade starter bundles",
-      "role": "copyable host configs for Codex, Claude Code, and OpenClaw-style bridges",
+      "title": "Plugin-grade skill bundles",
+      "role": "copyable host configs for Codex, Claude Code, OpenCode-adaptable MCP hosts, and OpenClaw-style bridges",
       "path": "packages/skills-kit/starter-bundles/"
     },
     {
@@ -112,8 +112,8 @@
   "officialSupportMatrix": {
     "codex": "MCP server installation is officially supported; this starter bundle adds plugin-grade public packaging, not a Codex marketplace item.",
     "claudeCode": "MCP server installation is officially supported; this starter bundle adds plugin-grade public packaging, not a Claude Code marketplace item.",
-    "genericSkillHost": "This starter bundle is a repo-owned bridge surface for skill-shaped hosts and registries, but it does not prove vendor approval or publication.",
-    "openclaw": "OpenClaw can be described as repo-owned public-ready through this starter bundle and the OpenClaw sample artifact; no official OpenClaw listing or verified runtime is claimed.",
+    "genericSkillHost": "This product line can be adapted to other MCP-first skill-shaped hosts, but it does not prove vendor approval or publication.",
+    "openclaw": "OpenClaw can be described as an official repo-owned skill product line through this bundle and the OpenClaw sample artifact; no official OpenClaw listing or verified runtime is claimed.",
     "marketplace": "No marketplace claim is made by this starter contract."
   }
 }

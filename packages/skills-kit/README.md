@@ -1,11 +1,11 @@
 # @openui/skills-kit
 
-Installable starter kit for OpenUI skill-shaped integrations.
+Installable package for the official repo-owned OpenUI skill product line.
 
-This package is the strongest truthful public Skills surface in the current repository:
+This package is the strongest truthful skill surface in the current repository:
 
 - it is installable
-- it now ships plugin-grade starter bundles for Codex and Claude Code plus an OpenClaw public-ready bridge bundle
+- it now ships plugin-grade starter bundles for Codex and Claude Code plus an OpenClaw-ready skill line
 - it exposes machine-readable starter artifacts, proof loops, and troubleshooting
 - it does not pretend a marketplace, official plugin listing, or hosted skills runtime exists
 
@@ -48,7 +48,7 @@ node --input-type=module -e "import { OPENUI_SKILLS_KIT_MANIFEST } from '@openui
 - `starter-troubleshooting.md`
   - fastest self-serve recovery note when attach or proof fails
 
-These bundles are repo-owned distribution artifacts.
+These bundles are repo-owned skill product artifacts.
 They do not claim publication or approval inside any official catalog.
 
 ## What it is for
@@ -56,7 +56,7 @@ They do not claim publication or approval inside any official catalog.
 - drafting starter contracts for OpenUI tool or workflow integrations
 - keeping public-facing starter assets separate from internal `.agents/skills/*`
 - giving builders one installable package instead of telling them to browse repo internals
-- packaging sample config, proof loops, and troubleshooting so the bundle feels closer to a real plugin-grade install surface
+- packaging sample config, proof loops, and troubleshooting so the product line feels closer to a real install surface without overclaiming listing truth
 
 ## What it is not
 

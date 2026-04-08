@@ -5,7 +5,7 @@
   "status": "public-starter",
   "distributionTier": "plugin-grade-public-distribution-package",
   "technicalName": "OpenUIStudio",
-  "summary": "Formal public starter bundle for plugin-grade MCP distribution. This surface packages current contract templates, sample host configs, proof loops, and install/use guidance without claiming a marketplace listing or a managed runtime.",
+  "summary": "Official repo-owned skill product line for plugin-grade MCP distribution. This surface packages current contract templates, sample host configs, proof loops, and install/use guidance without claiming a marketplace listing or a managed runtime.",
   "officialPublicSurfaces": {
     "codex": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
     "claudeCode": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
@@ -13,10 +13,10 @@
   },
   "audience": [
     "maintainers designing skill-shaped integrations",
-    "builders who need a bounded starter pack before any future Skills runtime exists",
+    "builders who need a bounded official skill product line before any future Skills runtime exists",
     "operators who want plugin-grade starter bundles for Codex, Claude Code, or OpenClaw-style hosts"
   ],
-  "role": "Public starter bundle for honest host installs and public-ready packaging.",
+  "role": "Official repo-owned skill product line for honest host installs and unlisted packaging.",
   "packageShape": {
     "type": "starter-pack",
     "artifacts": [
@@ -83,7 +83,7 @@
     },
     {
       "path": "tooling/cli/openui.mjs",
-      "why": "Exposes repo-local builder commands that this starter pack points readers toward."
+      "why": "Exposes repo-local builder commands that this skill product line points readers toward."
     },
     {
       "path": "examples/public-distribution/openclaw-public-ready.manifest.json",
@@ -101,7 +101,7 @@
     "examples/public-distribution/troubleshooting.md"
   ],
   "operatorOnlyFollowThrough": [
-    "If this starter pack is later promoted into a public runtime, shared docs, contracts, CLI, and verification must all be updated in the same wave.",
+    "If this skill product line is later promoted into a public runtime, shared docs, contracts, CLI, and verification must all be updated in the same wave.",
     "Any future marketplace submission or vendor review remains outside this starter pack."
   ]
 }

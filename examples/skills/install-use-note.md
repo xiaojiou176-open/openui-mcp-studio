@@ -1,7 +1,7 @@
 # Install / Use Note
 
-This note turns the repo-side starter assets into a formal **public starter
-bundle**.
+This note turns the repo-side skill assets into an official **repo-owned skill
+product line**.
 
 That phrase is deliberately narrow:
 
@@ -14,7 +14,7 @@ That phrase is deliberately narrow:
 
 ## Who This Is For
 
-Use this starter pack when you are:
+Use this skill product line when you are:
 
 1. designing a future skill-shaped integration
 2. documenting a current repo-local builder slice without overclaiming
@@ -68,9 +68,9 @@ Use this starter pack when you are:
 - local `stdio` MCP remains the primary builder surface
 - OpenAPI remains a compatibility bridge
 - repo-local workflow packets remain maintainer-facing
-- this starter bundle does not prove a public runtime, marketplace item, or
+- this skill product line does not prove a public runtime, marketplace item, or
   external control plane
-- SDK and hosted API stay supporting/parked lanes in this bundle, not the main
+- SDK and hosted API stay supporting/parked lanes in this product line, not the main
   install story
 - OpenClaw can be public-ready at the repo-owned artifact layer without implying
   an official catalog or ClawHub listing

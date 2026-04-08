@@ -7,7 +7,7 @@
     "manifest": "examples/skills/public-starter.manifest.json",
     "installNote": "examples/skills/install-use-note.md",
     "audience": "maintainers and builders drafting future skill-shaped integrations",
-    "role": "formal public starter-pack surface",
+    "role": "official repo-owned skill product line surface",
     "packageShape": "machine-readable manifest + install/use note + bounded contract files",
     "notFor": "claiming a shipped formal Skills runtime, marketplace listing, SDK, or hosted API"
   },
@@ -56,7 +56,7 @@
   "proofAnchors": [
     {
       "path": "README.md",
-      "why": "Freezes the builder-surface order and names the current public starter-pack package surface via @openui/skills-kit."
+      "why": "Freezes the builder-surface order and names the current repo-owned skill product line via @openui/skills-kit."
     },
     {
       "path": "docs/strategy/openui-uiux-truth-ledger.md",
@@ -64,7 +64,7 @@
     },
     {
       "path": "docs/proof-and-faq.md",
-      "why": "Repeats the current builder-facing order while keeping the public starter-pack package surface bounded."
+      "why": "Repeats the current builder-facing order while keeping the repo-owned skill product line bounded."
     },
     {
       "path": "docs/architecture.md",
@@ -80,7 +80,7 @@
     },
     {
       "path": "examples/skills/public-starter.manifest.json",
-      "why": "Defines the public starter-pack audience, role, install path, and boundaries."
+      "why": "Defines the skill product line audience, role, install path, and boundaries."
     },
     {
       "path": "examples/skills/install-use-note.md",

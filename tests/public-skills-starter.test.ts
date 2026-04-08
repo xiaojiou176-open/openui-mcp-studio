@@ -14,7 +14,7 @@ async function readText(relativePath: string): Promise<string> {
 	return await fs.readFile(path.join(repoRoot, relativePath), "utf8");
 }
 
-describe("public skills starter pack", () => {
+describe("public skills product line", () => {
 	it("ships a machine-readable public starter manifest with honest boundaries", async () => {
 		const manifest = (await readJson(
 			"examples/skills/public-starter.manifest.json",
@@ -27,7 +27,7 @@ describe("public skills starter pack", () => {
 			"plugin-grade-public-distribution-package",
 		);
 		expect(manifest.role).toBe(
-			"Public starter bundle for honest host installs and public-ready packaging.",
+			"Official repo-owned skill product line for honest host installs and unlisted packaging.",
 		);
 		expect(manifest).toHaveProperty("packageShape");
 		expect(manifest).toHaveProperty("installPath");
@@ -42,7 +42,7 @@ describe("public skills starter pack", () => {
 	it("includes a zero-context install/use note that keeps runtime claims bounded", async () => {
 		const note = await readText("examples/skills/install-use-note.md");
 
-		expect(note).toContain("formal **public starter");
+		expect(note).toContain("official **repo-owned skill");
 		expect(note).toContain("public-starter.manifest.json");
 		expect(note).toContain("../public-distribution/codex.mcp.json");
 		expect(note).toContain("../public-distribution/claude-code.mcp.json");
@@ -81,7 +81,7 @@ describe("public skills starter pack", () => {
 		);
 		expect(
 			proofAnchors.some((anchor) =>
-				/@openui\/skills-kit|starter-pack package surface/i.test(anchor.why),
+				/@openui\/skills-kit|skill product line/i.test(anchor.why),
 			),
 		).toBe(true);
 	});

@@ -1,7 +1,7 @@
 {
   "name": "@openui/skills-kit",
   "version": "0.1.0",
-  "description": "Public starter kit for OpenUI skill-shaped integrations without marketplace overclaim.",
+  "description": "Installable package for the official repo-owned OpenUI skill product line without marketplace overclaim.",
   "license": "MIT",
   "type": "module",
   "exports": {

@@ -6,7 +6,7 @@
 		"@modelcontextprotocol/sdk": "^1.27.1",
 		"zod": "^4.3.6"
 	},
-	"description": "Local stdio MCP server and repo-aware workflow for generating, applying, and verifying React + shadcn UI from natural-language briefs.",
+	"description": "Public repo and local stdio MCP workflow for turning UI briefs into React + shadcn delivery with proof, review, and acceptance before ship.",
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.6",
 		"@commitlint/cli": "^20.5.0",
