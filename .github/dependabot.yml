@@ -5,8 +5,10 @@ updates:
     cooldown:
       default-days: 7
     schedule:
-      interval: "weekly"
-      day: "monday"
+      # Dependabot is dependency-inbox automation, not a sixth CI governance lane.
+      # Daily polling plus cooldown keeps drift visible without reintroducing
+      # a "weekly" institutional layer into repo doctrine.
+      interval: "daily"
       time: "03:00"
       timezone: "America/Los_Angeles"
     open-pull-requests-limit: 10
@@ -21,8 +23,8 @@ updates:
     cooldown:
       default-days: 7
     schedule:
-      interval: "weekly"
-      day: "monday"
+      # Keep workflow dependency drift on the same daily-plus-cooldown posture.
+      interval: "daily"
       time: "03:30"
       timezone: "America/Los_Angeles"
     open-pull-requests-limit: 5

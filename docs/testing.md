@@ -48,6 +48,9 @@ real gate?"
 If a lane depends on Gemini, external APIs, or unstable network behavior, keep
 it out of the default blocking PR path.
 
+Dependabot is intentionally separate from this table.
+It is dependency-inbox automation, not a sixth CI governance lane.
+
 ## Delivery Surface Gates
 
 Use these checks when you are changing the spec-driven delivery plane:
