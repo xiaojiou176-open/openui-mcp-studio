@@ -111,7 +111,7 @@
 		"docs:consistency:check": "npm run docs:linkcheck && npm run docs:scope:check",
 		"docs:linkcheck": "node tooling/docs-linkcheck.mjs",
 		"docs:manual-fact:check": "node tooling/check-docs-manual-boundary.mjs",
-		"docs:lint": "markdownlint --config .markdownlint.json \"README.md\" \"docs/**/*.md\"",
+		"docs:lint": "node ./node_modules/markdownlint-cli/markdownlint.js --config .markdownlint.json \"README.md\" \"docs/**/*.md\"",
 		"docs:scope:check": "node tooling/check-docs-scope.mjs",
 		"env:check": "node tooling/verify-env-contract.mjs",
 		"env:governance:check": "node tooling/verify-env-governance.mjs",
