@@ -5,137 +5,68 @@ This page is the shared routing layer for the current repository truth.
 English is the canonical source of truth for repository governance and
 maintenance.
 
-## Round 2 Reading Rule
+## Reading Rule
 
-Read the current repository through four layers:
+Read the repository through four layers:
 
-1. repo-local product and builder truth
+1. product and builder truth
 2. shared docs wording
 3. machine-readable or governance mirrors
 4. delivery landed / remote state
 
-Those layers are related, but they are not the same thing.
+This index covers the first three.
+It does not claim that the current slice is already committed, merged, or live
+on GitHub.
 
-This index is about the first three layers.
-It does not claim that the current repo-local slice has already been committed,
-pushed, merged, or reflected in remote GitHub state.
+## Fast Routes
 
-## For First-Time Visitors
+### First-Time Visitors
 
-Start here if your question is "what does this project do for me right now?"
+Start here if your question is "what does this project do right now?"
 
 - [`README.md`](../README.md)
-- product routes inside `apps/web`
-  - `/` = product front door
-  - `/compare` = decision and positioning surface
-  - `/proof` = proof desk
-  - `/walkthrough` = first-minute route
-  - `/workbench` = operator and review surface
+- `/`, `/proof`, `/walkthrough`, `/workbench`
 - [`docs/first-minute-walkthrough.md`](./first-minute-walkthrough.md)
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
-- [`docs/proof-and-faq.md`](./proof-and-faq.md)
-- [`docs/evaluator-checklist.md`](./evaluator-checklist.md)
+- [`docs/architecture.md`](./architecture.md)
 - [`docs/architecture.md`](./architecture.md)
 
-Quick routing map:
+### Evaluators
 
-- if you need the product sentence first, start with [`README.md`](../README.md)
-- if you need the proof story, open [`docs/proof-and-faq.md`](./proof-and-faq.md)
-  or `/proof`
-- if you need the operator desk, open `/workbench`
-- if you need the fastest guided route, open
-  [`docs/first-minute-walkthrough.md`](./first-minute-walkthrough.md)
-- if you need the discovery and machine-readable route map first, open
-  [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
+Start here if your question is "what is proved, what is checked, and what still
+needs human judgment?"
 
-## For Evaluators
+- [`docs/proof-and-faq.md`](./proof-and-faq.md)
+- [`docs/testing.md`](./testing.md)
+- [`docs/environment-governance.md`](./environment-governance.md)
+- [`docs/release-readiness.md`](./release-readiness.md)
+- `openui_repo_workflow_summary`
+- `npm run repo:workflow:ready`
 
-Start here if you want to judge whether the current repo-local slice is honest
-and usable.
-
-- proof semantics and evidence tiers:
-  [`docs/proof-and-faq.md`](./proof-and-faq.md)
-- testing and quality gates:
-  [`docs/testing.md`](./testing.md)
-- environment and runtime rules:
-  [`docs/environment-governance.md`](./environment-governance.md)
-- release and public-safe rules:
-  [`docs/release-readiness.md`](./release-readiness.md)
-- repo-local workflow bridge:
-  - `openui_repo_workflow_summary`
-  - `npm run repo:workflow:ready`
-- historical or strategy reference:
-  - use the historical/reference appendix below when you need older
-    activation, packaging, or product-line decision ledgers
-
-Evaluator note:
-
-- the current repo-local slice already contains thicker UI/UX audit surfaces, a
-  stronger front door / proof / workbench product line, and a clearer
-  builder-facing repo-local CLI and export layer
-- Codex / Claude starter bundles and the OpenClaw public-ready bundle are now
-  part of the repo-owned discovery story, while SDK / hosted stay supporting
-  rather than front-stage
-- shared docs are now aligned to those repo-local facts in this wave
-- delivery landed remains a separate Git / PR / remote-state question
-
-## For Builder Integrators
+### Builder Integrators
 
 Start here if your question is "what builder surface is actually current?"
 
-- [`README.md`](../README.md)
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
 - [`docs/contracts/openui-mcp.openapi.json`](./contracts/openui-mcp.openapi.json)
 - [`docs/contracts/openui-ecosystem-productization.json`](./contracts/openui-ecosystem-productization.json)
 - `openui-mcp-studio surface-guide`
 - `openui-mcp-studio ecosystem-guide`
 - `openui-mcp-studio skills starter --json`
-- `openui_repo_workflow_summary`
-- `npm run repo:workflow:ready`
-- historical/reference appendix below for archived strategy ledgers and
-  round-scoped architecture notes
 
-The honest integration order is:
+Current builder order stays:
 
 1. local stdio MCP
 2. compatibility OpenAPI bridge
 3. repo-local workflow packet
-4. plugin-grade starter bundles and repo-side skills starter examples
-
-Current boundary:
-
-- the root CLI and curated public export layer exist in the current repo-local slice
-- the root CLI now includes a repo-local `surface-guide` readout for zero-context builders
-- the root CLI now also includes an `ecosystem-guide` readout for the current
-  plugin-package/OpenClaw/supporting-lanes boundary
-- the root CLI also exposes `skills starter --json` so builders can inspect the
-  public starter-pack surface, install path, use path, and verification path
-  without browsing repo internals first
-- the repo-owned starter bundle files now make Codex / Claude Code install
-  packaging and the OpenClaw public-ready bundle inspectable without copying
-  commands out of prose first
-- the public starter pack now exists through `@openui/skills-kit` with the
-  repo mirror under `examples/skills/`
-- the public SDK still exists through `@openui/sdk`, but it is now a
-  supporting / parked lane
-- the self-hosted OpenUI Hosted API still exists through
-  `openui-mcp-studio hosted ...`, but it is now a supporting / parked lane
-- marketplace listing, registry publication, managed deployment, and
-  write-capable remote MCP remain later/operator-owned lanes
-- the round-scoped architecture notes above are useful for repo-local truth, but
-  they still do not replace fresh gates or Git landing evidence
+4. starter bundles and repo-owned public distribution examples
 
 ## i18n Contract
-
-The public and product surfaces now follow a simple split:
 
 - public-facing docs and metadata stay English-first
 - default locale is `en-US`
 - product UI supports `zh-CN` on the current high-signal routes
 - new bilingual copy should stay behind centralized message sources
-
-Current repo-local coverage includes the front door plus the compare, proof,
-walkthrough, and workbench surfaces.
 
 ## Shared Truth Anchors
 

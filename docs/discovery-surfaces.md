@@ -84,33 +84,28 @@ marketplace.
 
 ## Strongest Public Distribution Surfaces
 
-The strongest honest public distribution surfaces today are:
+Keep the public package story centered on these surfaces:
 
 1. `README.md`
 2. `docs/discovery-surfaces.md`
 3. `examples/public-distribution/`
 4. `examples/codex/marketplace.sample.json` and `.claude-plugin/marketplace.json`
 5. `examples/openclaw/public-ready.manifest.json`
-6. `examples/skills/`
-7. `packages/skills-kit/`
-8. `docs/contracts/openui-public-skills-starter.json`
-9. `docs/contracts/openui-ecosystem-productization.json`
-10. `docs/proof-and-faq.md`
+6. `docs/contracts/openui-public-skills-starter.json`
 
-Those ten surfaces are the repo-owned equivalent of a plugin-grade package
-box: install note, sample configs, proof loop, troubleshooting, and machine-
-readable metadata all live there together.
+If a surface does not help a new builder install, inspect, or verify the repo,
+it belongs in reference material, not in the front row.
 
 ## Client Support Matrix
 
 | Client | Current status | What is true now | What this does **not** mean |
 | --- | --- | --- | --- |
-| `Codex` | plugin-directory-ready | the official Plugin Directory exists and the repo now ships a directory-ready local package with sample config, proof loop, and troubleshooting | not a listed Codex directory item |
-| `Claude Code` | marketplace-ready | the official marketplace exists and the repo now ships a marketplace-ready local package with sample config, proof loop, and troubleshooting | not a listed Claude marketplace item |
-| `Generic MCP host` | template-ready | the repo documents a reusable stdio launch contract for MCP-capable hosts beyond Codex and Claude Code | not a verified vendor-native integration |
-| `OpenClaw` | ClawHub-ready, unlisted | the repo now exposes an OpenClaw public-ready bundle, proof loop, and discoverable contract artifacts; the official public surface exists as ClawHub, but no OpenUI listing is claimed yet | not a verified OpenClaw runtime or ClawHub listing |
-| `OpenHands` | positioning-only | comparison and category-fit language exists | not a dedicated install or discovery path |
-| `OpenCode` | positioning-only | comparison and category-fit language exists | not a dedicated install or discovery path |
+| `Codex` | plugin-directory-ready | repo-owned local package with sample config, proof loop, and troubleshooting | not a listed Codex directory item |
+| `Claude Code` | marketplace-ready | repo-owned local package with sample config, proof loop, and troubleshooting | not a listed Claude marketplace item |
+| `Generic MCP host` | template-ready | reusable stdio launch contract for other MCP-capable hosts | not a verified vendor-native integration |
+| `OpenClaw` | ClawHub-ready, unlisted | repo-owned public-ready bundle and proof loop exist | not a verified OpenClaw runtime or ClawHub listing |
+| `OpenHands` | positioning-only | comparison language exists | not a dedicated install path |
+| `OpenCode` | positioning-only | comparison language exists | not a dedicated install path |
 
 Use this table like a station board:
 

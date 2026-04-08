@@ -54,62 +54,31 @@ maintenance.
   <strong>Verify before ship</strong>
 </p>
 
-## First Practical Win
+## Start Here
 
-Pick the shortest path that matches what you actually want to learn first:
+Use the shortest path that matches the question in your head:
 
-- If you want to watch one real prompt-to-UI delivery:
-  Run `npm run demo:ship`
-  You get one genuine brief-to-ship payload from the current repo.
-- If you want to trust the repo surface before investing more time:
-  Run `npm run repo:doctor`
-  You get a fast structural check over contracts, runtime, evidence, and release-readiness inputs.
-- If you want to follow the first human-readable path:
-  Open [docs/first-minute-walkthrough.md](./docs/first-minute-walkthrough.md)
-  You get the fastest guided route from brief to applied UI and proof target.
-- If you want the discovery surfaces without opening source files:
-  Open [docs/discovery-surfaces.md](./docs/discovery-surfaces.md)
-  You get the human-readable map for `/llms.txt`, `/api/frontdoor`, `/manifest.webmanifest`, `/sitemap.xml`, `/robots.txt`, and the current builder order.
-- If you want the ecosystem packaging truth in one machine-readable contract:
-  Open [docs/contracts/openui-ecosystem-productization.json](./docs/contracts/openui-ecosystem-productization.json)
-  You get the current status for the plugin-grade public distribution package, the repo-owned OpenClaw public-ready bundle, the Skills starter-pack surface, and the supporting SDK / hosted lanes.
-- If you want the public distribution bundle you can hand to another builder:
-  Open [examples/public-distribution/README.md](./examples/public-distribution/README.md)
-  You get sample Codex and Claude Code configs, a generic MCP template, one install-and-proof note, one troubleshooting note, and the OpenClaw public-ready bundle.
-- If you want to inspect the actual machine-readable routes while the app is running:
-  Open `/llms.txt`, `/api/frontdoor`, `/manifest.webmanifest`, `/sitemap.xml`, and `/robots.txt`
-  You get the shortest LLM summary, the structured discovery contract, the browser/install metadata route, and the crawl-policy routes.
-- If you want to open the product front door:
-  Use `apps/web/` routes `/`, `/proof`, `/compare`, `/walkthrough`, `/workbench`
-  You get the app-level surface for product story, the proof desk,
-  alternatives, walkthrough guidance, and the operator workbench.
+| If you want to... | Open or run... | What you get |
+| --- | --- | --- |
+| watch one real prompt-to-UI run | `npm run demo:ship` | a genuine brief-to-ship payload from the current repo |
+| trust the repo before going deeper | `npm run repo:doctor` | a fast structural check over contracts, runtime, evidence, and release-readiness inputs |
+| follow the fastest human-readable path | [`docs/first-minute-walkthrough.md`](./docs/first-minute-walkthrough.md) | the shortest guided route from brief to proof target |
+| hand a public starter bundle to another builder | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) | sample Codex / Claude Code configs, generic MCP template, proof notes, and troubleshooting |
 
-## Host Safety Contract
+## Front Door Map
 
-This repository treats host-process control like handling a sharp tool:
-precise is acceptable, broad is not.
+Read the product surfaces in this order:
 
-- Never use `killall`, `pkill`, `killpg(...)`, or `process.kill(...)` with `pid <= 0`.
-- Never drive desktop-wide GUI automation through `osascript`, `System Events`,
-  `loginwindow`, raw `AppleEvent` paths, or Force Quit helpers.
-- Runtime cleanup is allowed only for the exact child process handle this repo
-  spawned, or for a recorded positive pid used as a liveness probe.
-- If a process identity is missing, cleanup must fail closed instead of
-  guessing.
-- `node tooling/check-host-safety.mjs` is the repo-owned static guard that keeps
-  those rules on the local and CI hot paths.
-
-Local bootstrap remains a construction-only bridge. Public release confidence
-still depends on explicit repository checks such as `npm run security:oss:audit`
-and `npm run release:public-safe:check`.
-
-<p align="center">
-  <img
-    src="./docs/assets/openui-mcp-studio-workbench.png"
-    alt="OpenUI MCP Studio front door showing the direct path to proof and the operator desk"
-    width="100%"
-  />
-</p>
+1. `README.md`
+   The storefront on GitHub.
+2. `/`
+   The front door inside `apps/web`.
+3. `/proof`
+   The proof desk that explains what the repo already proves.
+4. `/workbench`
+   The operator desk that shows the live packet, next move, and stop signs.
+5. [`docs/discovery-surfaces.md`](./docs/discovery-surfaces.md)
+   The human-readable map for `/llms.txt`, `/api/frontdoor`, `/manifest.webmanifest`, `/sitemap.xml`, and `/robots.txt`.
 
 <p align="center">
   <img
@@ -119,143 +88,33 @@ and `npm run release:public-safe:check`.
   />
 </p>
 
-> Save this repository if you want a reusable workflow for turning UI briefs
-> into reviewed, testable frontend delivery instead of one-off generated code.
-
-<table>
-  <tr>
-    <td width="33%">
-      <strong>Who this helps</strong><br />
-      Teams evaluating AI-assisted frontend delivery without giving up review gates.
-    </td>
-    <td width="33%">
-      <strong>What makes it different</strong><br />
-      It can generate UI, apply files, and keep quality gates in the story.
-    </td>
-    <td width="33%">
-      <strong>Where to start</strong><br />
-      Jump to <a href="#quick-start">Quick Start</a>, <a href="./docs/proof-and-faq.md#demo-proof">Demo Proof</a>, or <a href="https://github.com/xiaojiou176-open/openui-mcp-studio/discussions">Discussions</a>.
-    </td>
-  </tr>
-</table>
-
-## Choose Your Path
-
-<p align="center">
-  <img
-    src="./docs/assets/openui-mcp-studio-visitor-paths.png"
-    alt="Visitor paths showing routes for first-time visitors, evaluators, and maintainers"
-    width="100%"
-  />
-</p>
-
-## What You Get
-
-- A local MCP workflow that starts from a natural-language brief and ends with
-  generated, applied, and validated frontend files.
-- A clearer split between proof and operation:
-  `/proof` explains the evidence and command meaning, while `/workbench`
-  shows the live pipeline, review, and release desk that an operator works
-  from.
-- A front door that is easier to search and explain as a Codex / Claude Code /
-  MCP-native UI delivery workflow, without pretending the repo is a hosted AI
-  app builder.
-- A default proof target at `apps/web`, so you can see the flow working instead
-  of trusting a marketing promise.
-- A governed delivery path with smoke, E2E, visual, and readiness checks when
-  you want more than "the model produced some files."
-- A deterministic front-door gate by default, while live Gemini, mutation, and
-  strict docs evidence stay in explicit manual or release lanes instead of
-  blocking every routine push.
-- A protected live-provider lane, so secret-bearing Gemini verification stays
-  manual and review-gated instead of leaking into routine public PR traffic.
-
-## Proof Desk And Operator Desk
-
-If you want the shortest honest map, read the surfaces like this:
-
-- `README.md`
-  The storefront. It tells you what the product is, what it is not, and which
-  path to open next.
-- `/proof` and [`docs/proof-and-faq.md`](./docs/proof-and-faq.md)
-  The proof desk. This is where evaluators answer "what evidence exists, what
-  command proves it, what still needs human judgment, and what the next move
-  should be."
-- `/workbench`
-  The operator desk. This is where the pipeline, review, and release lanes are
-  visible at once, so a human can decide the next sensible move, see when to
-  pause, and stop staring at a raw generated payload.
-
-That split matters because this repository is not trying to win by saying
-"the model made some files." It is trying to stay useful when a reviewer asks,
-"what happened, what is checked, and what should I do next?"
-
-The current repo-local product surface keeps that split honest by making the
-desks answer different questions more clearly:
-
-- proof desk = what the repo already proves, what still needs a human call,
-  and where to route the next evaluation step
-- operator desk = what packet is live now, what the next sensible move is, and
-  which stop-sign means "pause instead of promote"
-
-The current dirty slice makes that split more concrete:
-
-- `/proof` now separates repo-proved evidence, reviewer-owned judgment, and the
-  next operator move more explicitly.
-- `/workbench` keeps current focus, next-action guidance, pause conditions, and
-  a direct path back to the proof desk visible inside the operator flow.
-
-The current proof desk should now help you sort three layers quickly:
-
-- what the repo has already proved
-- what still needs human judgment
-- what the next operator move should be
-
-This shared-truth convergence keeps polishing that split instead of widening the
-product story. The goal is a cleaner proof desk and a clearer operator desk,
-not a new platform lane.
-
-## Repo-Local Complete Vs Delivery Landed
-
-The current shared wording keeps one operator discipline explicit:
-
-- `repo-local complete`
-  - the current worktree, proof desk, operator desk, docs, and verification
-    packet agree on the same slice of truth
-- `delivery landed`
-  - the approved slice is staged, committed, pushed, and represented in branch
-    or PR state
-
-Those are related, but they are not the same thing.
-
-A green local packet without a commit, push, or PR update is **ready to land**,
-not already landed. The proof desk should help you say "the repo-local work is
-coherent," while the operator desk helps you decide whether the next action is
-review, stop, or Git landing.
-
-## Current Product Truth
-
-The shortest honest product claim is now:
-
 > OpenUI MCP Studio is an MCP-native AI UI/UX delivery and review workbench for
 > Codex, Claude Code, and other stdio MCP workflows.
 
-That claim is stronger than "just a prompt-to-React generator", but it is still
-bounded:
+## Trust Boundaries
 
-- MCP is the current primary builder surface
-- the OpenAPI file is a compatibility bridge, not a hosted API promise
-- the repo workflow CLI now includes a formal repo-local `surface-guide`
-  helper for zero-context builders, but it is still a maintainer/operator
-  support surface rather than the primary runtime
-- the repo now treats Codex / Claude Code starter bundles plus proof loop as
-  the strongest public distribution package surface
-- the repo now treats OpenClaw as a repo-owned `public-ready` bundle surface
-  rather than bridge-materials-only
-- the SDK and self-hosted Hosted API remain real, but they are supporting or
-  parked lanes rather than the main public stage
-- official listing, registry publication, managed deployment, and remote
-  write-capable MCP remain later/operator-owned lanes
+- Runtime truth:
+  `services/mcp-server/src/main.ts` is the real entrypoint.
+  `apps/web` is the default proof target for smoke, visual, and UI/UX checks.
+- Surface split:
+  `/` is the front door, `/proof` is the proof desk, and `/workbench` is the
+  operator and review route.
+- Brand split:
+  `OneClickUI.ai` is the shorter front-door label.
+  `OpenUI MCP Studio` remains the technical product, runtime, and release name.
+- Landing split:
+  `repo-local complete` means the worktree, docs, proof surfaces, and
+  verification packet agree.
+  `delivery landed` means that approved slice is staged, committed, pushed, and
+  reflected in branch or PR state.
+- Safety split:
+  host cleanup must stay precise.
+  No `killall`, no broad GUI automation, and no guessing when process identity
+  is missing.
+
+Local bootstrap remains a construction-only bridge into the workflow.
+Public release confidence still depends on repository-side checks such as
+`npm run security:oss:audit` and `npm run release:public-safe:check`.
 
 ## Discovery And Ecosystem Truth
 
@@ -1023,7 +882,7 @@ In plain language:
 
 ## Community And Release Surface
 
-### Start Here
+### Quick Links
 
 - [Docs Index](./docs/index.md)
 - [Architecture](./docs/architecture.md)
