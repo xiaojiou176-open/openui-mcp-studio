@@ -47,6 +47,11 @@ Hard rule:
 - do not turn `apps/web` into a second marketing site by accident
 - keep it as the default proof target unless a separate plan explicitly changes
   that role
+- keep the README opening screen small enough that a new visitor can answer
+  "what is this, where do I start, and why should I trust it?" without opening
+  three more documents first
+- move strategy history, packaging archaeology, and deeper ledgers behind the
+  front row instead of stacking them into the README opening block
 
 ### 2. Keep The Visual Set Fresh
 
