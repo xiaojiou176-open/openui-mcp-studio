@@ -133,12 +133,7 @@ describe("tool cache env", () => {
 			"install",
 			"old-install.bin",
 		);
-		const trivyPath = path.join(
-			toolCacheBaseRoot,
-			"trivy",
-			"db",
-			"cache.bin",
-		);
+		const trivyPath = path.join(toolCacheBaseRoot, "trivy", "db", "cache.bin");
 		const oldLargePath = path.join(
 			metadata.toolCacheRoot,
 			"npm",

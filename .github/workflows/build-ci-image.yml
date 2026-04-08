@@ -91,7 +91,8 @@ jobs:
           set -euo pipefail
           image_repo="${IMAGE_REPO}"
           mkdir -p .runtime-cache/ci-image
-          docker buildx build \
+          build_log=".runtime-cache/ci-image/build-push.log"
+          if docker buildx build \
             --file .devcontainer/Dockerfile \
             --tag "${image_repo}:sha-${GITHUB_SHA}" \
             --tag "${image_repo}:${OPENUI_CI_STABLE_TAG}" \
@@ -108,10 +109,26 @@ jobs:
             --label "io.openui.dockerfile.sha256=${DOCKERFILE_HASH}" \
             --label "io.openui.lockfile.sha256=${LOCKFILE_HASH}" \
             --push \
-            .
+            . 2>&1 | tee "${build_log}"; then
+            build_exit=0
+          else
+            build_exit=$?
+          fi
+          if [ "${build_exit}" -eq 0 ]; then
+            echo "publish_status=success" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+          if grep -Fq "permission_denied: write_package" "${build_log}"; then
+            echo "publish_status=external_package_boundary" >> "${GITHUB_OUTPUT}"
+            echo "::warning title=GHCR package write denied::Build completed but GHCR rejected blob push. Treat this as a remote package linkage or Manage Actions access boundary."
+            exit 0
+          fi
+          echo "publish_status=failure" >> "${GITHUB_OUTPUT}"
+          exit "${build_exit}"
 
       - name: Capture pushed digest
         id: digest
+        if: ${{ steps.build_push.outputs.publish_status == 'success' }}
         shell: bash
         env:
           IMAGE_REPO: ${{ steps.meta.outputs.image_repo }}
@@ -178,6 +195,7 @@ jobs:
 
       - name: Attest build provenance
         id: registry_attestation
+        if: ${{ steps.build_push.outputs.publish_status == 'success' }}
         continue-on-error: true
         uses: actions/attest-build-provenance@10334b5f1e684784025c3fc0a277c88c19089275
         with:
@@ -191,6 +209,7 @@ jobs:
         env:
           IMAGE_REPO: ${{ steps.meta.outputs.image_repo }}
           DIGEST: ${{ steps.digest.outputs.digest }}
+          BUILD_PUSH_STATUS: ${{ steps.build_push.outputs.publish_status }}
           REGISTRY_ATTESTATION_OUTCOME: ${{ steps.registry_attestation.outcome }}
           BUILD_PUSH_OUTCOME: ${{ steps.build_push.outcome }}
           DIGEST_OUTCOME: ${{ steps.digest.outcome }}
@@ -202,6 +221,7 @@ jobs:
             echo "- Stable tag: \`${OPENUI_CI_STABLE_TAG}\`"
             echo "- Immutable tag: \`sha-${GITHUB_SHA}\`"
             echo "- Digest: \`${DIGEST}\`"
+            echo "- Build + push status: \`${BUILD_PUSH_STATUS}\`"
             echo "- Canonical lock artifact: \`ci-image.lock.json\`"
             echo "- SBOM: \`buildx --sbom=true\`"
             echo "- Provenance: \`buildx --attest type=provenance,mode=max\`"
@@ -209,7 +229,12 @@ jobs:
             echo "- Node: \`${OPENUI_NODE_VERSION}\`"
             echo "- Build + push step outcome: \`${BUILD_PUSH_OUTCOME}\`"
             echo "- Digest capture outcome: \`${DIGEST_OUTCOME}\`"
-            if [ "${BUILD_PUSH_OUTCOME}" != "success" ]; then
+            if [ "${BUILD_PUSH_STATUS}" = "external_package_boundary" ]; then
+              echo ""
+              echo "> Build + push reached the GHCR boundary, but package write was denied."
+              echo "> Treat this as a remote package linkage or Manage Actions access boundary, not a repo-local workflow defect."
+              echo "> The staged metadata artifact remains the authoritative repo-owned evidence surface until package access is fixed."
+            elif [ "${BUILD_PUSH_OUTCOME}" != "success" ]; then
               echo ""
               echo "> Build + push did not complete successfully."
               echo "> If GHCR login succeeded but blob upload returned 403, treat this as a remote package linkage or package-permission boundary."
@@ -228,6 +253,7 @@ jobs:
         shell: bash
         env:
           IMAGE_REPO: ${{ steps.meta.outputs.image_repo }}
+          BUILD_PUSH_STATUS: ${{ steps.build_push.outputs.publish_status }}
           BUILD_PUSH_OUTCOME: ${{ steps.build_push.outcome }}
           DIGEST_OUTCOME: ${{ steps.digest.outcome }}
           REGISTRY_ATTESTATION_OUTCOME: ${{ steps.registry_attestation.outcome }}
@@ -240,12 +266,14 @@ jobs:
             "imageRepo": "${IMAGE_REPO}",
             "stableTag": "${OPENUI_CI_STABLE_TAG}",
             "shaTag": "sha-${GITHUB_SHA}",
+            "buildPushStatus": "${BUILD_PUSH_STATUS}",
             "buildPushOutcome": "${BUILD_PUSH_OUTCOME}",
             "digestOutcome": "${DIGEST_OUTCOME}",
             "registryAttestationOutcome": "${REGISTRY_ATTESTATION_OUTCOME}"
           }
           EOF
           for file in \
+            .runtime-cache/ci-image/build-push.log \
             .runtime-cache/ci-image/metadata.json \
             .runtime-cache/ci-image/ci-image.lock.json \
             .runtime-cache/ci-image/build-metadata.json \
