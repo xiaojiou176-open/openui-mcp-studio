@@ -1,21 +1,38 @@
 # OpenUI Workspace Delivery
 
-This bundle is the repo-owned Claude Code marketplace-compatible package for
-OpenUI MCP Studio.
+This folder is the canonical pure-skills packet for OpenUI MCP Studio.
 
-What it gives you:
+The canonical public root for the product still lives at the repo root:
+`../../README.md` plus `../../manifest.yaml`.
+The canonical machine-readable descriptor for the pure-MCP lane now lives at
+`../../server.json`.
 
-- install guidance without browsing the whole repo first
-- a first-proof command route
-- a skill pack that keeps the local MCP install, proof loop, and truth
-  boundaries together
-- a bundle shape that OpenClaw can also consume as a Claude-compatible plugin
+It is meant to teach an agent four things without sending the reviewer back to
+repo-root docs first:
 
-What it is not:
+- how to install the local MCP server
+- how to attach it to OpenHands or OpenClaw
+- which UI-generation tools are safe to use first
+- what the shortest proof loop looks like
 
-- not an Anthropic marketplace listing
-- not a managed runtime
-- not proof that the local MCP server is already wired into Claude Code for you
+## Included files
 
-Use the sample bundle config in `samples/claude-code.mcp.json` together with
-the repo-owned starter bundles under `packages/skills-kit/starter-bundles/`.
+- `SKILL.md`
+- `manifest.yaml`
+- `references/INSTALL.md`
+- `references/OPENHANDS_MCP_CONFIG.json`
+- `references/OPENCLAW_MCP_CONFIG.json`
+- `references/CAPABILITIES.md`
+- `references/DEMO.md`
+- `references/TROUBLESHOOTING.md`
+
+## Truth boundary
+
+- this packet is a submission-ready-unlisted OpenClaw / ClawHub-style packet
+- it is still not a live vendor marketplace listing
+- it does not claim a hosted runtime
+- it does not claim vendor approval or an official ClawHub placement
+
+Use the host configs and proof loop in `references/` first. Treat the older
+`commands/` and `samples/` files as supporting material, not as the primary
+reviewer packet.

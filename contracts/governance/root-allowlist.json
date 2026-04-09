@@ -47,6 +47,7 @@
 		"pyproject.toml",
 		"README.md",
 		"SECURITY.md",
+		"server.json",
 		"SUPPORT.md",
 		"tsconfig.json",
 		"vitest.config.ts",
