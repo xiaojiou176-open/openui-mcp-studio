@@ -88,6 +88,54 @@ export const CURRENT_BUILDER_SURFACE_ORDER = [
   },
 ] as const;
 
+export const REVIEWER_ROUTE_BOARD = [
+  {
+    title: "I need the 90-second product verdict.",
+    body: "Start here when you want to judge whether this repo is a real prompt-to-workspace UI workflow instead of a generic builder claim.",
+    why: "Pairs the homepage promise with the shortest guided path before you touch the longer README shelf.",
+    href: "/walkthrough",
+    cta: "Open the verdict route",
+  },
+  {
+    title: "I need proof, boundaries, and review language.",
+    body: "Go here when the real question is what changed, what was proved, and which tail still belongs to a human reviewer or operator.",
+    why: "Keeps proof, review bundle, acceptance, and operator-only surfaces in one bounded place.",
+    href: "/proof",
+    cta: "Open the proof route",
+  },
+  {
+    title: "I need the docs shelf without getting lost.",
+    body: "Use the docs hub when you already trust the shape and now want the README storefront, evaluator checklist, ecosystem ledger, and public bundle routes.",
+    why: "Turns the docs layer into a curated route map instead of a long blob of links.",
+    href: "/docs",
+    cta: "Open the docs hub",
+  },
+] as const;
+
+export const DOCS_DECISION_TABLE = [
+  {
+    question: "What is this product really promising right now?",
+    firstStop: "Walkthrough route",
+    useWhen:
+      "You want the shortest human-readable path from front door to one real prompt-to-workspace workflow claim.",
+    href: "/walkthrough",
+  },
+  {
+    question: "What counts as proof versus human judgment?",
+    firstStop: "Proof desk",
+    useWhen:
+      "You are evaluating review language, proof semantics, and the operator-only tail before making a trust call.",
+    href: "/proof",
+  },
+  {
+    question: "Which doc shelf should I open next?",
+    firstStop: "Docs shelves below",
+    useWhen:
+      "You already understand the shape and now need the exact shelf for README, evaluator checklist, release bundle, or ecosystem lane.",
+    href: "#docs-shelves",
+  },
+] as const;
+
 export const LATER_BUILDER_SURFACE_LANES = [
   "official catalog or marketplace listing",
   "registry publication for supporting package surfaces",

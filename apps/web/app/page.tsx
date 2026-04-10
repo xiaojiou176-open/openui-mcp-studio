@@ -10,7 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { SITE_BRAND } from "@/lib/frontdoor-content";
+import {
+  REVIEWER_ROUTE_BOARD,
+  SITE_BRAND,
+} from "@/lib/frontdoor-content";
 import { getFrontdoorMessages } from "@/lib/i18n/messages";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { serializeJsonLd } from "@/lib/seo";
@@ -225,6 +228,47 @@ export default async function FrontdoorHomePage() {
                   >
                     <code>{step.snippet}</code>
                   </pre>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="space-y-5" aria-labelledby="reviewer-router-title">
+          <div className="space-y-2">
+            <Badge variant="outline" className="surface-badge">
+              Reviewer-first router
+            </Badge>
+            <h2
+              id="reviewer-router-title"
+              className="text-3xl font-semibold tracking-tight"
+            >
+              Pick the route that matches the question in your head.
+            </h2>
+            <p className="max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
+              The second cut of this front door is about pathing, not louder
+              claims. If you are reviewing the repo, the fastest way to trust it
+              is to choose the right question first instead of reading the whole
+              shelf in order.
+            </p>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            {REVIEWER_ROUTE_BOARD.map((route) => (
+              <Card key={route.title} className="surface-panel h-full">
+                <CardHeader className="space-y-3">
+                  <CardTitle className="text-xl tracking-tight">
+                    {route.title}
+                  </CardTitle>
+                  <CardDescription>{route.body}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4 pt-0 text-sm leading-7 text-muted-foreground">
+                  <div className="surface-panel-soft rounded-xl border p-4">
+                    {route.why}
+                  </div>
+                  <Button asChild variant="outline" className="w-full justify-start">
+                    <Link href={route.href}>{route.cta}</Link>
+                  </Button>
                 </CardContent>
               </Card>
             ))}
