@@ -29,6 +29,22 @@ export async function FrontdoorShell({
   ];
   const primaryNavLinks = navLinks.slice(1, 4);
   const secondaryNavLinks = [navLinks[0], ...navLinks.slice(4)];
+  const quickShelfLinks = [
+    {
+      href: SITE_BRAND.docs.readme,
+      label: "README storefront",
+      external: true,
+    },
+    {
+      href: SITE_BRAND.docs.evaluatorChecklist,
+      label: "Evaluator checklist",
+    },
+    {
+      href: SITE_BRAND.docs.publicDistributionBundle,
+      label: "Public bundle",
+      external: true,
+    },
+  ];
 
   return (
     <>
@@ -110,6 +126,22 @@ export async function FrontdoorShell({
                 {messages.shell.routeGuideBadge}
               </Badge>
               <p className="max-w-4xl leading-6">{messages.shell.routeGuideBody}</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-border/70 bg-card/60 px-3 py-2 text-xs text-muted-foreground">
+              <Badge variant="outline" className="w-fit border-primary/20 bg-primary/5">
+                Quick shelves
+              </Badge>
+              {quickShelfLinks.map((item) => (
+                <Button key={item.label} asChild variant="ghost" size="sm">
+                  <Link
+                    href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noreferrer" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                </Button>
+              ))}
             </div>
           </nav>
         </div>

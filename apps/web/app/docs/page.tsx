@@ -11,6 +11,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import {
+	DOCS_DECISION_TABLE,
 	DISCOVERY_CHAIN,
 	ECOSYSTEM_PRODUCTIZATION_STATUS,
 	OPERATOR_ONLY_PUBLIC_SURFACES,
@@ -218,7 +219,47 @@ export default function DocsDiscoveryPage() {
 					</div>
 				</section>
 
+				<section className="space-y-4" aria-labelledby="decision-table-title">
+					<div className="space-y-2">
+						<Badge variant="outline" className="w-fit border-primary/20 bg-primary/5">
+							Question router
+						</Badge>
+						<h2 id="decision-table-title" className="text-2xl font-semibold tracking-tight">
+							Ask one reviewer question first, then open one shelf.
+						</h2>
+						<p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+							This second-cut docs hub acts more like a concierge desk than a file
+							cabinet. Start from the question you are holding, then jump to the
+							one route that best answers it.
+						</p>
+					</div>
+					<div className="grid gap-4 lg:grid-cols-3">
+						{DOCS_DECISION_TABLE.map((item) => (
+							<Card key={item.question} className="border-border/70 bg-card/90">
+								<CardHeader className="space-y-3">
+									<Badge
+										variant="outline"
+										className="w-fit border-primary/20 bg-primary/5"
+									>
+										{item.firstStop}
+									</Badge>
+									<CardTitle className="text-xl tracking-tight">
+										{item.question}
+									</CardTitle>
+									<CardDescription>{item.useWhen}</CardDescription>
+								</CardHeader>
+								<CardContent className="pt-0">
+									<Button asChild variant="outline" className="w-full justify-start">
+										<Link href={item.href}>Open this route first</Link>
+									</Button>
+								</CardContent>
+							</Card>
+						))}
+					</div>
+				</section>
+
 				<section className="space-y-4">
+					<div id="docs-shelves" />
 					<div className="space-y-2">
 						<Badge variant="outline" className="w-fit border-primary/20 bg-primary/5">
 							Docs shelves
