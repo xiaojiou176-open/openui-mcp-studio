@@ -90,18 +90,18 @@ export default async function FrontdoorHomePage() {
 
               <div className="flex flex-wrap gap-3">
                 <Button asChild size="lg">
-                  <Link href="/proof" data-testid="hero-cta-proof">
-                    {messages.home.heroCtas.proof}
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline">
                   <Link href="/walkthrough" data-testid="hero-cta-walkthrough">
                     {messages.home.heroCtas.walkthrough}
                   </Link>
                 </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link href="/proof" data-testid="hero-cta-proof">
+                    {messages.home.heroCtas.proof}
+                  </Link>
+                </Button>
                 <Button asChild size="lg" variant="ghost">
-                  <Link href="/docs" data-testid="hero-cta-compare">
-                    {messages.home.heroCtas.compare}
+                  <Link href="/workbench" data-testid="hero-cta-workbench">
+                    {messages.home.heroCtas.workbench}
                   </Link>
                 </Button>
               </div>

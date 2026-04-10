@@ -52,13 +52,12 @@ const docsStructuredData = buildStructuredDiscoveryJsonLd({
 
 const DOC_SHELVES = [
 	{
-		id: "docs-index",
-		title: "README storefront",
+		id: "first-minute-walkthrough",
+		title: "First-minute walkthrough",
 		body:
-			"Start here when the first question is what the product does and which route to open next.",
-		link: SITE_BRAND.docs.readme,
-		cta: "Open README storefront",
-		external: true,
+			"Use this when you want the shortest guided route from front door to proof, workbench, and one real command before you branch into longer docs.",
+		link: "/walkthrough",
+		cta: "Open walkthrough route",
 	},
 	{
 		id: "proof-faq",
@@ -67,6 +66,15 @@ const DOC_SHELVES = [
 			"Use the proof desk when you need the meaning of proof, review, acceptance, and the boundaries between repo-owned evidence and human judgment.",
 		link: "/proof",
 		cta: "Open proof desk",
+	},
+	{
+		id: "docs-index",
+		title: "README storefront",
+		body:
+			"Open the README after the route is already clear and you want the GitHub-facing storefront wording in its canonical home.",
+		link: SITE_BRAND.docs.readme,
+		cta: "Open README storefront",
+		external: true,
 	},
 	{
 		id: "evaluator-checklist",
@@ -83,14 +91,6 @@ const DOC_SHELVES = [
 			"Use this when the question becomes how README, routes, release assets, and GitHub storefront should keep telling one story.",
 		link: SITE_BRAND.docs.publicSurfaceGuide,
 		cta: "Jump to public surface notes",
-	},
-	{
-		id: "first-minute-walkthrough",
-		title: "First-minute walkthrough",
-		body:
-			"Use this when you want a guided route from front door to proof, workbench, and one real command.",
-		link: "/walkthrough",
-		cta: "Open walkthrough route",
 	},
 	{
 		id: "release-proof-shelf",
@@ -152,27 +152,30 @@ export default function DocsDiscoveryPage() {
 			>
 				<section className="rounded-[var(--radius-xl)] border border-border/70 bg-frontdoor-hero px-6 py-8 shadow-xl sm:px-8">
 					<div className="space-y-4">
-						<Badge className="bg-primary/95 text-primary-foreground">
-							Docs discovery route
-						</Badge>
-						<h1 className="max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl">
-							Keep the public docs inside the product story.
-						</h1>
-						<p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
-							This route exists so visitors can understand the README storefront,
-							proof desk, evaluator checklist, release shelf, and ecosystem ledgers
-							without being dropped straight into GitHub blob pages before they know
-							what each document is for.
-						</p>
-						<div className="flex flex-wrap gap-3">
-							<Button asChild size="lg">
-								<Link href="/proof">Open the proof desk</Link>
-							</Button>
-							<Button asChild size="lg" variant="outline">
-								<Link href="/workbench">Open the operator desk</Link>
-							</Button>
+							<Badge className="bg-primary/95 text-primary-foreground">
+								Docs discovery route
+							</Badge>
+							<h1 className="max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl">
+								Keep the docs inside a guided route, not a blob dump.
+							</h1>
+							<p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
+								This route exists so visitors can learn the product in the same
+								order a reviewer would: guided path first, proof second, operator
+								desk third, and the longer shelves only after the first-screen
+								story is clear.
+							</p>
+							<div className="flex flex-wrap gap-3">
+								<Button asChild size="lg">
+									<Link href="/walkthrough">Open the walkthrough</Link>
+								</Button>
+								<Button asChild size="lg" variant="outline">
+									<Link href="/proof">Open the proof desk</Link>
+								</Button>
+								<Button asChild size="lg" variant="ghost">
+									<Link href="/workbench">Open the operator desk</Link>
+								</Button>
+							</div>
 						</div>
-					</div>
 				</section>
 
 				<section className="space-y-4" id="discovery-chain">
@@ -184,9 +187,10 @@ export default function DocsDiscoveryPage() {
 							Read the product in this order.
 						</h2>
 						<p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-							The goal is simple: storefront first, then proof, then operator
-							context, then machine-readable surfaces. That keeps discovery from
-							feeling like a source-code scavenger hunt.
+							The goal is simple: guided route first, proof second, operator
+							context third, then the longer shelves and machine-readable
+							surfaces. That keeps discovery from feeling like a source-code
+							scavenger hunt.
 						</p>
 					</div>
 					<div className="grid gap-4 lg:grid-cols-3">

@@ -22,8 +22,9 @@ describe("frontdoor i18n contract", () => {
 		expect(english.localeLabel).toBe("Language");
 		expect(chinese.localeLabel).toBe("语言");
 		expect(english.shell.productLine).toContain("Codex and Claude Code");
-		expect(chinese.home.guidedPaths[0]?.cta).toBe("打开证据台");
-		expect(english.home.guidedPaths[1]?.title).toContain("walkthrough");
+		expect(chinese.home.guidedPaths[0]?.cta).toBe("打开上手路径");
+		expect(english.home.guidedPaths[1]?.title).toContain("evidence desk");
+		expect(chinese.shell.routeGuideBadge).toBe("推荐顺序");
 		expect(english.compare.goThereFirst).toContain("hosted builder");
 		expect(chinese.compare.goThereFirst).toContain(
 			"最顺滑的托管式 builder 体验",
@@ -37,6 +38,7 @@ describe("frontdoor i18n contract", () => {
 		expect(chinese.home.builderEntryPoints[0]?.cta).toBe("打开 MCP 接入指南");
 		expect(chinese.home.builderEntryPoints[1]?.cta).toBe("打开 OpenAPI 契约");
 		expect(chinese.home.builderEntryPoints[2]?.cta).toBe("打开 readiness 文档");
+		expect(chinese.home.heroCtas.workbench).toBe("打开工作台");
 		expect(chinese.home.proofSectionTitle).toBe(
 			"提示词、产出、变更文件、评审包、证据链。",
 		);

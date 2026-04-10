@@ -21,12 +21,14 @@ export async function FrontdoorShell({
   const messages = getFrontdoorMessages(locale);
   const navLinks = [
     { href: "/", label: messages.shell.navLinks.home },
+    { href: "/walkthrough", label: messages.shell.navLinks.walkthrough },
     { href: "/proof", label: messages.shell.navLinks.proof },
+    { href: "/workbench", label: messages.shell.navLinks.workbench },
     { href: "/docs", label: messages.shell.navLinks.docs },
     { href: "/compare", label: messages.shell.navLinks.compare },
-    { href: "/walkthrough", label: messages.shell.navLinks.walkthrough },
-    { href: "/workbench", label: messages.shell.navLinks.workbench },
   ];
+  const primaryNavLinks = navLinks.slice(1, 4);
+  const secondaryNavLinks = [navLinks[0], ...navLinks.slice(4)];
 
   return (
     <>
@@ -67,23 +69,48 @@ export async function FrontdoorShell({
 
           <nav
             aria-label={messages.shell.quickNavigationLabel}
-            className="flex flex-wrap gap-2"
+            className="space-y-3"
           >
-            {navLinks.map((item) => (
-              <Button
-                key={item.href}
-                asChild
-                variant={item.href === activeHref ? "secondary" : "ghost"}
-                size="sm"
-              >
-                <Link
-                  href={item.href}
-                  aria-current={item.href === activeHref ? "page" : undefined}
+            <div className="flex flex-wrap gap-2">
+              {primaryNavLinks.map((item) => (
+                <Button
+                  key={item.href}
+                  asChild
+                  variant={item.href === activeHref ? "secondary" : "outline"}
+                  size="sm"
                 >
-                  {item.label}
-                </Link>
-              </Button>
-            ))}
+                  <Link
+                    href={item.href}
+                    aria-current={item.href === activeHref ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                </Button>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {secondaryNavLinks.map((item) => (
+                <Button
+                  key={item.href}
+                  asChild
+                  variant={item.href === activeHref ? "secondary" : "ghost"}
+                  size="sm"
+                >
+                  <Link
+                    href={item.href}
+                    aria-current={item.href === activeHref ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                </Button>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-border/70 bg-card/80 px-3 py-2 text-xs text-muted-foreground">
+              <Badge variant="outline" className="w-fit border-primary/20 bg-primary/5">
+                {messages.shell.routeGuideBadge}
+              </Badge>
+              <p className="max-w-4xl leading-6">{messages.shell.routeGuideBody}</p>
+            </div>
           </nav>
         </div>
       </header>

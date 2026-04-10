@@ -91,6 +91,8 @@ type FrontdoorMessages = {
   shell: {
     navigationLabel: string;
     quickNavigationLabel: string;
+    routeGuideBadge: string;
+    routeGuideBody: string;
     githubLabel: string;
     productLine: string;
     navLinks: {
@@ -117,7 +119,7 @@ type FrontdoorMessages = {
     heroCtas: {
       proof: string;
       walkthrough: string;
-      compare: string;
+      workbench: string;
     };
     heroSignals: string[];
     guidedPathsBadge: string;
@@ -321,6 +323,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
     shell: {
       navigationLabel: "Front door navigation",
       quickNavigationLabel: "Front door quick navigation",
+      routeGuideBadge: "Recommended order",
+      routeGuideBody:
+        "Start with the walkthrough, confirm trust in the proof desk, then open the operator desk only when you need the repo-local decision surface. Docs and compare stay one click away, but they are secondary to that first-screen path.",
       githubLabel: "GitHub",
       productLine:
         "UI/UX delivery companion with plugin-grade package surfaces for Codex and Claude Code, plus OpenClaw-side packaging work.",
@@ -349,31 +354,31 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       heroBody:
         "OneClickUI.ai is the front door for OpenUI MCP Studio: an MCP-native UI/UX delivery and review workflow that plans the change, writes real files, and now carries a plugin-grade starter/config/proof package for Codex, Claude Code, and OpenClaw-side packaging work. It still stays narrower and more honest than a generic coding-agent shell.",
       heroCtas: {
-        proof: "See the 30-second proof",
         walkthrough: "Take the first-minute walkthrough",
-        compare: "Open install and proof docs",
+        proof: "See the 30-second proof",
+        workbench: "Open the operator desk",
       },
       heroSignals: [...HERO_SIGNALS],
       guidedPathsBadge: "Start here",
       guidedPathsTitle:
         "Choose the route that matches how you are evaluating the product.",
       guidedPathsBody:
-        "The front door should feel like a guide, not a brochure. Start with proof or the walkthrough first, then drop into the operator desk only when the product story already makes sense.",
+        "The front door should feel like a guide, not a brochure. Most newcomers should take the walkthrough first, confirm trust in the proof desk second, and only then drop into the operator desk.",
       guidedPaths: [
+        {
+          badge: "Recommended first stop",
+          title:
+            "Take the walkthrough when you want the shortest newcomer path through the product story.",
+          body: "Go to /walkthrough if you want the recommended order from storefront to proof, docs, and the operator desk without deciding the route yourself.",
+          href: "/walkthrough",
+          cta: "Open the walkthrough",
+        },
         {
           badge: "Need proof first",
           title: "Open the evidence desk when trust is your first question.",
           body: "Go to /proof if you want the shortest route through prompt, changed files, review bundle, acceptance, and operator meaning before you touch the interactive desk.",
           href: "/proof",
           cta: "Open the proof desk",
-        },
-        {
-          badge: "Need the guided order",
-          title:
-            "Take the walkthrough when you want the shortest newcomer path through the product story.",
-          body: "Go to /walkthrough if you want the recommended order from storefront to proof, docs, and the operator desk without deciding the route yourself.",
-          href: "/walkthrough",
-          cta: "Open the walkthrough",
         },
         {
           badge: "Already in Codex or Claude Code",
@@ -868,6 +873,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
     shell: {
       navigationLabel: "前门导航",
       quickNavigationLabel: "前门快捷导航",
+      routeGuideBadge: "推荐顺序",
+      routeGuideBody:
+        "默认先走上手路径，再到证据台确认可信度，最后在真正需要做 repo-local 判断时才进入工作台。Docs 和对比页保留一跳可达，但不是第一屏的主路线。",
       githubLabel: "GitHub",
       productLine: "面向 Codex 与 Claude Code 团队的 UI/UX 交付伙伴。",
       navLinks: {
@@ -894,9 +902,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       heroBody:
         "OneClickUI.ai 是 OpenUI MCP Studio 的前门：它不是泛化开发代理外壳，而是一条 MCP-native 的 UI/UX 交付与评审工作流，会先规划变更、再写入真实文件，并在你信任结果之前把变更文件、评审结论和验收状态摆在台面上。现在它还带着一套可直接拿来用的 starter bundle、proof loop 和故障排查入口，最适合已经在 Codex 或 Claude Code 里推进仓库工作的团队，以及需要评估 OpenClaw public-ready 包装的人。",
       heroCtas: {
-        proof: "查看 30 秒证据链",
         walkthrough: "按上手路径走一遍",
-        compare: "打开安装与证明文档",
+        proof: "查看 30 秒证据链",
+        workbench: "打开工作台",
       },
       heroSignals: [
         "把改动写进真实工作区",
@@ -909,21 +917,21 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       guidedPathsBadge: "先从这里开始",
       guidedPathsTitle: "按你当前最在意的问题，选一条最短路线。",
       guidedPathsBody:
-        "前门应该像导览，不该像说明书。默认先走证据链或上手路径，再在真正需要时进入工作台，才不会让陌生访客过早掉进操盘台。",
+        "前门应该像导览，不该像说明书。大多数新访客先走上手路径，再去证据台，最后才在真正需要做 repo-local 判断时进入工作台，会更不容易迷路。",
       guidedPaths: [
+        {
+          badge: "推荐第一站",
+          title: "如果你想按最省脑力的顺序理解产品，就先走上手路径。",
+          body: "去 `/walkthrough`，按 storefront → proof → docs → operator desk 的顺序看，不必自己先猜应该点哪一个入口。",
+          href: "/walkthrough",
+          cta: "打开上手路径",
+        },
         {
           badge: "先看可信度",
           title: "如果你第一反应是“凭什么信它”，先打开证据台。",
           body: "去 `/proof`，先看提示词、变更文件、评审包、验收和操作者含义是怎么串成一条证据链的。",
           href: "/proof",
           cta: "打开证据台",
-        },
-        {
-          badge: "按推荐顺序走",
-          title: "如果你想按最省脑力的顺序理解产品，就先走上手路径。",
-          body: "去 `/walkthrough`，按 storefront → proof → docs → operator desk 的顺序看，不必自己先猜应该点哪一个入口。",
-          href: "/walkthrough",
-          cta: "打开上手路径",
         },
         {
           badge: "已经在用 Codex / Claude Code",
