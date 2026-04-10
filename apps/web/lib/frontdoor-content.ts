@@ -420,11 +420,11 @@ export const MACHINE_READABLE_SURFACES = [
 ] as const;
 
 export const FRONTDOOR_LINKS = [
-  { href: "/docs", label: "Discovery docs hub" },
-  { href: "/proof", label: "30-second proof" },
-  { href: "/compare", label: "Alternatives and compare" },
   { href: "/walkthrough", label: "First-minute walkthrough" },
+  { href: "/proof", label: "30-second proof" },
   { href: "/workbench", label: "Open the operator desk" },
+  { href: "/docs", label: "Discovery docs hub" },
+  { href: "/compare", label: "Alternatives and compare" },
 ];
 
 export const FRONTDOOR_ROUTE_CONTRACTS = [
@@ -515,10 +515,10 @@ export const DISCOVERY_CHAIN = [
   },
   {
     step: "Step 3",
-    title: "Compare",
-    href: "/compare",
-    role: "decision surface",
-    body: "Explain why OpenUI fits repo-aware UI shipping better than hosted builders or generic coding-agent traffic.",
+    title: "First-minute walkthrough",
+    href: "/walkthrough",
+    role: "guided route",
+    body: "Give newcomers the shortest recommended route from front door to proof, workbench, and one real repo-owned command.",
   },
   {
     step: "Step 4",
@@ -543,20 +543,27 @@ export const DISCOVERY_CHAIN = [
   },
   {
     step: "Step 7",
+    title: "Compare",
+    href: "/compare",
+    role: "decision surface",
+    body: "Explain why OpenUI fits repo-aware UI shipping better than hosted builders or generic coding-agent traffic when category fit is still the open question.",
+  },
+  {
+    step: "Step 8",
     title: "Machine-readable discovery",
     href: "/llms.txt",
     role: "short LLM summary",
     body: "Expose the shortest English-first route, builder, and boundary summary for LLM, search, and tooling consumers.",
   },
   {
-    step: "Step 8",
+    step: "Step 9",
     title: "Frontdoor JSON",
     href: "/api/frontdoor",
     role: "structured discovery contract",
     body: "Expose routes, bindings, builder order, public bundle pointers, and operator-only follow-through in one JSON surface.",
   },
   {
-    step: "Step 9",
+    step: "Step 10",
     title: "Manifest and crawl metadata",
     href: "/manifest.webmanifest",
     role: "browser and crawler metadata",

@@ -47,7 +47,7 @@ test("frontdoor homepage explains the product, proof path, and next actions", as
 
 	await expect(page.getByTestId("hero-cta-proof")).toBeVisible();
 	await expect(page.getByTestId("hero-cta-walkthrough")).toBeVisible();
-	await expect(page.getByTestId("hero-cta-compare")).toBeVisible();
+	await expect(page.getByTestId("hero-cta-workbench")).toBeVisible();
 
 	await expect(
 		page.getByRole("heading", {
