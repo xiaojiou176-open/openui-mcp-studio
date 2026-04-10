@@ -22,6 +22,7 @@ still need a human to push the final publish button.
 
 | Surface | Status | Truthful claim |
 | --- | --- | --- |
+| Pure-MCP registry descriptor | Submission-ready-unlisted | Root [`server.json`](./server.json) names the canonical pure-MCP surface without claiming a live registry publication. |
 | Codex bundle | Submission-ready-unlisted | Repo-owned config and marketplace-compatible sample exist, but no live directory listing is claimed. |
 | Claude Code bundle | Submission-ready-unlisted | Repo-owned marketplace-compatible bundle exists, but no live marketplace listing is claimed. |
 | OpenClaw / ClawHub bundle | Submission-ready-unlisted | Repo-owned bundle and proof loop exist, but no live ClawHub listing is claimed. |
@@ -54,14 +55,16 @@ Read the distribution story in this order:
 
 1. [`README.md`](./README.md)
 2. [`manifest.yaml`](./manifest.yaml)
-3. [`examples/public-distribution/README.md`](./examples/public-distribution/README.md)
-4. [`examples/public-distribution/docker-runtime-submission.manifest.json`](./examples/public-distribution/docker-runtime-submission.manifest.json)
-5. [`examples/public-distribution/openclaw-public-ready.manifest.json`](./examples/public-distribution/openclaw-public-ready.manifest.json)
+3. [`server.json`](./server.json)
+4. [`examples/public-distribution/README.md`](./examples/public-distribution/README.md)
+5. [`examples/public-distribution/docker-runtime-submission.manifest.json`](./examples/public-distribution/docker-runtime-submission.manifest.json)
+6. [`examples/public-distribution/openclaw-public-ready.manifest.json`](./examples/public-distribution/openclaw-public-ready.manifest.json)
 
 ## What We Still Do Not Claim
 
 - a live official Codex directory listing
 - a live Claude Code marketplace listing
+- a live MCP registry listing
 - a live ClawHub listing
 - a published public Docker image
 - a managed hosted deployment or SaaS
