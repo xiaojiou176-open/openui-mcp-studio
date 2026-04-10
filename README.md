@@ -32,9 +32,11 @@ maintenance.
 [Distribution Guide](./DISTRIBUTION.md) |
 [Integrations Guide](./INTEGRATIONS.md) |
 [Submission Manifest](./manifest.yaml) |
+[MCP Descriptor](./server.json) |
+[Canonical Skill Packet](./plugins/openui-workspace-delivery/README.md) |
 [Distribution Bundle](./examples/public-distribution/README.md) |
 [Discovery Guide](./docs/discovery-surfaces.md) |
-[Skills Product Line](./examples/skills/README.md) |
+[Skills Mirror](./examples/skills/README.md) |
 [Docs Index](./docs/index.md) |
 [Tags](https://github.com/xiaojiou176-open/openui-mcp-studio/tags) |
 [Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions)
@@ -68,8 +70,22 @@ Use the shortest route that matches the job in your head:
 | --- | --- |
 | "What does the repo do in one screen?" | [`README.md`](./README.md) and the [Pages Front Door](https://xiaojiou176-open.github.io/openui-mcp-studio/) |
 | "How do I install, submit, or package this truthfully?" | [`DISTRIBUTION.md`](./DISTRIBUTION.md) and [`manifest.yaml`](./manifest.yaml) |
+| "Where is the canonical pure-MCP descriptor?" | [`server.json`](./server.json) |
 | "Which client or host is this actually ready for?" | [`INTEGRATIONS.md`](./INTEGRATIONS.md) |
+| "Where is the current pure-skills reviewer packet?" | [`plugins/openui-workspace-delivery/README.md`](./plugins/openui-workspace-delivery/README.md) |
 | "Where are the repo-owned install bundles and proof loops?" | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) and [`examples/skills/README.md`](./examples/skills/README.md) |
+
+## Canonical Public Roots
+
+Use these layers like a storefront, a boxed product, and a machine room instead
+of treating every folder as a competing front door.
+
+- **Canonical public root:** this root [`README.md`](./README.md) plus the root [`manifest.yaml`](./manifest.yaml)
+- **Canonical pure-MCP registry descriptor:** [`server.json`](./server.json)
+- **Canonical pure-skills packet:** [`plugins/openui-workspace-delivery/`](./plugins/openui-workspace-delivery/)
+- **Pure-MCP runtime support surface:** [`services/mcp-server/README.md`](./services/mcp-server/README.md)
+- **Repo-frontdoor mirrors and supporting install shelves:** [`examples/public-distribution/`](./examples/public-distribution/) and [`examples/skills/`](./examples/skills/)
+- **Installable package SSOT:** [`packages/skills-kit/`](./packages/skills-kit/)
 
 ## What You Get Today
 
@@ -77,8 +93,10 @@ Use the shortest route that matches the job in your head:
 - **Primary distribution artifact:** this public GitHub repo
 - **Install-ready client surfaces:** Codex, Claude Code, and generic MCP hosts
 - **Front-row compatible clients:** OpenCode and OpenClaw through the same repo-owned MCP contract and bundle set
-- **Official repo-owned skill product line:** `@openui/skills-kit` plus the repo mirror under `examples/skills/`
+- **Canonical pure-skills reviewer packet:** `plugins/openui-workspace-delivery/`
+- **Official repo-owned skill product line:** installable package SSOT in `@openui/skills-kit`, with a repo mirror under `examples/skills/`
 - **Submission-ready public packaging:** top-level distribution/integration guides, root `manifest.yaml`, and repo-owned Docker/OpenClaw submission packets that still refuse to claim a live listing
+- **Canonical pure-MCP descriptor lane:** root `server.json` now gives the repo one machine-readable MCP card without claiming that registry publication has already happened
 - **Supporting lanes:** self-hosted Hosted API and `@openui/sdk`
 - **Planned, not current:** live marketplace publication, registry publication, managed hosted deployment, and any claim that a Docker image or catalog listing is already published
 
@@ -97,7 +115,8 @@ Use the shortest route that matches the job in your head:
 
 - an official Codex directory entry
 - a listed Claude Code marketplace item
-- a live OpenClaw / ClawHub listing
+- a live root-repo OpenClaw / ClawHub listing
+- live official MCP registry publication for the root repo artifact
 - a managed hosted runtime or SaaS
 - a public Docker image or Docker-first install path
 
@@ -927,7 +946,7 @@ Current truth is:
 
 What still does **not** exist as current truth:
 
-- a live listed marketplace / plugin / ClawHub entry
+- a live listed root-repo marketplace / plugin / ClawHub entry
 - live registry publication for the root repo artifact
 - a public Docker runtime distribution
 - managed hosted SaaS deployment

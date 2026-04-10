@@ -4,6 +4,12 @@
 
 `services/mcp-server` is the protocol entrypoint for this repository. It owns the MCP stdio server, tool registration, quality-gate orchestration, Gemini runtime orchestration, and the compatibility-facing public surface.
 
+The canonical public root still lives at the repo root (`README.md` +
+`manifest.yaml`), and the canonical machine-readable descriptor for the pure-MCP
+lane now lives at `../../server.json`. This document remains the runtime support
+surface for the pure-MCP lane, not a claim that the repo already has a live
+registry listing.
+
 ## Out Of Scope
 
 - Implementing the actual product frontend pages

@@ -11,6 +11,7 @@ published_surfaces:
   - github-releases
   - repo-owned-proof-docs
 submission_ready_surfaces:
+  - pure-mcp-registry-descriptor
   - codex-bundle
   - claude-code-bundle
   - openclaw-clawhub-bundle
@@ -20,14 +21,19 @@ truth_routes:
   storefront: README.md
   distribution: DISTRIBUTION.md
   integrations: INTEGRATIONS.md
-  bundle_index: examples/public-distribution/README.md
+  mcp_registry_descriptor: server.json
+  canonical_skill_packet: plugins/openui-workspace-delivery/README.md
+  mcp_runtime: services/mcp-server/README.md
+  public_distribution_mirror: examples/public-distribution/README.md
+  skills_mirror: examples/skills/README.md
+  installable_skills_package: packages/skills-kit/manifest.json
   docker_bundle: examples/public-distribution/docker-runtime-submission.manifest.json
   openclaw_bundle: examples/public-distribution/openclaw-public-ready.manifest.json
-  skills_line: packages/skills-kit/manifest.json
 claims_not_made:
   - no live codex directory listing is claimed
   - no live claude marketplace listing is claimed
-  - no live clawhub listing is claimed
+  - no live root-repo clawhub listing is claimed
+  - no live official MCP registry publication is claimed
   - no published public docker image is claimed
   - no managed hosted runtime is claimed
 operator_only_follow_through:
