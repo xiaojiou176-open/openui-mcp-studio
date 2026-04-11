@@ -167,7 +167,9 @@ test("docs route keeps the discovery hub, shelves, and anchor routing live", asy
 		page.getByRole("link", { name: /open public distribution bundle/i }),
 	).toBeVisible();
 
-	await page.getByRole("link", { name: /jump to external activation ledger/i }).click();
+	await page
+		.getByRole("link", { name: /jump to external activation ledger/i })
+		.click();
 	await expect(page).toHaveURL(/\/docs#external-activation-ledger$/);
 	await expect(page.locator("#external-activation-ledger")).toBeVisible();
 });

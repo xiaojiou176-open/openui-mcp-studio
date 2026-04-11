@@ -61,9 +61,7 @@ describe("public distribution bundle", () => {
 		expect(rootManifest).toContain("ghcr:");
 		expect(rootManifest).toContain("status: not_published");
 		expect(rootManifest).toContain("public_package_and_container_lanes:");
-		expect(rootManifest).toContain(
-			"status: no verified public receipt today",
-		);
+		expect(rootManifest).toContain("status: no verified public receipt today");
 		expect(rootManifest).toContain("docker-runtime-submission.manifest.json");
 		expect(dockerManifest.status).toBe("submission-ready-unlisted");
 		expect(JSON.stringify(dockerManifest)).toContain("ghcr.io");
