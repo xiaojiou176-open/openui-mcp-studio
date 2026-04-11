@@ -35,7 +35,7 @@ describe("public distribution bundle", () => {
 		);
 	});
 
-	it("ships a submission-ready root manifest plus Docker packaging notes without claiming a live publish", async () => {
+	it("ships a mixed-boundary root manifest plus Docker packaging notes without claiming a live publish", async () => {
 		const rootManifest = await readText("manifest.yaml");
 		const dockerManifest = await readJson(
 			"examples/public-distribution/docker-runtime-submission.manifest.json",
@@ -44,10 +44,24 @@ describe("public distribution bundle", () => {
 			"examples/public-distribution/docker-install-and-proof.md",
 		);
 
-		expect(rootManifest).toContain("status: submission-ready-unlisted");
+		expect(rootManifest).toContain("status: mixed-live-and-review-boundary");
 		expect(rootManifest).toContain(
 			"canonical_repo: xiaojiou176-open/openui-mcp-studio",
 		);
+		expect(rootManifest).toContain("external_truth:");
+		expect(rootManifest).toContain("clawhub:");
+		expect(rootManifest).toContain("status: listed_live");
+		expect(rootManifest).toContain(
+			"moderation_label: suspicious.llm_suspicious",
+		);
+		expect(rootManifest).toContain("openhands_pr_161:");
+		expect(rootManifest).toContain("status: OPEN / REVIEW_REQUIRED / BLOCKED");
+		expect(rootManifest).toContain("official_mcp_registry:");
+		expect(rootManifest).toContain("status: not_submitted");
+		expect(rootManifest).toContain("ghcr:");
+		expect(rootManifest).toContain("status: not_published");
+		expect(rootManifest).toContain("public_package_and_container_lanes:");
+		expect(rootManifest).toContain("status: no verified public receipt today");
 		expect(rootManifest).toContain("docker-runtime-submission.manifest.json");
 		expect(dockerManifest.status).toBe("submission-ready-unlisted");
 		expect(JSON.stringify(dockerManifest)).toContain("ghcr.io");
