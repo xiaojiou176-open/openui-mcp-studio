@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "lint": "eslint app components lib --ext .ts,.tsx",
     "start": "next start",
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json"
   },

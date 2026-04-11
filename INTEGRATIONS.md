@@ -6,8 +6,8 @@ Which client or host is OpenUI MCP Studio actually ready for today, and what is
 the honest boundary for each one?
 
 Think of it like a station board. Some platforms are already first-row routes.
-Some are real but secondary. Some are submission-ready-unlisted. Some are still
-comparison-only.
+Some are real but secondary. Some have live or pending external receipts with
+clear review boundaries. Some are still comparison-only.
 
 ## Core Product Surfaces
 
@@ -31,14 +31,14 @@ comparison-only.
 | Client / host | Status | Truthful boundary |
 | --- | --- | --- |
 | OpenCode | Secondary / compatibility fit | The repo can support the same MCP contract, but it is not the headline install shelf. |
-| OpenHands | Comparison-only fit | The repo has real substrate compatibility, but no dedicated first-party setup page or branded flow is shipped. |
+| OpenHands | `OPEN / REVIEW_REQUIRED / BLOCKED` | Submitted via PR `#161`; the repo has real substrate compatibility, but the current GitHub state is still review-required and blocked, not accepted. |
 
-## Submission-Ready Unlisted Fit
+## External Lane Fit
 
 | Client / host | Status | Truthful claim |
 | --- | --- | --- |
-| OpenClaw / ClawHub | Submission-ready-unlisted | The repo ships a real OpenClaw bundle, install/proof notes, and a repo-owned skill line, but does not claim a live listing. |
-| Docker runtime consumers | Submission-ready-unlisted | The repo now ships a Docker submission packet and operator runbook, but does not claim a published public image. |
+| OpenClaw / ClawHub | `listed_live` with moderation warning | The repo ships a real OpenClaw bundle, install/proof notes, and a repo-owned skill line; the current ClawHub page is listed live, but the moderation label still reads `suspicious.llm_suspicious`. |
+| Docker runtime consumers | `not_published` | The repo ships a Docker packet and operator runbook, but no verified public image receipt exists today. |
 
 ## Recommended Reading Path
 
@@ -52,7 +52,7 @@ Use the shortest route that matches the question:
 
 ## What This Still Does Not Mean
 
-- no live marketplace listing is implied
+- no trust-cleared marketplace approval is implied
 - no hosted SaaS is implied
 - no managed Docker runtime is implied
 - no claim is made that a single bundle replaces the repo as the main product
