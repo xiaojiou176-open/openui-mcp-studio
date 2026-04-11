@@ -2,7 +2,7 @@ version: 1
 id: openui-mcp-studio
 technical_name: OpenUI MCP Studio
 frontdoor_label: OneClickUI.ai
-status: submission-ready-unlisted
+status: mixed-live-and-review-boundary
 canonical_repo: xiaojiou176-open/openui-mcp-studio
 homepage: https://xiaojiou176-open.github.io/openui-mcp-studio/
 published_surfaces:
@@ -14,9 +14,21 @@ submission_ready_surfaces:
   - pure-mcp-registry-descriptor
   - codex-bundle
   - claude-code-bundle
-  - openclaw-clawhub-bundle
   - docker-runtime-distribution
   - sdk-pack-install-lane
+external_truth:
+  clawhub:
+    status: listed_live
+    moderation_verdict: suspicious
+    moderation_label: suspicious.llm_suspicious
+  openhands_pr_161:
+    status: OPEN / REVIEW_REQUIRED / BLOCKED
+  official_mcp_registry:
+    status: not_submitted
+  ghcr:
+    status: not_published
+  public_package_and_container_lanes:
+    status: no verified public receipt today
 truth_routes:
   storefront: README.md
   distribution: DISTRIBUTION.md
@@ -32,12 +44,12 @@ truth_routes:
 claims_not_made:
   - no live codex directory listing is claimed
   - no live claude marketplace listing is claimed
-  - no live root-repo clawhub listing is claimed
-  - no live official MCP registry publication is claimed
-  - no published public docker image is claimed
+  - no trust-cleared or vendor-approved clawhub result is claimed
+  - no official MCP registry submission or publication is claimed
+  - no published public docker image or GHCR receipt is claimed
   - no managed hosted runtime is claimed
 operator_only_follow_through:
-  - publish or update the live marketplace or registry entry
-  - publish or attach the docker image
+  - publish or update the live marketplace or registry entry where no receipt exists yet
+  - publish or attach the docker image when a real GHCR receipt exists
   - complete any account-owned review flow
-  - rerun live verification before changing public copy to listed or published
+  - rerun live verification before changing public copy again
