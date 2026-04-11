@@ -147,3 +147,29 @@ test("walkthrough keeps the tour actionable instead of reading like a doc slice"
 		await expect(structuredDataScripts).toHaveCount(0);
 	}
 });
+
+test("docs route keeps the discovery hub, shelves, and anchor routing live", async ({
+	page,
+	server,
+	pageErrorGuard,
+}) => {
+	void pageErrorGuard;
+	await page.goto(`${server.baseURL}/docs`, { waitUntil: "load" });
+	await disableMotion(page);
+
+	await expect(
+		page.getByRole("heading", {
+			name: /keep the docs inside a guided route, not a blob dump/i,
+		}),
+	).toBeVisible();
+	await expect(page.locator("#docs-shelves")).toHaveCount(1);
+	await expect(
+		page.getByRole("link", { name: /open public distribution bundle/i }),
+	).toBeVisible();
+
+	await page
+		.getByRole("link", { name: /jump to external activation ledger/i })
+		.click();
+	await expect(page).toHaveURL(/\/docs#external-activation-ledger$/);
+	await expect(page.locator("#external-activation-ledger")).toBeVisible();
+});
