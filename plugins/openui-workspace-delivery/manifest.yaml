@@ -22,15 +22,29 @@ registry_targets:
     channel_role: host-native extensions registry
     submission_thread: OpenHands/extensions#161
     read_back: current GitHub thread is OPEN / REVIEW_REQUIRED / BLOCKED
+  goose-skills-marketplace:
+    status: review_pending
+    package_shape: skill-folder
+    channel_role: host-native skill marketplace
+    submission_thread: block/Agent-Skills#25
+    read_back: validator passed; current visible blocker is upstream security review / CODEOWNERS handling
+  agent-skill-index:
+    status: submission_done
+    package_shape: skill-folder
+    channel_role: public skill index
+    submission_thread: heilcheng/awesome-agent-skills#181
+    read_back: current visible blocker is upstream preview authorization rather than a missing repo packet
 
 boundaries:
   product_identity: Local MCP-first UI generation and review workspace for OpenUI MCP Studio.
   canonical_packet_role: Canonical pure-skills packet for the repo; repo root remains the canonical public root.
   canonical_repo_version: 0.1.0
-  official_listing_state: ClawHub is listed live with a suspicious moderation warning; OpenHands/extensions#161 remains review pending; no official registry listing is claimed
+  official_listing_state: ClawHub is listed live with a suspicious moderation warning; OpenHands/extensions#161 remains review pending; Goose PR #25 and agent-skill index PR #181 are submitted but not yet accepted; no official registry listing is claimed
   not_claimed:
     - No accepted OpenHands/extensions listing exists yet
     - No trust-cleared ClawHub result exists yet
+    - No accepted Goose marketplace listing exists yet beyond PR #25
+    - No accepted agent-skill directory entry exists yet beyond PR #181
     - No live official marketplace listing exists yet
     - No hosted runtime or managed API publication is claimed
 

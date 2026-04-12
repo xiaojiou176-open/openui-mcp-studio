@@ -33,6 +33,11 @@ repo-root docs first:
   `Detected: suspicious.llm_suspicious`
 - the OpenHands lane is real through `OpenHands/extensions#161`, and the
   current GitHub state is `OPEN / REVIEW_REQUIRED / BLOCKED`
+- the Goose lane is real through `block/Agent-Skills#25`, and the current
+  visible blocker is upstream security review after validation passed
+- the agent-skill index lane is real through
+  `heilcheng/awesome-agent-skills#181`, and the current visible blocker is
+  upstream preview authorization rather than a missing repo packet
 - it is still not a live vendor marketplace listing
 - it does not claim a hosted runtime
 - it does not claim vendor approval, a trust-cleared ClawHub result, or an

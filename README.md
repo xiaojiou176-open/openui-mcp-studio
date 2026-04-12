@@ -95,7 +95,7 @@ of treating every folder as a competing front door.
 - **Front-row compatible clients:** OpenCode and OpenClaw through the same repo-owned MCP contract and bundle set
 - **Canonical pure-skills reviewer packet:** `plugins/openui-workspace-delivery/`
 - **Official repo-owned skill product line:** installable package SSOT in `@openui/skills-kit`, with a repo mirror under `examples/skills/`
-- **Current external truth ledger:** ClawHub is listed live, but the current page still shows `Moderation verdict: suspicious` and `Detected: suspicious.llm_suspicious`; OpenHands lives in `OPEN / REVIEW_REQUIRED / BLOCKED`; Official MCP Registry remains `not_submitted`
+- **Current external truth ledger:** ClawHub is listed live, but the current page still shows `Moderation verdict: suspicious` and `Detected: suspicious.llm_suspicious`; OpenHands lives in `OPEN / REVIEW_REQUIRED / BLOCKED`; Goose skills PR `block/Agent-Skills#25` is open with validation passed and upstream security review still pending; agent-skill index PR `heilcheng/awesome-agent-skills#181` is open with upstream preview authorization still blocking acceptance; Official MCP Registry remains `not_submitted`; awesome-opencode stays `not_submitted` because OpenCode is still a compatibility surface here, not a dedicated Opencode-native project shelf
 - **Canonical pure-MCP descriptor lane:** root `server.json` gives the repo one machine-readable MCP card without claiming that Official MCP Registry is already submitted
 - **Supporting lanes:** self-hosted Hosted API and `@openui/sdk`
 - **Later, not current:** managed hosted deployment, GHCR publication, and any public package or container receipt that has not been freshly verified today
