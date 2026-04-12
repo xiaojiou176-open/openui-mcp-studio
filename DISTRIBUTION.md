@@ -27,6 +27,9 @@ still need a human to push the final publish button.
 | Claude Code bundle | Repo-owned package | Repo-owned marketplace-compatible bundle exists, but no live marketplace listing is claimed. |
 | OpenHands extension lane | `OPEN / REVIEW_REQUIRED / BLOCKED` | Submitted via PR `#161`; current GitHub state is still review-required and blocked, not accepted. |
 | OpenClaw / ClawHub bundle | `listed_live` with moderation warning | The ClawHub page is listed live, but the current page still shows `Moderation verdict: suspicious` and `Detected: suspicious.llm_suspicious`. |
+| Goose Skills Marketplace | `OPEN / security-review-required` | Submitted via PR [`block/Agent-Skills#25`](https://github.com/block/Agent-Skills/pull/25); upstream validator passed, and the current visible blocker is security review / CODEOWNERS handling rather than a missing repo packet. |
+| agent-skill.co source repo | `OPEN / preview-authorization-blocked` | Submitted via PR [`heilcheng/awesome-agent-skills#181`](https://github.com/heilcheng/awesome-agent-skills/pull/181); the current visible blocker is upstream Vercel preview authorization rather than a missing repo packet. |
+| awesome-opencode project/resource lane | `not_submitted` | No awesome-opencode receipt is claimed today. OpenCode remains a compatibility surface in this repo, so a curated project/resource entry stays paused until there is a stricter Opencode-native fit decision. |
 | GHCR | `not_published` | The repo can explain the image contract and proof route, but no GHCR publish receipt is verified today. |
 | Public package / container lanes | No verified public receipt today | Package or container publication remains a later operator-owned proof step until a fresh receipt exists. |
 | `@openui/sdk` local pack/install lane | Repo-owned pack/install | Pack/install truth exists inside the repo, but registry publication remains operator-only. |
@@ -66,6 +69,9 @@ Read the distribution story in this order:
 - a live Claude Code marketplace listing
 - an Official MCP Registry submission or listing
 - a trust-cleared or vendor-approved ClawHub result
+- an accepted Goose marketplace listing beyond PR `#25`
+- an accepted agent-skill.co directory entry beyond PR `#181`
+- an awesome-opencode project/resource listing while OpenCode still stays a compatibility surface
 - a GHCR publication or any other published public Docker image
 - a managed hosted deployment or SaaS
 - any package or container publish that requires a human account action and has

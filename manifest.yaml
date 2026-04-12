@@ -23,8 +23,17 @@ external_truth:
     moderation_label: suspicious.llm_suspicious
   openhands_pr_161:
     status: OPEN / REVIEW_REQUIRED / BLOCKED
+  goose_skills_pr_25:
+    status: OPEN / security-review-required
+    submission_thread: block/Agent-Skills#25
+  agent_skill_index_pr_181:
+    status: OPEN / preview-authorization-blocked
+    submission_thread: heilcheng/awesome-agent-skills#181
   official_mcp_registry:
     status: not_submitted
+  awesome_opencode:
+    status: not_submitted
+    blocker: OpenCode remains a compatibility surface in this repo rather than a dedicated Opencode-native project/resource shelf
   ghcr:
     status: not_published
   public_package_and_container_lanes:
@@ -45,6 +54,9 @@ claims_not_made:
   - no live codex directory listing is claimed
   - no live claude marketplace listing is claimed
   - no trust-cleared or vendor-approved clawhub result is claimed
+  - no accepted Goose marketplace listing is claimed beyond PR #25
+  - no accepted agent-skill index directory entry is claimed beyond PR #181
+  - no awesome-opencode project/resource listing is claimed while OpenCode still stays a compatibility surface
   - no official MCP registry submission or publication is claimed
   - no published public docker image or GHCR receipt is claimed
   - no managed hosted runtime is claimed
