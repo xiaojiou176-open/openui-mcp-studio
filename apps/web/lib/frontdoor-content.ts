@@ -318,7 +318,7 @@ export const ECOSYSTEM_BINDINGS = [
   {
     name: "OpenHands",
     classification: "Secondary comparison",
-    body: "Useful as broader coding-agent context, but still secondary to the narrower UI-delivery and proof-workbench story here.",
+    body: "Submitted through OpenHands PR #161, but the current GitHub state is still OPEN / REVIEW_REQUIRED / BLOCKED, so it remains comparison context rather than an accepted install shelf.",
   },
   {
     name: "OpenCode",
@@ -328,7 +328,7 @@ export const ECOSYSTEM_BINDINGS = [
   {
     name: "OpenClaw",
     classification: "Secondary package-ready binding",
-    body: "OpenClaw is still not the front-door category claim, but the repo now ships a public-ready starter bundle and proof path instead of leaving the lane at bridge-materials-only.",
+    body: "OpenClaw is still not the front-door category claim, but the repo now ships a listed-live ClawHub-backed starter bundle whose current moderation label still reads suspicious.llm_suspicious.",
   },
 ] as const;
 
@@ -682,7 +682,7 @@ export const PUBLIC_PRODUCT_LINES = [
     id: "openclaw-public-ready",
     title: "OpenClaw public-ready bundle",
     status: "clawhub-ready",
-    body: "Repo-owned starter bundle, proof loop, and discoverable artifacts for OpenClaw-style hosts; the official public surface exists as ClawHub, but no listing is claimed.",
+    body: "Repo-owned starter bundle, proof loop, and discoverable artifacts for OpenClaw-style hosts; ClawHub is listed live, but the current page still shows Moderation verdict: suspicious and Detected: suspicious.llm_suspicious.",
   },
 ] as const;
 
@@ -744,12 +744,12 @@ export const ECOSYSTEM_PRODUCTIZATION_STATUS = [
     audience:
       "OpenClaw-side builders and operators who need a discoverable repo-owned install and proof path",
     bestFor:
-      "starter config, proof loop, and machine-readable discovery artifacts before any official listing exists",
+      "starter config, proof loop, and machine-readable discovery artifacts while the live ClawHub page stays visible but still under moderation warning",
     readWhen:
-      "Open this when the next question is how to present OpenUI honestly to OpenClaw-side users without pretending a catalog approval exists.",
+      "Open this when the next question is how to present OpenUI honestly to OpenClaw-side users without pretending the listed-live page is trust-cleared approval.",
     notFor:
-      "claiming an official OpenClaw runtime, ClawHub listing, or vendor approval",
-    body: "The repo now ships a ClawHub-ready OpenClaw bundle at the artifact layer, but not an official listing.",
+      "claiming an official OpenClaw runtime, trust-cleared ClawHub approval, or vendor approval",
+    body: "The repo now ships a ClawHub-facing bundle at the artifact layer, and the page is listed live, but the current moderation label still reads suspicious.llm_suspicious.",
   },
   {
     id: "public-sdk",

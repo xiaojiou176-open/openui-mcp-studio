@@ -95,10 +95,10 @@ of treating every folder as a competing front door.
 - **Front-row compatible clients:** OpenCode and OpenClaw through the same repo-owned MCP contract and bundle set
 - **Canonical pure-skills reviewer packet:** `plugins/openui-workspace-delivery/`
 - **Official repo-owned skill product line:** installable package SSOT in `@openui/skills-kit`, with a repo mirror under `examples/skills/`
-- **Submission-ready public packaging:** top-level distribution/integration guides, root `manifest.yaml`, and repo-owned Docker/OpenClaw submission packets that still refuse to claim a live listing
-- **Canonical pure-MCP descriptor lane:** root `server.json` now gives the repo one machine-readable MCP card without claiming that registry publication has already happened
+- **Current external truth ledger:** ClawHub is listed live, but the current page still shows `Moderation verdict: suspicious` and `Detected: suspicious.llm_suspicious`; OpenHands lives in `OPEN / REVIEW_REQUIRED / BLOCKED`; Official MCP Registry remains `not_submitted`
+- **Canonical pure-MCP descriptor lane:** root `server.json` gives the repo one machine-readable MCP card without claiming that Official MCP Registry is already submitted
 - **Supporting lanes:** self-hosted Hosted API and `@openui/sdk`
-- **Planned, not current:** live marketplace publication, registry publication, managed hosted deployment, and any claim that a Docker image or catalog listing is already published
+- **Later, not current:** managed hosted deployment, GHCR publication, and any public package or container receipt that has not been freshly verified today
 
 ## What We Support And What We Do Not Claim
 
@@ -109,16 +109,16 @@ of treating every folder as a competing front door.
 - local bootstrap remains a construction-only bridge into that workflow, not a competing product front door
 - Codex and Claude Code have repo-owned install surfaces today
 - OpenCode can reuse the same generic MCP contract, but it is not a dedicated vendor-native install shelf
-- OpenClaw is now part of the official repo-owned skill product line, but remains unlisted and not vendor-verified
+- OpenClaw is now part of the official repo-owned skill product line, and the linked ClawHub page is listed live, but that does **not** mean trust-cleared approval because the current moderation label still reads `suspicious.llm_suspicious`
 
 ### Not claimed yet
 
 - an official Codex directory entry
 - a listed Claude Code marketplace item
-- a live root-repo OpenClaw / ClawHub listing
-- live official MCP registry publication for the root repo artifact
+- a trust-cleared or vendor-approved ClawHub result
+- Official MCP Registry submission or publication for the root repo artifact
 - a managed hosted runtime or SaaS
-- a public Docker image or Docker-first install path
+- a GHCR publication, public Docker image, or Docker-first install path
 
 ## Front Door Map
 
@@ -903,8 +903,8 @@ Current support truth is deliberately split:
 
 - `Codex` and `Claude Code` have the strongest repo-owned install surfaces today through local stdio configs, starter bundles, proof loops, and troubleshooting
 - `OpenCode` is a front-row compatibility target that should reuse the same repo-owned generic MCP contract; this repo does **not** claim a dedicated OpenCode install shelf or official integration
-- `OpenClaw` is now part of the official repo-owned skill product line through starter bundles, proof loops, and public-ready manifests, but it is still **not** claimed as listed, published, or vendor-approved
-- `OpenHands` remains comparison / positioning context, not a current install surface
+- `OpenClaw` is now part of the official repo-owned skill product line through starter bundles, proof loops, and public-ready manifests, and the linked ClawHub page is listed live, but that still does **not** mean trust-cleared approval because the current moderation label remains `suspicious.llm_suspicious`
+- `OpenHands` remains comparison / positioning context; the repo is submitted via PR `#161`, and the current GitHub state is `OPEN / REVIEW_REQUIRED / BLOCKED`, not accepted
 
 That means this repo can honestly help people evaluate category fit across
 those names, install the current repo into Codex and Claude Code, adapt the
@@ -946,9 +946,9 @@ Current truth is:
 
 What still does **not** exist as current truth:
 
-- a live listed root-repo marketplace / plugin / ClawHub entry
-- live registry publication for the root repo artifact
-- a public Docker runtime distribution
+- a trust-cleared marketplace / plugin / ClawHub approval
+- Official MCP Registry submission or publication for the root repo artifact
+- a GHCR publication or any other verified public Docker runtime distribution today
 - managed hosted SaaS deployment
 
 ### Does it change runtime contracts?

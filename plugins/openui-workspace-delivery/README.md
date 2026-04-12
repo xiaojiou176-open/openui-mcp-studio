@@ -28,10 +28,15 @@ repo-root docs first:
 
 ## Truth boundary
 
-- this packet is a submission-ready-unlisted OpenClaw / ClawHub-style packet
+- this packet maps to a ClawHub lane that is `listed_live`, but the current page
+  still shows `Moderation verdict: suspicious` and
+  `Detected: suspicious.llm_suspicious`
+- the OpenHands lane is real through `OpenHands/extensions#161`, and the
+  current GitHub state is `OPEN / REVIEW_REQUIRED / BLOCKED`
 - it is still not a live vendor marketplace listing
 - it does not claim a hosted runtime
-- it does not claim vendor approval or an official ClawHub placement
+- it does not claim vendor approval, a trust-cleared ClawHub result, or an
+  official registry listing
 
 Use the host configs and proof loop in `references/` first. Treat the older
 `commands/` and `samples/` files as supporting material, not as the primary

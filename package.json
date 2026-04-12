@@ -166,7 +166,7 @@
 		"lint:staged": "biome lint --diagnostic-level=error --files-ignore-unknown=true --no-errors-on-unmatched --staged",
 		"lint:eslint": "eslint \"services/mcp-server/src/**/*.ts\" \"tests/**/*.ts\" \"tooling/**/*.mjs\" \"tooling/**/*.ts\" \"*.{js,mjs,cjs,ts}\"",
 		"lint:fix": "eslint \"services/mcp-server/src/**/*.ts\" \"tests/**/*.ts\" \"tooling/**/*.mjs\" \"tooling/**/*.ts\" \"*.{js,mjs,cjs,ts}\" --fix",
-		"lint:frontend": "eslint \"tests/**/*.ts\"",
+		"lint:frontend": "npm --workspace apps/web run -s lint && eslint \"tests/**/*.ts\"",
 		"mutation:gate": "node tooling/check-core-coverage.mjs --mutation-only",
 		"mutation:cleanup": "node tooling/clean-mutation-worktrees.mjs",
 		"mutation:run": "npm run -s mutation:run:full",

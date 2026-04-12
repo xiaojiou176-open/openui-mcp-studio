@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "lint": "eslint app components lib --ext .ts,.tsx",
     "start": "next start",
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json"
   },
@@ -17,7 +18,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.460.0",
-    "next": "16.2.1",
+    "next": "^16.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tailwind-merge": "^3.5.0"
