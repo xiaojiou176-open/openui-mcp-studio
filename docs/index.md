@@ -25,13 +25,12 @@ on GitHub.
 Start here if your question is "what does this project do right now?"
 
 - [`README.md`](../README.md)
-- [`DISTRIBUTION.md`](../DISTRIBUTION.md)
-- [`INTEGRATIONS.md`](../INTEGRATIONS.md)
-- [`manifest.yaml`](../manifest.yaml)
-- `/`, `/proof`, `/walkthrough`, `/workbench`
+- `/`
+- `/proof`
 - [`docs/first-minute-walkthrough.md`](./first-minute-walkthrough.md)
-- [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
-- [`docs/architecture.md`](./architecture.md)
+
+Do not open distribution, integrations, manifest, or bundle shelves yet unless
+the product story is already clear.
 
 ### Evaluators
 
@@ -50,6 +49,7 @@ needs human judgment?"
 Start here if your question is "what builder surface is actually current?"
 
 - [`README.md`](../README.md)
+- [`docs/architecture.md`](./architecture.md)
 - [`DISTRIBUTION.md`](../DISTRIBUTION.md)
 - [`INTEGRATIONS.md`](../INTEGRATIONS.md)
 - [`manifest.yaml`](../manifest.yaml)
@@ -67,6 +67,9 @@ Current builder order stays:
 2. compatibility OpenAPI bridge
 3. repo-local workflow packet
 4. supporting install bundles and the repo-owned skill product line
+
+That is second-ring material.
+It should not outrank the first-time visitor route above.
 
 ## i18n Contract
 
