@@ -26,20 +26,8 @@ maintenance.
 [![License](https://img.shields.io/github/license/xiaojiou176-open/openui-mcp-studio)](./LICENSE)
 [![Proof Surface](https://img.shields.io/badge/proof-apps%2Fweb-blue)](./docs/proof-and-faq.md)
 
-[Quick Start](#quick-start) |
-[Pages Front Door](https://xiaojiou176-open.github.io/openui-mcp-studio/) |
-[Proof Desk](./docs/proof-and-faq.md) |
-[Distribution Guide](./DISTRIBUTION.md) |
-[Integrations Guide](./INTEGRATIONS.md) |
-[Submission Manifest](./manifest.yaml) |
-[MCP Descriptor](./server.json) |
-[Canonical Skill Packet](./plugins/openui-workspace-delivery/README.md) |
-[Distribution Bundle](./examples/public-distribution/README.md) |
-[Discovery Guide](./docs/discovery-surfaces.md) |
-[Skills Mirror](./examples/skills/README.md) |
-[Docs Index](./docs/index.md) |
-[Tags](https://github.com/xiaojiou176-open/openui-mcp-studio/tags) |
-[Discussions](https://github.com/xiaojiou176-open/openui-mcp-studio/discussions)
+Canonical first route: [Pages Front Door](https://xiaojiou176-open.github.io/openui-mcp-studio/) -> [Proof Desk](./docs/proof-and-faq.md) -> `npm run demo:ship`
+Second ring: [Docs Index](./docs/index.md) | [Distribution Guide](./DISTRIBUTION.md) | [Integrations Guide](./INTEGRATIONS.md) | [Submission Manifest](./manifest.yaml) | [MCP Descriptor](./server.json) | [Canonical Skill Packet](./plugins/openui-workspace-delivery/README.md) | [Distribution Bundle](./examples/public-distribution/README.md) | [Skills Mirror](./examples/skills/README.md)
 
 <p align="center">
   <img
@@ -52,19 +40,35 @@ maintenance.
 > OpenUI MCP Studio is the public repo for MCP-native UI delivery and review
 > across Codex, Claude Code, OpenCode, OpenClaw, and other MCP-first clients.
 
-## Start Fast
+## At A Glance
 
-Use the shortest path that matches the question in your head:
+If you only want the shortest truthful filter before reading deeper, use this
+table first:
 
-| If you want to... | Open or run... | What you get |
-| --- | --- | --- |
-| see one real prompt-to-UI run | `npm run demo:ship` | a genuine brief-to-ship payload from the current repo |
-| trust the repo before going deeper | `npm run repo:doctor` | a fast structural check over contracts, runtime, evidence, and release-readiness inputs |
-| install or adapt it for another client | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) | repo-owned configs for Codex, Claude Code, generic MCP hosts, and the current OpenClaw-ready bundle |
+| What you need to know | Current answer |
+| --- | --- |
+| Product thesis | turn one UI or UI/UX brief into React + shadcn files, then keep proof, review, and acceptance visible before you ship |
+| Brand split | `OneClickUI.ai` is the front-door label; `OpenUI MCP Studio` is the technical product, runtime, and release name |
+| First success | open the Pages Front Door, confirm one proof path, then run one repo-local demo payload |
+| First visible proof | the proof desk plus the repo-authored brief-to-ship demo asset |
+| Second ring only | distribution truth, integrations, MCP descriptor, skill packet, and install bundles |
+| What it must never be reduced to | a generic coding-agent platform or a managed hosted UI SaaS |
 
-## Choose The Right Front Door
+## Canonical First Route
 
-Use the shortest route that matches the job in your head:
+If this is your first truthful pass, keep the route single-threaded:
+
+1. open the [Pages Front Door](https://xiaojiou176-open.github.io/openui-mcp-studio/)
+2. inspect the [`docs/proof-and-faq.md`](./docs/proof-and-faq.md) proof route
+3. run `npm run demo:ship` when you want one repo-local brief-to-ship payload
+
+That is the Wave 2 first success path.
+Do not branch into integrations, manifests, or install bundles until this route
+already makes sense.
+
+## Second-Ring Questions
+
+After the canonical first route is clear, use the matching second-ring shelf:
 
 | If your question is... | Start here |
 | --- | --- |
@@ -75,29 +79,28 @@ Use the shortest route that matches the job in your head:
 | "Where is the current pure-skills reviewer packet?" | [`plugins/openui-workspace-delivery/README.md`](./plugins/openui-workspace-delivery/README.md) |
 | "Where are the repo-owned install bundles and proof loops?" | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) and [`examples/skills/README.md`](./examples/skills/README.md) |
 
-## Canonical Public Roots
+## Second-Ring Technical Roots
 
-Use these layers like a storefront, a boxed product, and a machine room instead
-of treating every folder as a competing front door.
+If the canonical first route already makes sense and you now need the technical
+anchors behind it, use this shelf next:
 
-- **Canonical public root:** this root [`README.md`](./README.md) plus the root [`manifest.yaml`](./manifest.yaml)
-- **Canonical pure-MCP registry descriptor:** [`server.json`](./server.json)
-- **Canonical pure-skills packet:** [`plugins/openui-workspace-delivery/`](./plugins/openui-workspace-delivery/)
-- **Pure-MCP runtime support surface:** [`services/mcp-server/README.md`](./services/mcp-server/README.md)
-- **Repo-frontdoor mirrors and supporting install shelves:** [`examples/public-distribution/`](./examples/public-distribution/) and [`examples/skills/`](./examples/skills/)
+- **Repo front door plus packaging metadata:** [`README.md`](./README.md) and [`manifest.yaml`](./manifest.yaml)
+- **Pure-MCP registry descriptor:** [`server.json`](./server.json)
+- **Pure-skills packet:** [`plugins/openui-workspace-delivery/`](./plugins/openui-workspace-delivery/)
+- **Runtime support surface:** [`services/mcp-server/README.md`](./services/mcp-server/README.md)
+- **Install mirrors and bundle shelves:** [`examples/public-distribution/`](./examples/public-distribution/) and [`examples/skills/`](./examples/skills/)
 - **Installable package SSOT:** [`packages/skills-kit/`](./packages/skills-kit/)
 
-## What You Get Today
+## Second-Ring Technical Snapshot
+
+Everything below is still technical or distribution truth around the product
+path. It is not the first success path itself.
 
 - **Primary runtime:** local `stdio` MCP through `services/mcp-server/src/main.ts`
 - **Primary distribution artifact:** this public GitHub repo
-- **Install-ready client surfaces:** Codex, Claude Code, and generic MCP hosts
-- **Front-row compatible clients:** OpenCode and OpenClaw through the same repo-owned MCP contract and bundle set
-- **Canonical pure-skills reviewer packet:** `plugins/openui-workspace-delivery/`
-- **Official repo-owned skill product line:** installable package SSOT in `@openui/skills-kit`, with a repo mirror under `examples/skills/`
-- **Current external truth ledger:** ClawHub is listed live, but the current page still shows `Moderation verdict: suspicious` and `Detected: suspicious.llm_suspicious`; OpenHands lives in `OPEN / REVIEW_REQUIRED / BLOCKED`; Goose skills PR `block/Agent-Skills#25` is open with validation passed and upstream security review still pending; agent-skill index PR `heilcheng/awesome-agent-skills#181` is open with upstream preview authorization still blocking acceptance; Official MCP Registry remains `not_submitted`; awesome-opencode stays `not_submitted` because OpenCode is still a compatibility surface here, not a dedicated Opencode-native project shelf
-- **Canonical pure-MCP descriptor lane:** root `server.json` gives the repo one machine-readable MCP card without claiming that Official MCP Registry is already submitted
-- **Supporting lanes:** self-hosted Hosted API and `@openui/sdk`
+- **Install-ready client surfaces after the first route:** Codex, Claude Code, and generic MCP hosts
+- **Compatibility clients:** OpenCode and OpenClaw through the same repo-owned MCP contract and bundle set
+- **Current packet and listing truth:** ClawHub is listed live, but the current page still shows `Moderation verdict: suspicious` and `Detected: suspicious.llm_suspicious`; OpenHands lives in `OPEN / REVIEW_REQUIRED / BLOCKED`; Goose skills PR `block/Agent-Skills#25` is open with validation passed and upstream security review still pending; agent-skill index PR `heilcheng/awesome-agent-skills#181` is open with upstream preview authorization still blocking acceptance; Official MCP Registry remains `not_submitted`; awesome-opencode stays `not_submitted` because OpenCode is still a compatibility surface here, not a dedicated Opencode-native project shelf
 - **Later, not current:** managed hosted deployment, GHCR publication, and any public package or container receipt that has not been freshly verified today
 
 ## What We Support And What We Do Not Claim
