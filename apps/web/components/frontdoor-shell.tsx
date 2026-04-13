@@ -104,7 +104,7 @@ export async function FrontdoorShell({
                         "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium transition-[background-color,border-color,color,box-shadow] duration-200",
                         isActive
                           ? "border-primary/25 bg-primary/8 text-foreground shadow-[0_12px_32px_-26px_hsl(var(--shadow-color)/0.4)]"
-                          : "border-border/70 bg-white/58 text-muted-foreground hover:border-foreground/12 hover:bg-white/78 hover:text-foreground",
+                          : "border-border/70 bg-background/68 text-muted-foreground hover:border-foreground/12 hover:bg-card/92 hover:text-foreground",
                       )}
                     >
                       {item.label}
@@ -114,14 +114,14 @@ export async function FrontdoorShell({
               </div>
 
               <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
-                <div className="flex flex-wrap items-center gap-3 rounded-[1.1rem] border border-border/70 bg-white/55 px-4 py-3 text-xs leading-6 text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-3 rounded-[1.1rem] border border-border/70 bg-background/68 px-4 py-3 text-xs leading-6 text-muted-foreground">
                   <Badge variant="outline" className="surface-badge">
                     {messages.shell.routeGuideBadge}
                   </Badge>
                   <p className="max-w-4xl">{messages.shell.routeGuideBody}</p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 rounded-[1.1rem] border border-border/70 bg-white/55 px-4 py-3 text-xs leading-6 text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-3 rounded-[1.1rem] border border-border/70 bg-background/68 px-4 py-3 text-xs leading-6 text-muted-foreground">
                   <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted-foreground">
                     Quick shelves
                   </span>
