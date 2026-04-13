@@ -8,6 +8,17 @@ Use this page as the shorter yes/no checklist.
 
 ## Fast Read
 
+If you only want the fastest truthful evaluation path, use this order first:
+
+1. `README.md`
+   Confirm the product sentence and first route.
+2. `docs/proof-and-faq.md`
+   Confirm what the repo actually proves.
+3. `npm run demo:ship`
+   Confirm one repo-local payload if your machine is already ready.
+4. `/workbench`
+   Only then decide whether the operator desk is the next stop.
+
 You are probably in the right place if you want all four of these:
 
 - natural-language UI input

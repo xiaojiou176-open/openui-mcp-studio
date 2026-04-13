@@ -3,10 +3,15 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>OpenUIStudio front door to operator desk visual</title>
+		<title>OpenUIStudio front door summary</title>
 		<style>
 			:root {
 				color-scheme: light;
+				font-family:
+					"SF Pro Display",
+					"Segoe UI",
+					Arial,
+					sans-serif;
 			}
 
 			* {
@@ -15,61 +20,299 @@
 
 			body {
 				margin: 0;
-				background: #f8fbff;
+				background:
+					radial-gradient(circle at top left, rgba(47, 109, 246, 0.14), transparent 34%),
+					linear-gradient(180deg, #eef4ff 0%, #f7faff 58%, #f4f7fc 100%);
+				color: #132238;
 			}
 
 			.canvas {
-				position: relative;
 				width: 1280px;
 				height: 720px;
+				padding: 44px 44px 40px;
+				display: grid;
+				grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+				gap: 28px;
+			}
+
+			.left {
+				display: flex;
+				flex-direction: column;
+				gap: 18px;
+			}
+
+			.chip {
+				width: fit-content;
+				padding: 10px 16px;
+				border-radius: 999px;
+				background: rgba(47, 109, 246, 0.1);
+				border: 1px solid rgba(47, 109, 246, 0.14);
+				color: #234dbf;
+				font-size: 18px;
+				font-weight: 700;
+				letter-spacing: 0.01em;
+			}
+
+			h1 {
+				margin: 0;
+				font-size: 64px;
+				line-height: 0.98;
+				letter-spacing: -0.05em;
+			}
+
+			.lead {
+				margin: 0;
+				font-size: 25px;
+				line-height: 1.42;
+				color: #44556f;
+				max-width: 630px;
+			}
+
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 14px;
+				margin-top: 4px;
+			}
+
+			.card {
+				padding: 18px 18px 16px;
+				border-radius: 22px;
+				background: rgba(255, 255, 255, 0.92);
+				border: 1px solid rgba(148, 163, 184, 0.22);
+				box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+			}
+
+			.label {
+				margin: 0 0 8px;
+				font-size: 15px;
+				font-weight: 700;
+				letter-spacing: 0.02em;
+				text-transform: uppercase;
+				color: #5a6d88;
+			}
+
+			.value {
+				margin: 0;
+				font-size: 29px;
+				line-height: 1.08;
+				letter-spacing: -0.035em;
+			}
+
+			.note {
+				margin: 10px 0 0;
+				font-size: 17px;
+				line-height: 1.42;
+				color: #566983;
+			}
+
+			.route {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				margin-top: auto;
+			}
+
+			.pill {
+				padding: 12px 16px;
+				border-radius: 999px;
+				background: rgba(255, 255, 255, 0.96);
+				border: 1px solid rgba(148, 163, 184, 0.22);
+				box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+				font-size: 17px;
+				font-weight: 700;
+				color: #243750;
+			}
+
+			.right {
+				display: flex;
+				align-items: stretch;
+			}
+
+			.frame {
+				position: relative;
+				flex: 1;
+				border-radius: 28px;
 				overflow: hidden;
-				background: #f8fbff;
+				background: linear-gradient(180deg, #ffffff 0%, #eef3fb 100%);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				box-shadow: 0 28px 70px rgba(15, 23, 42, 0.14);
 			}
 
-			img {
+			.frame img {
 				position: absolute;
-				left: 0;
-				top: 0;
-				display: block;
-				width: 1280px;
-				height: auto;
+				top: -122px;
+				left: -44px;
+				width: 930px;
 				max-width: none;
-				filter: contrast(1.08) saturate(1.02);
+				display: block;
+				filter: contrast(1.04) saturate(1.02);
 			}
 
-			.left-trim {
-				position: absolute;
-				left: 0;
-				top: 0;
-				bottom: 0;
-				width: 12px;
-				background: #f8fbff;
-			}
-
-			.bottom-fade {
+			.top-mask {
 				position: absolute;
 				left: 0;
 				right: 0;
-				bottom: 0;
-				height: 126px;
-				background: linear-gradient(
-					180deg,
-					rgba(248, 251, 255, 0) 0%,
-					rgba(248, 251, 255, 0.82) 42%,
-					#f8fbff 72%,
-					#f8fbff 100%
-				);
+				top: 0;
+				height: 84px;
+				background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.72) 58%, rgba(255, 255, 255, 0) 100%);
+			}
+
+			.callout {
+				position: absolute;
+				right: 20px;
+				top: 20px;
+				width: 250px;
+				padding: 18px 18px 16px;
+				border-radius: 20px;
+				background: rgba(16, 24, 40, 0.9);
+				color: #f8fbff;
+				box-shadow: 0 18px 40px rgba(15, 23, 42, 0.24);
+			}
+
+			.callout .eyebrow {
+				margin: 0 0 8px;
+				font-size: 13px;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: #a8c4ff;
+			}
+
+			.callout h2 {
+				margin: 0;
+				font-size: 28px;
+				line-height: 1.04;
+				letter-spacing: -0.03em;
+			}
+
+			.callout p {
+				margin: 10px 0 0;
+				font-size: 15px;
+				line-height: 1.44;
+				color: #dbe6ff;
+			}
+
+			.rail {
+				position: absolute;
+				left: 20px;
+				right: 20px;
+				bottom: 20px;
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: 10px;
+			}
+
+			.rail-card {
+				padding: 14px 14px 12px;
+				border-radius: 18px;
+				background: rgba(255, 255, 255, 0.94);
+				border: 1px solid rgba(148, 163, 184, 0.2);
+				box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+			}
+
+			.rail-card strong {
+				display: block;
+				font-size: 17px;
+				line-height: 1.15;
+				letter-spacing: -0.02em;
+				color: #132238;
+			}
+
+			.rail-card span {
+				display: block;
+				margin-top: 6px;
+				font-size: 13px;
+				line-height: 1.38;
+				color: #5c6f88;
 			}
 		</style>
 	</head>
 	<body>
 		<main class="canvas">
-			<img
-				src="../../tests/visual-golden/apps-web-home.png"
-				alt="OpenUIStudio front door with a direct path to the operator desk"
-			/>
-			<div class="left-trim"></div>
-			<div class="bottom-fade"></div>
+			<section class="left">
+				<div class="chip">Front door summary</div>
+				<h1>Brief to reviewed UI delivery, with proof still attached.</h1>
+				<p class="lead">
+					OpenUIStudio starts with one product sentence, one proof-backed
+					route, and one visible next step before it asks you to care about
+					packaging, descriptors, or marketplace shelves.
+				</p>
+
+				<div class="grid">
+					<article class="card">
+						<p class="label">Product</p>
+						<p class="value">Turn one UI brief into React + shadcn delivery.</p>
+						<p class="note">
+							Generate files, keep review visible, and carry proof forward
+							before ship.
+						</p>
+					</article>
+					<article class="card">
+						<p class="label">First route</p>
+						<p class="value">Front door -> proof desk -> demo:ship.</p>
+						<p class="note">
+							Start with the repo-owned route before branching into metadata or
+							install shelves.
+						</p>
+					</article>
+					<article class="card">
+						<p class="label">Why trust it</p>
+						<p class="value">One real proof lane beats a shelf of claims.</p>
+						<p class="note">
+							The repo shows a proof surface, a demo command, and quality gates
+							instead of stopping at a screenshot.
+						</p>
+					</article>
+					<article class="card">
+						<p class="label">Boundary</p>
+						<p class="value">Not a hosted SaaS, and not a generic agent shell.</p>
+						<p class="note">
+							`OneClickUI.ai` is the short front-door label; `OpenUIStudio`
+							stays the technical product name.
+						</p>
+					</article>
+				</div>
+
+				<div class="route">
+					<div class="pill">Pages front door first</div>
+					<div class="pill">Proof desk before workbench</div>
+					<div class="pill">Second ring only after trust is clear</div>
+				</div>
+			</section>
+
+			<section class="right">
+				<div class="frame">
+					<img
+						src="../../tests/visual-golden/apps-web-home.png"
+						alt="OpenUIStudio front door screenshot"
+					/>
+					<div class="top-mask"></div>
+					<div class="callout">
+						<p class="eyebrow">Visible proof</p>
+						<h2>See the route before the shelves.</h2>
+						<p>
+							The front door should answer what this is, where to start, and
+							why it is trustworthy before brand split, bundle, or registry
+							details take the stage.
+						</p>
+					</div>
+					<div class="rail">
+						<div class="rail-card">
+							<strong>1. Product sentence</strong>
+							<span>UI delivery with proof and review, not a generic coding shell.</span>
+						</div>
+						<div class="rail-card">
+							<strong>2. Canonical route</strong>
+							<span>Front door, proof desk, then one repo-local demo command.</span>
+						</div>
+						<div class="rail-card">
+							<strong>3. Second ring later</strong>
+							<span>Descriptors, install bundles, and marketplace truth stay visible but secondary.</span>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
 	</body>
 </html>

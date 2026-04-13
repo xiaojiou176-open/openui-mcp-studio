@@ -3,31 +3,64 @@
 Turn one UI or UI/UX brief into React + shadcn files, then keep proof, review,
 and acceptance visible before you ship them.
 
-OpenUIStudio is the public repo you hand to teams using Codex, Claude
+OpenUIStudio is the repo-first front door for teams using Codex, Claude
 Code, OpenCode, OpenClaw, and other MCP-first clients when they want one
-practical `prompt -> files -> proof -> review -> ship` workflow instead of a
+practical `brief -> files -> proof -> review -> ship` workflow instead of a
 generic coding-agent platform.
-
-> Primary runtime:
-> local `stdio` MCP through `services/mcp-server/src/main.ts`.
->
-> Primary distribution artifact:
-> this public GitHub repo, plus repo-owned install bundles and proof surfaces.
->
-> Brand split:
-> `OneClickUI.ai` is the shorter front-door label.
-> `OpenUIStudio` remains the technical product, runtime, and release name.
-
-English is the canonical source of truth for repository governance and
-maintenance.
 
 [![Tag](https://img.shields.io/github/v/tag/xiaojiou176-open/openuistudio?label=tag)](https://github.com/xiaojiou176-open/openuistudio/tags)
 [![Discussions](https://img.shields.io/github/discussions/xiaojiou176-open/openuistudio?label=discussions)](https://github.com/xiaojiou176-open/openuistudio/discussions)
 [![License](https://img.shields.io/github/license/xiaojiou176-open/openuistudio)](./LICENSE)
 [![Proof Surface](https://img.shields.io/badge/proof-apps%2Fweb-blue)](./docs/proof-and-faq.md)
 
-Canonical first route: [Pages Front Door](https://xiaojiou176-open.github.io/openuistudio/) -> [Proof Desk](./docs/proof-and-faq.md) -> `npm run demo:ship`
-Second ring: [Docs Index](./docs/index.md) | [Distribution Guide](./DISTRIBUTION.md) | [Integrations Guide](./INTEGRATIONS.md) | [Submission Manifest](./manifest.yaml) | [MCP Descriptor](./server.json) | [Canonical Skill Packet](./plugins/openui-workspace-delivery/README.md) | [Distribution Bundle](./examples/public-distribution/README.md) | [Skills Mirror](./examples/skills/README.md)
+## One-Screen Answer
+
+If you only read one screen, keep these four answers in view:
+
+| Question | Current truthful answer |
+| --- | --- |
+| What is this? | A repo-first UI delivery workflow that turns a brief into React + shadcn files, then keeps proof, review, and acceptance visible before ship. |
+| Where should I start? | [Pages Front Door](https://xiaojiou176-open.github.io/openuistudio/) -> [Proof Desk](./docs/proof-and-faq.md) -> `npm run demo:ship` |
+| Why trust it? | The repo keeps one visible proof path, one real demo command, and explicit quality gates instead of stopping at a screenshot or raw text blob. |
+| What is it **not** claiming? | Not a generic coding-agent platform, not a managed hosted UI SaaS, and not an Official MCP Registry listing today. |
+
+## Start Here In 60 Seconds
+
+Keep the first pass single-threaded:
+
+1. Open the [Pages Front Door](https://xiaojiou176-open.github.io/openuistudio/) to get the product sentence and guided route.
+2. Open the [Proof Desk](./docs/proof-and-faq.md) to see what the repo actually proves today.
+3. Run `npm run demo:ship` when you want one repo-local brief-to-ship payload.
+4. Only after those three make sense, branch into distribution, integrations, manifests, and install bundles.
+
+<p align="center">
+  <img
+    src="./docs/assets/openuistudio-workflow-overview.png"
+    alt="Workflow overview showing brief, generate, apply, and verify stages"
+    width="100%"
+  />
+</p>
+
+## Why This Reads Faster Now
+
+- The product sentence comes first: one brief becomes a reviewable React +
+  shadcn delivery path.
+- The first route comes second: front door -> proof desk -> one runnable demo.
+- The first visible proof comes third: a repo-owned workflow visual plus a real
+  `demo:ship` lane.
+- The second ring stays second ring: packaging, descriptors, bundles, and host
+  shelves stay available without taking over the storefront.
+
+## Naming And Boundary Truth
+
+- `OneClickUI.ai` is the shorter front-door label.
+- `OpenUIStudio` remains the technical product, runtime, and release name.
+- Primary runtime: local `stdio` MCP through
+  `services/mcp-server/src/main.ts`.
+- Primary distribution artifact: this public GitHub repo, plus repo-owned
+  install bundles and proof surfaces.
+- English is the canonical source of truth for repository governance and
+  maintenance.
 
 <p align="center">
   <img
@@ -39,32 +72,6 @@ Second ring: [Docs Index](./docs/index.md) | [Distribution Guide](./DISTRIBUTION
 
 > OpenUIStudio is the public repo for MCP-native UI delivery and review
 > across Codex, Claude Code, OpenCode, OpenClaw, and other MCP-first clients.
-
-## At A Glance
-
-If you only want the shortest truthful filter before reading deeper, use this
-table first:
-
-| What you need to know | Current answer |
-| --- | --- |
-| Product thesis | turn one UI or UI/UX brief into React + shadcn files, then keep proof, review, and acceptance visible before you ship |
-| Brand split | `OneClickUI.ai` is the front-door label; `OpenUIStudio` is the technical product, runtime, and release name |
-| First success | open the Pages Front Door, confirm one proof path, then run one repo-local demo payload |
-| First visible proof | the proof desk plus the repo-authored brief-to-ship demo asset |
-| Second ring only | distribution truth, integrations, MCP descriptor, skill packet, and install bundles |
-| What it must never be reduced to | a generic coding-agent platform or a managed hosted UI SaaS |
-
-## Canonical First Route
-
-If this is your first truthful pass, keep the route single-threaded:
-
-1. open the [Pages Front Door](https://xiaojiou176-open.github.io/openuistudio/)
-2. inspect the [`docs/proof-and-faq.md`](./docs/proof-and-faq.md) proof route
-3. run `npm run demo:ship` when you want one repo-local brief-to-ship payload
-
-That is the Wave 2 first success path.
-Do not branch into integrations, manifests, or install bundles until this route
-already makes sense.
 
 ## Second-Ring Questions
 
@@ -79,7 +86,7 @@ After the canonical first route is clear, use the matching second-ring shelf:
 | "Where is the current pure-skills reviewer packet?" | [`plugins/openui-workspace-delivery/README.md`](./plugins/openui-workspace-delivery/README.md) |
 | "Where are the repo-owned install bundles and proof loops?" | [`examples/public-distribution/README.md`](./examples/public-distribution/README.md) and [`examples/skills/README.md`](./examples/skills/README.md) |
 
-## Second-Ring Technical Roots
+## Technical Anchors After The First Route
 
 If the canonical first route already makes sense and you now need the technical
 anchors behind it, use this shelf next:
@@ -91,7 +98,7 @@ anchors behind it, use this shelf next:
 - **Install mirrors and bundle shelves:** [`examples/public-distribution/`](./examples/public-distribution/) and [`examples/skills/`](./examples/skills/)
 - **Installable package SSOT:** [`packages/skills-kit/`](./packages/skills-kit/)
 
-## Second-Ring Technical Snapshot
+## Technical Snapshot, Not The Storefront
 
 Everything below is still technical or distribution truth around the product
 path. It is not the first success path itself.

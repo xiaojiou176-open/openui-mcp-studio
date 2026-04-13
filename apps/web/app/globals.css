@@ -4,106 +4,121 @@
 
 :root {
   color-scheme: light;
-  --background: 210 33% 99%;
-  --foreground: 222 47% 11%;
+  --background: 220 29% 98%;
+  --foreground: 228 18% 9%;
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card-foreground: 228 18% 9%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
-  --primary: 221 83% 45%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
-  --muted: 214 32% 95%;
-  --muted-foreground: 215 16% 32%;
-  --accent: 213 94% 93%;
-  --accent-foreground: 222 47% 11%;
-  --destructive: 0 72% 40%;
-  --destructive-foreground: 210 40% 98%;
-  --success: 142 72% 27%;
-  --success-foreground: 138 76% 97%;
-  --success-soft: 142 55% 92%;
-  --success-soft-foreground: 142 80% 14%;
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 221 83% 53%;
+  --popover-foreground: 228 18% 9%;
+  --primary: 224 77% 56%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 21% 95%;
+  --secondary-foreground: 228 18% 9%;
+  --muted: 220 20% 96%;
+  --muted-foreground: 225 11% 40%;
+  --accent: 223 100% 97%;
+  --accent-foreground: 228 18% 9%;
+  --destructive: 0 68% 47%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 145 67% 35%;
+  --success-foreground: 145 72% 96%;
+  --success-soft: 145 52% 93%;
+  --success-soft-foreground: 146 63% 17%;
+  --border: 220 17% 89%;
+  --input: 220 18% 88%;
+  --ring: 224 77% 56%;
   --radius: 1rem;
-  --radius-xl: clamp(1.25rem, 4vw, calc(var(--radius) * 2));
+  --radius-xl: clamp(1.4rem, 3vw, 2rem);
 
   --surface-1: 0 0% 100%;
-  --surface-2: 210 40% 97%;
-  --surface-3: 214 32% 94%;
-  --grid-line: 214 32% 91%;
-  --hero-glow: 217 91% 60%;
-  --shadow-color: 220 43% 18%;
+  --surface-2: 220 25% 97%;
+  --surface-3: 223 28% 94%;
+  --grid-line: 220 18% 90%;
+  --hero-glow: 224 85% 62%;
+  --hero-glow-soft: 192 86% 62%;
+  --shadow-color: 228 29% 11%;
+  --shell-border: 220 18% 86%;
+  --dark-surface: 230 24% 9%;
+  --dark-surface-2: 228 19% 13%;
+  --dark-border: 228 14% 25%;
 }
 
 .dark {
   color-scheme: dark;
-  --background: 222 47% 7%;
-  --foreground: 210 40% 96%;
-  --card: 222 38% 11%;
-  --card-foreground: 210 40% 96%;
-  --popover: 222 38% 11%;
-  --popover-foreground: 210 40% 96%;
-  --primary: 217 91% 60%;
-  --primary-foreground: 222 47% 9%;
-  --secondary: 217 33% 17%;
-  --secondary-foreground: 210 40% 96%;
-  --muted: 217 33% 15%;
-  --muted-foreground: 215 20% 78%;
-  --accent: 217 33% 19%;
-  --accent-foreground: 210 40% 96%;
-  --destructive: 0 58% 48%;
-  --destructive-foreground: 210 40% 98%;
-  --success: 142 69% 45%;
-  --success-foreground: 144 70% 10%;
-  --success-soft: 142 40% 18%;
-  --success-soft-foreground: 144 68% 88%;
-  --border: 217 26% 20%;
-  --input: 217 26% 20%;
-  --ring: 217 91% 68%;
+  --background: 228 21% 7%;
+  --foreground: 220 29% 96%;
+  --card: 228 17% 11%;
+  --card-foreground: 220 29% 96%;
+  --popover: 228 17% 11%;
+  --popover-foreground: 220 29% 96%;
+  --primary: 224 88% 67%;
+  --primary-foreground: 228 21% 9%;
+  --secondary: 228 15% 16%;
+  --secondary-foreground: 220 29% 96%;
+  --muted: 228 14% 15%;
+  --muted-foreground: 222 18% 78%;
+  --accent: 228 17% 18%;
+  --accent-foreground: 220 29% 96%;
+  --destructive: 0 64% 57%;
+  --destructive-foreground: 220 29% 98%;
+  --success: 145 61% 48%;
+  --success-foreground: 145 70% 12%;
+  --success-soft: 145 33% 17%;
+  --success-soft-foreground: 145 68% 90%;
+  --border: 228 13% 21%;
+  --input: 228 12% 21%;
+  --ring: 224 88% 67%;
 
-  --surface-1: 222 38% 11%;
-  --surface-2: 222 30% 14%;
-  --surface-3: 217 26% 18%;
-  --grid-line: 217 26% 20%;
-  --hero-glow: 199 89% 58%;
-  --shadow-color: 222 60% 3%;
+  --surface-1: 228 18% 11%;
+  --surface-2: 228 17% 14%;
+  --surface-3: 228 15% 18%;
+  --grid-line: 228 13% 21%;
+  --hero-glow: 224 88% 67%;
+  --hero-glow-soft: 192 87% 62%;
+  --shadow-color: 228 48% 3%;
+  --shell-border: 228 14% 18%;
+  --dark-surface: 228 21% 8%;
+  --dark-surface-2: 228 18% 13%;
+  --dark-border: 228 14% 24%;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     color-scheme: dark;
-    --background: 222 47% 7%;
-    --foreground: 210 40% 96%;
-    --card: 222 38% 11%;
-    --card-foreground: 210 40% 96%;
-    --popover: 222 38% 11%;
-    --popover-foreground: 210 40% 96%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 222 47% 9%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 96%;
-    --muted: 217 33% 15%;
-    --muted-foreground: 215 20% 78%;
-    --accent: 217 33% 19%;
-    --accent-foreground: 210 40% 96%;
-    --destructive: 0 58% 48%;
-    --destructive-foreground: 210 40% 98%;
-    --success: 142 69% 45%;
-    --success-foreground: 144 70% 10%;
-    --success-soft: 142 40% 18%;
-    --success-soft-foreground: 144 68% 88%;
-    --border: 217 26% 20%;
-    --input: 217 26% 20%;
-    --ring: 217 91% 68%;
-    --surface-1: 222 38% 11%;
-    --surface-2: 222 30% 14%;
-    --surface-3: 217 26% 18%;
-    --grid-line: 217 26% 20%;
-    --hero-glow: 199 89% 58%;
-    --shadow-color: 222 60% 3%;
+    --background: 228 21% 7%;
+    --foreground: 220 29% 96%;
+    --card: 228 17% 11%;
+    --card-foreground: 220 29% 96%;
+    --popover: 228 17% 11%;
+    --popover-foreground: 220 29% 96%;
+    --primary: 224 88% 67%;
+    --primary-foreground: 228 21% 9%;
+    --secondary: 228 15% 16%;
+    --secondary-foreground: 220 29% 96%;
+    --muted: 228 14% 15%;
+    --muted-foreground: 222 18% 78%;
+    --accent: 228 17% 18%;
+    --accent-foreground: 220 29% 96%;
+    --destructive: 0 64% 57%;
+    --destructive-foreground: 220 29% 98%;
+    --success: 145 61% 48%;
+    --success-foreground: 145 70% 12%;
+    --success-soft: 145 33% 17%;
+    --success-soft-foreground: 145 68% 90%;
+    --border: 228 13% 21%;
+    --input: 228 12% 21%;
+    --ring: 224 88% 67%;
+    --surface-1: 228 18% 11%;
+    --surface-2: 228 17% 14%;
+    --surface-3: 228 15% 18%;
+    --grid-line: 228 13% 21%;
+    --hero-glow: 224 88% 67%;
+    --hero-glow-soft: 192 87% 62%;
+    --shadow-color: 228 48% 3%;
+    --shell-border: 228 14% 18%;
+    --dark-surface: 228 21% 8%;
+    --dark-surface-2: 228 18% 13%;
+    --dark-border: 228 14% 24%;
   }
 }
 
@@ -142,7 +157,7 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     scroll-behavior: smooth;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1, "liga" 1;
   }
 
   body {
@@ -150,21 +165,29 @@
     min-height: 100dvh;
     background-color: hsl(var(--background));
     background-image:
-      radial-gradient(circle at top, hsl(var(--hero-glow) / 0.16), transparent 32%),
-      linear-gradient(180deg, hsl(var(--surface-2)) 0%, hsl(var(--background)) 18%, hsl(var(--background)) 100%);
+      radial-gradient(circle at 0% 0%, hsl(var(--hero-glow) / 0.14), transparent 32%),
+      radial-gradient(circle at 88% 4%, hsl(var(--hero-glow-soft) / 0.12), transparent 22%),
+      linear-gradient(180deg, hsl(var(--surface-2)) 0%, hsl(var(--background)) 22%, hsl(var(--background)) 100%);
     color: hsl(var(--foreground));
-    font-family:
-      "Avenir Next",
-      "SF Pro Display",
-      "Segoe UI",
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      sans-serif;
+    font-family: var(--font-sans), system-ui, sans-serif;
     line-height: 1.5;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(hsl(var(--grid-line) / 0.32) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-line) / 0.32) 1px, transparent 1px);
+    background-size: 120px 120px;
+    mask-image: radial-gradient(circle at center, black 42%, transparent 88%);
+    opacity: 0.22;
+    z-index: -1;
   }
 
   main {
@@ -183,6 +206,16 @@
   dl,
   dd {
     margin: 0;
+  }
+
+  :where(h1, h2, h3, h4) {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  :where(code, pre, kbd, samp) {
+    font-family: var(--font-mono), ui-monospace, monospace;
   }
 
   a {
@@ -247,66 +280,117 @@
     ):focus-visible {
     outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
-    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.18);
+    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.14);
   }
 }
 
 @layer utilities {
   .surface-outline {
-    border-color: hsl(var(--border) / 0.7);
+    border-color: hsl(var(--border) / 0.74);
   }
 
   .surface-outline-primary {
-    border-color: hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary) / 0.24);
   }
 
   .surface-badge {
-    border-color: hsl(var(--primary) / 0.2);
-    background-color: hsl(var(--primary) / 0.05);
+    border-color: hsl(var(--primary) / 0.16);
+    background: hsl(var(--primary) / 0.06);
+    color: hsl(var(--foreground) / 0.82);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
   }
 
   .surface-chip {
-    border-color: hsl(var(--border) / 0.7);
-    background-color: hsl(var(--background) / 0.7);
+    border-color: hsl(var(--border) / 0.82);
+    background:
+      linear-gradient(180deg, hsl(var(--surface-1) / 0.9), hsl(var(--surface-2) / 0.92));
+    box-shadow:
+      0 0 0 1px hsl(var(--border) / 0.3),
+      0 16px 36px -28px hsl(var(--shadow-color) / 0.22);
   }
 
   .surface-panel {
-    border-color: hsl(var(--border) / 0.7);
-    background-color: hsl(var(--card) / 0.85);
+    border-color: hsl(var(--border) / 0.78);
+    background:
+      linear-gradient(180deg, hsl(var(--surface-1) / 0.96), hsl(var(--surface-2) / 0.92));
   }
 
   .surface-panel-hero {
-    border-color: hsl(var(--border) / 0.7);
-    background-color: hsl(var(--card) / 0.9);
+    border-color: hsl(var(--border) / 0.78);
+    background:
+      linear-gradient(180deg, hsl(var(--surface-1)), hsl(var(--surface-2) / 0.92));
   }
 
   .surface-panel-strong {
-    border-color: hsl(var(--primary) / 0.1);
-    background-color: hsl(var(--background) / 0.88);
+    border-color: hsl(var(--primary) / 0.14);
+    background:
+      linear-gradient(180deg, hsl(var(--surface-1) / 0.98), hsl(var(--surface-2) / 0.96));
   }
 
   .surface-panel-elevated {
     border-color: hsl(var(--primary) / 0.2);
-    background-color: hsl(var(--card) / 0.95);
+    background:
+      linear-gradient(180deg, hsl(var(--surface-1)), hsl(var(--surface-2) / 0.94));
+    box-shadow:
+      0 0 0 1px hsl(var(--border) / 0.72),
+      0 32px 80px -42px hsl(var(--shadow-color) / 0.35),
+      inset 0 1px 0 hsl(0 0% 100% / 0.55);
   }
 
   .surface-panel-soft {
-    border-color: hsl(var(--border) / 0.7);
-    background-color: hsl(var(--background) / 0.8);
+    border-color: hsl(var(--border) / 0.72);
+    background:
+      linear-gradient(180deg, hsl(var(--surface-2) / 0.92), hsl(var(--surface-3) / 0.82));
+  }
+
+  .surface-shell {
+    border-color: hsl(var(--shell-border));
+    background: hsl(var(--surface-1) / 0.88);
+    box-shadow:
+      0 0 0 1px hsl(var(--shell-border) / 0.6),
+      0 28px 90px -58px hsl(var(--shadow-color) / 0.42);
+    backdrop-filter: blur(20px);
   }
 
   .bg-frontdoor-hero {
     background-image:
-      radial-gradient(circle at top left, hsl(var(--hero-glow) / 0.18), transparent 34%),
-      linear-gradient(135deg, hsl(var(--surface-1)) 0%, hsl(var(--surface-2)) 52%, hsl(var(--surface-1)) 100%);
+      radial-gradient(circle at 0% 0%, hsl(var(--hero-glow) / 0.16), transparent 32%),
+      radial-gradient(circle at 95% 10%, hsl(var(--hero-glow-soft) / 0.14), transparent 24%),
+      linear-gradient(132deg, hsl(var(--surface-1)) 0%, hsl(var(--surface-2)) 48%, hsl(var(--surface-1)) 100%);
   }
 
   .bg-workbench-hero {
-    background-image: linear-gradient(
-      135deg,
-      hsl(var(--surface-1)) 0%,
-      hsl(var(--surface-2)) 100%
-    );
+    background-image:
+      radial-gradient(circle at 0% 0%, hsl(var(--hero-glow) / 0.12), transparent 28%),
+      linear-gradient(135deg, hsl(var(--surface-1)) 0%, hsl(var(--surface-2)) 100%);
+  }
+
+  .hero-terminal {
+    border-color: hsl(var(--dark-border));
+    background:
+      radial-gradient(circle at top right, hsl(var(--hero-glow) / 0.2), transparent 28%),
+      linear-gradient(180deg, hsl(var(--dark-surface)) 0%, hsl(var(--dark-surface-2)) 100%);
+    color: hsl(220 29% 96%);
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.08),
+      0 32px 80px -44px hsl(var(--shadow-color) / 0.72);
+  }
+
+  .link-quiet {
+    color: hsl(var(--muted-foreground));
+    transition: color 180ms ease;
+  }
+
+  .link-quiet:hover {
+    color: hsl(var(--foreground));
+  }
+
+  .section-rule {
+    border-top: 1px solid hsl(var(--border) / 0.72);
   }
 }
 

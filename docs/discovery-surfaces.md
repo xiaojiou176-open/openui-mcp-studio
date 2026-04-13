@@ -7,6 +7,23 @@ Use it when you want the shortest honest map from the public GitHub repo to the
 front door, proof desk, operator desk, supporting install bundles, and
 machine-readable builder surfaces.
 
+## Fast Route First
+
+If this is your first truthful pass, stay on one short route:
+
+1. `README.md`
+   Read the product sentence and first route before touching packaging shelves.
+2. `/`
+   Confirm the front-door path and next steps.
+3. `/proof`
+   Confirm what the repo actually proves.
+4. `/workbench`
+   Open the operator desk only after the proof meaning is already clear.
+
+That is the public-discovery mainline.
+Treat machine-readable routes, manifests, and install bundles as second ring
+until this four-stop path already makes sense.
+
 ## One Product, Two Names
 
 Keep the naming split explicit:
@@ -42,6 +59,10 @@ Read the surfaces in this order:
 9. `examples/skills/`
    Use the repo mirror when you want the plugin-grade starter bundle, sample
    configs, proof loop, and troubleshooting without opening package internals.
+
+The important boundary is simple:
+the discovery chain starts with product meaning and proof, then branches into
+builder metadata and distribution shelves.
 
 ## Human-Facing Surfaces
 

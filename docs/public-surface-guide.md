@@ -22,6 +22,8 @@ Primary product rule:
 - install bundles, skill bundles, plugin metadata, and machine-readable
   contracts are supporting shelves for that repo, not separate co-equal front
   doors
+- the first screen must read in this order:
+  `product sentence -> canonical first route -> first visible proof -> second ring`
 
 Canonical split:
 
@@ -57,8 +59,13 @@ Hard rule:
 - keep the README opening screen small enough that a new visitor can answer
   "what is this, where do I start, and why should I trust it?" without opening
   three more documents first
+- keep the naming split visible but secondary:
+  `OneClickUI.ai` can help the first impression, but it must not outrank the
+  real product sentence
 - keep the first screen focused on the repo itself before talking about plugin,
   skill, SDK, or hosted follow-through lanes
+- keep first visible proof ahead of marketplace, registry, manifest, and
+  descriptor shelves
 - move strategy history, packaging archaeology, and deeper ledgers behind the
   front row instead of stacking them into the README opening block
 
@@ -169,6 +176,8 @@ Preferred regeneration pattern:
 Visual quality floor:
 
 - comparison and trust visuals must not clip their final row or status pills
+- front-door bridge visuals must not depend on a crowded raw app screenshot to
+  explain the product
 - demo frames must not rely on README scaling to stay readable
 - if a frame only works when viewed full-size but becomes unreadable in README,
   treat that as a layout problem and fix the frame or the embedding pattern

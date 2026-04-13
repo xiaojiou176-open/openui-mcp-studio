@@ -32,6 +32,19 @@ Current wave note:
 - the page separates packet anatomy from routing more clearly
 - a visible “not proved here” strip now makes overclaim boundaries easier to spot
 
+## Read This Proof Desk In 30 Seconds
+
+If you only want the shortest honest route, use this order:
+
+1. read the `README.md` product sentence
+2. scan this page for the proof contract and warm-start proof
+3. run `npm run demo:ship` if your local machine is already ready
+4. open `/workbench` only after the proof meaning is clear
+
+That keeps proof ahead of packaging, descriptors, and marketplace shelves.
+It also keeps the repo from sounding like a hosted product before the
+repo-owned evidence has been understood.
+
 ## Proof Desk Map
 
 Use the repository surfaces like a set of counters in the same room:
@@ -89,7 +102,7 @@ looking at?"
 
 ## Demo Proof
 
-![OpenUIStudio front door showing the direct path to the operator desk](./assets/openuistudio-workbench.png)
+![OpenUIStudio front door summary showing the product sentence, first route, and proof-to-workbench handoff](./assets/openuistudio-workbench.png)
 
 ![Animated OpenUIStudio demo showing brief, review, and ship stages](./assets/openuistudio-demo.gif)
 

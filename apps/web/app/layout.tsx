@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -14,6 +15,18 @@ import { SOCIAL_PREVIEW_ROUTE } from "@/lib/social-preview";
 import { getResolvedSiteUrlObject, resolveSiteHref } from "@/lib/site-metadata";
 
 import "./globals.css";
+
+const geist = Geist({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+});
 
 const siteUrl = getResolvedSiteUrlObject();
 const defaultSocialPreviewImage = siteUrl
@@ -59,7 +72,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const locale = await getRequestLocale();
 
   return (
-    <html lang={locale}>
+    <html
+      lang={locale}
+      className={`${geist.variable} ${geistMono.variable} antialiased`}
+    >
       <body className="min-h-dvh bg-background text-foreground antialiased">
         <a
           href="#main-content"

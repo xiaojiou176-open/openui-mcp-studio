@@ -607,18 +607,16 @@ export default function Page() {
                     aria-controls="workbench-results-region"
                     data-testid="search-input"
                   />
-                  <Button
+                  <button
                     type="button"
-                    variant="ghost"
-                    size="icon"
-                    className={`absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 transition-opacity ${query.length > 0 ? "opacity-100" : "pointer-events-none opacity-0"}`}
+                    className={`absolute right-1 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-transparent bg-transparent text-muted-foreground transition-opacity duration-200 hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/15 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 ${query.length > 0 ? "opacity-100" : "pointer-events-none opacity-0"}`}
                     aria-label={copy.clearSearch}
                     data-testid="search-clear"
                     disabled={query.length === 0}
                     onClick={handleClearQuery}
                   >
                     <X className="h-4 w-4" aria-hidden="true" />
-                  </Button>
+                  </button>
                 </div>
               </div>
 
