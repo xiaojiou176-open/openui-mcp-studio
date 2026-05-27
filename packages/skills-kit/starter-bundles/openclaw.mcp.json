@@ -2,7 +2,7 @@
   "host": "OpenClaw",
   "status": "public-ready-unlisted",
   "transport": "stdio-compatible bridge",
-  "displayName": "OpenUI MCP Studio",
+  "displayName": "OpenUIStudio",
   "command": "node",
   "args": [
     "/ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"

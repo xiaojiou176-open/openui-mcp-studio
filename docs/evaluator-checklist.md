@@ -1,7 +1,7 @@
 # Evaluator Checklist
 
 Use this page when you want a short, decision-friendly way to evaluate whether
-OpenUI MCP Studio is worth trying, sharing, or keeping on your radar.
+OpenUIStudio is worth trying, sharing, or keeping on your radar.
 
 Use `docs/proof-and-faq.md` as the canonical proof explanation.
 Use this page as the shorter yes/no checklist.
@@ -29,7 +29,7 @@ You are probably in the right place if you want all four of these:
 
 ## Visual Checklist
 
-![Use cases showing why evaluators keep OpenUI MCP Studio bookmarked](./assets/OpenUIStudio-use-cases.png)
+![Use cases showing why evaluators keep OpenUIStudio bookmarked](./assets/OpenUIStudio-use-cases.png)
 
 ![Trust stack showing proof surface, quality gates, public routing, and governance evidence](./assets/OpenUIStudio-trust-stack.png)
 

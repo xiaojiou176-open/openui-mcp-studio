@@ -84,7 +84,7 @@ async function resolveWorkspaceRoot(startDir) {
 
 function buildHelpText() {
   return [
-    `OpenUI MCP Studio repo-local CLI`,
+    `OpenUIStudio repo-local CLI`,
     "",
     "This command is a repo-side builder surface, not a hosted API, SDK, plugin, or generic builder platform.",
     "",

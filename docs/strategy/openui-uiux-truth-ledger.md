@@ -40,7 +40,7 @@ Use this split before reading any claim:
 
 The shortest honest product sentence is still:
 
-> OpenUI MCP Studio is a local MCP-first UI delivery and review workbench for
+> OpenUIStudio is a local MCP-first UI delivery and review workbench for
 > turning UI briefs into React and shadcn changes, then keeping proof, review,
 > and acceptance visible before a human decides to land them.
 

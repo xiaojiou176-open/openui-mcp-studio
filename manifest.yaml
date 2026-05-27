@@ -1,6 +1,6 @@
 version: 1
 id: OpenUIStudio
-technical_name: OpenUI MCP Studio
+technical_name: OpenUIStudio
 frontdoor_label: OneClickUI.ai
 status: mixed-live-and-review-boundary
 canonical_repo: xiaojiou176-open/OpenUIStudio

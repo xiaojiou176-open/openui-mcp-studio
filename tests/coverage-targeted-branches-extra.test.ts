@@ -24,17 +24,17 @@ const ENV_KEYS = [
 	"GEMINI_DEFAULT_THINKING_LEVEL",
 	"GEMINI_DEFAULT_TEMPERATURE",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUI_MCP_LOG_LEVEL",
-	"OPENUI_MCP_LOG_OUTPUT",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
-	"OPENUI_MCP_LOG_MAX_FILE_MB",
-	"OPENUI_MCP_LOG_RETENTION_DAYS",
-	"OPENUI_MCP_WORKSPACE_ROOT",
+	"OPENUISTUDIO_LOG_LEVEL",
+	"OPENUISTUDIO_LOG_OUTPUT",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_LOG_MAX_FILE_MB",
+	"OPENUISTUDIO_LOG_RETENTION_DAYS",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUI_MCP_CACHE_DIR",
-	"OPENUI_MCP_CACHE_RETENTION_DAYS",
-	"OPENUI_MCP_CACHE_MAX_BYTES",
-	"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
+	"OPENUISTUDIO_CACHE_DIR",
+	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+	"OPENUISTUDIO_CACHE_MAX_BYTES",
+	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
 	"OPENUI_MAX_RETRIES",
 	"OPENUI_GEMINI_SIDECAR_PATH",
 ] as const;
@@ -88,21 +88,21 @@ async function loadLogger() {
 }
 
 function setupLoggerEnv(workspaceRoot: string): void {
-	process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+	process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 	process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-	process.env.OPENUI_MCP_CACHE_DIR = path.join(
+	process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 		workspaceRoot,
 		".runtime-cache",
 		"cache",
 	);
-	process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-	process.env.OPENUI_MCP_CACHE_MAX_BYTES = "104857600";
-	process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-	process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-	process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-	process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "5";
-	process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-	process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
+	process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+	process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
+	process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+	process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+	process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+	process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "5";
+	process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+	process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
 }
 
 afterEach(() => {
@@ -151,7 +151,7 @@ describe("constants targeted branch coverage", () => {
 
 		delete process.env.GEMINI_DEFAULT_TEMPERATURE;
 		delete process.env.OPENUI_MAX_RETRIES;
-		delete process.env.OPENUI_MCP_LOG_RETENTION_DAYS;
+		delete process.env.OPENUISTUDIO_LOG_RETENTION_DAYS;
 
 		expect(constants.getGeminiDefaultTemperature()).toBe(
 			constants.DEFAULT_GEMINI_DEFAULT_TEMPERATURE,
@@ -160,7 +160,7 @@ describe("constants targeted branch coverage", () => {
 			constants.DEFAULT_OPENUI_MAX_RETRIES,
 		);
 		expect(constants.getOpenuiMcpLogRetentionDays()).toBe(
-			constants.DEFAULT_OPENUI_MCP_LOG_RETENTION_DAYS,
+			constants.DEFAULT_OPENUISTUDIO_LOG_RETENTION_DAYS,
 		);
 
 		process.env.OPENUI_MAX_RETRIES = "-1";
@@ -172,26 +172,26 @@ describe("constants targeted branch coverage", () => {
 	it("covers log level default/enum branches and invalid guard", async () => {
 		const constants = await loadConstants();
 
-		delete process.env.OPENUI_MCP_LOG_LEVEL;
+		delete process.env.OPENUISTUDIO_LOG_LEVEL;
 		expect(constants.getOpenuiMcpLogLevel()).toBe(
-			constants.DEFAULT_OPENUI_MCP_LOG_LEVEL,
+			constants.DEFAULT_OPENUISTUDIO_LOG_LEVEL,
 		);
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "warn";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "warn";
 		expect(constants.getOpenuiMcpLogLevel()).toBe("warn");
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "error";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "error";
 		expect(constants.getOpenuiMcpLogLevel()).toBe("error");
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "trace";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "trace";
 		expect(() => constants.getOpenuiMcpLogLevel()).toThrow(
-			/OPENUI_MCP_LOG_LEVEL must be one of/,
+			/OPENUISTUDIO_LOG_LEVEL must be one of/,
 		);
 	});
 
 	it("covers workspace cache-key fallback and sidecar path default branch", async () => {
 		const constants = await loadConstants();
-		delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 		delete process.env.OPENUI_GEMINI_SIDECAR_PATH;
 
 		vi.spyOn(fs, "statSync").mockReturnValue({
@@ -246,8 +246,8 @@ describe("logger targeted branch coverage", () => {
 		const activePath = path.join(logDir, "runtime.jsonl");
 		fs.writeFileSync(activePath, "x".repeat(256), "utf8");
 		setupLoggerEnv(workspaceRoot);
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "0.0001";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "0.0001";
 
 		const logger = await loadLogger();
 		logger.logInfo("rotate-on-start-branch");
@@ -337,8 +337,8 @@ describe("logger targeted branch coverage", () => {
 			"logs",
 		);
 		setupLoggerEnv(workspaceRoot);
-		process.env.OPENUI_MCP_LOG_LEVEL = "error";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "stderr";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "error";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "stderr";
 
 		const stderrSpy = vi
 			.spyOn(process.stderr, "write")
@@ -348,11 +348,11 @@ describe("logger targeted branch coverage", () => {
 		logger.logInfo("below-threshold-ignored");
 		expect(stderrSpy).toHaveBeenCalledTimes(0);
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
 		logger.logInfo("stderr-only");
 		expect(stderrSpy.mock.calls.length).toBeGreaterThanOrEqual(1);
 
-		process.env.OPENUI_MCP_LOG_OUTPUT = "both";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
 		logger.logInfo("stderr-and-file");
 		expect(fs.existsSync(path.join(logDir, "runtime.jsonl"))).toBe(true);
 	});

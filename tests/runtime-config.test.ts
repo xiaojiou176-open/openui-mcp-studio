@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
 	buildChildEnvFromAllowlist,
-	OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST,
+	OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST,
 	parseChildEnvAllowlist,
 } from "../packages/shared-runtime/src/child-env.js";
 
@@ -14,16 +14,16 @@ const RUNTIME_ENV_KEYS = [
 	"GEMINI_DEFAULT_THINKING_LEVEL",
 	"GEMINI_DEFAULT_TEMPERATURE",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUI_MCP_LOG_LEVEL",
-	"OPENUI_MCP_LOG_OUTPUT",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
-	"OPENUI_MCP_CHILD_ENV_ALLOWLIST",
-	"OPENUI_MCP_LOG_DIR",
+	"OPENUISTUDIO_LOG_LEVEL",
+	"OPENUISTUDIO_LOG_OUTPUT",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_CHILD_ENV_ALLOWLIST",
+	"OPENUISTUDIO_LOG_DIR",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUI_MCP_CACHE_DIR",
-	"OPENUI_MCP_CACHE_RETENTION_DAYS",
-	"OPENUI_MCP_CACHE_MAX_BYTES",
-	"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
+	"OPENUISTUDIO_CACHE_DIR",
+	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+	"OPENUISTUDIO_CACHE_MAX_BYTES",
+	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
 	"OPENUI_TOOL_CACHE_ROOT",
 	"OPENUI_TOOL_CACHE_RETENTION_DAYS",
 	"OPENUI_TOOL_CACHE_MAX_BYTES",
@@ -33,9 +33,9 @@ const RUNTIME_ENV_KEYS = [
 	"OPENUI_CHROME_CHANNEL",
 	"OPENUI_CHROME_EXECUTABLE_PATH",
 	"OPENUI_CHROME_CDP_PORT",
-	"OPENUI_MCP_LOG_RETENTION_DAYS",
-	"OPENUI_MCP_LOG_MAX_FILE_MB",
-	"OPENUI_MCP_WORKSPACE_ROOT",
+	"OPENUISTUDIO_LOG_RETENTION_DAYS",
+	"OPENUISTUDIO_LOG_MAX_FILE_MB",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
 	"OPENUI_TIMEOUT_MS",
 	"OPENUI_MAX_RETRIES",
 	"OPENUI_RETRY_BASE_MS",
@@ -63,16 +63,16 @@ function setValidRuntimeEnv() {
 	process.env.GEMINI_DEFAULT_THINKING_LEVEL = "high";
 	process.env.GEMINI_DEFAULT_TEMPERATURE = "1.0";
 	process.env.OPENUI_MODEL_ROUTING = "on";
-	process.env.OPENUI_MCP_LOG_LEVEL = "info";
-	process.env.OPENUI_MCP_LOG_OUTPUT = "both";
-	process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
-	process.env.OPENUI_MCP_LOG_DIR =
+	process.env.OPENUISTUDIO_LOG_LEVEL = "info";
+	process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
+	process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
+	process.env.OPENUISTUDIO_LOG_DIR =
 		".runtime-cache/runs/<run_id>/logs/runtime.jsonl";
 	process.env.OPENUI_RUNTIME_RUN_ID = "runtime-config-run";
-	process.env.OPENUI_MCP_CACHE_DIR = ".runtime-cache/cache";
-	process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-	process.env.OPENUI_MCP_CACHE_MAX_BYTES = "104857600";
-	process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+	process.env.OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
+	process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+	process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
+	process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
 	process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/OpenUIStudio/tooling";
 	process.env.OPENUI_TOOL_CACHE_RETENTION_DAYS = "3";
 	process.env.OPENUI_TOOL_CACHE_MAX_BYTES = "5368709120";
@@ -82,9 +82,9 @@ function setValidRuntimeEnv() {
 	process.env.OPENUI_CHROME_CHANNEL = "chrome";
 	process.env.OPENUI_CHROME_EXECUTABLE_PATH = "";
 	process.env.OPENUI_CHROME_CDP_PORT = "9343";
-	process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-	process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-	process.env.OPENUI_MCP_WORKSPACE_ROOT = process.cwd();
+	process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+	process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+	process.env.OPENUISTUDIO_WORKSPACE_ROOT = process.cwd();
 	process.env.OPENUI_TIMEOUT_MS = "45000";
 	process.env.OPENUI_MAX_RETRIES = "2";
 	process.env.OPENUI_RETRY_BASE_MS = "450";
@@ -133,10 +133,10 @@ describe("runtime config guardrails", () => {
 				'OPENUI_IDEMPOTENCY_TTL_MINUTES must be a positive integer, received: "0".',
 		},
 		{
-			envKey: "OPENUI_MCP_LOG_LEVEL",
+			envKey: "OPENUISTUDIO_LOG_LEVEL",
 			value: "verbose",
 			expectedMessage:
-				'OPENUI_MCP_LOG_LEVEL must be one of "debug" | "info" | "warn" | "error", received: "verbose".',
+				'OPENUISTUDIO_LOG_LEVEL must be one of "debug" | "info" | "warn" | "error", received: "verbose".',
 		},
 	])("throws explicit error for invalid env: $envKey=$value", async ({
 		envKey,
@@ -231,7 +231,7 @@ describe("child env allowlist helper", () => {
 
 		expect(parsed).toEqual(
 			expect.arrayContaining([
-				...OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST,
+				...OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST,
 				"OPENUI_*",
 				"GEMINI_*",
 			]),
@@ -240,7 +240,7 @@ describe("child env allowlist helper", () => {
 
 	it("throws when allowlist contains invalid token", () => {
 		expect(() => parseChildEnvAllowlist("OPENUI_*,INVALID-TOKEN")).toThrowError(
-			'OPENUI_MCP_CHILD_ENV_ALLOWLIST contains invalid token: "INVALID-TOKEN".',
+			'OPENUISTUDIO_CHILD_ENV_ALLOWLIST contains invalid token: "INVALID-TOKEN".',
 		);
 	});
 

@@ -78,8 +78,8 @@ afterEach(async () => {
 			.splice(0)
 			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
-	delete process.env.OPENUI_MCP_CACHE_DIR;
-	delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	delete process.env.OPENUISTUDIO_CACHE_DIR;
+	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	delete process.env.OPENUI_IDEMPOTENCY_TTL_MINUTES;
 	delete process.env.OPENUI_QUEUE_CONCURRENCY;
 	vi.restoreAllMocks();
@@ -89,8 +89,8 @@ afterEach(async () => {
 describe("ship idempotency", () => {
 	it("returns cached output on idempotency hit", async () => {
 		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
@@ -189,8 +189,8 @@ describe("ship idempotency", () => {
 
 	it("uses implicit idempotency key when no explicit key is provided", async () => {
 		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
@@ -274,8 +274,8 @@ describe("ship idempotency", () => {
 
 	it("deduplicates concurrent requests with the same idempotency key", async () => {
 		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 		process.env.OPENUI_QUEUE_CONCURRENCY = "4";
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
@@ -375,8 +375,8 @@ describe("ship idempotency", () => {
 
 	it("keeps singleflight occupied after caller safety-timeout until leader settles", async () => {
 		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 		process.env.OPENUI_QUEUE_CONCURRENCY = "4";
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
@@ -510,8 +510,8 @@ describe("ship idempotency", () => {
 
 	it("fails with explicit timeout status instead of local fallback when idempotency wait expires", async () => {
 		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -571,8 +571,8 @@ describe("ship idempotency", () => {
 
 	it("ignores expired idempotency records and clears stale lock files", async () => {
 		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 		process.env.OPENUI_IDEMPOTENCY_TTL_MINUTES = "30";
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");

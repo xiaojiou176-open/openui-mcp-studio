@@ -5,9 +5,9 @@ import {
 	readRuntimePathRegistry,
 } from "./shared/runtime-path-registry.mjs";
 
-const DEFAULT_OPENUI_MCP_CACHE_DIR = ".runtime-cache/cache";
-const DEFAULT_OPENUI_MCP_CACHE_RETENTION_DAYS = 7;
-const DEFAULT_OPENUI_MCP_CACHE_MAX_BYTES = 104_857_600;
+const DEFAULT_OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
+const DEFAULT_OPENUISTUDIO_CACHE_RETENTION_DAYS = 7;
+const DEFAULT_OPENUISTUDIO_CACHE_MAX_BYTES = 104_857_600;
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const runtimeProcess = globalThis.process;
 
@@ -136,7 +136,7 @@ async function resolveTargetDirs(workspaceRoot) {
 		...Array.from(resetTargets).map((relativePath) => ({
 			path:
 				relativePath === ".runtime-cache/cache"
-						? resolveDirFromEnv("OPENUI_MCP_CACHE_DIR", DEFAULT_OPENUI_MCP_CACHE_DIR)
+						? resolveDirFromEnv("OPENUISTUDIO_CACHE_DIR", DEFAULT_OPENUISTUDIO_CACHE_DIR)
 						: path.resolve(workspaceRoot, relativePath),
 			recreate: true,
 		})),
@@ -317,16 +317,16 @@ function isCacheRetentionOnlyMode(argv) {
 function resolveCacheRetentionPolicy() {
 	return {
 		cacheDir: resolveDirFromEnv(
-			"OPENUI_MCP_CACHE_DIR",
-			DEFAULT_OPENUI_MCP_CACHE_DIR,
+			"OPENUISTUDIO_CACHE_DIR",
+			DEFAULT_OPENUISTUDIO_CACHE_DIR,
 		),
 		retentionDays: requirePositiveIntegerFromEnv(
-			"OPENUI_MCP_CACHE_RETENTION_DAYS",
-			DEFAULT_OPENUI_MCP_CACHE_RETENTION_DAYS,
+			"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+			DEFAULT_OPENUISTUDIO_CACHE_RETENTION_DAYS,
 		),
 		maxBytes: requirePositiveIntegerFromEnv(
-			"OPENUI_MCP_CACHE_MAX_BYTES",
-			DEFAULT_OPENUI_MCP_CACHE_MAX_BYTES,
+			"OPENUISTUDIO_CACHE_MAX_BYTES",
+			DEFAULT_OPENUISTUDIO_CACHE_MAX_BYTES,
 		),
 		nowMs: Date.now(),
 	};

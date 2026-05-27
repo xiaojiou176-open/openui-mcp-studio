@@ -42,7 +42,7 @@ test("frontdoor homepage explains the product, proof path, and next actions", as
 	).toBeVisible();
 	await expect(page.getByText(/OneClickUI\.ai front door/i)).toBeVisible();
 	await expect(
-		page.getByRole("banner").getByText(/Powered by OpenUI MCP Studio/i),
+		page.getByRole("banner").getByText(/Powered by OpenUIStudio/i),
 	).toBeVisible();
 
 	await expect(page.getByTestId("hero-cta-proof")).toBeVisible();

@@ -1,10 +1,10 @@
-# OpenUI MCP Studio First-Success Demo
+# OpenUIStudio First-Success Demo
 
 This is the shortest proof loop that shows the packet is real.
 
 ## Demo prompt
 
-Use OpenUI MCP Studio to inspect this workspace and prepare one safe-first UI
+Use OpenUIStudio to inspect this workspace and prepare one safe-first UI
 delivery step. Start with `openui_scan_workspace_profile` and
 `openui_plan_change`. If the workspace looks healthy, run `openui_generate_ui`
 for one small component or page change, then run `openui_quality_gate` and

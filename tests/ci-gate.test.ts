@@ -29,7 +29,7 @@ type Deferred<T> = {
 	promise: Promise<T>;
 	resolve: (value: T) => void;
 };
-const ORIGINAL_CHILD_ENV_ALLOWLIST = process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST;
+const ORIGINAL_CHILD_ENV_ALLOWLIST = process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
 const ORIGINAL_TEST_ONLY_UNRELATED_SECRET =
 	process.env.TEST_ONLY_UNRELATED_SECRET;
 const ORIGINAL_TEST_ONLY_VALUE = process.env.TEST_ONLY_VALUE;
@@ -72,9 +72,9 @@ async function withTempWorkspace(
 describe("ci gate orchestration", () => {
 	afterEach(() => {
 		if (ORIGINAL_CHILD_ENV_ALLOWLIST === undefined) {
-			delete process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST;
+			delete process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
 		} else {
-			process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST = ORIGINAL_CHILD_ENV_ALLOWLIST;
+			process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = ORIGINAL_CHILD_ENV_ALLOWLIST;
 		}
 		if (ORIGINAL_TEST_ONLY_UNRELATED_SECRET === undefined) {
 			delete process.env.TEST_ONLY_UNRELATED_SECRET;
@@ -96,12 +96,12 @@ describe("ci gate orchestration", () => {
 	});
 
 	it("passes allowlisted child env instead of full host env", async () => {
-		const originalAllowlist = process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST;
+		const originalAllowlist = process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
 		const originalSecret = process.env.TEST_ONLY_UNRELATED_SECRET;
 		const originalOpenui = process.env.TEST_ONLY_VALUE;
 		const originalPath = process.env.PATH;
 
-		process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST = "TEST_ONLY_VALUE";
+		process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = "TEST_ONLY_VALUE";
 		process.env.TEST_ONLY_UNRELATED_SECRET = "should-not-pass";
 		process.env.TEST_ONLY_VALUE = "allowed";
 		process.env.PATH = "/usr/bin";
@@ -141,9 +141,9 @@ describe("ci gate orchestration", () => {
 			expect(capturedShell).toBeUndefined();
 		} finally {
 			if (originalAllowlist === undefined) {
-				delete process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST;
+				delete process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
 			} else {
-				process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST = originalAllowlist;
+				process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = originalAllowlist;
 			}
 			if (originalSecret === undefined) {
 				delete process.env.TEST_ONLY_UNRELATED_SECRET;

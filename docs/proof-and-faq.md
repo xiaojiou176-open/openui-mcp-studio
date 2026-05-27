@@ -2,7 +2,7 @@
 
 This page gives the shortest public answer to a practical question:
 
-> Does OpenUI MCP Studio actually do more than produce a pretty screenshot?
+> Does OpenUIStudio actually do more than produce a pretty screenshot?
 
 The short answer is yes. The repository is built around a workflow that can
 generate UI, apply files, and validate the result through repository-owned
@@ -102,13 +102,13 @@ looking at?"
 
 ## Demo Proof
 
-![OpenUI MCP Studio front door summary showing the product sentence, first route, and proof-to-workbench handoff](./assets/OpenUIStudio-workbench.png)
+![OpenUIStudio front door summary showing the product sentence, first route, and proof-to-workbench handoff](./assets/OpenUIStudio-workbench.png)
 
-![Animated OpenUI MCP Studio demo showing brief, review, and ship stages](./assets/OpenUIStudio-demo.gif)
+![Animated OpenUIStudio demo showing brief, review, and ship stages](./assets/OpenUIStudio-demo.gif)
 
 ![Workflow overview showing brief, generate, apply, and verify stages](./assets/OpenUIStudio-workflow-overview.png)
 
-![Comparison showing how OpenUI MCP Studio differs from a pure code generator and a generic UI demo repo](./assets/OpenUIStudio-comparison.png)
+![Comparison showing how OpenUIStudio differs from a pure code generator and a generic UI demo repo](./assets/OpenUIStudio-comparison.png)
 
 ![Trust stack showing proof surface, quality gates, public routing, and governance evidence](./assets/OpenUIStudio-trust-stack.png)
 
@@ -280,7 +280,7 @@ than a plain generator, it comes down to four visible layers:
 
 That is the short version of the product claim:
 
-> OpenUI MCP Studio is for teams who want UI generation to end in inspectable
+> OpenUIStudio is for teams who want UI generation to end in inspectable
 > project state, not just model output.
 
 ## FAQ
@@ -317,7 +317,7 @@ Yes, but it is stronger in a narrow way.
 
 The honest upgraded claim is:
 
-> OpenUI MCP Studio is a UI/UX delivery and review companion
+> OpenUIStudio is a UI/UX delivery and review companion
 
 That sentence is supported by real proof, review, acceptance, and UI/UX audit
 surfaces. It is **not** the same as claiming:

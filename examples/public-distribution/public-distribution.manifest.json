@@ -1,7 +1,7 @@
 {
   "version": 1,
   "id": "openui.public-distribution-bundle",
-  "technicalName": "OpenUI MCP Studio",
+  "technicalName": "OpenUIStudio",
   "frontdoorLabel": "OneClickUI.ai",
   "status": "package-ready",
   "summary": "Supporting install bundle for the public OpenUI repo across Codex, Claude Code, OpenCode-adaptable MCP hosts, and other stdio clients. It ships sample configs, install notes, proof guidance, and troubleshooting without claiming an official listing.",

@@ -1,4 +1,4 @@
-# OpenUI MCP Studio Troubleshooting
+# OpenUIStudio Troubleshooting
 
 Use these checks before escalating.
 

@@ -8,11 +8,11 @@ const RUNTIME_ENV_KEYS = [
 	"GEMINI_MODEL_FAST",
 	"GEMINI_MODEL_STRONG",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUI_MCP_LOG_DIR",
-	"OPENUI_MCP_CACHE_DIR",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_LOG_DIR",
+	"OPENUISTUDIO_CACHE_DIR",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUI_MCP_WORKSPACE_ROOT",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
 	"OPENUI_QUEUE_MAX_PENDING",
 	"OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES",
 ] as const;
@@ -147,12 +147,12 @@ describe("constants branch coverage extras", () => {
 	it("supports default log rotate and rejects invalid rotate mode", async () => {
 		const { getOpenuiMcpLogRotateOnStart } = await loadConstantsModule();
 
-		delete process.env.OPENUI_MCP_LOG_ROTATE_ON_START;
+		delete process.env.OPENUISTUDIO_LOG_ROTATE_ON_START;
 		expect(getOpenuiMcpLogRotateOnStart()).toBe("on");
 
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "invalid";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "invalid";
 		expect(() => getOpenuiMcpLogRotateOnStart()).toThrow(
-			'OPENUI_MCP_LOG_ROTATE_ON_START must be "on" or "off"',
+			'OPENUISTUDIO_LOG_ROTATE_ON_START must be "on" or "off"',
 		);
 	});
 
@@ -161,7 +161,7 @@ describe("constants branch coverage extras", () => {
 			os.tmpdir(),
 			`openui-missing-${Date.now()}-${Math.random().toString(16).slice(2)}`,
 		);
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = missingPath;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = missingPath;
 		const moduleForMissing = await loadConstantsModule();
 		expect(() => moduleForMissing.getWorkspaceRoot()).toThrow(
 			"must point to an existing directory",
@@ -173,7 +173,7 @@ describe("constants branch coverage extras", () => {
 		tempDirs.push(tempDir);
 		const tempFile = path.join(tempDir, "root-file.txt");
 		await fs.writeFile(tempFile, "not a dir", "utf8");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = tempFile;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = tempFile;
 		const moduleForFile = await loadConstantsModule();
 		expect(() => moduleForFile.getWorkspaceRoot()).toThrow(
 			"must point to a directory",
@@ -190,10 +190,10 @@ describe("constants branch coverage extras", () => {
 		);
 		tempDirs.push(outsideRoot);
 
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = "constants-run";
-		process.env.OPENUI_MCP_LOG_DIR = path.join(outsideRoot, "logs");
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(outsideRoot, "cache");
+		process.env.OPENUISTUDIO_LOG_DIR = path.join(outsideRoot, "logs");
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(outsideRoot, "cache");
 
 		const constants = await loadConstantsModule();
 		const canonicalWorkspaceRoot = await fs.realpath(workspaceRoot);
@@ -207,7 +207,7 @@ describe("constants branch coverage extras", () => {
 			),
 		);
 		expect(() => constants.getOpenuiMcpCacheDirWithinWorkspace()).toThrow(
-			/OPENUI_MCP_CACHE_DIR must resolve inside OPENUI_MCP_WORKSPACE_ROOT/,
+			/OPENUISTUDIO_CACHE_DIR must resolve inside OPENUISTUDIO_WORKSPACE_ROOT/,
 		);
 	});
 
@@ -217,10 +217,10 @@ describe("constants branch coverage extras", () => {
 		);
 		tempDirs.push(workspaceRoot);
 
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = "constants-default-run";
-		delete process.env.OPENUI_MCP_LOG_DIR;
-		delete process.env.OPENUI_MCP_CACHE_DIR;
+		delete process.env.OPENUISTUDIO_LOG_DIR;
+		delete process.env.OPENUISTUDIO_CACHE_DIR;
 
 		const constants = await loadConstantsModule();
 		const canonicalWorkspaceRoot = await fs.realpath(workspaceRoot);

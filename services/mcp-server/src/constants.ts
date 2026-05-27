@@ -31,28 +31,28 @@ export const DEFAULT_OPENUI_MODEL_ROUTING = String(
 	resolveEnvDefaultValue("OPENUI_MODEL_ROUTING"),
 );
 export const DEFAULT_WORKSPACE_ROOT = String(
-	resolveEnvDefaultValue("OPENUI_MCP_WORKSPACE_ROOT"),
+	resolveEnvDefaultValue("OPENUISTUDIO_WORKSPACE_ROOT"),
 );
-export const DEFAULT_OPENUI_MCP_LOG_LEVEL = String(
-	resolveEnvDefaultValue("OPENUI_MCP_LOG_LEVEL"),
+export const DEFAULT_OPENUISTUDIO_LOG_LEVEL = String(
+	resolveEnvDefaultValue("OPENUISTUDIO_LOG_LEVEL"),
 );
-export const DEFAULT_OPENUI_MCP_LOG_OUTPUT = String(
-	resolveEnvDefaultValue("OPENUI_MCP_LOG_OUTPUT"),
+export const DEFAULT_OPENUISTUDIO_LOG_OUTPUT = String(
+	resolveEnvDefaultValue("OPENUISTUDIO_LOG_OUTPUT"),
 );
-export const DEFAULT_OPENUI_MCP_LOG_ROTATE_ON_START = String(
-	resolveEnvDefaultValue("OPENUI_MCP_LOG_ROTATE_ON_START"),
+export const DEFAULT_OPENUISTUDIO_LOG_ROTATE_ON_START = String(
+	resolveEnvDefaultValue("OPENUISTUDIO_LOG_ROTATE_ON_START"),
 );
-export const DEFAULT_OPENUI_MCP_LOG_DIR = String(
-	resolveEnvDefaultValue("OPENUI_MCP_LOG_DIR"),
+export const DEFAULT_OPENUISTUDIO_LOG_DIR = String(
+	resolveEnvDefaultValue("OPENUISTUDIO_LOG_DIR"),
 );
-export const DEFAULT_OPENUI_MCP_CACHE_DIR = String(
-	resolveEnvDefaultValue("OPENUI_MCP_CACHE_DIR"),
+export const DEFAULT_OPENUISTUDIO_CACHE_DIR = String(
+	resolveEnvDefaultValue("OPENUISTUDIO_CACHE_DIR"),
 );
-export const DEFAULT_OPENUI_MCP_LOG_RETENTION_DAYS = Number(
-	resolveEnvDefaultValue("OPENUI_MCP_LOG_RETENTION_DAYS"),
+export const DEFAULT_OPENUISTUDIO_LOG_RETENTION_DAYS = Number(
+	resolveEnvDefaultValue("OPENUISTUDIO_LOG_RETENTION_DAYS"),
 );
-export const DEFAULT_OPENUI_MCP_LOG_MAX_FILE_MB = Number(
-	resolveEnvDefaultValue("OPENUI_MCP_LOG_MAX_FILE_MB"),
+export const DEFAULT_OPENUISTUDIO_LOG_MAX_FILE_MB = Number(
+	resolveEnvDefaultValue("OPENUISTUDIO_LOG_MAX_FILE_MB"),
 );
 export const DEFAULT_OPENUI_TIMEOUT_MS = Number(
 	resolveEnvDefaultValue("OPENUI_TIMEOUT_MS"),
@@ -75,14 +75,14 @@ export const DEFAULT_OPENUI_IDEMPOTENCY_TTL_MINUTES = Number(
 export const DEFAULT_OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES = Number(
 	resolveEnvDefaultValue("OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES"),
 );
-export const DEFAULT_OPENUI_MCP_CACHE_RETENTION_DAYS = Number(
-	resolveEnvDefaultValue("OPENUI_MCP_CACHE_RETENTION_DAYS"),
+export const DEFAULT_OPENUISTUDIO_CACHE_RETENTION_DAYS = Number(
+	resolveEnvDefaultValue("OPENUISTUDIO_CACHE_RETENTION_DAYS"),
 );
-export const DEFAULT_OPENUI_MCP_CACHE_MAX_BYTES = Number(
-	resolveEnvDefaultValue("OPENUI_MCP_CACHE_MAX_BYTES"),
+export const DEFAULT_OPENUISTUDIO_CACHE_MAX_BYTES = Number(
+	resolveEnvDefaultValue("OPENUISTUDIO_CACHE_MAX_BYTES"),
 );
-export const DEFAULT_OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = Number(
-	resolveEnvDefaultValue("OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES"),
+export const DEFAULT_OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = Number(
+	resolveEnvDefaultValue("OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES"),
 );
 export const DEFAULT_OPENUI_TOOL_CACHE_ROOT = String(
 	resolveEnvDefaultValue("OPENUI_TOOL_CACHE_ROOT"),
@@ -397,7 +397,7 @@ export function resolveOpenuiModel(input: {
 }
 
 export function getWorkspaceRoot(): string {
-	const raw = process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	const raw = process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	const trimmed = raw?.trim();
 	const cacheKey = `${process.cwd()}::${raw ?? ""}`;
 	if (cachedWorkspaceRoot?.cacheKey === cacheKey) {
@@ -410,7 +410,7 @@ export function getWorkspaceRoot(): string {
 		stat = fs.statSync(resolved);
 	} catch {
 		throw new Error(
-			`OPENUI_MCP_WORKSPACE_ROOT must point to an existing directory, received: ${JSON.stringify(
+			`OPENUISTUDIO_WORKSPACE_ROOT must point to an existing directory, received: ${JSON.stringify(
 				raw,
 			)}.`,
 		);
@@ -418,7 +418,7 @@ export function getWorkspaceRoot(): string {
 
 	if (!stat.isDirectory()) {
 		throw new Error(
-			`OPENUI_MCP_WORKSPACE_ROOT must point to a directory, received: ${JSON.stringify(raw)}.`,
+			`OPENUISTUDIO_WORKSPACE_ROOT must point to a directory, received: ${JSON.stringify(raw)}.`,
 		);
 	}
 
@@ -428,9 +428,9 @@ export function getWorkspaceRoot(): string {
 }
 
 export function getOpenuiMcpLogLevel(): OpenuiMcpLogLevel {
-	const raw = process.env.OPENUI_MCP_LOG_LEVEL;
+	const raw = process.env.OPENUISTUDIO_LOG_LEVEL;
 	if (raw === undefined || raw.trim() === "") {
-		return DEFAULT_OPENUI_MCP_LOG_LEVEL as OpenuiMcpLogLevel;
+		return DEFAULT_OPENUISTUDIO_LOG_LEVEL as OpenuiMcpLogLevel;
 	}
 
 	const normalized = raw.trim().toLowerCase();
@@ -444,14 +444,14 @@ export function getOpenuiMcpLogLevel(): OpenuiMcpLogLevel {
 	}
 
 	throw new Error(
-		`OPENUI_MCP_LOG_LEVEL must be one of "debug" | "info" | "warn" | "error", received: ${JSON.stringify(raw)}.`,
+		`OPENUISTUDIO_LOG_LEVEL must be one of "debug" | "info" | "warn" | "error", received: ${JSON.stringify(raw)}.`,
 	);
 }
 
 export function getOpenuiMcpLogOutput(): OpenuiMcpLogOutput {
-	const raw = process.env.OPENUI_MCP_LOG_OUTPUT;
+	const raw = process.env.OPENUISTUDIO_LOG_OUTPUT;
 	if (raw === undefined || raw.trim() === "") {
-		return DEFAULT_OPENUI_MCP_LOG_OUTPUT as OpenuiMcpLogOutput;
+		return DEFAULT_OPENUISTUDIO_LOG_OUTPUT as OpenuiMcpLogOutput;
 	}
 
 	const normalized = raw.trim().toLowerCase();
@@ -464,14 +464,14 @@ export function getOpenuiMcpLogOutput(): OpenuiMcpLogOutput {
 	}
 
 	throw new Error(
-		`OPENUI_MCP_LOG_OUTPUT must be one of "stderr" | "file" | "both", received: ${JSON.stringify(raw)}.`,
+		`OPENUISTUDIO_LOG_OUTPUT must be one of "stderr" | "file" | "both", received: ${JSON.stringify(raw)}.`,
 	);
 }
 
 export function getOpenuiMcpLogRotateOnStart(): OpenuiMcpLogRotateOnStart {
-	const raw = process.env.OPENUI_MCP_LOG_ROTATE_ON_START;
+	const raw = process.env.OPENUISTUDIO_LOG_ROTATE_ON_START;
 	if (raw === undefined || raw.trim() === "") {
-		return DEFAULT_OPENUI_MCP_LOG_ROTATE_ON_START as OpenuiMcpLogRotateOnStart;
+		return DEFAULT_OPENUISTUDIO_LOG_ROTATE_ON_START as OpenuiMcpLogRotateOnStart;
 	}
 
 	const normalized = raw.trim().toLowerCase();
@@ -480,7 +480,7 @@ export function getOpenuiMcpLogRotateOnStart(): OpenuiMcpLogRotateOnStart {
 	}
 
 	throw new Error(
-		`OPENUI_MCP_LOG_ROTATE_ON_START must be "on" or "off", received: ${JSON.stringify(raw)}.`,
+		`OPENUISTUDIO_LOG_ROTATE_ON_START must be "on" or "off", received: ${JSON.stringify(raw)}.`,
 	);
 }
 
@@ -491,17 +491,17 @@ export function getOpenuiMcpLogDir(): string {
 }
 
 export function getOpenuiMcpCacheDir(): string {
-	const raw = process.env.OPENUI_MCP_CACHE_DIR;
+	const raw = process.env.OPENUISTUDIO_CACHE_DIR;
 	const trimmed = raw?.trim();
 	const workspaceRoot = getWorkspaceRoot();
-	const candidate = trimmed || DEFAULT_OPENUI_MCP_CACHE_DIR;
+	const candidate = trimmed || DEFAULT_OPENUISTUDIO_CACHE_DIR;
 	return path.isAbsolute(candidate)
 		? path.resolve(candidate)
 		: path.resolve(workspaceRoot, candidate);
 }
 
 function resolveRuntimeDirWithinWorkspace(
-	envName: "OPENUI_MCP_LOG_DIR" | "OPENUI_MCP_CACHE_DIR",
+	envName: "OPENUISTUDIO_LOG_DIR" | "OPENUISTUDIO_CACHE_DIR",
 	defaultDir: string,
 ): string {
 	const raw = process.env[envName];
@@ -513,7 +513,7 @@ function resolveRuntimeDirWithinWorkspace(
 		: path.resolve(workspaceRoot, candidate);
 	if (!isPathInsideRootWithRealpath(workspaceRoot, resolved)) {
 		throw new Error(
-			`${envName} must resolve inside OPENUI_MCP_WORKSPACE_ROOT (${workspaceRoot}), received: ${JSON.stringify(
+			`${envName} must resolve inside OPENUISTUDIO_WORKSPACE_ROOT (${workspaceRoot}), received: ${JSON.stringify(
 				raw,
 			)}.`,
 		);
@@ -527,22 +527,22 @@ export function getOpenuiMcpLogDirWithinWorkspace(): string {
 
 export function getOpenuiMcpCacheDirWithinWorkspace(): string {
 	return resolveRuntimeDirWithinWorkspace(
-		"OPENUI_MCP_CACHE_DIR",
-		DEFAULT_OPENUI_MCP_CACHE_DIR,
+		"OPENUISTUDIO_CACHE_DIR",
+		DEFAULT_OPENUISTUDIO_CACHE_DIR,
 	);
 }
 
 export function getOpenuiMcpLogRetentionDays(): number {
 	return requirePositiveIntegerFromEnv(
-		"OPENUI_MCP_LOG_RETENTION_DAYS",
-		DEFAULT_OPENUI_MCP_LOG_RETENTION_DAYS,
+		"OPENUISTUDIO_LOG_RETENTION_DAYS",
+		DEFAULT_OPENUISTUDIO_LOG_RETENTION_DAYS,
 	);
 }
 
 export function getOpenuiMcpLogMaxFileMb(): number {
 	return requirePositiveNumberFromEnv(
-		"OPENUI_MCP_LOG_MAX_FILE_MB",
-		DEFAULT_OPENUI_MCP_LOG_MAX_FILE_MB,
+		"OPENUISTUDIO_LOG_MAX_FILE_MB",
+		DEFAULT_OPENUISTUDIO_LOG_MAX_FILE_MB,
 	);
 }
 
@@ -622,22 +622,22 @@ export function getGeminiSidecarStdoutBufferMaxBytes(): number {
 
 export function getOpenuiMcpCacheRetentionDays(): number {
 	return requirePositiveIntegerFromEnv(
-		"OPENUI_MCP_CACHE_RETENTION_DAYS",
-		DEFAULT_OPENUI_MCP_CACHE_RETENTION_DAYS,
+		"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+		DEFAULT_OPENUISTUDIO_CACHE_RETENTION_DAYS,
 	);
 }
 
 export function getOpenuiMcpCacheMaxBytes(): number {
 	return requirePositiveIntegerFromEnv(
-		"OPENUI_MCP_CACHE_MAX_BYTES",
-		DEFAULT_OPENUI_MCP_CACHE_MAX_BYTES,
+		"OPENUISTUDIO_CACHE_MAX_BYTES",
+		DEFAULT_OPENUISTUDIO_CACHE_MAX_BYTES,
 	);
 }
 
 export function getOpenuiMcpCacheCleanIntervalMinutes(): number {
 	return requirePositiveIntegerFromEnv(
-		"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
-		DEFAULT_OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES,
+		"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
+		DEFAULT_OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES,
 	);
 }
 
@@ -753,7 +753,7 @@ export function validateOpenuiRuntimeConfig(): void {
 	getGeminiDefaultThinkingLevel();
 	getGeminiDefaultTemperature();
 	getOpenuiModelRoutingMode();
-	parseChildEnvAllowlist(process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST);
+	parseChildEnvAllowlist(process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST);
 	getWorkspaceRoot();
 	getOpenuiMcpLogLevel();
 	getOpenuiMcpLogOutput();

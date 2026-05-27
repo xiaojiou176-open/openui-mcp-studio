@@ -26,7 +26,7 @@ In one short paragraph:
 In one line:
 
 - use the same product sentence as `README.md`
-- keep `OpenUI MCP Studio` as the technical name
+- keep `OpenUIStudio` as the technical name
 - only mention `OneClickUI.ai` as the front-door label, never as proof of a
   live canonical site
 

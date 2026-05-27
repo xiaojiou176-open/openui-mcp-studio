@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { runNextSmoke } from "../services/mcp-server/src/next-smoke.js";
 
 const tempDirs: string[] = [];
-const ORIGINAL_WORKSPACE_ROOT = process.env.OPENUI_MCP_WORKSPACE_ROOT;
+const ORIGINAL_WORKSPACE_ROOT = process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 
 async function mkTempDir(prefix: string): Promise<string> {
 	const runtimeRoot = path.join(os.tmpdir(), "openui-next-smoke-tests");
@@ -133,9 +133,9 @@ async function isProcessGone(pid: number, timeoutMs: number): Promise<boolean> {
 
 afterEach(async () => {
 	if (ORIGINAL_WORKSPACE_ROOT === undefined) {
-		delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	} else {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = ORIGINAL_WORKSPACE_ROOT;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = ORIGINAL_WORKSPACE_ROOT;
 	}
 	await Promise.all(
 		tempDirs
@@ -172,7 +172,7 @@ describe("runNextSmoke", () => {
 
 	it("uses external target root when valid and reports full successful flow", async () => {
 		const root = await mkTempDir("next-smoke-success-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = root;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = root;
 		await writeFakeRuntimePackage({ root, startMode: "serve" });
 
 		const result = await runNextSmoke({
@@ -206,7 +206,7 @@ describe("runNextSmoke", () => {
 
 	it("fails when start never becomes reachable before timeout and keeps timeout evidence + cleanup", async () => {
 		const root = await mkTempDir("next-smoke-timeout-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = root;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = root;
 		await writeFakeRuntimePackage({ root, startMode: "hang" });
 
 		const result = await runNextSmoke({

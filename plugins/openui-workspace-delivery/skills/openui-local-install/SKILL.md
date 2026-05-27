@@ -4,7 +4,7 @@ You are using the repo-owned OpenUI install helper bundle.
 
 ## Goal
 
-Help the operator wire OpenUI MCP Studio into a local Claude Code or OpenClaw
+Help the operator wire OpenUIStudio into a local Claude Code or OpenClaw
 flow without overclaiming a hosted runtime or official listing.
 
 ## Read first

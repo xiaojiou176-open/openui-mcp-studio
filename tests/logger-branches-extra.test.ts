@@ -4,17 +4,17 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const ENV_KEYS = [
-	"OPENUI_MCP_LOG_LEVEL",
-	"OPENUI_MCP_LOG_OUTPUT",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
-	"OPENUI_MCP_LOG_RETENTION_DAYS",
-	"OPENUI_MCP_LOG_MAX_FILE_MB",
-	"OPENUI_MCP_WORKSPACE_ROOT",
+	"OPENUISTUDIO_LOG_LEVEL",
+	"OPENUISTUDIO_LOG_OUTPUT",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_LOG_RETENTION_DAYS",
+	"OPENUISTUDIO_LOG_MAX_FILE_MB",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUI_MCP_CACHE_DIR",
-	"OPENUI_MCP_CACHE_RETENTION_DAYS",
-	"OPENUI_MCP_CACHE_MAX_BYTES",
-	"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
+	"OPENUISTUDIO_CACHE_DIR",
+	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+	"OPENUISTUDIO_CACHE_MAX_BYTES",
+	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
 ] as const;
 
 const ACTIVE_LOG_FILE = "runtime.jsonl";
@@ -70,21 +70,21 @@ describe("logger extra branch coverage", () => {
 		fs.writeFileSync(activePath, "x".repeat(120), "utf8");
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
 
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = canonicalWorkspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = canonicalWorkspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			canonicalWorkspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "104857600";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "0.0001";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "0.0001";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		logger.logInfo("rotate-on-append", {
@@ -105,18 +105,18 @@ describe("logger extra branch coverage", () => {
 	it("emits internal error when cache retention config parsing fails", async () => {
 		const workspaceRoot = mkTempDir("openui-logger-cache-config-");
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = canonicalWorkspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = canonicalWorkspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			canonicalWorkspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
 
 		vi.doMock(
 			"../packages/runtime-observability/src/cache-retention.js",
@@ -147,18 +147,18 @@ describe("logger extra branch coverage", () => {
 	it("emits internal error when cache pruning throws", async () => {
 		const workspaceRoot = mkTempDir("openui-logger-cache-prune-");
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = canonicalWorkspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = canonicalWorkspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			canonicalWorkspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
 
 		vi.doMock(
 			"../packages/runtime-observability/src/cache-retention.js",
@@ -193,21 +193,21 @@ describe("logger extra branch coverage", () => {
 	it("disables file sink after first write failure and short-circuits later writes", async () => {
 		const workspaceRoot = mkTempDir("openui-logger-disable-sink-");
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = canonicalWorkspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = canonicalWorkspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			canonicalWorkspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "104857600";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
 
 		const openSpy = vi.spyOn(fs, "openSync").mockImplementationOnce(() => {
 			throw new Error("open-failed");

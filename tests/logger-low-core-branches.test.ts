@@ -9,14 +9,14 @@ import {
 } from "../services/mcp-server/src/logger.js";
 
 const ENV_KEYS = [
-	"OPENUI_MCP_LOG_LEVEL",
-	"OPENUI_MCP_LOG_OUTPUT",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
-	"OPENUI_MCP_LOG_RETENTION_DAYS",
-	"OPENUI_MCP_LOG_MAX_FILE_MB",
-	"OPENUI_MCP_WORKSPACE_ROOT",
+	"OPENUISTUDIO_LOG_LEVEL",
+	"OPENUISTUDIO_LOG_OUTPUT",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_LOG_RETENTION_DAYS",
+	"OPENUISTUDIO_LOG_MAX_FILE_MB",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUI_MCP_CACHE_DIR",
+	"OPENUISTUDIO_CACHE_DIR",
 ] as const;
 const originalEnv = new Map<string, string | undefined>(
 	ENV_KEYS.map((key) => [key, process.env[key]]),
@@ -87,14 +87,14 @@ describe("logger low-core branches", () => {
 
 	it("logs internal error payload when initialization fails with non-Error input", async () => {
 		const workspaceRoot = mkTempDir("openui-logger-non-error-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = "logger-low-core-run";
-		process.env.OPENUI_MCP_CACHE_DIR = mkTempDir("openui-cache-dir-");
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
+		process.env.OPENUISTUDIO_CACHE_DIR = mkTempDir("openui-cache-dir-");
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
 
 		const mkdirSpy = vi.spyOn(fs, "mkdirSync").mockImplementationOnce(() => {
 			throw "mkdir-failed";

@@ -1,6 +1,6 @@
 # OpenUI Codex Delivery
 
-This bundle is the repo-owned Codex plugin-grade package for OpenUI MCP Studio.
+This bundle is the repo-owned Codex plugin-grade package for OpenUIStudio.
 
 Use it with a repo or personal marketplace file so Codex can discover the
 bundle, then follow the local MCP starter JSON under `samples/`.

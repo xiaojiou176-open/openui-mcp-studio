@@ -2,7 +2,7 @@
   "version": 1,
   "surface": "openclaw-public-ready",
   "status": "public-ready",
-  "summary": "Repo-owned OpenClaw public-ready bundle for OpenUI MCP Studio using a Claude-compatible plugin bundle, starter config, and proof loop.",
+  "summary": "Repo-owned OpenClaw public-ready bundle for OpenUIStudio using a Claude-compatible plugin bundle, starter config, and proof loop.",
   "installPath": [
     "openclaw plugins install ./plugins/openui-workspace-delivery",
     "packages/skills-kit/starter-bundles/openclaw.mcp.json",

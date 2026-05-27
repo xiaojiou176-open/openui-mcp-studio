@@ -26,11 +26,11 @@ afterEach(() => {
 	}
 	createdCacheDirs.clear();
 
-	delete process.env.OPENUI_MCP_CACHE_DIR;
-	delete process.env.OPENUI_MCP_CACHE_RETENTION_DAYS;
-	delete process.env.OPENUI_MCP_CACHE_MAX_BYTES;
-	delete process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES;
-	delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	delete process.env.OPENUISTUDIO_CACHE_DIR;
+	delete process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS;
+	delete process.env.OPENUISTUDIO_CACHE_MAX_BYTES;
+	delete process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES;
+	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 });
 
 describe("cache retention", () => {
@@ -149,10 +149,10 @@ describe("cache retention", () => {
 	});
 
 	it("resolves retention config from env and rejects invalid numeric values", () => {
-		process.env.OPENUI_MCP_CACHE_DIR = " ./tmp-cache ";
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "2048";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "30";
+		process.env.OPENUISTUDIO_CACHE_DIR = " ./tmp-cache ";
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "2048";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "30";
 
 		const config = resolveCacheRetentionConfigFromEnv(123);
 		expect(config.cacheDir).toBe(path.resolve("./tmp-cache"));
@@ -161,9 +161,9 @@ describe("cache retention", () => {
 		expect(config.cleanIntervalMinutes).toBe(30);
 		expect(config.nowMs).toBe(123);
 
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "0";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "0";
 		expect(() => resolveCacheRetentionConfigFromEnv()).toThrow(
-			/OPENUI_MCP_CACHE_MAX_BYTES must be a positive integer/,
+			/OPENUISTUDIO_CACHE_MAX_BYTES must be a positive integer/,
 		);
 	});
 
@@ -174,25 +174,25 @@ describe("cache retention", () => {
 			`outside-cache-${Date.now().toString(36)}`,
 		);
 
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = outsideTarget;
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "2048";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "30";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = outsideTarget;
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "2048";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "30";
 
 		expect(() => resolveCacheRetentionConfigFromEnv()).toThrow(
-			/OPENUI_MCP_CACHE_DIR must resolve inside OPENUI_MCP_WORKSPACE_ROOT/,
+			/OPENUISTUDIO_CACHE_DIR must resolve inside OPENUISTUDIO_WORKSPACE_ROOT/,
 		);
 	});
 
 	it("resolves default cache dir under workspace root", () => {
 		const workspaceRoot = createTempCacheDir();
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		delete process.env.OPENUI_MCP_CACHE_DIR;
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "2048";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "30";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		delete process.env.OPENUISTUDIO_CACHE_DIR;
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "2048";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "30";
 
 		const config = resolveCacheRetentionConfigFromEnv(456);
 		expect(config.cacheDir).toBe(

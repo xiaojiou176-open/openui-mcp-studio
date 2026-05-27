@@ -41,13 +41,13 @@ export const metadata: Metadata = {
     new Set([...PRIMARY_KEYWORDS, ...SUPPORTING_KEYWORDS, ...COMPARE_KEYWORDS]),
   ),
   title: {
-    default: "OpenUI MCP Studio | OneClickUI.ai front door",
-    template: "%s | OpenUI MCP Studio",
+    default: "OpenUIStudio | OneClickUI.ai front door",
+    template: "%s | OpenUIStudio",
   },
   description:
     "MCP-native UI/UX delivery and review for React and shadcn teams through a local workflow for Codex, Claude Code, and builder-facing review paths.",
   openGraph: {
-    title: "OpenUI MCP Studio | OneClickUI.ai front door",
+    title: "OpenUIStudio | OneClickUI.ai front door",
     description:
       "Ship React UI into your workspace with proof, review, acceptance, UI/UX audit surfaces, and an MCP-native builder workflow instead of stopping at a screenshot.",
     siteName: "OneClickUI.ai",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OpenUI MCP Studio | OneClickUI.ai front door",
+    title: "OpenUIStudio | OneClickUI.ai front door",
     description:
       "Prompt to React UI/UX delivery for Codex, Claude Code, and MCP-native builders with proof, review, and acceptance.",
     images: defaultSocialPreviewImage,

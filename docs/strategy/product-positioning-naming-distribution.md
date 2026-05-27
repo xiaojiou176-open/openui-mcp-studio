@@ -20,7 +20,7 @@ It is a truth-preserving strategy memo.
 
 ### Technical main name
 
-`OpenUI MCP Studio`
+`OpenUIStudio`
 
 ### Current shortest honest product sentence
 
@@ -81,7 +81,7 @@ Keep naming as two layers:
 
 Keep:
 
-- `OpenUI MCP Studio`
+- `OpenUIStudio`
 
 Why:
 
@@ -99,7 +99,7 @@ Preferred shape:
 - front-door domain:
   `oneclickui.ai` only if it becomes live and intentionally owned
 - supporting brand phrase:
-  `Powered by OpenUI MCP Studio`
+  `Powered by OpenUIStudio`
 
 Current risk:
 
@@ -248,7 +248,7 @@ use.
 
 ## 9. Immediate No-Regret Actions
 
-- keep `OpenUI MCP Studio` as the technical main name
+- keep `OpenUIStudio` as the technical main name
 - keep `OpenUI` / `MCP` / `proof` / `review` language visible in technical docs
 - treat `OneClickUI` as an experiment only for a future marketing front door
 - do not rename repo/package/server/tool prefixes yet

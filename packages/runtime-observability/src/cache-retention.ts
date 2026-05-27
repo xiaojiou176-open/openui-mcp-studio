@@ -35,9 +35,9 @@ export type CacheRetentionResult = {
 
 function resolveWorkspaceRootFromEnv(): string {
 	const defaultWorkspaceRoot = String(
-		resolveEnvDefaultValue("OPENUI_MCP_WORKSPACE_ROOT"),
+		resolveEnvDefaultValue("OPENUISTUDIO_WORKSPACE_ROOT"),
 	);
-	const raw = process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	const raw = process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	const trimmed = raw?.trim();
 	const resolved = path.resolve(trimmed || defaultWorkspaceRoot);
 	let stat: fs.Stats;
@@ -45,14 +45,14 @@ function resolveWorkspaceRootFromEnv(): string {
 		stat = fs.statSync(resolved);
 	} catch {
 		throw new Error(
-			`OPENUI_MCP_WORKSPACE_ROOT must point to an existing directory, received: ${JSON.stringify(
+			`OPENUISTUDIO_WORKSPACE_ROOT must point to an existing directory, received: ${JSON.stringify(
 				raw,
 			)}.`,
 		);
 	}
 	if (!stat.isDirectory()) {
 		throw new Error(
-			`OPENUI_MCP_WORKSPACE_ROOT must point to a directory, received: ${JSON.stringify(raw)}.`,
+			`OPENUISTUDIO_WORKSPACE_ROOT must point to a directory, received: ${JSON.stringify(raw)}.`,
 		);
 	}
 	return fs.realpathSync(resolved);
@@ -170,17 +170,17 @@ export function resolveCacheRetentionConfigFromEnv(
 ): CacheRetentionConfig {
 	const workspaceRoot = resolveWorkspaceRootFromEnv();
 	const defaultCacheDir = String(
-		resolveEnvDefaultValue("OPENUI_MCP_CACHE_DIR"),
+		resolveEnvDefaultValue("OPENUISTUDIO_CACHE_DIR"),
 	);
-	const rawCacheDir = process.env.OPENUI_MCP_CACHE_DIR?.trim();
+	const rawCacheDir = process.env.OPENUISTUDIO_CACHE_DIR?.trim();
 	const cacheDirCandidate = rawCacheDir || defaultCacheDir;
 	const cacheDir = path.isAbsolute(cacheDirCandidate)
 		? path.resolve(cacheDirCandidate)
 		: path.resolve(workspaceRoot, cacheDirCandidate);
 	if (!isPathInsideRootWithRealpath(workspaceRoot, cacheDir)) {
 		throw new Error(
-			`OPENUI_MCP_CACHE_DIR must resolve inside OPENUI_MCP_WORKSPACE_ROOT (${workspaceRoot}), received: ${JSON.stringify(
-				process.env.OPENUI_MCP_CACHE_DIR,
+			`OPENUISTUDIO_CACHE_DIR must resolve inside OPENUISTUDIO_WORKSPACE_ROOT (${workspaceRoot}), received: ${JSON.stringify(
+				process.env.OPENUISTUDIO_CACHE_DIR,
 			)}.`,
 		);
 	}
@@ -188,16 +188,16 @@ export function resolveCacheRetentionConfigFromEnv(
 	return {
 		cacheDir,
 		retentionDays: requirePositiveIntegerFromEnv(
-			"OPENUI_MCP_CACHE_RETENTION_DAYS",
-			Number(resolveEnvDefaultValue("OPENUI_MCP_CACHE_RETENTION_DAYS")),
+			"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+			Number(resolveEnvDefaultValue("OPENUISTUDIO_CACHE_RETENTION_DAYS")),
 		),
 		maxBytes: requirePositiveIntegerFromEnv(
-			"OPENUI_MCP_CACHE_MAX_BYTES",
-			Number(resolveEnvDefaultValue("OPENUI_MCP_CACHE_MAX_BYTES")),
+			"OPENUISTUDIO_CACHE_MAX_BYTES",
+			Number(resolveEnvDefaultValue("OPENUISTUDIO_CACHE_MAX_BYTES")),
 		),
 		cleanIntervalMinutes: requirePositiveIntegerFromEnv(
-			"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
-			Number(resolveEnvDefaultValue("OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES")),
+			"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
+			Number(resolveEnvDefaultValue("OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES")),
 		),
 		nowMs,
 	};

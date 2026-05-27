@@ -2,7 +2,7 @@
 
 Status: `submission-ready-unlisted`
 
-This note is the operator-facing Docker lane for OpenUI MCP Studio.
+This note is the operator-facing Docker lane for OpenUIStudio.
 
 It answers one narrow question:
 

@@ -94,7 +94,7 @@ export function parseHostedApiBaseConfig(
 ): Omit<HostedApiServerOptions, "authToken"> {
 	return {
 		workspaceRoot:
-			env.OPENUI_MCP_WORKSPACE_ROOT?.trim() || process.cwd(),
+			env.OPENUISTUDIO_WORKSPACE_ROOT?.trim() || process.cwd(),
 		host:
 			env.OPENUI_HOSTED_API_HOST?.trim() ||
 			DEFAULT_OPENUI_HOSTED_API_HOST,

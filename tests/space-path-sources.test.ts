@@ -72,7 +72,7 @@ describe("space path sources", () => {
 				env: {
 					...process.env,
 					PRE_COMMIT_HOME: ".runtime-cache/precommit-full-home",
-					OPENUI_MCP_CACHE_DIR: ".runtime-cache/go-cache",
+					OPENUISTUDIO_CACHE_DIR: ".runtime-cache/go-cache",
 				},
 			});
 
@@ -83,7 +83,7 @@ describe("space path sources", () => {
 						"PRE_COMMIT_HOME must resolve outside workspace",
 					),
 					expect.stringContaining(
-						"OPENUI_MCP_CACHE_DIR must resolve to a canonical runtime path",
+						"OPENUISTUDIO_CACHE_DIR must resolve to a canonical runtime path",
 					),
 				]),
 			);

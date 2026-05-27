@@ -43,14 +43,14 @@ function readText(result: TextResult): string {
 }
 
 afterEach(() => {
-	delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	vi.restoreAllMocks();
 	vi.resetModules();
 });
 
 describe("ship idempotency extra branches", () => {
 	it("returns cached payload when inflight wait resolves to ready", async () => {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -123,7 +123,7 @@ describe("ship idempotency extra branches", () => {
 	});
 
 	it("continues pipeline when idempotency lookup best-effort step fails", async () => {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -197,7 +197,7 @@ describe("ship idempotency extra branches", () => {
 	});
 
 	it("fails loudly when inflight idempotency wait ends with timeout_missing", async () => {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(

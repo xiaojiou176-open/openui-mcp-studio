@@ -11,8 +11,8 @@ type TextResult = {
 type ToolHandler = (args: Record<string, unknown>) => Promise<TextResult>;
 
 const tempDirs: string[] = [];
-const originalWorkspaceRoot = process.env.OPENUI_MCP_WORKSPACE_ROOT;
-const originalCacheDir = process.env.OPENUI_MCP_CACHE_DIR;
+const originalWorkspaceRoot = process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+const originalCacheDir = process.env.OPENUISTUDIO_CACHE_DIR;
 
 async function mkTempDir(prefix: string): Promise<string> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
@@ -56,14 +56,14 @@ function readText(result: TextResult): string {
 
 afterEach(async () => {
 	if (originalWorkspaceRoot === undefined) {
-		delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	} else {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = originalWorkspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = originalWorkspaceRoot;
 	}
 	if (originalCacheDir === undefined) {
-		delete process.env.OPENUI_MCP_CACHE_DIR;
+		delete process.env.OPENUISTUDIO_CACHE_DIR;
 	} else {
-		process.env.OPENUI_MCP_CACHE_DIR = originalCacheDir;
+		process.env.OPENUISTUDIO_CACHE_DIR = originalCacheDir;
 	}
 	await Promise.all(
 		tempDirs
@@ -77,8 +77,8 @@ afterEach(async () => {
 describe("ship delivery intelligence branches", () => {
 	it("skips delivery intelligence collection when artifacts and review bundle are both disabled", async () => {
 		const workspaceRoot = await mkTempDir("openui-ship-no-intel-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"ship-cache",
@@ -212,8 +212,8 @@ describe("ship delivery intelligence branches", () => {
 
 	it("collects workspace profile, plan, acceptance, and review bundle even when artifact emission is disabled", async () => {
 		const workspaceRoot = await mkTempDir("openui-ship-with-intel-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"ship-cache",
@@ -461,8 +461,8 @@ describe("ship delivery intelligence branches", () => {
 
 	it("writes delivery artifacts without building a review bundle when only artifact emission is enabled", async () => {
 		const workspaceRoot = await mkTempDir("openui-ship-artifact-only-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"ship-cache",
@@ -670,8 +670,8 @@ describe("ship delivery intelligence branches", () => {
 
 	it("keeps artifact emission honest when artifact writers return no file paths", async () => {
 		const workspaceRoot = await mkTempDir("openui-ship-artifacts-missing-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"ship-cache",
@@ -863,8 +863,8 @@ describe("ship delivery intelligence branches", () => {
 
 	it("executes feature-flow shipping with default generated components dir and review artifacts", async () => {
 		const workspaceRoot = await mkTempDir("openui-feature-flow-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"ship-cache",
@@ -1102,8 +1102,8 @@ describe("ship delivery intelligence branches", () => {
 
 	it("aggregates failed routes and shared touchpoints into feature-level quality and review", async () => {
 		const workspaceRoot = await mkTempDir("openui-feature-flow-failed-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"ship-cache",
@@ -1338,8 +1338,8 @@ describe("ship delivery intelligence branches", () => {
 
 	it("keeps feature-flow artifacts sparse when artifact writers return no file paths", async () => {
 		const workspaceRoot = await mkTempDir("openui-feature-flow-no-artifacts-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"ship-cache",

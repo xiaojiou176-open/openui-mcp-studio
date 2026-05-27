@@ -5,7 +5,7 @@ below is the **warm-start** path. It assumes your machine is already prepared.
 
 Use this page when you want the fastest honest answer to one question:
 
-> Is OpenUI MCP Studio worth another minute of attention?
+> Is OpenUIStudio worth another minute of attention?
 
 Use this route only if you already have:
 

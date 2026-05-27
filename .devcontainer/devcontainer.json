@@ -1,5 +1,5 @@
 {
-  "name": "openui-mcp-ui-generator",
+  "name": "openuistudio-ui-generator",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."

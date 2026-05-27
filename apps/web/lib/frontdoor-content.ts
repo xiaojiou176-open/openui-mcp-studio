@@ -1,8 +1,8 @@
 export const SITE_BRAND = {
-  technicalName: "OpenUI MCP Studio",
+  technicalName: "OpenUIStudio",
   frontdoorName: "OneClickUI.ai",
   frontdoorLabel: "OneClickUI.ai front door",
-  poweredBy: "Powered by OpenUI MCP Studio",
+  poweredBy: "Powered by OpenUIStudio",
   repoUrl: "https://github.com/xiaojiou176-open/OpenUIStudio",
   docs: {
     readme: "https://github.com/xiaojiou176-open/OpenUIStudio#readme",
@@ -30,7 +30,7 @@ export const SITE_BRAND = {
 export const BRAND_SPLIT = {
   frontdoorLabel: "OneClickUI.ai is the front door label.",
   technicalTruth:
-    "OpenUI MCP Studio remains the technical product, runtime, and release truth.",
+    "OpenUIStudio remains the technical product, runtime, and release truth.",
   canonicalRuntime: "local stdio MCP",
   notTruth:
     "Do not treat OneClickUI.ai as an already-verified live canonical deployment unless remote evidence says so.",

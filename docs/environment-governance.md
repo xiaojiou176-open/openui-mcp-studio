@@ -100,28 +100,28 @@ The following behavior is the source of truth from `package.json`:
 | `GEMINI_DEFAULT_TEMPERATURE` | No | `1.0` | positive number |
 | `NEXT_PUBLIC_SITE_URL` | No | empty | empty disables canonical-site SEO outputs; when set, must be an absolute `http` or `https` URL |
 | `OPENUI_MODEL_ROUTING` | No | `on` | `on` or `off` |
-| `OPENUI_MCP_WORKSPACE_ROOT` | No | current working directory | must resolve to an existing directory |
+| `OPENUISTUDIO_WORKSPACE_ROOT` | No | current working directory | must resolve to an existing directory |
 | `OPENUI_TIMEOUT_MS` | No | `45000` | positive number |
 | `OPENUI_MAX_RETRIES` | No | `2` | non-negative integer |
 | `OPENUI_RETRY_BASE_MS` | No | `450` | positive number |
-| `OPENUI_MCP_LOG_LEVEL` | No | `info` | `debug` \| `info` \| `warn` \| `error` |
-| `OPENUI_MCP_LOG_OUTPUT` | No | `both` | `stderr` \| `file` \| `both` |
-| `OPENUI_MCP_LOG_ROTATE_ON_START` | No | `on` | `on` or `off` |
-| `OPENUI_MCP_CHILD_ENV_ALLOWLIST` | No | empty | comma-separated env keys (`^[A-Z_][A-Z0-9_]*$`) or prefix wildcard ending with `*` |
+| `OPENUISTUDIO_LOG_LEVEL` | No | `info` | `debug` \| `info` \| `warn` \| `error` |
+| `OPENUISTUDIO_LOG_OUTPUT` | No | `both` | `stderr` \| `file` \| `both` |
+| `OPENUISTUDIO_LOG_ROTATE_ON_START` | No | `on` | `on` or `off` |
+| `OPENUISTUDIO_CHILD_ENV_ALLOWLIST` | No | empty | comma-separated env keys (`^[A-Z_][A-Z0-9_]*$`) or prefix wildcard ending with `*` |
 
-Additional note: standard proxy variables `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, and `NO_PROXY` (including lowercase variants) are already included in the child-process baseline allowlist, so the sidecar and child processes inherit them by default without needing `OPENUI_MCP_CHILD_ENV_ALLOWLIST`.
+Additional note: standard proxy variables `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, and `NO_PROXY` (including lowercase variants) are already included in the child-process baseline allowlist, so the sidecar and child processes inherit them by default without needing `OPENUISTUDIO_CHILD_ENV_ALLOWLIST`.
 
 Gemini sidecar runtime note:
 
 - `packages/shared-runtime/src/child-env.ts` forwards standard proxy variables to child processes and the Python sidecar by default.
 - `tooling/python-sidecar-health.py --smoke` emits a structured JSON probe result plus proxy guidance before stopping when outbound network checks fail.
-| `OPENUI_MCP_LOG_DIR` | No | `.runtime-cache/runs/<run_id>/logs/runtime.jsonl` | governed run-scoped path; no arbitrary override semantics |
-| `OPENUI_MCP_LOG_RETENTION_DAYS` | No | `7` | positive integer |
-| `OPENUI_MCP_LOG_MAX_FILE_MB` | No | `10` | positive number |
-| `OPENUI_MCP_CACHE_DIR` | No | `.runtime-cache/cache` | non-empty path string |
-| `OPENUI_MCP_CACHE_RETENTION_DAYS` | No | `7` | positive integer |
-| `OPENUI_MCP_CACHE_MAX_BYTES` | No | `104857600` | positive integer |
-| `OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES` | No | `60` | positive integer |
+| `OPENUISTUDIO_LOG_DIR` | No | `.runtime-cache/runs/<run_id>/logs/runtime.jsonl` | governed run-scoped path; no arbitrary override semantics |
+| `OPENUISTUDIO_LOG_RETENTION_DAYS` | No | `7` | positive integer |
+| `OPENUISTUDIO_LOG_MAX_FILE_MB` | No | `10` | positive number |
+| `OPENUISTUDIO_CACHE_DIR` | No | `.runtime-cache/cache` | non-empty path string |
+| `OPENUISTUDIO_CACHE_RETENTION_DAYS` | No | `7` | positive integer |
+| `OPENUISTUDIO_CACHE_MAX_BYTES` | No | `104857600` | positive integer |
+| `OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES` | No | `60` | positive integer |
 | `OPENUI_TOOL_CACHE_ROOT` | No | `~/.cache/OpenUIStudio/tooling` | non-empty path string; per-workspace cache root is derived under this base root |
 | `OPENUI_TOOL_CACHE_RETENTION_DAYS` | No | `3` | positive integer |
 | `OPENUI_TOOL_CACHE_MAX_BYTES` | No | `5368709120` | positive integer |
@@ -173,10 +173,10 @@ Additional governed keysets (same registry file):
 
 ## Cache Governance (Runtime + Cleanup)
 
-- Default runtime cache directory: `.runtime-cache/cache` (`OPENUI_MCP_CACHE_DIR`).
+- Default runtime cache directory: `.runtime-cache/cache` (`OPENUISTUDIO_CACHE_DIR`).
 - Runtime logs default to `.runtime-cache/runs/<run_id>/logs/runtime.jsonl`; tests/ci/upstream channels live under the same run-scoped `logs/` directory.
-- `npm run clean:runtime` resets runtime logs by purging the run-scoped `.runtime-cache/runs` root from `contracts/runtime/path-registry.json`; it must not infer cleanup targets from `OPENUI_MCP_LOG_DIR`.
-- Retention policy knobs: `OPENUI_MCP_CACHE_RETENTION_DAYS` + `OPENUI_MCP_CACHE_MAX_BYTES`.
+- `npm run clean:runtime` resets runtime logs by purging the run-scoped `.runtime-cache/runs` root from `contracts/runtime/path-registry.json`; it must not infer cleanup targets from `OPENUISTUDIO_LOG_DIR`.
+- Retention policy knobs: `OPENUISTUDIO_CACHE_RETENTION_DAYS` + `OPENUISTUDIO_CACHE_MAX_BYTES`.
 - Repo-specific external tool-cache knobs:
   - `OPENUI_TOOL_CACHE_ROOT` (default `~/.cache/OpenUIStudio/tooling`)
   - `OPENUI_TOOL_CACHE_RETENTION_DAYS` (default `3`)

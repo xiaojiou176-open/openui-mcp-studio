@@ -1,6 +1,6 @@
 # @openui/hosted-api
 
-Internal source package for the self-hosted OpenUI MCP Studio HTTP runtime.
+Internal source package for the self-hosted OpenUIStudio HTTP runtime.
 
 This directory is the implementation home for the hosted product line, but the
 public entrypoint stays the root repo CLI:

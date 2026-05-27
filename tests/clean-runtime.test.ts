@@ -185,7 +185,7 @@ describe("clean runtime script", () => {
 				cwd: tempRoot,
 				env: {
 					...process.env,
-					OPENUI_MCP_CACHE_DIR: outsideLogDir,
+					OPENUISTUDIO_CACHE_DIR: outsideLogDir,
 				},
 			});
 
@@ -280,8 +280,8 @@ describe("clean runtime script", () => {
 					cwd: tempRoot,
 					env: {
 						...process.env,
-						OPENUI_MCP_CACHE_RETENTION_DAYS: "1",
-						OPENUI_MCP_CACHE_MAX_BYTES: "100",
+						OPENUISTUDIO_CACHE_RETENTION_DAYS: "1",
+						OPENUISTUDIO_CACHE_MAX_BYTES: "100",
 					},
 				},
 			);

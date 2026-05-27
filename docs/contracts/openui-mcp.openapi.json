@@ -77,7 +77,7 @@
     "description": "Repo-local dispatcher and formal entry helper for the current builder surface order."
   },
   "x-openui-builder-surface-guide": {
-    "audience": "Zero-context builders evaluating or integrating OpenUI MCP Studio from the repo itself.",
+    "audience": "Zero-context builders evaluating or integrating OpenUIStudio from the repo itself.",
     "startWith": "Begin with the local stdio MCP surface because it is the canonical runtime entrypoint and the rest of the builder layer only explains or supports that runtime.",
     "openapiWhen": "Read the OpenAPI bridge after the MCP-first flow is clear and you need compatibility review, adapter shaping, or breaking-change inspection.",
     "workflowPacketWhen": "Read the workflow packet when you are in maintainer/operator mode and need repo-local plus GitHub-connected readiness without remote mutation.",

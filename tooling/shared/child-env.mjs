@@ -15,7 +15,7 @@ const SENSITIVE_EXACT_DENYLIST = Object.freeze([
 const SENSITIVE_ENV_SEGMENT_PATTERN =
 	/(?:^|_)(TOKEN|API_KEY|SECRET|PASSWORD)(?:_|$)/;
 
-export const OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST = Object.freeze([
+export const OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST = Object.freeze([
 	"PATH",
 	"COMSPEC",
 	"SYSTEMROOT",
@@ -83,7 +83,7 @@ function isSensitiveDenylisted(key, caseInsensitiveKeys) {
 
 function isExplicitlyAllowedByBaseAllowlist(key, caseInsensitiveKeys) {
 	const normalizedKey = normalizeEnvKeyForMatch(key, caseInsensitiveKeys);
-	return OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST.some(
+	return OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST.some(
 		(token) =>
 			normalizeEnvKeyForMatch(token, caseInsensitiveKeys) === normalizedKey,
 	);
@@ -106,7 +106,7 @@ function parseCustomAllowlist(raw) {
 			!CHILD_ENV_PREFIX_PATTERN.test(token)
 		) {
 			throw new Error(
-				`OPENUI_MCP_CHILD_ENV_ALLOWLIST contains invalid token: "${token}". ${CHILD_ENV_ALLOWLIST_FORMAT_HINT}`,
+				`OPENUISTUDIO_CHILD_ENV_ALLOWLIST contains invalid token: "${token}". ${CHILD_ENV_ALLOWLIST_FORMAT_HINT}`,
 			);
 		}
 
@@ -118,7 +118,7 @@ function parseCustomAllowlist(raw) {
 
 export function parseChildEnvAllowlist(raw) {
 	const combined = [
-		...OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST,
+		...OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST,
 		...parseCustomAllowlist(raw),
 	];
 	return Array.from(new Set(combined));
@@ -126,7 +126,7 @@ export function parseChildEnvAllowlist(raw) {
 
 export function buildChildEnvFromAllowlist(
 	sourceEnv = process.env,
-	allowlistRaw = sourceEnv.OPENUI_MCP_CHILD_ENV_ALLOWLIST,
+	allowlistRaw = sourceEnv.OPENUISTUDIO_CHILD_ENV_ALLOWLIST,
 	options = {},
 ) {
 	const allowlist = parseChildEnvAllowlist(allowlistRaw);

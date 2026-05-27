@@ -3,7 +3,7 @@
 ## Goal
 
 Help the operator use the repo-owned Codex bundle and starter JSON to install
-OpenUI MCP Studio from a local checkout.
+OpenUIStudio from a local checkout.
 
 ## Read first
 

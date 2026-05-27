@@ -12,8 +12,8 @@ async function mkTempDir(prefix: string): Promise<string> {
 }
 
 afterEach(async () => {
-	delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
-	delete process.env.OPENUI_MCP_CACHE_DIR;
+	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	delete process.env.OPENUISTUDIO_CACHE_DIR;
 	vi.resetModules();
 	vi.restoreAllMocks();
 	await Promise.all(
@@ -26,8 +26,8 @@ afterEach(async () => {
 describe("ship delivery intelligence extra branches", () => {
 	it("keeps optional artifact keys absent when writers return nothing and falls back to default feature/route slugs", async () => {
 		const workspaceRoot = await mkTempDir("openui-feature-flow-extra-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"ship-cache",

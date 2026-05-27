@@ -1,6 +1,6 @@
 # Discovery Surfaces
 
-This page explains how to discover OpenUI MCP Studio without confusing
+This page explains how to discover OpenUIStudio without confusing
 repo-owned truth with live deployment truth.
 
 Use it when you want the shortest honest map from the public GitHub repo to the
@@ -28,7 +28,7 @@ until this four-stop path already makes sense.
 
 Keep the naming split explicit:
 
-- `OpenUI MCP Studio` is the technical product and runtime name
+- `OpenUIStudio` is the technical product and runtime name
 - `OneClickUI.ai` is the shorter front-door label
 
 The label helps with discoverability. It does not prove that a live canonical

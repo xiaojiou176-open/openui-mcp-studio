@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { runQualityGate } from "../services/mcp-server/src/quality-gate.js";
 
 const tempDirs: string[] = [];
-const ORIGINAL_CHILD_ALLOWLIST = process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST;
+const ORIGINAL_CHILD_ALLOWLIST = process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
 const ORIGINAL_TEST_ONLY_ALLOWED = process.env.TEST_ONLY_ALLOWED;
 const ORIGINAL_TEST_ONLY_UNRELATED_SECRET =
 	process.env.TEST_ONLY_UNRELATED_SECRET;
@@ -27,9 +27,9 @@ function makeEnvDumpScript(outputFile: string): string {
 
 afterEach(async () => {
 	if (ORIGINAL_CHILD_ALLOWLIST === undefined) {
-		delete process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST;
+		delete process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
 	} else {
-		process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST = ORIGINAL_CHILD_ALLOWLIST;
+		process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = ORIGINAL_CHILD_ALLOWLIST;
 	}
 	if (ORIGINAL_TEST_ONLY_ALLOWED === undefined) {
 		delete process.env.TEST_ONLY_ALLOWED;
@@ -212,11 +212,11 @@ describe("runQualityGate preset execution", () => {
 	it("passes allowlisted env to npm script commands", async () => {
 		const root = await mkTempDir("openui-quality-gate-");
 		const envDumpFile = "env-dump.json";
-		const originalAllowlist = process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST;
+		const originalAllowlist = process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
 		const originalAllowed = process.env.TEST_ONLY_ALLOWED;
 		const originalBlocked = process.env.TEST_ONLY_UNRELATED_SECRET;
 
-		process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST = "TEST_ONLY_ALLOWED";
+		process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = "TEST_ONLY_ALLOWED";
 		process.env.TEST_ONLY_ALLOWED = "allowed";
 		process.env.TEST_ONLY_UNRELATED_SECRET = "blocked";
 
@@ -270,9 +270,9 @@ describe("runQualityGate preset execution", () => {
 			expect(envDump.blocked).toBeNull();
 		} finally {
 			if (originalAllowlist === undefined) {
-				delete process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST;
+				delete process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
 			} else {
-				process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST = originalAllowlist;
+				process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = originalAllowlist;
 			}
 			if (originalAllowed === undefined) {
 				delete process.env.TEST_ONLY_ALLOWED;

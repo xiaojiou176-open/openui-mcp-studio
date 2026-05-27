@@ -1,5 +1,5 @@
 {
-  "name": "OpenUI MCP Studio",
+  "name": "OpenUIStudio",
   "slug": "OpenUIStudio",
   "status": "plugin-directory-ready",
   "runtime": "local-stdio-mcp",

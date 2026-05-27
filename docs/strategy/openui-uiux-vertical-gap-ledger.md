@@ -6,7 +6,7 @@
 
 ## 1. Why This Exists
 
-Round 2 already proved that OpenUI MCP Studio is more than a prompt-to-files repo.
+Round 2 already proved that OpenUIStudio is more than a prompt-to-files repo.
 The current wave is narrower:
 
 1. keep the UI/UX audit engine honest

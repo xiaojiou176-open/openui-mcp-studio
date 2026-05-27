@@ -6,7 +6,7 @@ describe("web manifest", () => {
 	it("describes the front door as a builder-friendly MCP workflow", () => {
 		const value = manifest();
 
-		expect(value.name).toBe("OpenUI MCP Studio");
+		expect(value.name).toBe("OpenUIStudio");
 		expect(value.start_url).toBe("/");
 		expect(value.description).toContain("Codex and Claude Code");
 		expect(value.categories).toEqual(

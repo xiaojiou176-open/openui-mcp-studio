@@ -1,7 +1,7 @@
 # Public Distribution Bundle
 
 This directory is the supporting install bundle shelf for the public
-`OpenUI MCP Studio` repo.
+`OpenUIStudio` repo.
 
 Think of it like the install box you can hand to a new developer after they
 already understand that the public repo is the main product surface:

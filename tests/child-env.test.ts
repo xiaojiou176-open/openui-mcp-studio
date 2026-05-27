@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
 	buildChildEnvFromAllowlist,
-	OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST,
+	OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST,
 	parseChildEnvAllowlist,
 } from "../packages/shared-runtime/src/child-env.js";
 
@@ -10,13 +10,13 @@ describe("child-env branch coverage", () => {
 	it("parses empty custom allowlist safely", () => {
 		const parsed = parseChildEnvAllowlist(undefined);
 
-		expect(parsed).toEqual([...OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST]);
+		expect(parsed).toEqual([...OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST]);
 	});
 
 	it("always preserves base allowlist when custom allowlist is provided", () => {
-		const parsed = parseChildEnvAllowlist("OPENUI_MCP_CHILD_ENV_ALLOWLIST");
+		const parsed = parseChildEnvAllowlist("OPENUISTUDIO_CHILD_ENV_ALLOWLIST");
 		expect(parsed).toContain("PATH");
-		expect(parsed).toContain("OPENUI_MCP_CHILD_ENV_ALLOWLIST");
+		expect(parsed).toContain("OPENUISTUDIO_CHILD_ENV_ALLOWLIST");
 	});
 
 	it("skips empty tokens and deduplicates entries", () => {

@@ -16,7 +16,7 @@ maintainer-facing reference.
 
 ### One-sentence product line
 
-OpenUI MCP Studio is a Gemini-only local MCP UI shipping workbench that turns
+OpenUIStudio is a Gemini-only local MCP UI shipping workbench that turns
 prompts into React + shadcn changes, can apply them into a real workspace, and
 keeps proof, review, and quality gates in the loop.
 
@@ -32,7 +32,7 @@ keeps proof, review, and quality gates in the loop.
 
 | Layer | Recommended name | Why it exists |
 | :--- | :--- | :--- |
-| Technical core name | `OpenUI MCP Studio` | Keeps the strongest truth anchors: `OpenUI`, `MCP`, and a workflow-oriented `Studio` identity |
+| Technical core name | `OpenUIStudio` | Keeps the strongest truth anchors: `OpenUI`, `MCP`, and a workflow-oriented `Studio` identity |
 | Marketing front door | `OneClickUI.ai` (candidate domain / landing only) | Stronger click-through and memory for non-technical audiences |
 | Category sentence | `AI UI shipping for React + shadcn, with proof and review.` | Short, explicit, high-intent positioning |
 | Technical category sentence | `A local MCP UI shipping workbench.` | More accurate for technical evaluators and integrators |
@@ -41,7 +41,7 @@ keeps proof, review, and quality gates in the loop.
 
 ### Recommended decision
 
-Keep the technical product name as `OpenUI MCP Studio`.
+Keep the technical product name as `OpenUIStudio`.
 
 Do **not** rename the repository, package, MCP server identity, or tool prefix
 to `oneclickUI.ai` in the current phase.
@@ -108,17 +108,17 @@ technical name.
 
 | Use case | Recommended label |
 | :--- | :--- |
-| GitHub repo, package, MCP server, technical docs | `OpenUI MCP Studio` |
+| GitHub repo, package, MCP server, technical docs | `OpenUIStudio` |
 | Landing page / campaign / domain | `OneClickUI.ai` |
 | Short campaign subtitle | `Turn prompts into shippable React UI, with review and proof.` |
 | Technical short subtitle | `A local MCP UI shipping workbench for React + shadcn.` |
 
 ### Acceptable variants
 
-- `OpenUI MCP Studio`
+- `OpenUIStudio`
 - `OpenUI Studio` as a shorter public-tech label in selective contexts
 - `OneClickUI.ai`
-- `OpenUI MCP Studio by OneClickUI` if a dual-brand transition page is ever needed
+- `OpenUIStudio by OneClickUI` if a dual-brand transition page is ever needed
 
 ### Not recommended right now
 

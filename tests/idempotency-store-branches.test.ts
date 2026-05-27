@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { IdempotencyStore } from "../packages/shared-runtime/src/idempotency-store.js";
 
 const tempDirs: string[] = [];
-const ENV_KEYS = ["OPENUI_MCP_WORKSPACE_ROOT", "OPENUI_MCP_CACHE_DIR"] as const;
+const ENV_KEYS = ["OPENUISTUDIO_WORKSPACE_ROOT", "OPENUISTUDIO_CACHE_DIR"] as const;
 const originalEnv = new Map<string, string | undefined>(
 	ENV_KEYS.map((key) => [key, process.env[key]]),
 );
@@ -45,33 +45,33 @@ afterEach(async () => {
 });
 
 describe("idempotency store branch coverage", () => {
-	it("rejects default cache dir when OPENUI_MCP_CACHE_DIR escapes workspace root", async () => {
+	it("rejects default cache dir when OPENUISTUDIO_CACHE_DIR escapes workspace root", async () => {
 		const workspaceRoot = await createTempDir(
 			"openui-idempotency-store-workspace-",
 		);
 		const outsideRoot = await createTempDir(
 			"openui-idempotency-store-outside-",
 		);
-		const previousWorkspaceRoot = process.env.OPENUI_MCP_WORKSPACE_ROOT;
-		const previousCacheDir = process.env.OPENUI_MCP_CACHE_DIR;
+		const previousWorkspaceRoot = process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+		const previousCacheDir = process.env.OPENUISTUDIO_CACHE_DIR;
 
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(outsideRoot, "cache");
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(outsideRoot, "cache");
 
 		try {
 			expect(() => new IdempotencyStore()).toThrow(
-				/OPENUI_MCP_CACHE_DIR must resolve inside OPENUI_MCP_WORKSPACE_ROOT/,
+				/OPENUISTUDIO_CACHE_DIR must resolve inside OPENUISTUDIO_WORKSPACE_ROOT/,
 			);
 		} finally {
 			if (previousWorkspaceRoot === undefined) {
-				delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+				delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 			} else {
-				process.env.OPENUI_MCP_WORKSPACE_ROOT = previousWorkspaceRoot;
+				process.env.OPENUISTUDIO_WORKSPACE_ROOT = previousWorkspaceRoot;
 			}
 			if (previousCacheDir === undefined) {
-				delete process.env.OPENUI_MCP_CACHE_DIR;
+				delete process.env.OPENUISTUDIO_CACHE_DIR;
 			} else {
-				process.env.OPENUI_MCP_CACHE_DIR = previousCacheDir;
+				process.env.OPENUISTUDIO_CACHE_DIR = previousCacheDir;
 			}
 		}
 	});

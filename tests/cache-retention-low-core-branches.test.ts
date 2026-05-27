@@ -9,11 +9,11 @@ import {
 
 const originalEnv = new Map<string, string | undefined>(
 	[
-		"OPENUI_MCP_WORKSPACE_ROOT",
-		"OPENUI_MCP_CACHE_DIR",
-		"OPENUI_MCP_CACHE_RETENTION_DAYS",
-		"OPENUI_MCP_CACHE_MAX_BYTES",
-		"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
+		"OPENUISTUDIO_WORKSPACE_ROOT",
+		"OPENUISTUDIO_CACHE_DIR",
+		"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+		"OPENUISTUDIO_CACHE_MAX_BYTES",
+		"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
 	].map((key) => [key, process.env[key]]),
 );
 const tempDirs: string[] = [];
@@ -48,21 +48,21 @@ describe("cache retention low-core branches", () => {
 		const rootFile = path.join(rootDir, "workspace.txt");
 		fs.writeFileSync(rootFile, "not-a-directory", "utf8");
 
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = rootFile;
-		process.env.OPENUI_MCP_CACHE_DIR = ".runtime-cache/cache";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = rootFile;
+		process.env.OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
 
 		expect(() => resolveCacheRetentionConfigFromEnv()).toThrow(
-			/OPENUI_MCP_WORKSPACE_ROOT must point to a directory/,
+			/OPENUISTUDIO_WORKSPACE_ROOT must point to a directory/,
 		);
 	});
 
 	it("uses default numeric config when env values are unset", () => {
 		const workspaceRoot = mkTempDir("openui-cache-defaults-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		delete process.env.OPENUI_MCP_CACHE_DIR;
-		delete process.env.OPENUI_MCP_CACHE_RETENTION_DAYS;
-		delete process.env.OPENUI_MCP_CACHE_MAX_BYTES;
-		delete process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		delete process.env.OPENUISTUDIO_CACHE_DIR;
+		delete process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS;
+		delete process.env.OPENUISTUDIO_CACHE_MAX_BYTES;
+		delete process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES;
 
 		const config = resolveCacheRetentionConfigFromEnv(789);
 		expect(config.cacheDir).toBe(

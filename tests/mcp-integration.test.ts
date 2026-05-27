@@ -48,7 +48,7 @@ afterEach(async () => {
 	vi.restoreAllMocks();
 	vi.resetModules();
 	delete process.env.GEMINI_API_KEY;
-	delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	delete process.env.OPENUI_MAX_RETRIES;
 });
 
@@ -91,7 +91,7 @@ describe("MCP e2e pipeline", () => {
 		);
 
 		process.env.GEMINI_API_KEY = "gemini-test-key";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_MAX_RETRIES = "2";
 
 		const geminiProvider = await import(
@@ -161,7 +161,7 @@ describe("MCP e2e pipeline", () => {
 	}, 30_000);
 
 	it("covers detect -> quality/review -> smoke contract in one workspace loop", async () => {
-		const workspaceRoot = await mkTempDir("openui-mcp-contract-");
+		const workspaceRoot = await mkTempDir("openuistudio-contract-");
 		const appRoot = path.join(workspaceRoot, "apps", "web");
 
 		await fs.mkdir(path.join(appRoot, "app"), { recursive: true });
@@ -221,7 +221,7 @@ describe("MCP e2e pipeline", () => {
 		]);
 
 		process.env.GEMINI_API_KEY = "gemini-test-key";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 
 		const nextSmokeModule = await import(
 			"../services/mcp-server/src/next-smoke.js"

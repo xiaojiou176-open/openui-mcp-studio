@@ -8,21 +8,21 @@ export const OPENUI_ENV_KEYS = [
 	"GEMINI_DEFAULT_TEMPERATURE",
 	"NEXT_PUBLIC_SITE_URL",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUI_MCP_WORKSPACE_ROOT",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
 	"OPENUI_TIMEOUT_MS",
 	"OPENUI_MAX_RETRIES",
 	"OPENUI_RETRY_BASE_MS",
-	"OPENUI_MCP_LOG_LEVEL",
-	"OPENUI_MCP_LOG_OUTPUT",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
-	"OPENUI_MCP_CHILD_ENV_ALLOWLIST",
-	"OPENUI_MCP_LOG_DIR",
-	"OPENUI_MCP_LOG_RETENTION_DAYS",
-	"OPENUI_MCP_LOG_MAX_FILE_MB",
-	"OPENUI_MCP_CACHE_DIR",
-	"OPENUI_MCP_CACHE_RETENTION_DAYS",
-	"OPENUI_MCP_CACHE_MAX_BYTES",
-	"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
+	"OPENUISTUDIO_LOG_LEVEL",
+	"OPENUISTUDIO_LOG_OUTPUT",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_CHILD_ENV_ALLOWLIST",
+	"OPENUISTUDIO_LOG_DIR",
+	"OPENUISTUDIO_LOG_RETENTION_DAYS",
+	"OPENUISTUDIO_LOG_MAX_FILE_MB",
+	"OPENUISTUDIO_CACHE_DIR",
+	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+	"OPENUISTUDIO_CACHE_MAX_BYTES",
+	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
 	"OPENUI_TOOL_CACHE_ROOT",
 	"OPENUI_TOOL_CACHE_RETENTION_DAYS",
 	"OPENUI_TOOL_CACHE_MAX_BYTES",
@@ -117,7 +117,7 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		description: "Route switch for fast/strong model selection.",
 		validation: "Enum: on | off.",
 	},
-	OPENUI_MCP_WORKSPACE_ROOT: {
+	OPENUISTUDIO_WORKSPACE_ROOT: {
 		defaultValue: () => process.cwd(),
 		sensitive: false,
 		description: "Workspace root used by filesystem-sensitive MCP tools.",
@@ -141,26 +141,26 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		description: "Exponential backoff base delay in milliseconds.",
 		validation: "Positive number.",
 	},
-	OPENUI_MCP_LOG_LEVEL: {
+	OPENUISTUDIO_LOG_LEVEL: {
 		defaultValue: "info",
 		sensitive: false,
 		description: "Server log verbosity threshold.",
 		validation: "Enum: debug | info | warn | error.",
 	},
-	OPENUI_MCP_LOG_OUTPUT: {
+	OPENUISTUDIO_LOG_OUTPUT: {
 		defaultValue: "both",
 		sensitive: false,
 		description: "Selects log sink output target.",
 		validation: "Enum: stderr | file | both.",
 	},
-	OPENUI_MCP_LOG_ROTATE_ON_START: {
+	OPENUISTUDIO_LOG_ROTATE_ON_START: {
 		defaultValue: "on",
 		sensitive: false,
 		description:
 			"Controls startup-time rotation for oversized active log file.",
 		validation: "Enum: on | off.",
 	},
-	OPENUI_MCP_CHILD_ENV_ALLOWLIST: {
+	OPENUISTUDIO_CHILD_ENV_ALLOWLIST: {
 		defaultValue: "",
 		sensitive: false,
 		description:
@@ -168,7 +168,7 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		validation:
 			'Comma-separated env keys or prefix wildcards ending with "*" (for example: PATH,OPENUI_*). Empty uses baseline safe keys only.',
 	},
-	OPENUI_MCP_LOG_DIR: {
+	OPENUISTUDIO_LOG_DIR: {
 		defaultValue: ".runtime-cache/runs/<run_id>/logs/runtime.jsonl",
 		sensitive: false,
 		description:
@@ -176,37 +176,37 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		validation:
 			"Governed run-scoped path token; arbitrary override is not part of the supported contract.",
 	},
-	OPENUI_MCP_LOG_RETENTION_DAYS: {
+	OPENUISTUDIO_LOG_RETENTION_DAYS: {
 		defaultValue: 7,
 		sensitive: false,
 		description: "Number of days to retain MCP log files.",
 		validation: "Positive integer.",
 	},
-	OPENUI_MCP_LOG_MAX_FILE_MB: {
+	OPENUISTUDIO_LOG_MAX_FILE_MB: {
 		defaultValue: 10,
 		sensitive: false,
 		description: "Maximum size per MCP log file in megabytes.",
 		validation: "Positive number.",
 	},
-	OPENUI_MCP_CACHE_DIR: {
+	OPENUISTUDIO_CACHE_DIR: {
 		defaultValue: ".runtime-cache/cache",
 		sensitive: false,
 		description: "Directory for MCP runtime cache artifacts.",
 		validation: "Non-empty path string.",
 	},
-	OPENUI_MCP_CACHE_RETENTION_DAYS: {
+	OPENUISTUDIO_CACHE_RETENTION_DAYS: {
 		defaultValue: 7,
 		sensitive: false,
 		description: "Number of days to retain MCP cache files.",
 		validation: "Positive integer.",
 	},
-	OPENUI_MCP_CACHE_MAX_BYTES: {
+	OPENUISTUDIO_CACHE_MAX_BYTES: {
 		defaultValue: 104_857_600,
 		sensitive: false,
 		description: "Maximum total size for MCP cache files in bytes.",
 		validation: "Positive integer.",
 	},
-	OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES: {
+	OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES: {
 		defaultValue: 60,
 		sensitive: false,
 		description:

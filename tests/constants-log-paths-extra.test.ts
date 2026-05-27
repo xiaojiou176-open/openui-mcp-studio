@@ -4,11 +4,11 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const ENV_KEYS = [
-	"OPENUI_MCP_WORKSPACE_ROOT",
-	"OPENUI_MCP_LOG_OUTPUT",
-	"OPENUI_MCP_LOG_DIR",
-	"OPENUI_MCP_CACHE_DIR",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
+	"OPENUISTUDIO_LOG_OUTPUT",
+	"OPENUISTUDIO_LOG_DIR",
+	"OPENUISTUDIO_CACHE_DIR",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
 	"OPENUI_RUNTIME_RUN_ID",
 ] as const;
 
@@ -37,15 +37,15 @@ describe("constants log/cache path branches", () => {
 	it("validates log output enum and defaults", async () => {
 		const constants = await import("../services/mcp-server/src/constants.js");
 
-		delete process.env.OPENUI_MCP_LOG_OUTPUT;
+		delete process.env.OPENUISTUDIO_LOG_OUTPUT;
 		expect(constants.getOpenuiMcpLogOutput()).toBe("both");
 
-		process.env.OPENUI_MCP_LOG_OUTPUT = "both";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
 		expect(constants.getOpenuiMcpLogOutput()).toBe("both");
 
-		process.env.OPENUI_MCP_LOG_OUTPUT = "stdout";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "stdout";
 		expect(() => constants.getOpenuiMcpLogOutput()).toThrow(
-			/OPENUI_MCP_LOG_OUTPUT must be one of/,
+			/OPENUISTUDIO_LOG_OUTPUT must be one of/,
 		);
 	});
 
@@ -60,13 +60,13 @@ describe("constants log/cache path branches", () => {
 			"openui-absolute-cache-dir",
 		);
 		fs.mkdirSync(workspaceRoot, { recursive: true });
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = "constants-log-paths";
 
 		const constants = await import("../services/mcp-server/src/constants.js");
 
-		delete process.env.OPENUI_MCP_LOG_DIR;
-		delete process.env.OPENUI_MCP_CACHE_DIR;
+		delete process.env.OPENUISTUDIO_LOG_DIR;
+		delete process.env.OPENUISTUDIO_CACHE_DIR;
 		expect(constants.getOpenuiMcpLogDir()).toBe(
 			path.resolve(
 				canonicalWorkspaceRoot,
@@ -80,8 +80,8 @@ describe("constants log/cache path branches", () => {
 			path.resolve(canonicalWorkspaceRoot, ".runtime-cache/cache"),
 		);
 
-		process.env.OPENUI_MCP_LOG_DIR = ".runtime-cache/logs/custom";
-		process.env.OPENUI_MCP_CACHE_DIR = "cache/custom";
+		process.env.OPENUISTUDIO_LOG_DIR = ".runtime-cache/logs/custom";
+		process.env.OPENUISTUDIO_CACHE_DIR = "cache/custom";
 		expect(constants.getOpenuiMcpLogDir()).toBe(
 			path.resolve(
 				canonicalWorkspaceRoot,
@@ -95,8 +95,8 @@ describe("constants log/cache path branches", () => {
 			path.resolve(canonicalWorkspaceRoot, "cache/custom"),
 		);
 
-		process.env.OPENUI_MCP_LOG_DIR = absoluteLogDir;
-		process.env.OPENUI_MCP_CACHE_DIR = absoluteCacheDir;
+		process.env.OPENUISTUDIO_LOG_DIR = absoluteLogDir;
+		process.env.OPENUISTUDIO_CACHE_DIR = absoluteCacheDir;
 		expect(constants.getOpenuiMcpLogDir()).toBe(
 			path.resolve(
 				canonicalWorkspaceRoot,

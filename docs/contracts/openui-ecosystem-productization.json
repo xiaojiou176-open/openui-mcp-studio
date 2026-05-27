@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "technicalName": "OpenUI MCP Studio",
+  "technicalName": "OpenUIStudio",
   "frontdoorLabel": "OneClickUI.ai",
-  "summary": "Current ecosystem packaging truth for the public OpenUI MCP Studio repo. The repo is the main distribution artifact, while install bundles, the repo-owned skill product line, and supporting parked lanes explain how different clients consume that repo today.",
+  "summary": "Current ecosystem packaging truth for the public OpenUIStudio repo. The repo is the main distribution artifact, while install bundles, the repo-owned skill product line, and supporting parked lanes explain how different clients consume that repo today.",
   "currentTruth": {
     "codex": "The public repo ships a repo-owned Codex install surface through MCP configuration, starter bundles, proof loop, and troubleshooting.",
     "claudeCode": "The public repo ships a repo-owned Claude Code install surface through MCP configuration, starter bundles, proof loop, and troubleshooting.",

@@ -7,7 +7,7 @@ describe("frontdoor API route", () => {
 		const response = GET();
 		const payload = await response.json();
 
-		expect(payload.product.technicalName).toBe("OpenUI MCP Studio");
+		expect(payload.product.technicalName).toBe("OpenUIStudio");
 		expect(payload.product.category).toBe(
 			"MCP-native UI/UX delivery and review workflow",
 		);
@@ -17,7 +17,7 @@ describe("frontdoor API route", () => {
 		);
 		expect(payload.brandSplit).toEqual(
 			expect.objectContaining({
-				technicalName: "OpenUI MCP Studio",
+				technicalName: "OpenUIStudio",
 				frontdoorName: "OneClickUI.ai",
 				canonicalRuntime: "local stdio MCP",
 			}),

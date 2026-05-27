@@ -9,8 +9,8 @@ type TextResult = {
 };
 
 type ToolHandler = (args: Record<string, unknown>) => Promise<TextResult>;
-const ORIGINAL_OPENUI_MCP_WORKSPACE_ROOT =
-	process.env.OPENUI_MCP_WORKSPACE_ROOT;
+const ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT =
+	process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 
 function createToolHarness(): {
 	server: McpServer;
@@ -48,10 +48,10 @@ function readText(result: TextResult): string {
 }
 
 afterEach(() => {
-	if (ORIGINAL_OPENUI_MCP_WORKSPACE_ROOT === undefined) {
-		delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	if (ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT === undefined) {
+		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	} else {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = ORIGINAL_OPENUI_MCP_WORKSPACE_ROOT;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT;
 	}
 	vi.restoreAllMocks();
 	vi.resetModules();
@@ -259,7 +259,7 @@ describe("next smoke target root guardrails", () => {
 
 		try {
 			await writeNextRuntimeFixture(outsideRoot);
-			process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+			process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 
 			const [{ chooseRoot }, { LogTailBuffer }] = await Promise.all([
 				import("../services/mcp-server/src/next-smoke/target-root.js"),
@@ -283,7 +283,7 @@ describe("next smoke target root guardrails", () => {
 				"outside workspace boundary",
 			);
 		} finally {
-			delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+			delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 			await Promise.all([
 				fs.rm(workspaceRoot, { recursive: true, force: true }),
 				fs.rm(outsideRoot, { recursive: true, force: true }),

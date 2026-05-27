@@ -3,7 +3,7 @@ const CHILD_ENV_PREFIX_PATTERN = /^[A-Z_][A-Z0-9_]*\*$/;
 const CHILD_ENV_ALLOWLIST_FORMAT_HINT =
 	'Expected comma-separated env keys or prefix wildcards ending with "*" (for example: PATH,OPENUI_*). Migration hint: replace "-" with "_" and keep uppercase key names.';
 
-export const OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST = Object.freeze([
+export const OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST = Object.freeze([
 	"PATH",
 	"COMSPEC",
 	"SYSTEMROOT",
@@ -94,7 +94,7 @@ function isExplicitlyAllowedByBaseAllowlist(
 	caseInsensitiveKeys: boolean,
 ): boolean {
 	const normalizedKey = normalizeEnvKeyForMatch(key, caseInsensitiveKeys);
-	return OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST.some(
+	return OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST.some(
 		(token) =>
 			normalizeEnvKeyForMatch(token, caseInsensitiveKeys) === normalizedKey,
 	);
@@ -117,7 +117,7 @@ function parseCustomAllowlist(raw: string | undefined): string[] {
 			!CHILD_ENV_PREFIX_PATTERN.test(token)
 		) {
 			throw new Error(
-				`OPENUI_MCP_CHILD_ENV_ALLOWLIST contains invalid token: "${token}". ${CHILD_ENV_ALLOWLIST_FORMAT_HINT}`,
+				`OPENUISTUDIO_CHILD_ENV_ALLOWLIST contains invalid token: "${token}". ${CHILD_ENV_ALLOWLIST_FORMAT_HINT}`,
 			);
 		}
 
@@ -129,7 +129,7 @@ function parseCustomAllowlist(raw: string | undefined): string[] {
 
 export function parseChildEnvAllowlist(raw: string | undefined): string[] {
 	const combined = [
-		...OPENUI_MCP_CHILD_ENV_BASE_ALLOWLIST,
+		...OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST,
 		...parseCustomAllowlist(raw),
 	];
 	return Array.from(new Set(combined));
@@ -137,7 +137,7 @@ export function parseChildEnvAllowlist(raw: string | undefined): string[] {
 
 export function buildChildEnvFromAllowlist(
 	sourceEnv: NodeJS.ProcessEnv = process.env,
-	allowlistRaw: string | undefined = sourceEnv.OPENUI_MCP_CHILD_ENV_ALLOWLIST,
+	allowlistRaw: string | undefined = sourceEnv.OPENUISTUDIO_CHILD_ENV_ALLOWLIST,
 	options?: {
 		caseInsensitiveKeys?: boolean;
 	},

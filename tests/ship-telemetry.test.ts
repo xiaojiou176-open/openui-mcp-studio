@@ -43,9 +43,9 @@ type ShipToolOutput = {
 };
 
 const tempDirs: string[] = [];
-const ORIGINAL_OPENUI_MCP_CACHE_DIR = process.env.OPENUI_MCP_CACHE_DIR;
-const ORIGINAL_OPENUI_MCP_WORKSPACE_ROOT =
-	process.env.OPENUI_MCP_WORKSPACE_ROOT;
+const ORIGINAL_OPENUISTUDIO_CACHE_DIR = process.env.OPENUISTUDIO_CACHE_DIR;
+const ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT =
+	process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 
 async function mkTempDir(prefix: string): Promise<string> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
@@ -94,15 +94,15 @@ afterEach(async () => {
 			.splice(0)
 			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
-	if (ORIGINAL_OPENUI_MCP_CACHE_DIR === undefined) {
-		delete process.env.OPENUI_MCP_CACHE_DIR;
+	if (ORIGINAL_OPENUISTUDIO_CACHE_DIR === undefined) {
+		delete process.env.OPENUISTUDIO_CACHE_DIR;
 	} else {
-		process.env.OPENUI_MCP_CACHE_DIR = ORIGINAL_OPENUI_MCP_CACHE_DIR;
+		process.env.OPENUISTUDIO_CACHE_DIR = ORIGINAL_OPENUISTUDIO_CACHE_DIR;
 	}
-	if (ORIGINAL_OPENUI_MCP_WORKSPACE_ROOT === undefined) {
-		delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	if (ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT === undefined) {
+		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	} else {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = ORIGINAL_OPENUI_MCP_WORKSPACE_ROOT;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT;
 	}
 	vi.restoreAllMocks();
 	vi.resetModules();
@@ -142,10 +142,10 @@ describe("ship telemetry", () => {
 	});
 
 	it("returns steps and summary with stable shape", async () => {
-		process.env.OPENUI_MCP_CACHE_DIR = await mkTempDir(
+		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
 			"openui-ship-telemetry-cache-",
 		);
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
@@ -246,8 +246,8 @@ describe("ship telemetry", () => {
 	it("does not reuse implicit idempotency cache when uiImportBase changes", async () => {
 		const cacheDir = await mkTempDir("openui-ship-telemetry-cache-");
 		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
@@ -340,8 +340,8 @@ describe("ship telemetry", () => {
 	it("rolls back written files when quality gate fails", async () => {
 		const cacheDir = await mkTempDir("openui-ship-telemetry-cache-");
 		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const originalFilePath = path.join(workspaceRoot, "app/page.tsx");
 		await fs.mkdir(path.dirname(originalFilePath), { recursive: true });
@@ -429,8 +429,8 @@ describe("ship telemetry", () => {
 		const cacheDir = await mkTempDir("openui-ship-telemetry-cache-");
 		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
 		const outsideRoot = await mkTempDir("openui-ship-telemetry-outside-");
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const originalFilePath = path.join(workspaceRoot, "app/page.tsx");
 		const outsideFilePath = path.join(outsideRoot, "outside.tsx");
@@ -515,10 +515,10 @@ describe("ship telemetry", () => {
 	});
 
 	it("fails fast when apply_files step throws", async () => {
-		process.env.OPENUI_MCP_CACHE_DIR = await mkTempDir(
+		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
 			"openui-ship-telemetry-cache-",
 		);
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
@@ -579,10 +579,10 @@ describe("ship telemetry", () => {
 	});
 
 	it("fails when quality_gate step throws", async () => {
-		process.env.OPENUI_MCP_CACHE_DIR = await mkTempDir(
+		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
 			"openui-ship-telemetry-cache-",
 		);
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");

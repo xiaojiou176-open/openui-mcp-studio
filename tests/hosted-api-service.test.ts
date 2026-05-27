@@ -87,7 +87,7 @@ describe("hosted compatibility service", () => {
 		expect(await frontdoor.json()).toEqual(
 			expect.objectContaining({
 				product: expect.objectContaining({
-					technicalName: "OpenUI MCP Studio",
+					technicalName: "OpenUIStudio",
 				}),
 			}),
 		);

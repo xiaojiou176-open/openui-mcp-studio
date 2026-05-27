@@ -10,7 +10,7 @@ narrower than a shipped marketplace/runtime:
 - it points at plugin-grade skill bundles for Codex and Claude Code plus the
   repo-owned OpenClaw skill line
 - it stays honest about the current builder surface
-- it does not claim that OpenUI MCP Studio already ships a live marketplace
+- it does not claim that OpenUIStudio already ships a live marketplace
   listing, formal Skills runtime, or vendor approval
 
 ## Current Truth

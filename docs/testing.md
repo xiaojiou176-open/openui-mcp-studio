@@ -13,7 +13,7 @@ English is the canonical source of truth for testing and quality-gate guidance.
   - `.env`
   - `zsh` global environment
 - Example env files must keep the run-scoped log path:
-  - `OPENUI_MCP_LOG_DIR=.runtime-cache/runs/<run_id>/logs/runtime.jsonl`
+  - `OPENUISTUDIO_LOG_DIR=.runtime-cache/runs/<run_id>/logs/runtime.jsonl`
 
 ## Default Validation Sets
 

@@ -130,7 +130,7 @@ export const OPENUI_PUBLIC_EXPORT_ALLOWLIST = [
 			"Guarded computer-use registration surface; real but not the primary product story.",
 		bestFor:
 			"Guarded advanced observation/action helpers that stay outside the primary builder story.",
-		notFor: "Reframing OpenUI MCP Studio as a generic computer-use runtime.",
+		notFor: "Reframing OpenUIStudio as a generic computer-use runtime.",
 	},
 	{
 		module: "provider-testing",
@@ -303,7 +303,7 @@ export const OPENUI_BUILDER_SURFACE_DISPATCHER = {
 
 export const OPENUI_BUILDER_SURFACE_GUIDE = {
 	audience:
-		"Zero-context builders evaluating or integrating OpenUI MCP Studio from the repo itself.",
+		"Zero-context builders evaluating or integrating OpenUIStudio from the repo itself.",
 	startWith:
 		"Begin with the local stdio MCP surface because it is the canonical runtime entrypoint and the rest of the builder layer only explains or supports that runtime.",
 	openapiWhen:

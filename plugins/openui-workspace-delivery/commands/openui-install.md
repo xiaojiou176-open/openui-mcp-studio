@@ -1,6 +1,6 @@
 # OpenUI install
 
-Use this bundle when you want the shortest honest path to add OpenUI MCP Studio
+Use this bundle when you want the shortest honest path to add OpenUIStudio
 to a local Claude Code or OpenClaw workflow.
 
 1. Build the repo if the runtime path is missing.

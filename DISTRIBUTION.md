@@ -2,7 +2,7 @@
 
 This file answers the public-distribution question in one screen:
 
-What can OpenUI MCP Studio truthfully ship today, which external lanes are live
+What can OpenUIStudio truthfully ship today, which external lanes are live
 but still under review, and which steps remain operator-only?
 
 Think of it like a shipping desk. Some boxes are already on the shelf. Some are

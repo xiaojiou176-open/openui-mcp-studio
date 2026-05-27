@@ -21,7 +21,7 @@ type DemoOptions = {
 };
 
 const DEFAULT_PROMPT = [
-	"Create a polished pricing page hero for OpenUI MCP Studio.",
+	"Create a polished pricing page hero for OpenUIStudio.",
 	"Include a short headline, a one-line value proposition, three pricing tiers,",
 	"one highlighted recommended plan, and a compact trust row for smoke, visual, and release checks.",
 ].join(" ");

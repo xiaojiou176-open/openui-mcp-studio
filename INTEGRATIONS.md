@@ -2,7 +2,7 @@
 
 This file answers a different question from [`DISTRIBUTION.md`](./DISTRIBUTION.md):
 
-Which client or host is OpenUI MCP Studio actually ready for today, and what is
+Which client or host is OpenUIStudio actually ready for today, and what is
 the honest boundary for each one?
 
 Think of it like a station board. Some platforms are already first-row routes.

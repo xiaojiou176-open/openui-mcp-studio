@@ -1,9 +1,9 @@
-# OpenUI MCP Studio
+# OpenUIStudio
 
 Turn one UI or UI/UX brief into React + shadcn files, then keep proof, review,
 and acceptance visible before you ship them.
 
-OpenUI MCP Studio is the repo-first front door for teams using Codex, Claude
+OpenUIStudio is the repo-first front door for teams using Codex, Claude
 Code, OpenCode, OpenClaw, and other MCP-first clients when they want one
 practical `brief -> files -> proof -> review -> ship` workflow instead of a
 generic coding-agent platform.
@@ -54,7 +54,7 @@ Keep the first pass single-threaded:
 ## Naming And Boundary Truth
 
 - `OneClickUI.ai` is the shorter front-door label.
-- `OpenUI MCP Studio` remains the technical product, runtime, and release name.
+- `OpenUIStudio` remains the technical product, runtime, and release name.
 - Primary runtime: local `stdio` MCP through
   `services/mcp-server/src/main.ts`.
 - Primary distribution artifact: this public GitHub repo, plus repo-owned
@@ -65,12 +65,12 @@ Keep the first pass single-threaded:
 <p align="center">
   <img
     src="./docs/assets/OpenUIStudio-demo.gif"
-    alt="Animated OpenUI MCP Studio demo showing brief, review, and ship stages"
+    alt="Animated OpenUIStudio demo showing brief, review, and ship stages"
     width="100%"
   />
 </p>
 
-> OpenUI MCP Studio is the public repo for MCP-native UI delivery and review
+> OpenUIStudio is the public repo for MCP-native UI delivery and review
 > across Codex, Claude Code, OpenCode, OpenClaw, and other MCP-first clients.
 
 ## Second-Ring Questions
@@ -153,7 +153,7 @@ Read this repository in three layers so the primary product story stays clear.
 ### 1. Core shipping workflow
 
 This is the mainline capability surface and the shortest honest answer to
-"what does OpenUI MCP Studio really do?"
+"what does OpenUIStudio really do?"
 
 - `openui_detect_shadcn_paths`
 - `openui_generate_ui`
@@ -440,7 +440,7 @@ end.
 <p align="center">
   <img
     src="./docs/assets/OpenUIStudio-use-cases.png"
-    alt="Use cases showing why evaluators keep OpenUI MCP Studio bookmarked"
+    alt="Use cases showing why evaluators keep OpenUIStudio bookmarked"
     width="100%"
   />
 </p>
@@ -485,7 +485,7 @@ This repository is closer to a shipping studio than a prompt toy.
 <p align="center">
   <img
     src="./docs/assets/OpenUIStudio-comparison.png"
-    alt="Comparison showing how OpenUI MCP Studio differs from a pure code generator and a generic UI demo repo"
+    alt="Comparison showing how OpenUIStudio differs from a pure code generator and a generic UI demo repo"
     width="100%"
   />
 </p>
@@ -603,7 +603,7 @@ narrative rather than synthetic marketing art.
 <p align="center">
   <img
     src="./docs/assets/OpenUIStudio-demo.gif"
-    alt="Animated OpenUI MCP Studio demo showing the brief-to-review-to-ship workflow"
+    alt="Animated OpenUIStudio demo showing the brief-to-review-to-ship workflow"
     width="100%"
   />
 </p>
@@ -655,7 +655,7 @@ The broader repository identity still matters:
 | Pure code generator      | Fast output                                                              | Usually stops before apply, proof, or quality gates |
 | Generic UI demo repo     | Nice screenshots                                                         | Weak evidence that the workflow can ship real files |
 | Agent flow without gates | Flexible automation                                                      | Harder to trust the result under repeatable checks  |
-| **OpenUI MCP Studio**    | Generation, application, proof, and operator guidance in one path        | Still needs your product judgment for what to ship  |
+| **OpenUIStudio**    | Generation, application, proof, and operator guidance in one path        | Still needs your product judgment for what to ship  |
 
 ### Why It Wins For Evaluation
 
@@ -697,7 +697,7 @@ If you want the current ecosystem packaging truth, run
 This repository is worth starring when you want a reference that is both useful
 today and easy to revisit later.
 
-| Reason to bookmark it | Plain generator repo                        | OpenUI MCP Studio                                                                   |
+| Reason to bookmark it | Plain generator repo                        | OpenUIStudio                                                                   |
 | --------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------- |
 | First visible result  | often starts with a screenshot or a promise | `npm run demo:ship` gives you a real ship payload                                   |
 | Trust story           | you wire your own checks                    | proof target, smoke, visual, UI/UX, and release checks are already part of the repo |
@@ -926,7 +926,7 @@ skill product line for OpenClaw-side work.
 Use this exact brief if you want the same quick demo that powers `npm run demo:ship`:
 
 ```text
-Create a polished pricing page hero for OpenUI MCP Studio. Include a short headline, a one-line value proposition, three pricing tiers, one highlighted recommended plan, and a compact trust row for smoke, visual, and release checks.
+Create a polished pricing page hero for OpenUIStudio. Include a short headline, a one-line value proposition, three pricing tiers, one highlighted recommended plan, and a compact trust row for smoke, visual, and release checks.
 ```
 
 ## FAQ

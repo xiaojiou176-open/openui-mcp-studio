@@ -1,6 +1,6 @@
 ---
 name: openui-workspace-delivery
-description: Teach an agent how to install OpenUI MCP Studio, connect it to a host, and use the core UI generation and review workflow without overclaiming a live marketplace listing.
+description: Teach an agent how to install OpenUIStudio, connect it to a host, and use the core UI generation and review workflow without overclaiming a live marketplace listing.
 version: 1.0.0
 triggers:
   - openui
@@ -12,7 +12,7 @@ triggers:
 
 # OpenUI Workspace Delivery
 
-Teach the agent how to install, connect, and use OpenUI MCP Studio as a local
+Teach the agent how to install, connect, and use OpenUIStudio as a local
 MCP-first UI generation and review workspace.
 
 ## Use this skill when
@@ -50,7 +50,7 @@ MCP-first UI generation and review workspace.
 
 ## Suggested first prompt
 
-Use OpenUI MCP Studio to inspect this workspace and prepare one safe-first UI
+Use OpenUIStudio to inspect this workspace and prepare one safe-first UI
 delivery step. Start with `openui_scan_workspace_profile` and
 `openui_plan_change`. If the workspace looks healthy, run `openui_generate_ui`
 for one small component or page change, then run `openui_quality_gate` and
@@ -65,7 +65,7 @@ summarize what a reviewer should inspect next.
 
 ## Boundaries
 
-- OpenUI MCP Studio stays a local MCP and repo-owned proof workflow
+- OpenUIStudio stays a local MCP and repo-owned proof workflow
 - this packet does not claim a live ClawHub listing or a vendor marketplace
   listing
 - this packet does not claim a hosted runtime or hosted API publication

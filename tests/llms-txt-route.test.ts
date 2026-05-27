@@ -8,10 +8,10 @@ describe("llms.txt route", () => {
 		const text = await response.text();
 
 		expect(response.headers.get("content-type")).toContain("text/plain");
-		expect(text).toContain("# OpenUI MCP Studio");
+		expect(text).toContain("# OpenUIStudio");
 		expect(text).toContain("> OneClickUI.ai is the front door");
 		expect(text).toContain("frontdoor_label: OneClickUI.ai");
-		expect(text).toContain("technical_product: OpenUI MCP Studio");
+		expect(text).toContain("technical_product: OpenUIStudio");
 		expect(text).toContain("canonical_runtime: local stdio MCP");
 		expect(text).toContain("primary_bindings: MCP, Codex, Claude Code");
 		expect(text).toContain(

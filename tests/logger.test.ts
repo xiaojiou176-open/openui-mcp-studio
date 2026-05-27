@@ -4,17 +4,17 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const LOGGER_ENV_KEYS = [
-	"OPENUI_MCP_LOG_LEVEL",
-	"OPENUI_MCP_LOG_OUTPUT",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
-	"OPENUI_MCP_LOG_RETENTION_DAYS",
-	"OPENUI_MCP_LOG_MAX_FILE_MB",
-	"OPENUI_MCP_WORKSPACE_ROOT",
+	"OPENUISTUDIO_LOG_LEVEL",
+	"OPENUISTUDIO_LOG_OUTPUT",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_LOG_RETENTION_DAYS",
+	"OPENUISTUDIO_LOG_MAX_FILE_MB",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUI_MCP_CACHE_DIR",
-	"OPENUI_MCP_CACHE_RETENTION_DAYS",
-	"OPENUI_MCP_CACHE_MAX_BYTES",
-	"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
+	"OPENUISTUDIO_CACHE_DIR",
+	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+	"OPENUISTUDIO_CACHE_MAX_BYTES",
+	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
 ] as const;
 const ACTIVE_LOG_FILE = "runtime.jsonl";
 const TEST_RUN_ID = "logger-test-run";
@@ -36,14 +36,14 @@ function restoreEnv() {
 }
 
 function createTempLogDir(): string {
-	const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openui-mcp-logger-"));
+	const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openuistudio-logger-"));
 	createdLogDirs.add(tempDir);
 	return tempDir;
 }
 
 function createTempWorkspaceRoot(): string {
 	const tempDir = fs.mkdtempSync(
-		path.join(os.tmpdir(), "openui-mcp-workspace-"),
+		path.join(os.tmpdir(), "openuistudio-workspace-"),
 	);
 	createdLogDirs.add(tempDir);
 	return fs.realpathSync(tempDir);
@@ -63,16 +63,16 @@ describe("logger", () => {
 	beforeEach(() => {
 		vi.resetModules();
 		const workspaceRoot = createTempWorkspaceRoot();
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUI_MCP_CACHE_DIR = path.join(
+		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
 			workspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "104857600";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
 	});
 
 	afterEach(() => {
@@ -123,8 +123,8 @@ describe("logger", () => {
 	});
 
 	it("applies threshold to debug/info/warn/error consistently", async () => {
-		process.env.OPENUI_MCP_LOG_LEVEL = "warn";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "stderr";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "warn";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "stderr";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		const writeSpy = vi
@@ -148,8 +148,8 @@ describe("logger", () => {
 	});
 
 	it("redacts sensitive keys in nested meta payloads", async () => {
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "stderr";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "stderr";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		const writeSpy = vi
@@ -212,8 +212,8 @@ describe("logger", () => {
 	});
 
 	it("keeps structured tracing fields and redacts sensitive error text", async () => {
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "stderr";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "stderr";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		const writeSpy = vi
@@ -237,17 +237,17 @@ describe("logger", () => {
 		expect(payload.error).toBe("[REDACTED]");
 	});
 
-	it("writes JSONL logs to file sink when OPENUI_MCP_LOG_OUTPUT=file", async () => {
+	it("writes JSONL logs to file sink when OPENUISTUDIO_LOG_OUTPUT=file", async () => {
 		const workspaceRoot = createTempWorkspaceRoot();
 		const logDir = resolveLogDir(workspaceRoot);
 		const cacheDir = path.join(workspaceRoot, ".runtime-cache", "cache");
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		const writeSpy = vi
@@ -291,13 +291,13 @@ describe("logger", () => {
 			throw error;
 		}
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		const writeSpy = vi
@@ -324,17 +324,17 @@ describe("logger", () => {
 		).toBe(true);
 	});
 
-	it("keeps stderr output when OPENUI_MCP_LOG_OUTPUT=both", async () => {
+	it("keeps stderr output when OPENUISTUDIO_LOG_OUTPUT=both", async () => {
 		const workspaceRoot = createTempWorkspaceRoot();
 		const logDir = resolveLogDir(workspaceRoot);
 		const cacheDir = path.join(workspaceRoot, ".runtime-cache", "cache");
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "both";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		const writeSpy = vi
@@ -364,13 +364,13 @@ describe("logger", () => {
 		const oldTime = Date.now() - 2 * 24 * 60 * 60 * 1000;
 		fs.utimesSync(expiredFilePath, oldTime / 1000, oldTime / 1000);
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "0.001";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "1";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "0.001";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "1";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		logger.logInfo("startup-rotation");
@@ -425,16 +425,16 @@ describe("logger", () => {
 			(now - 60 * 60 * 1000) / 1000,
 		);
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "1";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "100";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "1";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "100";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		logger.logInfo("cache-cleanup-trigger");
@@ -455,16 +455,16 @@ describe("logger", () => {
 		fs.writeFileSync(firstExpiredFilePath, "old-cache", "utf8");
 		fs.utimesSync(firstExpiredFilePath, oldTimeSeconds, oldTimeSeconds);
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "debug";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "file";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
-		process.env.OPENUI_MCP_CACHE_DIR = cacheDir;
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "1";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "104857600";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "120";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
+		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "1";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "120";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		logger.logInfo("cache-cleanup-first");

@@ -36,7 +36,7 @@ registry_targets:
     read_back: current visible blocker is upstream preview authorization rather than a missing repo packet
 
 boundaries:
-  product_identity: Local MCP-first UI generation and review workspace for OpenUI MCP Studio.
+  product_identity: Local MCP-first UI generation and review workspace for OpenUIStudio.
   canonical_packet_role: Canonical pure-skills packet for the repo; repo root remains the canonical public root.
   canonical_repo_version: 0.1.0
   official_listing_state: ClawHub is listed live with a suspicious moderation warning; OpenHands/extensions#161 remains review pending; Goose PR #25 and agent-skill index PR #181 are submitted but not yet accepted; no official registry listing is claimed

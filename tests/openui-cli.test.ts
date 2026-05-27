@@ -83,7 +83,7 @@ describe("openui repo-local cli", () => {
 
 	it("builds an ecosystem guide payload from the ecosystem contract", () => {
 		const payload = buildEcosystemGuidePayload("/repo", {
-			technicalName: "OpenUI MCP Studio",
+			technicalName: "OpenUIStudio",
 			frontdoorLabel: "OneClickUI.ai",
 			summary: "Current ecosystem packaging truth.",
 			currentTruth: {
@@ -116,7 +116,7 @@ describe("openui repo-local cli", () => {
 			operatorOnlyActions: ["publish release"],
 		});
 
-		expect(payload.technicalName).toBe("OpenUI MCP Studio");
+		expect(payload.technicalName).toBe("OpenUIStudio");
 		expect(payload.frontdoorLabel).toBe("OneClickUI.ai");
 		expect(payload.clientSupportMatrix[0]).toEqual(
 			expect.objectContaining({

@@ -12,15 +12,15 @@ const ENV_KEYS = [
 	"GEMINI_DEFAULT_THINKING_LEVEL",
 	"GEMINI_DEFAULT_TEMPERATURE",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUI_MCP_CHILD_ENV_ALLOWLIST",
-	"OPENUI_MCP_WORKSPACE_ROOT",
-	"OPENUI_MCP_LOG_LEVEL",
-	"OPENUI_MCP_LOG_OUTPUT",
-	"OPENUI_MCP_LOG_ROTATE_ON_START",
-	"OPENUI_MCP_LOG_DIR",
-	"OPENUI_MCP_CACHE_DIR",
-	"OPENUI_MCP_LOG_RETENTION_DAYS",
-	"OPENUI_MCP_LOG_MAX_FILE_MB",
+	"OPENUISTUDIO_CHILD_ENV_ALLOWLIST",
+	"OPENUISTUDIO_WORKSPACE_ROOT",
+	"OPENUISTUDIO_LOG_LEVEL",
+	"OPENUISTUDIO_LOG_OUTPUT",
+	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"OPENUISTUDIO_LOG_DIR",
+	"OPENUISTUDIO_CACHE_DIR",
+	"OPENUISTUDIO_LOG_RETENTION_DAYS",
+	"OPENUISTUDIO_LOG_MAX_FILE_MB",
 	"OPENUI_TIMEOUT_MS",
 	"OPENUI_MAX_RETRIES",
 	"OPENUI_RETRY_BASE_MS",
@@ -30,9 +30,9 @@ const ENV_KEYS = [
 	"OPENUI_GEMINI_PYTHON_BIN",
 	"OPENUI_GEMINI_SIDECAR_PATH",
 	"OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES",
-	"OPENUI_MCP_CACHE_RETENTION_DAYS",
-	"OPENUI_MCP_CACHE_MAX_BYTES",
-	"OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES",
+	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
+	"OPENUISTUDIO_CACHE_MAX_BYTES",
+	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
 	"OPENUI_TOOL_CACHE_ROOT",
 	"OPENUI_TOOL_CACHE_RETENTION_DAYS",
 	"OPENUI_TOOL_CACHE_MAX_BYTES",
@@ -91,15 +91,15 @@ describe("constants low-core coverage", () => {
 		process.env.GEMINI_DEFAULT_THINKING_LEVEL = "high";
 		process.env.GEMINI_DEFAULT_TEMPERATURE = "0.8";
 		process.env.OPENUI_MODEL_ROUTING = "on";
-		process.env.OPENUI_MCP_CHILD_ENV_ALLOWLIST = "PATH, HOME";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_LOG_LEVEL = "info";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "both";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "off";
-		process.env.OPENUI_MCP_LOG_DIR = ".runtime-cache/logs/runtime";
-		process.env.OPENUI_MCP_CACHE_DIR = ".runtime-cache/cache";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "9";
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "5";
+		process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = "PATH, HOME";
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_LOG_LEVEL = "info";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
+		process.env.OPENUISTUDIO_LOG_DIR = ".runtime-cache/logs/runtime";
+		process.env.OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "9";
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "5";
 		process.env.OPENUI_TIMEOUT_MS = "32100";
 		process.env.OPENUI_MAX_RETRIES = "3";
 		process.env.OPENUI_RETRY_BASE_MS = "350";
@@ -110,9 +110,9 @@ describe("constants low-core coverage", () => {
 		process.env.OPENUI_GEMINI_SIDECAR_PATH =
 			"services/gemini-sidecar/bridge.py";
 		process.env.OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES = "131072";
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "6";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "2048";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "15";
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "6";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "2048";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "15";
 
 		const constants = await loadConstants();
 		expect(constants.getGeminiApiKey()).toBe("test-key");
@@ -190,25 +190,25 @@ describe("constants low-core coverage", () => {
 			/OPENUI_MODEL_ROUTING must be "on" or "off"/,
 		);
 
-		delete process.env.OPENUI_MCP_LOG_LEVEL;
+		delete process.env.OPENUISTUDIO_LOG_LEVEL;
 		expect(constants.getOpenuiMcpLogLevel()).toBe(
-			constants.DEFAULT_OPENUI_MCP_LOG_LEVEL,
+			constants.DEFAULT_OPENUISTUDIO_LOG_LEVEL,
 		);
 
-		process.env.OPENUI_MCP_LOG_LEVEL = "verbose";
+		process.env.OPENUISTUDIO_LOG_LEVEL = "verbose";
 		expect(() => constants.getOpenuiMcpLogLevel()).toThrow(
-			/OPENUI_MCP_LOG_LEVEL must be one of/,
+			/OPENUISTUDIO_LOG_LEVEL must be one of/,
 		);
 
-		delete process.env.OPENUI_MCP_LOG_OUTPUT;
+		delete process.env.OPENUISTUDIO_LOG_OUTPUT;
 		expect(constants.getOpenuiMcpLogOutput()).toBe("both");
 
-		process.env.OPENUI_MCP_LOG_OUTPUT = "printer";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "printer";
 		expect(() => constants.getOpenuiMcpLogOutput()).toThrow(
-			/OPENUI_MCP_LOG_OUTPUT must be one of/,
+			/OPENUISTUDIO_LOG_OUTPUT must be one of/,
 		);
 
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "-5";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "-5";
 		expect(() => constants.getOpenuiMcpCacheCleanIntervalMinutes()).toThrow(
 			/positive integer/,
 		);
@@ -217,7 +217,7 @@ describe("constants low-core coverage", () => {
 	it("resolves tool-cache roots and chrome profile getters across default, relative, home, and absolute branches", async () => {
 		const workspaceRoot = makeTempWorkspace("openui-tool-cache-constants-");
 		const chromeDataRoot = makeTempWorkspace("openui-chrome-data-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
 
 		const constants = await loadConstants();
 
@@ -279,15 +279,15 @@ describe("constants low-core coverage", () => {
 		process.env.GEMINI_DEFAULT_THINKING_LEVEL = "high";
 		process.env.GEMINI_DEFAULT_TEMPERATURE = "1";
 		process.env.OPENUI_MODEL_ROUTING = "on";
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUI_MCP_LOG_LEVEL = "info";
-		process.env.OPENUI_MCP_LOG_OUTPUT = "both";
-		process.env.OPENUI_MCP_LOG_ROTATE_ON_START = "on";
-		process.env.OPENUI_MCP_LOG_DIR =
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.OPENUISTUDIO_LOG_LEVEL = "info";
+		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
+		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
+		process.env.OPENUISTUDIO_LOG_DIR =
 			".runtime-cache/runs/<run_id>/logs/runtime.jsonl";
-		process.env.OPENUI_MCP_CACHE_DIR = ".runtime-cache/cache";
-		process.env.OPENUI_MCP_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_LOG_MAX_FILE_MB = "10";
+		process.env.OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
+		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
 		process.env.OPENUI_TIMEOUT_MS = "45000";
 		process.env.OPENUI_MAX_RETRIES = "2";
 		process.env.OPENUI_RETRY_BASE_MS = "450";
@@ -298,9 +298,9 @@ describe("constants low-core coverage", () => {
 		process.env.OPENUI_GEMINI_SIDECAR_PATH =
 			"services/gemini-sidecar/server.py";
 		process.env.OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES = "262144";
-		process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUI_MCP_CACHE_MAX_BYTES = "104857600";
-		process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
+		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
+		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
 		process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/OpenUIStudio/tooling";
 		process.env.OPENUI_TOOL_CACHE_RETENTION_DAYS = "3";
 		process.env.OPENUI_TOOL_CACHE_MAX_BYTES = "5368709120";

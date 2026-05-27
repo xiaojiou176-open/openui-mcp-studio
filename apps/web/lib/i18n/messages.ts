@@ -339,9 +339,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       },
       footerBadge: "Brand layer",
       footerTitle:
-        "OneClickUI.ai is the front door. OpenUI MCP Studio is the technical product.",
+        "OneClickUI.ai is the front door. OpenUIStudio is the technical product.",
       footerBody:
-        "The front door is allowed to be shorter and clearer. The technical name stays visible because the repo, MCP surface, proof story, and workspace workflow still belong to OpenUI MCP Studio.",
+        "The front door is allowed to be shorter and clearer. The technical name stays visible because the repo, MCP surface, proof story, and workspace workflow still belong to OpenUIStudio.",
       footerLinks: {
         readme: "README",
         docs: "Docs hub",
@@ -352,7 +352,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
     home: {
       heroTitle: "Ship React UI into your workspace, with proof and review.",
       heroBody:
-        "OneClickUI.ai is the front door for OpenUI MCP Studio: an MCP-native UI/UX delivery and review workflow that plans the change, writes real files, and now carries a plugin-grade starter/config/proof package for Codex, Claude Code, and OpenClaw-side packaging work. It still stays narrower and more honest than a generic coding-agent shell.",
+        "OneClickUI.ai is the front door for OpenUIStudio: an MCP-native UI/UX delivery and review workflow that plans the change, writes real files, and now carries a plugin-grade starter/config/proof package for Codex, Claude Code, and OpenClaw-side packaging work. It still stays narrower and more honest than a generic coding-agent shell.",
       heroCtas: {
         walkthrough: "Take the first-minute walkthrough",
         proof: "See the 30-second proof",
@@ -461,7 +461,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       refusalTitle: "What the front door will not pretend",
       refusalPoints: [
         "It will not call this a generic AI agent, a no-code builder, or a fully autonomous software engineer.",
-        "It will keep OpenUI MCP Studio as the technical main name, while treating OneClickUI.ai as the shorter front-door brand expression.",
+        "It will keep OpenUIStudio as the technical main name, while treating OneClickUI.ai as the shorter front-door brand expression.",
         "It will keep docs, proof, and the interactive workbench one click away instead of hiding them behind marketing fog.",
         "It will not pretend that Homepage, Social Preview, or a published release bundle are already live unless remote settings prove it.",
       ],
@@ -471,7 +471,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       heroTitle:
         "Compare OpenUI with Bolt, Lovable, and v0 without pretending they solve the same job.",
       heroBody:
-        "The official builder products lead with hosted speed and quick app creation. OpenUI MCP Studio should only claim a different lane: prompt-to-workspace UI shipping with proof, review, and acceptance.",
+        "The official builder products lead with hosted speed and quick app creation. OpenUIStudio should only claim a different lane: prompt-to-workspace UI shipping with proof, review, and acceptance.",
       ecosystemTitle:
         "How Codex, Claude Code, OpenHands, and OpenCode fit this story",
       ecosystemBody:
@@ -887,9 +887,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
         workbench: "工作台",
       },
       footerBadge: "品牌层次",
-      footerTitle: "OneClickUI.ai 是前门表达，OpenUI MCP Studio 是技术主产品。",
+      footerTitle: "OneClickUI.ai 是前门表达，OpenUIStudio 是技术主产品。",
       footerBody:
-        "前门可以更短、更易传播，但技术名必须持续可见，因为仓库、MCP surface、proof 叙事和 workspace workflow 仍然属于 OpenUI MCP Studio。",
+        "前门可以更短、更易传播，但技术名必须持续可见，因为仓库、MCP surface、proof 叙事和 workspace workflow 仍然属于 OpenUIStudio。",
       footerLinks: {
         readme: "README",
         docs: "文档总览",
@@ -900,7 +900,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
     home: {
       heroTitle: "把 React UI 写进你的工作区，并把证据与评审保留在流程里。",
       heroBody:
-        "OneClickUI.ai 是 OpenUI MCP Studio 的前门：它不是泛化开发代理外壳，而是一条 MCP-native 的 UI/UX 交付与评审工作流，会先规划变更、再写入真实文件，并在你信任结果之前把变更文件、评审结论和验收状态摆在台面上。现在它还带着一套可直接拿来用的 starter bundle、proof loop 和故障排查入口，最适合已经在 Codex 或 Claude Code 里推进仓库工作的团队，以及需要评估 OpenClaw public-ready 包装的人。",
+        "OneClickUI.ai 是 OpenUIStudio 的前门：它不是泛化开发代理外壳，而是一条 MCP-native 的 UI/UX 交付与评审工作流，会先规划变更、再写入真实文件，并在你信任结果之前把变更文件、评审结论和验收状态摆在台面上。现在它还带着一套可直接拿来用的 starter bundle、proof loop 和故障排查入口，最适合已经在 Codex 或 Claude Code 里推进仓库工作的团队，以及需要评估 OpenClaw public-ready 包装的人。",
       heroCtas: {
         walkthrough: "按上手路径走一遍",
         proof: "查看 30 秒证据链",
@@ -1262,7 +1262,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       refusalTitle: "前门不会假装自己已经是这些东西",
       refusalPoints: [
         "它不会把自己叫成 generic AI agent、no-code builder 或 fully autonomous software engineer。",
-        "它会继续把 OpenUI MCP Studio 作为技术主名，而把 OneClickUI.ai 当作更短的前门表达。",
+        "它会继续把 OpenUIStudio 作为技术主名，而把 OneClickUI.ai 当作更短的前门表达。",
         "它会把 docs、proof 和 interactive workbench 保持在一跳可达的位置，而不是藏在营销雾里。",
         "除非 remote settings 真正证明已经 live，否则它不会假装 Homepage、Social Preview 或公开 release bundle 已经全部上线。",
       ],
@@ -1272,7 +1272,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       heroTitle:
         "把 OpenUI 和 Bolt、Lovable、v0 放在一起看，但不假装它们在做同一份工作。",
       heroBody:
-        "这些官方 builder 产品主打 hosted speed 与快速成型。OpenUI MCP Studio 这轮只能诚实地主张另一条赛道：prompt-to-workspace UI shipping，以及 proof、review、acceptance 持续在场。",
+        "这些官方 builder 产品主打 hosted speed 与快速成型。OpenUIStudio 这轮只能诚实地主张另一条赛道：prompt-to-workspace UI shipping，以及 proof、review、acceptance 持续在场。",
       ecosystemTitle:
         "Codex、Claude Code、OpenHands、OpenCode 在这条叙事里各自扮演什么角色",
       ecosystemBody:

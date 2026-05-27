@@ -1,6 +1,6 @@
 # Public Surface Guide
 
-This document explains how to keep OpenUI MCP Studio looking like a maintained
+This document explains how to keep OpenUIStudio looking like a maintained
 product instead of drifting back into a governance-only repository facade.
 
 ## What Counts As Public Surface
@@ -208,7 +208,7 @@ Treat these routes as one discovery bundle:
 
 They should repeat the same truth:
 
-- `OpenUI MCP Studio` is the technical product
+- `OpenUIStudio` is the technical product
 - `OneClickUI.ai` is the front-door label
 - current builder order remains local MCP -> compatibility OpenAPI ->
   repo-local workflow packet

@@ -1,6 +1,6 @@
-# OpenUI MCP Studio Capabilities
+# OpenUIStudio Capabilities
 
-OpenUI MCP Studio exposes a local UI generation and review workflow.
+OpenUIStudio exposes a local UI generation and review workflow.
 
 ## Core workflow tools
 

@@ -946,10 +946,10 @@ async function maybeLoadVisionInput(input: {
 }
 
 async function run(): Promise<void> {
-	process.env.OPENUI_MCP_LOG_LEVEL =
-		process.env.OPENUI_MCP_LOG_LEVEL || "error";
-	process.env.OPENUI_MCP_LOG_OUTPUT =
-		process.env.OPENUI_MCP_LOG_OUTPUT || "stderr";
+	process.env.OPENUISTUDIO_LOG_LEVEL =
+		process.env.OPENUISTUDIO_LOG_LEVEL || "error";
+	process.env.OPENUISTUDIO_LOG_OUTPUT =
+		process.env.OPENUISTUDIO_LOG_OUTPUT || "stderr";
 
 	const options = parseArgs(process.argv.slice(2));
 	const targetRoot = resolveTargetRoot(options);

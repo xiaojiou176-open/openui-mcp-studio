@@ -1,4 +1,4 @@
-# Install And Attach OpenUI MCP Studio
+# Install And Attach OpenUIStudio
 
 Use the current repo-native MCP path first.
 

@@ -64,7 +64,7 @@ describe("@openui/sdk", () => {
 
 				if (url.endsWith("/v1/frontdoor")) {
 					return new Response(
-						JSON.stringify({ product: { technicalName: "OpenUI MCP Studio" } }),
+						JSON.stringify({ product: { technicalName: "OpenUIStudio" } }),
 						{ status: 200 },
 					);
 				}
@@ -128,7 +128,7 @@ describe("@openui/sdk", () => {
 		await expect(client.frontdoor()).resolves.toEqual(
 			expect.objectContaining({
 				product: expect.objectContaining({
-					technicalName: "OpenUI MCP Studio",
+					technicalName: "OpenUIStudio",
 				}),
 			}),
 		);

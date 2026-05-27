@@ -20,7 +20,7 @@ export const metadata = buildPageMetadata({
   title:
     "Bolt alternative, Lovable alternative, v0 alternative, and MCP workflow compare",
   description:
-    "An honest compare surface for teams evaluating OpenUI MCP Studio against Bolt, Lovable, v0, and broader Codex / Claude Code / OpenHands / OpenCode traffic.",
+    "An honest compare surface for teams evaluating OpenUIStudio against Bolt, Lovable, v0, and broader Codex / Claude Code / OpenHands / OpenCode traffic.",
   path: "/compare",
   keywords: [
     "Bolt alternative",
@@ -40,7 +40,7 @@ const compareStructuredData = buildStructuredDiscoveryJsonLd({
   title:
     "Bolt alternative, Lovable alternative, v0 alternative, and MCP workflow compare",
   description:
-    "An honest compare surface for teams evaluating OpenUI MCP Studio against Bolt, Lovable, v0, and broader Codex / Claude Code / OpenHands / OpenCode traffic.",
+    "An honest compare surface for teams evaluating OpenUIStudio against Bolt, Lovable, v0, and broader Codex / Claude Code / OpenHands / OpenCode traffic.",
   type: "CollectionPage",
   breadcrumbLabel: "Compare",
   about: [

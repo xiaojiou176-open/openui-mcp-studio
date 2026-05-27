@@ -58,8 +58,8 @@ afterEach(async () => {
 			.splice(0)
 			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
-	delete process.env.OPENUI_MCP_CACHE_DIR;
-	delete process.env.OPENUI_MCP_WORKSPACE_ROOT;
+	delete process.env.OPENUISTUDIO_CACHE_DIR;
+	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
 	vi.restoreAllMocks();
 	vi.resetModules();
 });
@@ -67,8 +67,8 @@ afterEach(async () => {
 describe("ship branch coverage", () => {
 	it("skips rollback_on_quality_fail when quality fails but apply writes are empty", async () => {
 		const workspaceRoot = await mkTempDir("openui-ship-branch-workspace-");
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
-		process.env.OPENUI_MCP_CACHE_DIR = await mkTempDir(
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
 			"openui-ship-branch-cache-",
 		);
 
@@ -189,7 +189,7 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("throws when beginExecution returns cached payload that is not reusable", async () => {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const resolveShadcnStyleGuideMock = vi.fn(async () => ({
 			detection: {
@@ -257,7 +257,7 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("continues after idempotency_lookup best-effort failure and reuses cached beginExecution payload", async () => {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const resolveShadcnStyleGuideMock = vi.fn(async () => ({
 			detection: {
@@ -338,7 +338,7 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("returns cached payload when inflight wait resolves to ready", async () => {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const resolveShadcnStyleGuideMock = vi.fn(async () => ({
 			detection: {
@@ -411,7 +411,7 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("fails loudly when inflight wait ends with timeout_missing", async () => {
-		process.env.OPENUI_MCP_WORKSPACE_ROOT = os.tmpdir();
+		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
 
 		const resolveShadcnStyleGuideMock = vi.fn(async () => ({
 			detection: {

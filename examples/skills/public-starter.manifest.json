@@ -4,7 +4,7 @@
   "label": "OpenUI Public Skills Starter",
   "status": "public-starter",
   "distributionTier": "plugin-grade-public-distribution-package",
-  "technicalName": "OpenUI MCP Studio",
+  "technicalName": "OpenUIStudio",
   "summary": "Official repo-owned skill product line for plugin-grade MCP distribution. This surface packages current contract templates, sample host configs, proof loops, and install/use guidance without claiming a marketplace listing or a managed runtime.",
   "officialPublicSurfaces": {
     "codex": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
@@ -94,7 +94,7 @@
     "claiming a shipped formal Skills runtime",
     "claiming marketplace or plugin listing support",
     "claiming SDK or hosted API maturity",
-    "reframing OpenUI MCP Studio as a generic external integration platform",
+    "reframing OpenUIStudio as a generic external integration platform",
     "claiming an official OpenClaw runtime or ClawHub listing"
   ],
   "troubleshootingPath": [
