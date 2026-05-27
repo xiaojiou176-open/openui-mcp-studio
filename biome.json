@@ -1,0 +1,44 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"defaultBranch": "main"
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"includes": [
+			"src/**",
+			"tests/**",
+			"scripts/**",
+			"package.json",
+			"biome.json",
+			"!tests/fixtures",
+			"!tests/artifacts",
+			"!.next",
+			"!dist",
+			"!build",
+			"!.runtime-cache",
+			"!coverage",
+			"!node_modules",
+			"!artifacts"
+		]
+	},
+	"formatter": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"style": {
+				"useBlockStatements": "error",
+				"noUselessElse": "error",
+				"noNonNullAssertion": "off"
+			},
+			"correctness": {
+				"noUnusedVariables": "error"
+			}
+		}
+	}
+}

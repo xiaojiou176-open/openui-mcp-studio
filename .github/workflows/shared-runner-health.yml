@@ -1,0 +1,46 @@
+name: Public CI Health
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-ci-health-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  public_ci_health:
+    name: Public CI Contract Health
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version: "22.22.0"
+          package-manager-cache: false
+
+      - name: Verify public workflow infra boundary
+        run: node tooling/check-public-infra-boundary.mjs
+
+      - name: Publish health summary
+        shell: bash
+        run: |
+          {
+            echo "## Public CI Health"
+            echo ""
+            echo "- Public workflow boundary scan: passed"
+            echo "- Runner contract: github-hosted only"
+            echo "- Internal infrastructure topology is intentionally excluded from this public workflow"
+          } >> "${GITHUB_STEP_SUMMARY}"

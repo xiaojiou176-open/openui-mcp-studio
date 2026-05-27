@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "name": "OpenUIStudio-distribution-starter",
+  "owner": {
+    "name": "xiaojiou176-open"
+  },
+  "metadata": {
+    "description": "Marketplace-ready Claude Code install surface for the public OpenUI repo. It is current and versioned, but it does not claim a live listing."
+  },
+  "plugins": [
+    {
+      "name": "openui-workspace-delivery",
+      "source": "./plugins/openui-workspace-delivery"
+    }
+  ]
+}

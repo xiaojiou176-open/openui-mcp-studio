@@ -1,0 +1,23 @@
+run:
+  timeout: 5m
+  tests: true
+  issues-exit-code: 1
+
+linters:
+  enable:
+    - errcheck
+    - gofmt
+    - goimports
+    - govet
+    - ineffassign
+    - revive
+    - staticcheck
+    - unused
+
+linters-settings:
+  revive:
+    confidence: 0.8
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

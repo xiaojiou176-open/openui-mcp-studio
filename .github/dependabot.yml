@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    cooldown:
+      default-days: 7
+    schedule:
+      # Dependabot is dependency-inbox automation, not a sixth CI governance lane.
+      # Daily polling plus cooldown keeps drift visible without reintroducing
+      # a "weekly" institutional layer into repo doctrine.
+      interval: "daily"
+      time: "03:00"
+      timezone: "America/Los_Angeles"
+    # Security updates keep their own GitHub-managed limit; setting this to 0
+    # disables routine version-update PRs so final-distribution prep stays on
+    # real blockers instead of background drift.
+    open-pull-requests-limit: 0
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    cooldown:
+      default-days: 7
+    schedule:
+      # Keep workflow dependency drift on the same daily-plus-cooldown posture.
+      interval: "daily"
+      time: "03:30"
+      timezone: "America/Los_Angeles"
+    open-pull-requests-limit: 0
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"

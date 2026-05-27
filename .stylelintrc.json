@@ -1,0 +1,8 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "declaration-no-important": true,
+    "color-hex-length": "short",
+    "no-descending-specificity": true
+  }
+}

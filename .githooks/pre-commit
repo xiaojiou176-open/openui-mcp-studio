@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+set -eu
+
+if ! command -v npm >/dev/null 2>&1; then
+  echo "[pre-commit] npm not found in PATH"
+  exit 1
+fi
+
+if ! command -v git >/dev/null 2>&1; then
+  echo "[pre-commit] git not found in PATH"
+  exit 1
+fi
+
+if ! command -v rg >/dev/null 2>&1; then
+  echo "[pre-commit] ripgrep (rg) not found in PATH"
+  exit 1
+fi
+
+echo "[pre-commit] checking staged env/secrets policy"
+staged_files="$(git diff --cached --name-only --diff-filter=ACM)"
+if [ -n "$staged_files" ]; then
+  blocked_env_files="$(
+    printf '%s\n' "$staged_files" \
+      | rg -e '(^|/)\.env(\..+)?$' \
+      | rg -v -e '(^|/)\.env(\.development|\.staging|\.production)?\.example$' \
+      || true
+  )"
+  if [ -n "$blocked_env_files" ]; then
+    echo "[pre-commit] blocked: staging real env files is forbidden."
+    echo "$blocked_env_files"
+    exit 1
+  fi
+
+  pcre2_flag=""
+  if rg --pcre2-version >/dev/null 2>&1; then
+    pcre2_flag="--pcre2"
+  else
+    echo "[pre-commit] warning: rg lacks PCRE2 support; using basic regex for key scan"
+  fi
+
+  gemini_hits=0
+  for file in $staged_files; do
+    [ -f "$file" ] || continue
+    if git show ":$file" | rg -n --no-heading $pcre2_flag '(?i)(AIza[0-9A-Za-z_-]{35}|GEMINI_API_KEY\s*[:=]\s*["'\'']?AIza[0-9A-Za-z_-]{35}|x-goog-api-key\s*[:=]\s*["'\'']?AIza[0-9A-Za-z_-]{35})' >/dev/null 2>&1; then
+      echo "[pre-commit] potential Gemini secret detected in staged file: $file"
+      gemini_hits=1
+    fi
+  done
+  if [ "$gemini_hits" -ne 0 ]; then
+    exit 1
+  fi
+fi
+
+if command -v gitleaks >/dev/null 2>&1; then
+  echo "[pre-commit] running gitleaks protect --staged"
+  gitleaks protect --staged --redact --config .gitleaks.toml
+else
+  echo "[pre-commit] gitleaks not found; relying on CI secret_scan job"
+fi
+
+echo "[pre-commit] running gate"
+npm run -s precommit:gate

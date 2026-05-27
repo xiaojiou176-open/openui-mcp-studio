@@ -1,0 +1,55 @@
+version: 1
+id: OpenUIStudio
+technical_name: OpenUIStudio
+frontdoor_label: OneClickUI.ai
+status: mixed-live-and-review-boundary
+canonical_repo: xiaojiou176-open/openuistudio
+homepage: https://xiaojiou176-open.github.io/openuistudio/
+published_surfaces:
+  - github-repo
+  - github-pages-front-door
+  - github-releases
+  - repo-owned-proof-docs
+submission_ready_surfaces:
+  - pure-mcp-registry-descriptor
+  - codex-bundle
+  - claude-code-bundle
+  - docker-runtime-distribution
+  - sdk-pack-install-lane
+external_truth:
+  clawhub:
+    status: listed_live
+    moderation_verdict: suspicious
+    moderation_label: suspicious.llm_suspicious
+  openhands_pr_161:
+    status: OPEN / REVIEW_REQUIRED / BLOCKED
+  official_mcp_registry:
+    status: not_submitted
+  ghcr:
+    status: not_published
+  public_package_and_container_lanes:
+    status: no verified public receipt today
+truth_routes:
+  storefront: README.md
+  distribution: DISTRIBUTION.md
+  integrations: INTEGRATIONS.md
+  mcp_registry_descriptor: server.json
+  canonical_skill_packet: plugins/openui-workspace-delivery/README.md
+  mcp_runtime: services/mcp-server/README.md
+  public_distribution_mirror: examples/public-distribution/README.md
+  skills_mirror: examples/skills/README.md
+  installable_skills_package: packages/skills-kit/manifest.json
+  docker_bundle: examples/public-distribution/docker-runtime-submission.manifest.json
+  openclaw_bundle: examples/public-distribution/openclaw-public-ready.manifest.json
+claims_not_made:
+  - no live codex directory listing is claimed
+  - no live claude marketplace listing is claimed
+  - no live root-repo clawhub listing is claimed
+  - no live official MCP registry publication is claimed
+  - no published public docker image is claimed
+  - no managed hosted runtime is claimed
+operator_only_follow_through:
+  - publish or update the live marketplace or registry entry where no receipt exists yet
+  - publish or attach the docker image when a real GHCR receipt exists
+  - complete any account-owned review flow
+  - rerun live verification before changing public copy again
