@@ -56,7 +56,7 @@ async function writeContracts(rootDir: string) {
 describe("space clean dry-run", () => {
 	it("lists allowlisted repo-local cleanup targets only", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-dry-run-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-dry-run-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -86,7 +86,7 @@ describe("space clean dry-run", () => {
 
 	it("refuses requests for the runtime surface root", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-dry-run-refuse-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-dry-run-refuse-root-"),
 		);
 		try {
 			await writeContracts(rootDir);

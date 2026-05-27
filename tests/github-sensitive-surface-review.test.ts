@@ -28,7 +28,7 @@ afterEach(async () => {
 
 describe("github sensitive surface review", () => {
 	it("passes when GitHub public surfaces and pull refs are clean", async () => {
-		const root = await mkTempRoot("openui-gh-sensitive-pass-");
+		const root = await mkTempRoot("shadcn-brief-gh-sensitive-pass-");
 		await writeJson(
 			path.join(
 				root,
@@ -88,7 +88,7 @@ describe("github sensitive surface review", () => {
 	});
 
 	it("fails when GitHub code scanning or pull refs still expose sensitive surfaces", async () => {
-		const root = await mkTempRoot("openui-gh-sensitive-fail-");
+		const root = await mkTempRoot("shadcn-brief-gh-sensitive-fail-");
 		await writeJson(
 			path.join(
 				root,
@@ -159,7 +159,7 @@ describe("github sensitive surface review", () => {
 	});
 
 	it("passes when GitHub code search is rate-limited but primary alert surfaces are clean", async () => {
-		const root = await mkTempRoot("openui-gh-sensitive-rate-limit-");
+		const root = await mkTempRoot("shadcn-brief-gh-sensitive-rate-limit-");
 		await writeJson(
 			path.join(
 				root,

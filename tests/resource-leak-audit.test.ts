@@ -38,7 +38,7 @@ afterEach(async () => {
 
 describe("resource leak audit script", () => {
 	it("does not hang on unclosed hook block and still returns audit result", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-unclosed-hook-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-unclosed-hook-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "unclosed-hook.test.ts"),
@@ -64,7 +64,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("fails on void cleanup in afterEach", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-fail-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-fail-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "bad.test.ts"),
@@ -92,7 +92,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("fails when non-async cleanup hook calls async resource cleanup without await/return", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-non-async-fail-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-non-async-fail-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "non-async-cleanup-bad.test.ts"),
@@ -120,7 +120,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("fails when parameterized cleanup hook skips await/return on async cleanup", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-param-hook-fail-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-param-hook-fail-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "param-hook-bad.test.ts"),
@@ -148,7 +148,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("fails when function-style cleanup hook skips await/return on async cleanup", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-fn-hook-fail-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-fn-hook-fail-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "fn-hook-bad.test.ts"),
@@ -176,7 +176,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("fails on expression-body void cleanup in afterEach", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-expr-void-fail-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-expr-void-fail-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "expr-void-bad.test.ts"),
@@ -201,7 +201,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("passes when afterEach awaits cleanup promise", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-pass-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-pass-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "good.test.ts"),
@@ -231,7 +231,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("checks only staged test files when --staged is used", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-staged-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-staged-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await initGitRepo(root);
 
@@ -291,7 +291,7 @@ describe("resource leak audit script", () => {
 	}, 30_000);
 
 	it("checks renamed staged test files when --staged is used", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-staged-rename-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-staged-rename-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await initGitRepo(root);
 
@@ -347,7 +347,7 @@ describe("resource leak audit script", () => {
 	}, 30_000);
 
 	it("checks staged src test files when --staged is used", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-staged-src-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-staged-src-");
 		await fs.mkdir(path.join(root, "src"), { recursive: true });
 		await initGitRepo(root);
 
@@ -377,7 +377,7 @@ describe("resource leak audit script", () => {
 	}, 30_000);
 
 	it("fails when process.env is modified without restoration in cleanup hook", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-env-fail-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-env-fail-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "env-bad.test.ts"),
@@ -405,7 +405,7 @@ describe("resource leak audit script", () => {
 
 	it("passes when hooks exist and env restore is done in test-level try/finally", async () => {
 		const root = await mkTempDir(
-			"openui-resource-leak-audit-env-hook-plus-finally-pass-",
+			"shadcn-brief-resource-leak-audit-env-hook-plus-finally-pass-",
 		);
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
@@ -440,7 +440,7 @@ describe("resource leak audit script", () => {
 
 	it("does not flag process.env comparisons as env mutation", async () => {
 		const root = await mkTempDir(
-			"openui-resource-leak-audit-env-compare-pass-",
+			"shadcn-brief-resource-leak-audit-env-compare-pass-",
 		);
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
@@ -472,7 +472,7 @@ describe("resource leak audit script", () => {
 
 	it("fails on process.env modification when no cleanup hook exists", async () => {
 		const root = await mkTempDir(
-			"openui-resource-leak-audit-env-no-hook-fail-",
+			"shadcn-brief-resource-leak-audit-env-no-hook-fail-",
 		);
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
@@ -497,7 +497,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("fails when mocks are created without restoration in cleanup hook", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-mock-fail-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-mock-fail-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "mock-bad.test.ts"),
@@ -526,7 +526,7 @@ describe("resource leak audit script", () => {
 
 	it("fails when cleanup hook uses vi.clearAllMocks without restoring mock implementations", async () => {
 		const root = await mkTempDir(
-			"openui-resource-leak-audit-clear-all-mocks-fail-",
+			"shadcn-brief-resource-leak-audit-clear-all-mocks-fail-",
 		);
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
@@ -556,7 +556,7 @@ describe("resource leak audit script", () => {
 
 	it("fails on mock creation when no cleanup hook exists", async () => {
 		const root = await mkTempDir(
-			"openui-resource-leak-audit-mock-no-hook-fail-",
+			"shadcn-brief-resource-leak-audit-mock-no-hook-fail-",
 		);
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
@@ -582,7 +582,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("passes when only local vi.fn() mocks are used without global restore", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-local-vifn-pass-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-local-vifn-pass-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "mock-local-vifn-good.test.ts"),
@@ -608,7 +608,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("passes when env and mocks are both restored in cleanup hook", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-env-mock-pass-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-env-mock-pass-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "env-mock-good.test.ts"),
@@ -637,7 +637,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("passes when process.env dot notation is deleted in cleanup hook", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-env-dot-delete-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-env-dot-delete-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "env-dot-delete-good.test.ts"),
@@ -664,7 +664,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("passes when cleanup hook delegates env reset to restoreEnv helper", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-env-helper-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-env-helper-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "env-helper-good.test.ts"),
@@ -693,7 +693,7 @@ describe("resource leak audit script", () => {
 	});
 
 	it("passes when hooks exist and env restore happens only in test-level try/finally", async () => {
-		const root = await mkTempDir("openui-resource-leak-audit-env-finally-");
+		const root = await mkTempDir("shadcn-brief-resource-leak-audit-env-finally-");
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "tests", "env-finally-good.test.ts"),
@@ -727,7 +727,7 @@ describe("resource leak audit script", () => {
 
 	it("fails when finally only reads process.env without restoration action", async () => {
 		const root = await mkTempDir(
-			"openui-resource-leak-audit-env-finally-read-only-fail-",
+			"shadcn-brief-resource-leak-audit-env-finally-read-only-fail-",
 		);
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
@@ -759,7 +759,7 @@ describe("resource leak audit script", () => {
 
 	it("passes when try/finally restores env via Object.assign", async () => {
 		const root = await mkTempDir(
-			"openui-resource-leak-audit-env-finally-assign-",
+			"shadcn-brief-resource-leak-audit-env-finally-assign-",
 		);
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(
@@ -790,7 +790,7 @@ describe("resource leak audit script", () => {
 
 	it("passes when finally restoration is nested inside inner blocks", async () => {
 		const root = await mkTempDir(
-			"openui-resource-leak-audit-env-finally-nested-",
+			"shadcn-brief-resource-leak-audit-env-finally-nested-",
 		);
 		await fs.mkdir(path.join(root, "tests"), { recursive: true });
 		await fs.writeFile(

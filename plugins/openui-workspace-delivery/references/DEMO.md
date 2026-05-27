@@ -1,22 +1,22 @@
-# OpenUIStudio First-Success Demo
+# ShadcnBrief First-Success Demo
 
 This is the shortest proof loop that shows the packet is real.
 
 ## Demo prompt
 
-Use OpenUIStudio to inspect this workspace and prepare one safe-first UI
-delivery step. Start with `openui_scan_workspace_profile` and
-`openui_plan_change`. If the workspace looks healthy, run `openui_generate_ui`
-for one small component or page change, then run `openui_quality_gate` and
+Use ShadcnBrief to inspect this workspace and prepare one safe-first UI
+delivery step. Start with `shadcn_brief_scan_workspace_profile` and
+`shadcn_brief_plan_change`. If the workspace looks healthy, run `shadcn_brief_generate_ui`
+for one small component or page change, then run `shadcn_brief_quality_gate` and
 summarize what a reviewer should inspect next.
 
 ## Expected tool sequence
 
-1. `openui_scan_workspace_profile`
-2. `openui_plan_change`
-3. `openui_generate_ui`
-4. `openui_quality_gate`
-5. `openui_build_review_bundle`
+1. `shadcn_brief_scan_workspace_profile`
+2. `shadcn_brief_plan_change`
+3. `shadcn_brief_generate_ui`
+4. `shadcn_brief_quality_gate`
+5. `shadcn_brief_build_review_bundle`
 
 ## Visible success criteria
 

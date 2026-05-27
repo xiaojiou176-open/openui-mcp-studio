@@ -78,8 +78,8 @@ afterEach(async () => {
 			.splice(0)
 			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
-	delete process.env.OPENUISTUDIO_CACHE_DIR;
-	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	delete process.env.SHADCN_BRIEF_CACHE_DIR;
+	delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 	delete process.env.OPENUI_IDEMPOTENCY_TTL_MINUTES;
 	delete process.env.OPENUI_QUEUE_CONCURRENCY;
 	vi.restoreAllMocks();
@@ -88,16 +88,16 @@ afterEach(async () => {
 
 describe("ship idempotency", () => {
 	it("returns cached output on idempotency hit", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-cache-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
 		const quality = await import("../services/mcp-server/src/quality-gate.js");
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -133,7 +133,7 @@ describe("ship idempotency", () => {
 		const applySpy = vi
 			.spyOn(fileOps, "applyGeneratedFiles")
 			.mockResolvedValue({
-				targetRoot: "/tmp/openui-workspace",
+				targetRoot: "/tmp/shadcn-brief-workspace",
 				dryRun: false,
 				rollbackOnError: true,
 				plan: [{ path: "app/page.tsx", status: "create" as const }],
@@ -153,16 +153,16 @@ describe("ship idempotency", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const first = await harness.getHandler("openui_ship_react_page")({
+		const first = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship once",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "stable-key",
 			dryRun: false,
 			runCommands: false,
 		});
-		const second = await harness.getHandler("openui_ship_react_page")({
+		const second = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship once",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "stable-key",
 			dryRun: false,
 			runCommands: false,
@@ -188,16 +188,16 @@ describe("ship idempotency", () => {
 	}, 30_000);
 
 	it("uses implicit idempotency key when no explicit key is provided", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-cache-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
 		const quality = await import("../services/mcp-server/src/quality-gate.js");
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -227,7 +227,7 @@ describe("ship idempotency", () => {
 			},
 		});
 		vi.spyOn(fileOps, "applyGeneratedFiles").mockResolvedValue({
-			targetRoot: "/tmp/openui-workspace",
+			targetRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			rollbackOnError: true,
 			plan: [{ path: "app/page.tsx", status: "create" as const }],
@@ -247,15 +247,15 @@ describe("ship idempotency", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const first = await harness.getHandler("openui_ship_react_page")({
+		const first = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship no idempotency",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			runCommands: false,
 		});
-		const second = await harness.getHandler("openui_ship_react_page")({
+		const second = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship no idempotency",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			runCommands: false,
 		});
@@ -273,9 +273,9 @@ describe("ship idempotency", () => {
 	}, 30_000);
 
 	it("deduplicates concurrent requests with the same idempotency key", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-cache-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 		process.env.OPENUI_QUEUE_CONCURRENCY = "4";
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
@@ -283,7 +283,7 @@ describe("ship idempotency", () => {
 		const quality = await import("../services/mcp-server/src/quality-gate.js");
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -321,7 +321,7 @@ describe("ship idempotency", () => {
 			},
 		});
 		vi.spyOn(fileOps, "applyGeneratedFiles").mockResolvedValue({
-			targetRoot: "/tmp/openui-workspace",
+			targetRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			rollbackOnError: true,
 			plan: [{ path: "app/page.tsx", status: "create" as const }],
@@ -341,16 +341,16 @@ describe("ship idempotency", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const firstRun = harness.getHandler("openui_ship_react_page")({
+		const firstRun = harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship concurrently",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "concurrent-key",
 			dryRun: false,
 			runCommands: false,
 		});
-		const secondRun = harness.getHandler("openui_ship_react_page")({
+		const secondRun = harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship concurrently",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "concurrent-key",
 			dryRun: false,
 			runCommands: false,
@@ -374,9 +374,9 @@ describe("ship idempotency", () => {
 	}, 60_000);
 
 	it("keeps singleflight occupied after caller safety-timeout until leader settles", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-cache-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 		process.env.OPENUI_QUEUE_CONCURRENCY = "4";
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
@@ -387,7 +387,7 @@ describe("ship idempotency", () => {
 		);
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -428,7 +428,7 @@ describe("ship idempotency", () => {
 			},
 		});
 		vi.spyOn(fileOps, "applyGeneratedFiles").mockResolvedValue({
-			targetRoot: "/tmp/openui-workspace",
+			targetRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			rollbackOnError: true,
 			plan: [{ path: "app/page.tsx", status: "create" as const }],
@@ -475,9 +475,9 @@ describe("ship idempotency", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const firstRun = harness.getHandler("openui_ship_react_page")({
+		const firstRun = harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship timeout then reenter",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "timeout-reentry-key",
 			dryRun: false,
 			runCommands: false,
@@ -489,9 +489,9 @@ describe("ship idempotency", () => {
 
 		await expect(firstRun).rejects.toThrow(/timeout/i);
 
-		const secondRun = harness.getHandler("openui_ship_react_page")({
+		const secondRun = harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship timeout then reenter",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "timeout-reentry-key",
 			dryRun: false,
 			runCommands: false,
@@ -509,9 +509,9 @@ describe("ship idempotency", () => {
 	});
 
 	it("fails with explicit timeout status instead of local fallback when idempotency wait expires", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-cache-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -519,7 +519,7 @@ describe("ship idempotency", () => {
 		);
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -554,9 +554,9 @@ describe("ship idempotency", () => {
 		registerShipTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_ship_react_page")({
+			harness.getHandler("shadcn_brief_ship_react_page")({
 				prompt: "Ship timeout should fail loudly",
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				idempotencyKey: "timeout-key",
 				dryRun: false,
 				runCommands: false,
@@ -570,9 +570,9 @@ describe("ship idempotency", () => {
 	});
 
 	it("ignores expired idempotency records and clears stale lock files", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-cache-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-cache-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 		process.env.OPENUI_IDEMPOTENCY_TTL_MINUTES = "30";
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
@@ -580,7 +580,7 @@ describe("ship idempotency", () => {
 		const quality = await import("../services/mcp-server/src/quality-gate.js");
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -610,7 +610,7 @@ describe("ship idempotency", () => {
 			},
 		});
 		vi.spyOn(fileOps, "applyGeneratedFiles").mockResolvedValue({
-			targetRoot: "/tmp/openui-workspace",
+			targetRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			rollbackOnError: true,
 			plan: [{ path: "app/page.tsx", status: "create" as const }],
@@ -636,9 +636,9 @@ describe("ship idempotency", () => {
 		const staleHash = hashIdempotencyKey(staleKey);
 		const staleRecordPath = path.join(
 			cacheDir,
-			`openui-ship-${staleHash}.json`,
+			`shadcn-brief-ship-${staleHash}.json`,
 		);
-		const staleLockPath = path.join(cacheDir, `openui-ship-${staleHash}.lock`);
+		const staleLockPath = path.join(cacheDir, `shadcn-brief-ship-${staleHash}.lock`);
 		const now = Date.now();
 
 		await fs.mkdir(cacheDir, { recursive: true });
@@ -664,9 +664,9 @@ describe("ship idempotency", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship after stale artifacts",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: staleKey,
 			dryRun: false,
 			runCommands: false,

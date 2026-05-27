@@ -105,7 +105,7 @@ export const OPENUI_PUBLIC_EXPORT_ALLOWLIST = [
 		notFor: "Advertising a generic autonomous agent platform.",
 	},
 	{
-		module: "openui-client",
+		module: "shadcn-brief-client",
 		audience: "builder",
 		status: "current",
 		description: "Allowlisted model invocation helpers for repo-local tooling.",
@@ -130,7 +130,7 @@ export const OPENUI_PUBLIC_EXPORT_ALLOWLIST = [
 			"Guarded computer-use registration surface; real but not the primary product story.",
 		bestFor:
 			"Guarded advanced observation/action helpers that stay outside the primary builder story.",
-		notFor: "Reframing OpenUIStudio as a generic computer-use runtime.",
+		notFor: "Reframing ShadcnBrief as a generic computer-use runtime.",
 	},
 	{
 		module: "provider-testing",
@@ -170,7 +170,7 @@ export const OPENUI_BUILDER_SURFACE_ORDER = [
 		entrypoints: [
 			"services/mcp-server/src/main.ts",
 			"services/mcp-server/src/public/server.ts",
-			"OpenUIStudio mcp",
+			"ShadcnBrief mcp",
 		],
 		description:
 			"Primary builder surface for Codex, Claude Code, and other MCP clients.",
@@ -188,8 +188,8 @@ export const OPENUI_BUILDER_SURFACE_ORDER = [
 		status: "current",
 		surface: "Compatibility OpenAPI bridge",
 		entrypoints: [
-			"docs/contracts/openui-mcp.openapi.json",
-			"OpenUIStudio openapi",
+			"docs/contracts/shadcn-brief-mcp.openapi.json",
+			"ShadcnBrief openapi",
 		],
 		description:
 			"Secondary bridge for contract review and adapter compatibility; not a hosted API claim.",
@@ -210,8 +210,8 @@ export const OPENUI_BUILDER_SURFACE_ORDER = [
 			"services/mcp-server/src/public/workflow-summary.ts",
 			"npm run repo:workflow:summary",
 			"npm run repo:workflow:ready",
-			"OpenUIStudio workflow summary",
-			"OpenUIStudio workflow ready",
+			"ShadcnBrief workflow summary",
+			"ShadcnBrief workflow ready",
 		],
 		description:
 			"Maintainer-facing read-only workflow packet that stays separate from remote mutation.",
@@ -295,15 +295,15 @@ export const OPENUI_REPO_SIDE_SKILLS_STARTER = {
 };
 
 export const OPENUI_BUILDER_SURFACE_DISPATCHER = {
-	cli: "OpenUIStudio",
-	surfaceGuideCommand: "OpenUIStudio surface-guide",
+	cli: "ShadcnBrief",
+	surfaceGuideCommand: "ShadcnBrief surface-guide",
 	description:
 		"Repo-local dispatcher and formal entry helper for the current builder surface order.",
 } as const satisfies OpenuiBuilderSurfaceDispatcher;
 
 export const OPENUI_BUILDER_SURFACE_GUIDE = {
 	audience:
-		"Zero-context builders evaluating or integrating OpenUIStudio from the repo itself.",
+		"Zero-context builders evaluating or integrating ShadcnBrief from the repo itself.",
 	startWith:
 		"Begin with the local stdio MCP surface because it is the canonical runtime entrypoint and the rest of the builder layer only explains or supports that runtime.",
 	openapiWhen:

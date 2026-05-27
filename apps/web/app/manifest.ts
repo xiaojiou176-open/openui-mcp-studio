@@ -6,8 +6,8 @@ export const dynamic = "force-static";
 export default function manifest(): MetadataRoute.Manifest {
 	const siteUrl = getResolvedSiteUrl();
 	return {
-		name: "OpenUIStudio",
-		short_name: "OpenUI",
+		name: "ShadcnBrief",
+		short_name: "ShadcnBrief",
 		description:
 			"MCP-native UI/UX delivery companion for Codex and Claude Code with proof, review, and acceptance.",
 		start_url: resolveSiteHref("/", siteUrl),

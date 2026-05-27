@@ -9,7 +9,7 @@ const stringListSchema = z.array(z.string().min(1)).optional();
 
 export function registerAcceptanceTool(server: McpServer): void {
 	server.registerTool(
-		"openui_build_acceptance_pack",
+		"shadcn_brief_build_acceptance_pack",
 		{
 			description:
 				"Build and optionally evaluate a request-scoped acceptance pack for the current UI change request.",

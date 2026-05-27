@@ -22,7 +22,7 @@ afterEach(async () => {
 
 describe("workspace profile", () => {
 	it("scans routes, components, tokens, and pattern hints from the target workspace", async () => {
-		const workspaceRoot = await mkTempDir("openui-workspace-profile-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-workspace-profile-");
 		const appRoot = path.join(workspaceRoot, "apps", "web");
 		await fs.mkdir(path.join(appRoot, "app", "dashboard"), { recursive: true });
 		await fs.mkdir(path.join(appRoot, "components", "ui"), { recursive: true });
@@ -125,7 +125,7 @@ describe("workspace profile", () => {
 	});
 
 	it("detects mixed routing, route groups, parallel routes, and heuristic hotspots", async () => {
-		const workspaceRoot = await mkTempDir("openui-workspace-profile-mixed-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-workspace-profile-mixed-");
 		await fs.mkdir(path.join(workspaceRoot, "app", "(marketing)", "@modal"), {
 			recursive: true,
 		});
@@ -229,7 +229,7 @@ describe("workspace profile", () => {
 
 	it("handles nested pages roots, missing scan roots, and low-signal workspaces", async () => {
 		const workspaceRoot = await mkTempDir(
-			"openui-workspace-profile-low-signal-",
+			"shadcn-brief-workspace-profile-low-signal-",
 		);
 		await fs.mkdir(path.join(workspaceRoot, "src", "pages", "blog"), {
 			recursive: true,
@@ -284,7 +284,7 @@ describe("workspace profile", () => {
 
 	it("detects app-router route kind variants and ignores pages api internals", async () => {
 		const workspaceRoot = await mkTempDir(
-			"openui-workspace-profile-route-kinds-",
+			"shadcn-brief-workspace-profile-route-kinds-",
 		);
 		await fs.mkdir(path.join(workspaceRoot, "app", "dashboard"), {
 			recursive: true,
@@ -349,7 +349,7 @@ describe("workspace profile", () => {
 	});
 
 	it("auto-detects apps/web and captures form/navigation hotspots for grouped dynamic routes", async () => {
-		const workspaceRoot = await mkTempDir("openui-workspace-profile-apps-web-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-workspace-profile-apps-web-");
 		const appRoot = path.join(workspaceRoot, "apps", "web");
 		await fs.mkdir(
 			path.join(appRoot, "app", "(admin)", "@drawer", "customers", "[id]"),

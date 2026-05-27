@@ -41,7 +41,7 @@ export const OPENUI_ECOSYSTEM_SURFACE_ORDER = [
 		bestFor:
 			"configuration snippets, starter bundles, proof loop, and discovery metadata that make local MCP installation feel productized",
 		readWhen:
-			"Read this when the next question is how to add OpenUI to Codex or Claude Code without inventing an official plugin marketplace story.",
+			"Read this when the next question is how to add ShadcnBrief to Codex or Claude Code without inventing an official plugin marketplace story.",
 		notFor:
 			"claiming a Codex marketplace item or a published Claude Code plugin before those artifacts exist",
 		description:
@@ -55,7 +55,7 @@ export const OPENUI_ECOSYSTEM_SURFACE_ORDER = [
 		bestFor:
 			"starter config, proof loop, and machine-readable discovery artifacts before any official listing exists",
 		readWhen:
-			"Read this when the next question is how to present OpenUI honestly to OpenClaw-side users without pretending a catalog approval exists.",
+			"Read this when the next question is how to present ShadcnBrief honestly to OpenClaw-side users without pretending a catalog approval exists.",
 		notFor:
 			"claiming an official OpenClaw runtime, ClawHub listing, or vendor approval",
 		description:

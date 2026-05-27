@@ -38,7 +38,7 @@ afterEach(() => {
 describe("evidence governance", () => {
 	it("treats an empty run surface as clean instead of broken", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-evidence-empty-"),
+			path.join(os.tmpdir(), "shadcn-brief-evidence-empty-"),
 		);
 		try {
 			clearRunIdEnv();
@@ -87,7 +87,7 @@ describe("evidence governance", () => {
 
 	it("treats present non-authoritative runtime runs as no authoritative runs present", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-evidence-non-authoritative-"),
+			path.join(os.tmpdir(), "shadcn-brief-evidence-non-authoritative-"),
 		);
 		try {
 			clearRunIdEnv();
@@ -147,7 +147,7 @@ describe("evidence governance", () => {
 
 	it("ignores authoritative manifests that do not yet have a complete run bundle", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-evidence-incomplete-authoritative-"),
+			path.join(os.tmpdir(), "shadcn-brief-evidence-incomplete-authoritative-"),
 		);
 		try {
 			clearRunIdEnv();
@@ -211,7 +211,7 @@ describe("evidence governance", () => {
 
 	it("fails in strict mode when no authoritative run is present", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-evidence-empty-strict-"),
+			path.join(os.tmpdir(), "shadcn-brief-evidence-empty-strict-"),
 		);
 		try {
 			clearRunIdEnv();
@@ -263,7 +263,7 @@ describe("evidence governance", () => {
 
 	it("validates ci summary plus generated evidence index", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-evidence-"),
+			path.join(os.tmpdir(), "shadcn-brief-evidence-"),
 		);
 		try {
 			await writeJson(

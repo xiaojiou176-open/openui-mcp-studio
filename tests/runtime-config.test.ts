@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
 	buildChildEnvFromAllowlist,
-	OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST,
+	SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST,
 	parseChildEnvAllowlist,
 } from "../packages/shared-runtime/src/child-env.js";
 
@@ -14,16 +14,16 @@ const RUNTIME_ENV_KEYS = [
 	"GEMINI_DEFAULT_THINKING_LEVEL",
 	"GEMINI_DEFAULT_TEMPERATURE",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUISTUDIO_LOG_LEVEL",
-	"OPENUISTUDIO_LOG_OUTPUT",
-	"OPENUISTUDIO_LOG_ROTATE_ON_START",
-	"OPENUISTUDIO_CHILD_ENV_ALLOWLIST",
-	"OPENUISTUDIO_LOG_DIR",
+	"SHADCN_BRIEF_LOG_LEVEL",
+	"SHADCN_BRIEF_LOG_OUTPUT",
+	"SHADCN_BRIEF_LOG_ROTATE_ON_START",
+	"SHADCN_BRIEF_CHILD_ENV_ALLOWLIST",
+	"SHADCN_BRIEF_LOG_DIR",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUISTUDIO_CACHE_DIR",
-	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
-	"OPENUISTUDIO_CACHE_MAX_BYTES",
-	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
+	"SHADCN_BRIEF_CACHE_DIR",
+	"SHADCN_BRIEF_CACHE_RETENTION_DAYS",
+	"SHADCN_BRIEF_CACHE_MAX_BYTES",
+	"SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES",
 	"OPENUI_TOOL_CACHE_ROOT",
 	"OPENUI_TOOL_CACHE_RETENTION_DAYS",
 	"OPENUI_TOOL_CACHE_MAX_BYTES",
@@ -33,9 +33,9 @@ const RUNTIME_ENV_KEYS = [
 	"OPENUI_CHROME_CHANNEL",
 	"OPENUI_CHROME_EXECUTABLE_PATH",
 	"OPENUI_CHROME_CDP_PORT",
-	"OPENUISTUDIO_LOG_RETENTION_DAYS",
-	"OPENUISTUDIO_LOG_MAX_FILE_MB",
-	"OPENUISTUDIO_WORKSPACE_ROOT",
+	"SHADCN_BRIEF_LOG_RETENTION_DAYS",
+	"SHADCN_BRIEF_LOG_MAX_FILE_MB",
+	"SHADCN_BRIEF_WORKSPACE_ROOT",
 	"OPENUI_TIMEOUT_MS",
 	"OPENUI_MAX_RETRIES",
 	"OPENUI_RETRY_BASE_MS",
@@ -63,17 +63,17 @@ function setValidRuntimeEnv() {
 	process.env.GEMINI_DEFAULT_THINKING_LEVEL = "high";
 	process.env.GEMINI_DEFAULT_TEMPERATURE = "1.0";
 	process.env.OPENUI_MODEL_ROUTING = "on";
-	process.env.OPENUISTUDIO_LOG_LEVEL = "info";
-	process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
-	process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
-	process.env.OPENUISTUDIO_LOG_DIR =
+	process.env.SHADCN_BRIEF_LOG_LEVEL = "info";
+	process.env.SHADCN_BRIEF_LOG_OUTPUT = "both";
+	process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "on";
+	process.env.SHADCN_BRIEF_LOG_DIR =
 		".runtime-cache/runs/<run_id>/logs/runtime.jsonl";
 	process.env.OPENUI_RUNTIME_RUN_ID = "runtime-config-run";
-	process.env.OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
-	process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
-	process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
-	process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-	process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/OpenUIStudio/tooling";
+	process.env.SHADCN_BRIEF_CACHE_DIR = ".runtime-cache/cache";
+	process.env.SHADCN_BRIEF_CACHE_RETENTION_DAYS = "7";
+	process.env.SHADCN_BRIEF_CACHE_MAX_BYTES = "104857600";
+	process.env.SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+	process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/ShadcnBrief/tooling";
 	process.env.OPENUI_TOOL_CACHE_RETENTION_DAYS = "3";
 	process.env.OPENUI_TOOL_CACHE_MAX_BYTES = "5368709120";
 	process.env.OPENUI_TOOL_CACHE_CLEAN_INTERVAL_MINUTES = "60";
@@ -82,9 +82,9 @@ function setValidRuntimeEnv() {
 	process.env.OPENUI_CHROME_CHANNEL = "chrome";
 	process.env.OPENUI_CHROME_EXECUTABLE_PATH = "";
 	process.env.OPENUI_CHROME_CDP_PORT = "9343";
-	process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
-	process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
-	process.env.OPENUISTUDIO_WORKSPACE_ROOT = process.cwd();
+	process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "7";
+	process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "10";
+	process.env.SHADCN_BRIEF_WORKSPACE_ROOT = process.cwd();
 	process.env.OPENUI_TIMEOUT_MS = "45000";
 	process.env.OPENUI_MAX_RETRIES = "2";
 	process.env.OPENUI_RETRY_BASE_MS = "450";
@@ -133,10 +133,10 @@ describe("runtime config guardrails", () => {
 				'OPENUI_IDEMPOTENCY_TTL_MINUTES must be a positive integer, received: "0".',
 		},
 		{
-			envKey: "OPENUISTUDIO_LOG_LEVEL",
+			envKey: "SHADCN_BRIEF_LOG_LEVEL",
 			value: "verbose",
 			expectedMessage:
-				'OPENUISTUDIO_LOG_LEVEL must be one of "debug" | "info" | "warn" | "error", received: "verbose".',
+				'SHADCN_BRIEF_LOG_LEVEL must be one of "debug" | "info" | "warn" | "error", received: "verbose".',
 		},
 	])("throws explicit error for invalid env: $envKey=$value", async ({
 		envKey,
@@ -183,7 +183,7 @@ describe("runtime config guardrails", () => {
 		} = await loadConstantsModule();
 
 		expect(getOpenuiToolCacheRoot()).toContain(
-			"/.cache/OpenUIStudio/tooling",
+			"/.cache/ShadcnBrief/tooling",
 		);
 		expect(getOpenuiToolCacheRetentionDays()).toBe(3);
 		expect(getOpenuiToolCacheMaxBytes()).toBe(5_368_709_120);
@@ -207,14 +207,14 @@ describe("runtime config guardrails", () => {
 		expect(getOpenuiChromeCdpPort()).toBe(9343);
 
 		process.env.OPENUI_CHROME_USER_DATA_DIR =
-			"/tmp/openui-real-chrome-user-data";
+			"/tmp/shadcn-brief-real-chrome-user-data";
 		process.env.OPENUI_CHROME_PROFILE_DIRECTORY = "Profile 29";
 		process.env.OPENUI_CHROME_CHANNEL = "chrome-beta";
 		process.env.OPENUI_CHROME_EXECUTABLE_PATH = "bin/chrome";
 		process.env.OPENUI_CHROME_CDP_PORT = "9555";
 
 		expect(getOpenuiChromeUserDataDir()).toBe(
-			"/tmp/openui-real-chrome-user-data",
+			"/tmp/shadcn-brief-real-chrome-user-data",
 		);
 		expect(getOpenuiChromeProfileDirectory()).toBe("Profile 29");
 		expect(getOpenuiChromeChannel()).toBe("chrome-beta");
@@ -231,7 +231,7 @@ describe("child env allowlist helper", () => {
 
 		expect(parsed).toEqual(
 			expect.arrayContaining([
-				...OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST,
+				...SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST,
 				"OPENUI_*",
 				"GEMINI_*",
 			]),
@@ -240,7 +240,7 @@ describe("child env allowlist helper", () => {
 
 	it("throws when allowlist contains invalid token", () => {
 		expect(() => parseChildEnvAllowlist("OPENUI_*,INVALID-TOKEN")).toThrowError(
-			'OPENUISTUDIO_CHILD_ENV_ALLOWLIST contains invalid token: "INVALID-TOKEN".',
+			'SHADCN_BRIEF_CHILD_ENV_ALLOWLIST contains invalid token: "INVALID-TOKEN".',
 		);
 	});
 

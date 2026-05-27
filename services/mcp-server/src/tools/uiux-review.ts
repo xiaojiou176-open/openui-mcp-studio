@@ -1,7 +1,7 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { getGeminiModelStrong } from "../constants.js";
-import { openuiChatComplete } from "../openui-client.js";
+import { openuiChatComplete } from "../shadcn-brief-client.js";
 import {
 	buildUiuxAuditFrame,
 	buildUiuxStylePromptContext,
@@ -457,7 +457,7 @@ function mergeReviewPayloads(input: {
 
 export function registerUiuxReviewTool(server: McpServer): void {
 	server.registerTool(
-		"openui_review_uiux",
+		"shadcn_brief_review_uiux",
 		{
 			description:
 				"Run model-first UI/UX review from HTML, with heuristics available as explicit opt-in.",

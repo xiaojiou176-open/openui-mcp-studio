@@ -1,4 +1,4 @@
-# OpenUI Public Skills / Plugin-like Surface Ledger
+# ShadcnBrief Public Skills / Plugin-like Surface Ledger
 
 > Current ledger for the public Skills starter pack and plugin-like install
 > packaging.
@@ -25,7 +25,7 @@
   - `examples/skills/install-use-note.md`
   - `examples/skills/starter-troubleshooting.md`
 - CLI:
-  - `OpenUIStudio skills starter --json`
+  - `ShadcnBrief skills starter --json`
 
 ### Plugin-like packaging
 
@@ -44,7 +44,7 @@
   - `examples/openclaw/public-ready.manifest.json`
 - discovery docs:
   - `docs/discovery-surfaces.md`
-  - `docs/contracts/openui-ecosystem-productization.json`
+  - `docs/contracts/shadcn-brief-ecosystem-productization.json`
 
 ## 3. Official Support Matrix
 
@@ -64,7 +64,7 @@
 - `node tooling/skills-install-proof.mjs`
 - `npm run repo:doctor`
 - `npm run demo:ship`
-- `tests/openui-skills-kit-package.test.ts`
+- `tests/shadcn-brief-skills-kit-package.test.ts`
 - `tests/public-skills-starter.test.ts`
 
 ## 5. Not-For Boundary

@@ -12,7 +12,7 @@ async function writeJson(filePath: string, value: unknown) {
 describe("root allowlist governance", () => {
 	it("fails when a top-level entry is not allowlisted", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-root-allowlist-"),
+			path.join(os.tmpdir(), "shadcn-brief-root-allowlist-"),
 		);
 		try {
 			await writeJson(

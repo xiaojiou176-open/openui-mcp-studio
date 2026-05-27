@@ -20,7 +20,7 @@ afterEach(() => {
 
 describe("logger internals", () => {
 	it("increments rotated suffixes when timestamped file names collide", () => {
-		const logDir = mkTempDir("openui-logger-internals-");
+		const logDir = mkTempDir("shadcn-brief-logger-internals-");
 		const first = __test__.buildRotatedLogFilePath(logDir);
 		fs.writeFileSync(first, "existing", "utf8");
 		const second = __test__.buildRotatedLogFilePath(logDir);
@@ -30,7 +30,7 @@ describe("logger internals", () => {
 	});
 
 	it("resets current bytes when rotating a missing active file", () => {
-		const logDir = mkTempDir("openui-logger-missing-");
+		const logDir = mkTempDir("shadcn-brief-logger-missing-");
 		const state = {
 			activeFilePath: path.join(logDir, "runtime.jsonl"),
 			currentBytes: 42,
@@ -45,7 +45,7 @@ describe("logger internals", () => {
 	});
 
 	it("prunes expired log files and skips active/missing/non-file entries", () => {
-		const logDir = mkTempDir("openui-logger-prune-");
+		const logDir = mkTempDir("shadcn-brief-logger-prune-");
 		const activeFilePath = path.join(logDir, "runtime.jsonl");
 		const expiredFile = path.join(
 			logDir,

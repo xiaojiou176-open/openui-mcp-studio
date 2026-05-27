@@ -1,18 +1,18 @@
 {
   "version": 1,
-  "technicalName": "OpenUIStudio",
+  "technicalName": "ShadcnBrief",
   "package": {
     "name": "@openui/sdk",
     "entrypoint": "packages/sdk/index.mjs"
   },
-  "audience": "developers integrating against the self-hosted OpenUI Hosted API",
+  "audience": "developers integrating against the self-hosted ShadcnBrief Hosted API",
   "installPath": [
     "packages/sdk",
-    "npm install /ABS/PATH/OpenUIStudio/packages/sdk",
+    "npm install /ABS/PATH/ShadcnBrief/packages/sdk",
     "import { createOpenuiHostedClient } from '@openui/sdk';"
   ],
   "currentSurface": {
-    "client": "thin client for the self-hosted OpenUI Hosted API",
+    "client": "thin client for the self-hosted ShadcnBrief Hosted API",
     "methods": [
       "health",
       "getInfo",
@@ -28,6 +28,6 @@
   "notFor": [
     "claiming a browser extension",
     "claiming a marketplace plugin",
-    "claiming an OpenUI-managed cloud service"
+    "claiming an ShadcnBrief-managed cloud service"
   ]
 }

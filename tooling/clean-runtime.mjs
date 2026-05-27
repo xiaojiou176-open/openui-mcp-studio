@@ -5,9 +5,9 @@ import {
 	readRuntimePathRegistry,
 } from "./shared/runtime-path-registry.mjs";
 
-const DEFAULT_OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
-const DEFAULT_OPENUISTUDIO_CACHE_RETENTION_DAYS = 7;
-const DEFAULT_OPENUISTUDIO_CACHE_MAX_BYTES = 104_857_600;
+const DEFAULT_SHADCN_BRIEF_CACHE_DIR = ".runtime-cache/cache";
+const DEFAULT_SHADCN_BRIEF_CACHE_RETENTION_DAYS = 7;
+const DEFAULT_SHADCN_BRIEF_CACHE_MAX_BYTES = 104_857_600;
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const runtimeProcess = globalThis.process;
 
@@ -136,7 +136,7 @@ async function resolveTargetDirs(workspaceRoot) {
 		...Array.from(resetTargets).map((relativePath) => ({
 			path:
 				relativePath === ".runtime-cache/cache"
-						? resolveDirFromEnv("OPENUISTUDIO_CACHE_DIR", DEFAULT_OPENUISTUDIO_CACHE_DIR)
+						? resolveDirFromEnv("SHADCN_BRIEF_CACHE_DIR", DEFAULT_SHADCN_BRIEF_CACHE_DIR)
 						: path.resolve(workspaceRoot, relativePath),
 			recreate: true,
 		})),
@@ -317,16 +317,16 @@ function isCacheRetentionOnlyMode(argv) {
 function resolveCacheRetentionPolicy() {
 	return {
 		cacheDir: resolveDirFromEnv(
-			"OPENUISTUDIO_CACHE_DIR",
-			DEFAULT_OPENUISTUDIO_CACHE_DIR,
+			"SHADCN_BRIEF_CACHE_DIR",
+			DEFAULT_SHADCN_BRIEF_CACHE_DIR,
 		),
 		retentionDays: requirePositiveIntegerFromEnv(
-			"OPENUISTUDIO_CACHE_RETENTION_DAYS",
-			DEFAULT_OPENUISTUDIO_CACHE_RETENTION_DAYS,
+			"SHADCN_BRIEF_CACHE_RETENTION_DAYS",
+			DEFAULT_SHADCN_BRIEF_CACHE_RETENTION_DAYS,
 		),
 		maxBytes: requirePositiveIntegerFromEnv(
-			"OPENUISTUDIO_CACHE_MAX_BYTES",
-			DEFAULT_OPENUISTUDIO_CACHE_MAX_BYTES,
+			"SHADCN_BRIEF_CACHE_MAX_BYTES",
+			DEFAULT_SHADCN_BRIEF_CACHE_MAX_BYTES,
 		),
 		nowMs: Date.now(),
 	};

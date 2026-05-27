@@ -12,7 +12,7 @@ async function writeJson(filePath: string, value: unknown) {
 describe("run layout selection", () => {
 	it("prefers the latest run that satisfies required files instead of the latest directory only", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-run-layout-"),
+			path.join(os.tmpdir(), "shadcn-brief-run-layout-"),
 		);
 		try {
 			await writeJson(
@@ -63,7 +63,7 @@ describe("run layout selection", () => {
 
 	it("can require an authoritative run manifest when selecting the latest run", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-run-layout-auth-"),
+			path.join(os.tmpdir(), "shadcn-brief-run-layout-auth-"),
 		);
 		try {
 			await writeJson(

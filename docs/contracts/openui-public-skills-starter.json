@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "technicalName": "OpenUIStudio",
+  "technicalName": "ShadcnBrief",
   "surface": "formal-public-skills-starter",
   "status": "public-starter",
   "distributionTier": "plugin-grade-public-distribution-package",
-  "summary": "Official repo-owned skill product line contract for OpenUI skill-shaped integrations. This surface includes starter bundles, proof loops, and troubleshooting for Codex, Claude Code, OpenCode-adaptable hosts, and OpenClaw without claiming an official listing.",
+  "summary": "Official repo-owned skill product line contract for ShadcnBrief skill-shaped integrations. This surface includes starter bundles, proof loops, and troubleshooting for Codex, Claude Code, OpenCode-adaptable hosts, and OpenClaw without claiming an official listing.",
   "officialPublicSurfaces": {
     "codex": {
       "status": "plugin-directory-ready",
@@ -20,7 +20,7 @@
     }
   },
   "audience": [
-    "maintainers packaging the official repo-owned OpenUI skill product line",
+    "maintainers packaging the official repo-owned ShadcnBrief skill product line",
     "builders evaluating a versioned skill surface before plugin or marketplace publication",
     "agent operators who need a machine-readable starter manifest and honest proof anchors",
     "builders assembling public-ready repo-owned bundles for OpenClaw-style or other skill-shaped hosts"
@@ -37,7 +37,7 @@
     "packages/skills-kit/starter-bundles/codex-plugin/",
     "packages/skills-kit/starter-bundles/claude-code-plugin/",
     "packages/skills-kit/starter-bundles/openclaw-skill/",
-    "OpenUIStudio skills starter --json"
+    "ShadcnBrief skills starter --json"
   ],
   "verificationPath": [
     "node tooling/cli/openui.mjs skills starter --json",
@@ -48,8 +48,8 @@
   ],
   "troubleshootingPath": ["packages/skills-kit/starter-troubleshooting.md"],
   "proofLoop": [
-    "OpenUIStudio skills starter --json",
-    "OpenUIStudio ecosystem-guide --json",
+    "ShadcnBrief skills starter --json",
+    "ShadcnBrief ecosystem-guide --json",
     "npm run repo:doctor",
     "npm run demo:ship"
   ],

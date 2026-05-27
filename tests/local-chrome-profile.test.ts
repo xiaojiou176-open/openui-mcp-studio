@@ -27,7 +27,7 @@ async function writeJson(filePath: string, value: unknown) {
 }
 
 async function makeTempExecutable(fileName: string) {
-	const dir = await mkTempDir("openui-local-chrome-bin-");
+	const dir = await mkTempDir("shadcn-brief-local-chrome-bin-");
 	const filePath = path.join(dir, fileName);
 	await fs.writeFile(filePath, "#!/bin/sh\nexit 0\n", {
 		mode: 0o755,
@@ -60,7 +60,7 @@ describe("local chrome profile contract", () => {
 	});
 
 	it("builds single-instance launch arguments when the local Chrome env is complete", async () => {
-		const userDataDir = await mkTempDir("openui-local-chrome-profile-");
+		const userDataDir = await mkTempDir("shadcn-brief-local-chrome-profile-");
 		const executablePath = await makeTempExecutable("chrome");
 		const result = await requireRealChromeProfile({
 			env: {
@@ -81,7 +81,7 @@ describe("local chrome profile contract", () => {
 	});
 
 	it("fails fast inside CI even when a real Chrome profile is configured", async () => {
-		const userDataDir = await mkTempDir("openui-local-chrome-ci-");
+		const userDataDir = await mkTempDir("shadcn-brief-local-chrome-ci-");
 		const executablePath = await makeTempExecutable("chrome");
 		await expect(
 			requireRealChromeProfile({
@@ -105,16 +105,16 @@ describe("local chrome profile contract", () => {
 				info_cache: {
 					Default: { name: "Person 1" },
 					"Profile 29": {
-						name: "OpenUIStudio",
+						name: "ShadcnBrief",
 						is_using_default_name: true,
-						user_name: "openui-profile@example.com",
+						user_name: "shadcn-brief-profile@example.com",
 					},
 				},
 			},
 		};
 
 		expect(
-			findChromeProfileByDisplayName(sourceLocalState, "OpenUIStudio"),
+			findChromeProfileByDisplayName(sourceLocalState, "ShadcnBrief"),
 		).toMatchObject({
 			profileDirectory: "Profile 29",
 		});
@@ -124,7 +124,7 @@ describe("local chrome profile contract", () => {
 			{
 				sourceProfileDirectory: "Profile 29",
 				profileDirectory: "Profile 1",
-				displayName: "OpenUIStudio",
+				displayName: "ShadcnBrief",
 			},
 		);
 
@@ -133,22 +133,22 @@ describe("local chrome profile contract", () => {
 		expect(localState.profile.profiles_order).toEqual(["Profile 1"]);
 		expect(Object.keys(localState.profile.info_cache)).toEqual(["Profile 1"]);
 		expect(localState.profile.info_cache["Profile 1"]).toMatchObject({
-			name: "OpenUIStudio",
+			name: "ShadcnBrief",
 			is_using_default_name: false,
-			user_name: "openui-profile@example.com",
+			user_name: "shadcn-brief-profile@example.com",
 		});
 		expect(rewriteSummary).toMatchObject({
 			sourceProfileDirectory: "Profile 29",
 			targetProfileDirectory: "Profile 1",
-			displayName: "OpenUIStudio",
+			displayName: "ShadcnBrief",
 		});
 	});
 
 	it("bootstraps an isolated Chrome root from Local State + Profile 29", async () => {
-		const rootDir = await mkTempDir("openui-browser-bootstrap-workspace-");
-		const sourceRoot = await mkTempDir("openui-browser-bootstrap-source-");
+		const rootDir = await mkTempDir("shadcn-brief-browser-bootstrap-workspace-");
+		const sourceRoot = await mkTempDir("shadcn-brief-browser-bootstrap-source-");
 		const targetRoot = await mkTempDir(
-			"openui-browser-bootstrap-target-parent-",
+			"shadcn-brief-browser-bootstrap-target-parent-",
 		);
 		const isolatedRoot = path.join(targetRoot, "chrome-user-data");
 		await writeJson(path.join(sourceRoot, "Local State"), {
@@ -158,9 +158,9 @@ describe("local chrome profile contract", () => {
 				profiles_order: ["Default", "Profile 29"],
 				info_cache: {
 					"Profile 29": {
-						name: "OpenUIStudio",
+						name: "ShadcnBrief",
 						is_using_default_name: false,
-						user_name: "openui-profile@example.com",
+						user_name: "shadcn-brief-profile@example.com",
 					},
 				},
 			},
@@ -189,7 +189,7 @@ describe("local chrome profile contract", () => {
 		);
 		expect(localState.profile.last_used).toBe("Profile 1");
 		expect(localState.profile.info_cache["Profile 1"]).toMatchObject({
-			name: "OpenUIStudio",
+			name: "ShadcnBrief",
 		});
 		await expect(
 			fs.readFile(
@@ -207,13 +207,13 @@ describe("local chrome profile contract", () => {
 
 	it("reuses an existing isolated Chrome root without requiring force", async () => {
 		const rootDir = await mkTempDir(
-			"openui-browser-bootstrap-reuse-workspace-",
+			"shadcn-brief-browser-bootstrap-reuse-workspace-",
 		);
 		const sourceRoot = await mkTempDir(
-			"openui-browser-bootstrap-unused-source-",
+			"shadcn-brief-browser-bootstrap-unused-source-",
 		);
 		const targetRoot = await mkTempDir(
-			"openui-browser-bootstrap-existing-target-",
+			"shadcn-brief-browser-bootstrap-existing-target-",
 		);
 		await writeJson(path.join(targetRoot, "Local State"), {
 			profile: {
@@ -222,9 +222,9 @@ describe("local chrome profile contract", () => {
 				profiles_order: ["Profile 1"],
 				info_cache: {
 					"Profile 1": {
-						name: "OpenUIStudio",
+						name: "ShadcnBrief",
 						is_using_default_name: false,
-						user_name: "openui-profile@example.com",
+						user_name: "shadcn-brief-profile@example.com",
 					},
 				},
 			},
@@ -264,7 +264,7 @@ describe("local chrome profile contract", () => {
 	});
 
 	it("reports stopped when the lane is configured but no Chrome instance is attached", async () => {
-		const userDataDir = await mkTempDir("openui-browser-lane-status-");
+		const userDataDir = await mkTempDir("shadcn-brief-browser-lane-status-");
 		const executablePath = await makeTempExecutable("chrome");
 		const status = await inspectChromeCdpLane({
 			env: {
@@ -281,7 +281,7 @@ describe("local chrome profile contract", () => {
 	});
 
 	it("keeps browser evidence capture non-fatal when screenshot export times out", async () => {
-		const rootDir = await mkTempDir("openui-browser-evidence-root-");
+		const rootDir = await mkTempDir("shadcn-brief-browser-evidence-root-");
 		const browserRoot = path.join(
 			rootDir,
 			".runtime-cache",

@@ -31,7 +31,7 @@ afterEach(async () => {
 
 describe("history hygiene check", () => {
 	it("passes when the current history report is zero-findings clean", async () => {
-		const root = await mkTempRoot("openui-history-hygiene-zero-");
+		const root = await mkTempRoot("shadcn-brief-history-hygiene-zero-");
 		await writeJson(
 			path.join(root, "tooling", "contracts", "history-hygiene.contract.json"),
 			{
@@ -68,7 +68,7 @@ describe("history hygiene check", () => {
 	});
 
 	it("passes when the gitleaks history report is fully classified by family", async () => {
-		const root = await mkTempRoot("openui-history-hygiene-pass-");
+		const root = await mkTempRoot("shadcn-brief-history-hygiene-pass-");
 		await writeJson(
 			path.join(root, "tooling", "contracts", "history-hygiene.contract.json"),
 			{
@@ -146,7 +146,7 @@ describe("history hygiene check", () => {
 	});
 
 	it("fails when the report contains unclassified findings", async () => {
-		const root = await mkTempRoot("openui-history-hygiene-fail-");
+		const root = await mkTempRoot("shadcn-brief-history-hygiene-fail-");
 		await writeJson(
 			path.join(root, "tooling", "contracts", "history-hygiene.contract.json"),
 			{

@@ -1,4 +1,4 @@
-# OpenUI External Activation Ledger
+# ShadcnBrief External Activation Ledger
 
 > Current ledger for the external activation and public-control surfaces.
 > This document does not invent a hosted product or a live canonical site.
@@ -10,13 +10,13 @@
 
 The current public story is:
 
-> OneClickUI.ai is the front door for OpenUIStudio, an MCP-native UI/UX
+> OneClickUI.ai is the front door for ShadcnBrief, an MCP-native UI/UX
 > delivery and review workflow for Codex and Claude Code with a plugin-grade
 > public starter bundle, proof desk, and review-ready operator surface.
 
 Keep these truths split:
 
-- `OpenUIStudio` is the technical product and runtime name
+- `ShadcnBrief` is the technical product and runtime name
 - `OneClickUI.ai` is the shorter front-door label
 - the current public promise is repo-aware UI shipping with proof and review
 - the current public promise is **not** a hosted builder, generic coding agent,

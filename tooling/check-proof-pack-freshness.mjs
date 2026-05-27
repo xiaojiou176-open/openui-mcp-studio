@@ -72,14 +72,14 @@ async function runProofPackFreshnessCheck(rootDir = process.cwd()) {
 	}
 
 	for (const requiredAsset of [
-		"docs/assets/OpenUIStudio-workbench.png",
-		"docs/assets/OpenUIStudio-demo.gif",
-		"docs/assets/OpenUIStudio-social-preview.png",
-		"docs/assets/OpenUIStudio-workflow-overview.png",
-		"docs/assets/OpenUIStudio-comparison.png",
-		"docs/assets/OpenUIStudio-trust-stack.png",
-		"docs/assets/OpenUIStudio-use-cases.png",
-		"docs/assets/OpenUIStudio-visitor-paths.png",
+		"docs/assets/ShadcnBrief-workbench.png",
+		"docs/assets/ShadcnBrief-demo.gif",
+		"docs/assets/ShadcnBrief-social-preview.png",
+		"docs/assets/ShadcnBrief-workflow-overview.png",
+		"docs/assets/ShadcnBrief-comparison.png",
+		"docs/assets/ShadcnBrief-trust-stack.png",
+		"docs/assets/ShadcnBrief-use-cases.png",
+		"docs/assets/ShadcnBrief-visitor-paths.png",
 	]) {
 		try {
 			await fs.access(path.resolve(absoluteRoot, requiredAsset));

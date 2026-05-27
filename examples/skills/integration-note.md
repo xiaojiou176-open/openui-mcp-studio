@@ -20,7 +20,7 @@ It is still not a runtime or marketplace surface.
 ## How To Use This Starter Kit
 
 1. Start from the current tool or packet that already exists in the repo.
-2. If the current order is not clear yet, read `OpenUIStudio surface-guide` first.
+2. If the current order is not clear yet, read `ShadcnBrief surface-guide` first.
 2. Copy `starter-contract.template.json`.
 3. Fill the contract with current invocation, inputs, outputs, and limitations.
 4. Add proof anchors that point to repo-owned truth, not to future ideas.
@@ -38,7 +38,7 @@ It is still not a runtime or marketplace surface.
 | Surface | What it is good for | What it is not |
 | --- | --- | --- |
 | local `stdio` MCP | primary execution path for Codex, Claude Code, and other MCP clients | not proof of hosted API or remote write semantics |
-| `docs/contracts/openui-mcp.openapi.json` | compatibility bridge, schema review, and call-shape inspection | not a hosted API launch statement |
+| `docs/contracts/shadcn-brief-mcp.openapi.json` | compatibility bridge, schema review, and call-shape inspection | not a hosted API launch statement |
 | `npm run repo:workflow:ready` | repo-local, maintainer-facing readiness packet | not a public workflow service or external integration platform |
 
 ## Internal-Only Reminder

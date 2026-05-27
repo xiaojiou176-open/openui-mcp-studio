@@ -10,7 +10,7 @@ import { textResult } from "./shared.js";
 
 export function registerReviewBundleTool(server: McpServer): void {
 	server.registerTool(
-		"openui_build_review_bundle",
+		"shadcn_brief_build_review_bundle",
 		{
 			description:
 				"Build a reviewer-facing bundle by combining workspace profile, change plan, and optional acceptance evaluation into one JSON/Markdown package.",

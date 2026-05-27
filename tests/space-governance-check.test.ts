@@ -67,7 +67,7 @@ async function writeContracts(
 describe("space governance check", () => {
 	it("fails when a root anomaly exists", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-check-root-anomaly-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-check-root-anomaly-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -88,7 +88,7 @@ describe("space governance check", () => {
 
 	it("fails when a heavy unregistered runtime subtree is present", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-check-heavy-runtime-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-check-heavy-runtime-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -112,7 +112,7 @@ describe("space governance check", () => {
 
 	it("fails for hard-fail non-canonical paths even when they are tiny", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-check-hard-fail-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-check-hard-fail-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -138,7 +138,7 @@ describe("space governance check", () => {
 
 	it("fails when cleanup allowlist escapes the workspace", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-check-escape-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-check-escape-"),
 		);
 		try {
 			await writeContracts(rootDir, {

@@ -1,14 +1,14 @@
-# OpenUI local install for Codex
+# ShadcnBrief local install for Codex
 
 ## Goal
 
 Help the operator use the repo-owned Codex bundle and starter JSON to install
-OpenUIStudio from a local checkout.
+ShadcnBrief from a local checkout.
 
 ## Read first
 
 - `examples/codex/marketplace.sample.json`
-- `plugins/openui-codex-delivery/samples/codex.mcp.json`
+- `plugins/shadcn-brief-codex-delivery/samples/codex.mcp.json`
 - `packages/skills-kit/starter-troubleshooting.md`
 
 ## Default route
@@ -19,8 +19,8 @@ OpenUIStudio from a local checkout.
    `packages/skills-kit/starter-bundles/codex.mcp.json` as the local MCP config.
 3. Replace the absolute repo path.
 4. Run the proof loop:
-   - `OpenUIStudio surface-guide --json`
-   - `OpenUIStudio ecosystem-guide --json`
+   - `ShadcnBrief surface-guide --json`
+   - `ShadcnBrief ecosystem-guide --json`
    - `npm run repo:doctor`
 
 ## Boundaries

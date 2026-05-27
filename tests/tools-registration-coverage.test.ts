@@ -71,7 +71,7 @@ describe("tool registration coverage", () => {
 			dryRun: true,
 			rollbackOnError: true,
 		};
-		const result = await harness.getHandler("openui_apply_files")(input);
+		const result = await harness.getHandler("shadcn_brief_apply_files")(input);
 		expect(applyGeneratedFiles).toHaveBeenCalledTimes(1);
 		expect(applyGeneratedFiles).toHaveBeenCalledWith(input);
 		expect(JSON.parse(readText(result))).toEqual({
@@ -96,7 +96,7 @@ describe("tool registration coverage", () => {
 		const harness = createToolHarness();
 		registerDetectTool(harness.server);
 
-		const result = await harness.getHandler("openui_detect_shadcn_paths")({
+		const result = await harness.getHandler("shadcn_brief_detect_shadcn_paths")({
 			workspaceRoot: "/repo",
 		});
 		expect(detectShadcnPaths).toHaveBeenCalledTimes(1);
@@ -126,7 +126,7 @@ describe("tool registration coverage", () => {
 		const harness = createToolHarness();
 		registerModelsTool(harness.server);
 
-		const result = await harness.getHandler("openui_list_models")({});
+		const result = await harness.getHandler("shadcn_brief_list_models")({});
 		expect(listOpenuiModels).toHaveBeenCalledTimes(1);
 		expect(JSON.parse(readText(result))).toEqual({
 			primary: {
@@ -135,7 +135,7 @@ describe("tool registration coverage", () => {
 		});
 	});
 
-	it("openui_convert_react_shadcn forwards conversion args and merges detection into payload", async () => {
+	it("shadcn_brief_convert_react_shadcn forwards conversion args and merges detection into payload", async () => {
 		const convertHtmlToReactShadcn = vi.fn(async () => ({
 			detection: { source: "default", uiImportBase: "@/components/ui" },
 			payload: {
@@ -158,7 +158,7 @@ describe("tool registration coverage", () => {
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
 
-		const result = await harness.getHandler("openui_convert_react_shadcn")({
+		const result = await harness.getHandler("shadcn_brief_convert_react_shadcn")({
 			html: "<main>Hello</main>",
 			pagePath: "app/page.tsx",
 			componentsDir: "components/generated",
@@ -187,7 +187,7 @@ describe("tool registration coverage", () => {
 		});
 	});
 
-	it("openui_make_react_page resolves style guide, requests html, and converts with resolved detection", async () => {
+	it("shadcn_brief_make_react_page resolves style guide, requests html, and converts with resolved detection", async () => {
 		const resolveShadcnStyleGuide = vi.fn(async () => ({
 			styleGuide: "resolved guide",
 			uiImportBase: "@/components/ui",
@@ -227,7 +227,7 @@ describe("tool registration coverage", () => {
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
 
-		const result = await harness.getHandler("openui_make_react_page")({
+		const result = await harness.getHandler("shadcn_brief_make_react_page")({
 			prompt: "Create a dashboard page",
 			pagePath: "app/page.tsx",
 			componentsDir: "components/generated",

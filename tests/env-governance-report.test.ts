@@ -7,7 +7,7 @@ import { generateEnvGovernanceReport } from "../tooling/env-governance-report.mj
 describe("env governance report", () => {
 	it("generates JSON and Markdown report from inventory + deprecation registry", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-env-governance-report-"),
+			path.join(os.tmpdir(), "shadcn-brief-env-governance-report-"),
 		);
 
 		try {

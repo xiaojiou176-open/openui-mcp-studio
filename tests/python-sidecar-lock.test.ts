@@ -20,7 +20,7 @@ describe("python sidecar dependency lock", () => {
 
 	it("fails when a direct requirement is missing from the constraints file", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-python-sidecar-lock-"),
+			path.join(os.tmpdir(), "shadcn-brief-python-sidecar-lock-"),
 		);
 
 		try {
@@ -61,7 +61,7 @@ describe("python sidecar dependency lock", () => {
 
 	it("fails when the pinned version is outside the allowed requirement range", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-python-sidecar-lock-"),
+			path.join(os.tmpdir(), "shadcn-brief-python-sidecar-lock-"),
 		);
 
 		try {

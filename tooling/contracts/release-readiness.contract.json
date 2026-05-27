@@ -7,7 +7,7 @@
 		"requireAuthoritativeRuns": true
 	},
 	"evidence": {
-		"openapi": "docs/contracts/openui-mcp.openapi.json",
+		"openapi": "docs/contracts/shadcn-brief-mcp.openapi.json",
 		"performanceBudget": "docs/contracts/performance-budget.json",
 		"rumSlo": "docs/contracts/rum-slo.json",
 		"featureFlags": "docs/contracts/feature-flags.json",

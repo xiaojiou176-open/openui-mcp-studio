@@ -26,7 +26,7 @@ In one short paragraph:
 In one line:
 
 - use the same product sentence as `README.md`
-- keep `OpenUIStudio` as the technical name
+- keep `ShadcnBrief` as the technical name
 - only mention `OneClickUI.ai` as the front-door label, never as proof of a
   live canonical site
 
@@ -52,7 +52,7 @@ no longer all sit in the same bucket:
 
 - `@openui/skills-kit`
 - `@openui/sdk`
-- the self-hosted OpenUI Hosted API
+- the self-hosted ShadcnBrief Hosted API
 
 are current repo-owned product lines, while marketplace listing, registry
 publication, managed deployment, and remote write-capable MCP remain

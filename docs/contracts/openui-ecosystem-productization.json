@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "technicalName": "OpenUIStudio",
+  "technicalName": "ShadcnBrief",
   "frontdoorLabel": "OneClickUI.ai",
-  "summary": "Current ecosystem packaging truth for the public OpenUIStudio repo. The repo is the main distribution artifact, while install bundles, the repo-owned skill product line, and supporting parked lanes explain how different clients consume that repo today.",
+  "summary": "Current ecosystem packaging truth for the public ShadcnBrief repo. The repo is the main distribution artifact, while install bundles, the repo-owned skill product line, and supporting parked lanes explain how different clients consume that repo today.",
   "currentTruth": {
     "codex": "The public repo ships a repo-owned Codex install surface through MCP configuration, starter bundles, proof loop, and troubleshooting.",
     "claudeCode": "The public repo ships a repo-owned Claude Code install surface through MCP configuration, starter bundles, proof loop, and troubleshooting.",
@@ -21,10 +21,10 @@
       "repoOwnedProof": [
         "README.md",
         "docs/discovery-surfaces.md",
-        "docs/contracts/openui-mcp.openapi.json",
+        "docs/contracts/shadcn-brief-mcp.openapi.json",
         "examples/skills/codex.mcp.json",
         "examples/codex/marketplace.sample.json",
-        "docs/contracts/openui-public-skills-starter.json"
+        "docs/contracts/shadcn-brief-public-skills-starter.json"
       ],
       "notFor": "Claiming a Codex marketplace item or any vendor-approved plugin listing."
     },
@@ -35,10 +35,10 @@
       "repoOwnedProof": [
         "README.md",
         "docs/discovery-surfaces.md",
-        "docs/contracts/openui-mcp.openapi.json",
+        "docs/contracts/shadcn-brief-mcp.openapi.json",
         "examples/skills/claude-code.mcp.json",
         ".claude-plugin/marketplace.json",
-        "docs/contracts/openui-public-skills-starter.json"
+        "docs/contracts/shadcn-brief-public-skills-starter.json"
       ],
       "notFor": "Claiming a Claude Code plugin listing or managed hosted runtime."
     },
@@ -49,7 +49,7 @@
       "repoOwnedProof": [
         "README.md",
         "docs/discovery-surfaces.md",
-        "docs/contracts/openui-mcp.openapi.json"
+        "docs/contracts/shadcn-brief-mcp.openapi.json"
       ],
       "notFor": "Claiming vendor-native verification, a marketplace listing, or a host-specific support promise."
     },
@@ -70,7 +70,7 @@
         "README.md",
         "docs/discovery-surfaces.md",
         "examples/public-distribution/generic-mcp.json",
-        "docs/contracts/openui-mcp.openapi.json"
+        "docs/contracts/shadcn-brief-mcp.openapi.json"
       ],
       "notFor": "Claiming a dedicated OpenCode install surface or an official OpenCode integration."
     },
@@ -84,7 +84,7 @@
         "examples/skills/openclaw.mcp.json",
         "examples/openclaw/public-ready.manifest.json",
         "examples/skills/public-starter.manifest.json",
-        "docs/contracts/openui-public-skills-starter.json"
+        "docs/contracts/shadcn-brief-public-skills-starter.json"
       ],
       "notFor": "Claiming a verified OpenClaw runtime, ClawHub listing, marketplace item, or official plugin/skills publication."
     }
@@ -102,8 +102,8 @@
         "packages/skills-kit/manifest.json",
         "examples/skills/README.md",
         "examples/skills/public-starter.manifest.json",
-        "OpenUIStudio skills starter --json",
-        "OpenUIStudio ecosystem-guide --json"
+        "ShadcnBrief skills starter --json",
+        "ShadcnBrief ecosystem-guide --json"
       ],
       "verificationPath": [
         "node tooling/cli/openui.mjs skills starter --json",
@@ -126,7 +126,7 @@
         "examples/codex/marketplace.sample.json",
         ".claude-plugin/marketplace.json",
         "examples/skills/starter-troubleshooting.md",
-        "OpenUIStudio ecosystem-guide --json"
+        "ShadcnBrief ecosystem-guide --json"
       ],
       "verificationPath": [
         "node tooling/cli/openui.mjs ecosystem-guide --json",
@@ -146,8 +146,8 @@
         "examples/skills/openclaw.mcp.json",
         "examples/openclaw/public-ready.manifest.json",
         "docs/discovery-surfaces.md",
-        "docs/contracts/openui-public-skills-starter.json",
-        "docs/contracts/openui-ecosystem-productization.json"
+        "docs/contracts/shadcn-brief-public-skills-starter.json",
+        "docs/contracts/shadcn-brief-ecosystem-productization.json"
       ],
       "verificationPath": [
         "node tooling/cli/openui.mjs ecosystem-guide --json",
@@ -161,11 +161,11 @@
       "title": "Hosted client SDK",
       "status": "supporting-parked",
       "audience": "developers evaluating future thin-client or package surfaces",
-      "role": "thin client for the self-hosted OpenUI Hosted API kept as a supporting lane",
+      "role": "thin client for the self-hosted ShadcnBrief Hosted API kept as a supporting lane",
       "packageShape": "@openui/sdk package",
       "installPath": [
         "packages/sdk",
-        "npm install /ABS/PATH/OpenUIStudio/packages/sdk",
+        "npm install /ABS/PATH/ShadcnBrief/packages/sdk",
         "import { createOpenuiHostedClient } from '@openui/sdk'"
       ],
       "verificationPath": [
@@ -175,15 +175,15 @@
     },
     {
       "id": "hosted-api",
-      "title": "Self-hosted OpenUI Hosted API",
+      "title": "Self-hosted ShadcnBrief Hosted API",
       "status": "supporting-parked",
       "audience": "adapter authors and future hosted-surface planners",
       "role": "self-hosted HTTP runtime surfaced through the root CLI and retained as a supporting lane",
       "packageShape": "repo CLI entrypoint plus internal hosted-api source package",
       "installPath": [
-        "OpenUIStudio hosted info",
-        "OpenUIStudio hosted openapi",
-        "OpenUIStudio hosted serve"
+        "ShadcnBrief hosted info",
+        "ShadcnBrief hosted openapi",
+        "ShadcnBrief hosted serve"
       ],
       "verificationPath": [
         "node --import tsx tooling/hosted-api-smoke.ts"

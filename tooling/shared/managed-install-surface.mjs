@@ -44,7 +44,7 @@ async function ensureSymlink(linkPath, targetPath) {
 }
 
 async function writeManagedTmpManifest(input) {
-	const manifestPath = path.resolve(input.targetRoot, ".openui-maintenance-manifest.json");
+	const manifestPath = path.resolve(input.targetRoot, ".shadcn-brief-maintenance-manifest.json");
 	const manifest = {
 		ownerCommand: input.ownerCommand,
 		createdAt: new Date().toISOString(),
@@ -83,7 +83,7 @@ async function prepareManagedInstallSurface(options = {}) {
 	await fs.mkdir(targetRoot, { recursive: true });
 	await fs.mkdir(roots.managedInstallRoot, { recursive: true });
 	await fs.writeFile(
-		path.join(roots.managedInstallRoot, ".openui-platform"),
+		path.join(roots.managedInstallRoot, ".shadcn-brief-platform"),
 		`${roots.runtimeMarker}\n`,
 		"utf8",
 	);

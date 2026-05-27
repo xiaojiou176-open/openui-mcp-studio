@@ -4,11 +4,11 @@ import { describe, expect, it } from "vitest";
 import {
 	buildChildEnvFromAllowlist as buildFromSrc,
 	parseChildEnvAllowlist as parseFromSrc,
-	OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST as srcBaseAllowlist,
+	SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST as srcBaseAllowlist,
 } from "../packages/shared-runtime/src/child-env.js";
 
 async function loadScriptChildEnvModule(): Promise<{
-	OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST: readonly string[];
+	SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST: readonly string[];
 	parseChildEnvAllowlist: (raw: string | undefined) => string[];
 	buildChildEnvFromAllowlist: (
 		sourceEnv?: NodeJS.ProcessEnv,
@@ -26,11 +26,11 @@ async function loadScriptChildEnvModule(): Promise<{
 describe("child-env parity between src and scripts", () => {
 	it("keeps base allowlist in sync", async () => {
 		const script = await loadScriptChildEnvModule();
-		expect(script.OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST).toEqual(
+		expect(script.SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST).toEqual(
 			srcBaseAllowlist,
 		);
-		expect(script.OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST).toContain("COMSPEC");
-		expect(script.OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST).toContain("SYSTEMROOT");
+		expect(script.SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST).toContain("COMSPEC");
+		expect(script.SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST).toContain("SYSTEMROOT");
 	});
 
 	it("keeps parser behavior in sync", async () => {

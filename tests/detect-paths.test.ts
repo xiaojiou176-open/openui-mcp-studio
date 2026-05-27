@@ -22,7 +22,7 @@ afterEach(async () => {
 
 describe("detectShadcnPaths", () => {
 	it("prioritizes components.json aliases.ui over folder scan", async () => {
-		const root = await mkTempDir("openui-detect-");
+		const root = await mkTempDir("shadcn-brief-detect-");
 
 		await fs.writeFile(
 			path.join(root, "components.json"),
@@ -64,7 +64,7 @@ describe("detectShadcnPaths", () => {
 	});
 
 	it("infers scan alias with baseUrl=. and @/* -> ./*", async () => {
-		const root = await mkTempDir("openui-detect-scan-dot-");
+		const root = await mkTempDir("shadcn-brief-detect-scan-dot-");
 
 		await fs.writeFile(
 			path.join(root, "tsconfig.json"),
@@ -92,7 +92,7 @@ describe("detectShadcnPaths", () => {
 	});
 
 	it("infers scan alias with baseUrl=src and @/* -> *", async () => {
-		const root = await mkTempDir("openui-detect-scan-src-");
+		const root = await mkTempDir("shadcn-brief-detect-scan-src-");
 
 		await fs.writeFile(
 			path.join(root, "tsconfig.json"),
@@ -120,7 +120,7 @@ describe("detectShadcnPaths", () => {
 	});
 
 	it("falls back to default when no config and no scan candidate", async () => {
-		const root = await mkTempDir("openui-detect-default-");
+		const root = await mkTempDir("shadcn-brief-detect-default-");
 
 		const result = await detectShadcnPaths(root);
 		expect(result.source).toBe("default");
@@ -129,8 +129,8 @@ describe("detectShadcnPaths", () => {
 	});
 
 	it("ignores scan candidates that resolve outside workspace through symlink", async () => {
-		const root = await mkTempDir("openui-detect-symlink-");
-		const outsideDir = await mkTempDir("openui-detect-symlink-outside-");
+		const root = await mkTempDir("shadcn-brief-detect-symlink-");
+		const outsideDir = await mkTempDir("shadcn-brief-detect-symlink-outside-");
 		await fs.mkdir(path.join(outsideDir, "ui"), { recursive: true });
 		await fs.mkdir(path.join(root, "components"), { recursive: true });
 		await fs.symlink(

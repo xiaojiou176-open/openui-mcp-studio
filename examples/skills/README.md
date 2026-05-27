@@ -1,6 +1,6 @@
 # Skills Product Line
 
-This directory is the repo mirror for the **official repo-owned OpenUI skill
+This directory is the repo mirror for the **official repo-owned ShadcnBrief skill
 product line**.
 
 It is intentionally stronger than "just examples" and still intentionally
@@ -10,7 +10,7 @@ narrower than a shipped marketplace/runtime:
 - it points at plugin-grade skill bundles for Codex and Claude Code plus the
   repo-owned OpenClaw skill line
 - it stays honest about the current builder surface
-- it does not claim that OpenUIStudio already ships a live marketplace
+- it does not claim that ShadcnBrief already ships a live marketplace
   listing, formal Skills runtime, or vendor approval
 
 ## Current Truth
@@ -28,7 +28,7 @@ the line at once:
 
 If you need the zero-context builder map first, start with:
 
-- `OpenUIStudio surface-guide`
+- `ShadcnBrief surface-guide`
 
 ## Files In This Starter Kit
 

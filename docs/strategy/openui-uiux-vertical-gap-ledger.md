@@ -1,4 +1,4 @@
-# OpenUI UI/UX Vertical Gap Ledger
+# ShadcnBrief UI/UX Vertical Gap Ledger
 
 > Current Wave 3 + 4 ledger for UI/UX vertical hardening.
 > This document builds on the landed Round 2 foundation.
@@ -6,7 +6,7 @@
 
 ## 1. Why This Exists
 
-Round 2 already proved that OpenUIStudio is more than a prompt-to-files repo.
+Round 2 already proved that ShadcnBrief is more than a prompt-to-files repo.
 The current wave is narrower:
 
 1. keep the UI/UX audit engine honest
@@ -20,7 +20,7 @@ the audit brain already existed; this wave makes it easier for a human or builde
 
 These are already real current-scope truths:
 
-- `openui_review_uiux` returns both `review` and a structured `audit` frame
+- `shadcn_brief_review_uiux` returns both `review` and a structured `audit` frame
 - workspace audit already produces category rollups, hotspot paths, and ranked next steps
 - style packs and rubrics are now explicit contract inputs instead of being implied visual taste only
 - `/proof` already behaves like a proof desk and `/workbench` already behaves like an operator desk
@@ -96,7 +96,7 @@ The following remain later lanes:
 
 When you need the current UI/UX vertical truth, read these together:
 
-- [`docs/strategy/openui-uiux-truth-ledger.md`](./openui-uiux-truth-ledger.md)
+- [`docs/strategy/shadcn-brief-uiux-truth-ledger.md`](./shadcn-brief-uiux-truth-ledger.md)
 - [`docs/architecture/uiux-engine-round1.md`](../architecture/uiux-engine-round1.md)
 - `services/mcp-server/src/uiux/audit-foundation.ts`
 - `tooling/uiux-ai-audit.ts`

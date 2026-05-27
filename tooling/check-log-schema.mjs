@@ -33,7 +33,7 @@ async function runLogSchemaCheck(options = {}) {
 	const loggerPath = path.resolve(rootDir, options.loggerPath ?? DEFAULT_LOGGER_PATH);
 	const logDir = path.resolve(
 		rootDir,
-		options.logDir ?? process.env.OPENUISTUDIO_LOG_DIR?.trim() ?? DEFAULT_LOG_DIR,
+		options.logDir ?? process.env.SHADCN_BRIEF_LOG_DIR?.trim() ?? DEFAULT_LOG_DIR,
 	);
 
 	const policy = await readJsonFile(policyPath);

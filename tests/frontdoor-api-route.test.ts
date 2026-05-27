@@ -7,7 +7,7 @@ describe("frontdoor API route", () => {
 		const response = GET();
 		const payload = await response.json();
 
-		expect(payload.product.technicalName).toBe("OpenUIStudio");
+		expect(payload.product.technicalName).toBe("ShadcnBrief");
 		expect(payload.product.category).toBe(
 			"MCP-native UI/UX delivery and review workflow",
 		);
@@ -17,7 +17,7 @@ describe("frontdoor API route", () => {
 		);
 		expect(payload.brandSplit).toEqual(
 			expect.objectContaining({
-				technicalName: "OpenUIStudio",
+				technicalName: "ShadcnBrief",
 				frontdoorName: "OneClickUI.ai",
 				canonicalRuntime: "local stdio MCP",
 			}),
@@ -61,7 +61,7 @@ describe("frontdoor API route", () => {
 		expect(payload.i18n.publicSurfaceLanguage).toBe("en-US");
 		expect(payload.i18n.defaultLocale).toBe("en-US");
 		expect(payload.i18n.supportedLocales).toEqual(["en-US", "zh-CN"]);
-		expect(payload.i18n.localeCookieName).toBe("openui_locale");
+		expect(payload.i18n.localeCookieName).toBe("shadcn_brief_locale");
 		expect(payload.i18n.uiSwitchScope).toBe(
 			"apps/web frontdoor routes and shared shell",
 		);

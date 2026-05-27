@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
 	buildChildEnvFromAllowlist,
-	OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST,
+	SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST,
 	parseChildEnvAllowlist,
 } from "../packages/shared-runtime/src/child-env.js";
 
@@ -10,13 +10,13 @@ describe("child-env branch coverage", () => {
 	it("parses empty custom allowlist safely", () => {
 		const parsed = parseChildEnvAllowlist(undefined);
 
-		expect(parsed).toEqual([...OPENUISTUDIO_CHILD_ENV_BASE_ALLOWLIST]);
+		expect(parsed).toEqual([...SHADCN_BRIEF_CHILD_ENV_BASE_ALLOWLIST]);
 	});
 
 	it("always preserves base allowlist when custom allowlist is provided", () => {
-		const parsed = parseChildEnvAllowlist("OPENUISTUDIO_CHILD_ENV_ALLOWLIST");
+		const parsed = parseChildEnvAllowlist("SHADCN_BRIEF_CHILD_ENV_ALLOWLIST");
 		expect(parsed).toContain("PATH");
-		expect(parsed).toContain("OPENUISTUDIO_CHILD_ENV_ALLOWLIST");
+		expect(parsed).toContain("SHADCN_BRIEF_CHILD_ENV_ALLOWLIST");
 	});
 
 	it("skips empty tokens and deduplicates entries", () => {
@@ -38,7 +38,7 @@ describe("child-env branch coverage", () => {
 	});
 
 	it("rejects malformed custom tokens", () => {
-		expect(() => parseChildEnvAllowlist("openui-*")).toThrow(/invalid token/i);
+		expect(() => parseChildEnvAllowlist("shadcn-brief-*")).toThrow(/invalid token/i);
 	});
 
 	it("handles exact and wildcard tokens and skips undefined values", () => {

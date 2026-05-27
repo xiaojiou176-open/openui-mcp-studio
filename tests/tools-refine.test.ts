@@ -60,7 +60,7 @@ afterEach(() => {
 
 describe("refine tool", () => {
 	it("builds refine request with html + instruction + style guide", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
@@ -87,7 +87,7 @@ describe("refine tool", () => {
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
 
-		const result = await harness.getHandler("openui_refine_ui")({
+		const result = await harness.getHandler("shadcn_brief_refine_ui")({
 			html: "<main>before</main>",
 			instruction: "add filter bar",
 			model: "gemini-3-pro-preview",
@@ -123,7 +123,7 @@ describe("refine tool", () => {
 	});
 
 	it("does not pass useFast when routeKey is fixed by tool policy", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
@@ -150,7 +150,7 @@ describe("refine tool", () => {
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
 
-		await harness.getHandler("openui_refine_ui")({
+		await harness.getHandler("shadcn_brief_refine_ui")({
 			html: "<main>before</main>",
 			instruction: "add filter bar",
 			useFast: true,
@@ -170,7 +170,7 @@ describe("refine tool", () => {
 		);
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
-		const schema = harness.getConfig("openui_refine_ui").inputSchema;
+		const schema = harness.getConfig("shadcn_brief_refine_ui").inputSchema;
 		expect(schema).toEqual(
 			expect.objectContaining({
 				parse: expect.any(Function),
@@ -192,7 +192,7 @@ describe("refine tool", () => {
 		);
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
-		const schema = harness.getConfig("openui_refine_ui").inputSchema;
+		const schema = harness.getConfig("shadcn_brief_refine_ui").inputSchema;
 		expect(schema).toEqual(
 			expect.objectContaining({
 				parse: expect.any(Function),
@@ -215,7 +215,7 @@ describe("refine tool", () => {
 		const harness = createToolHarness();
 		registerRefineTool(harness.server);
 
-		const config = harness.getConfig("openui_refine_ui");
+		const config = harness.getConfig("shadcn_brief_refine_ui");
 		expect((config as { description?: string }).description).toBe(
 			"Refine existing HTML UI using a natural language instruction. Returns full updated HTML.",
 		);

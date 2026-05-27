@@ -2,7 +2,7 @@
 
 This file answers the public-distribution question in one screen:
 
-What can OpenUIStudio truthfully ship today, which external lanes are live
+What can ShadcnBrief truthfully ship today, which external lanes are live
 but still under review, and which steps remain operator-only?
 
 Think of it like a shipping desk. Some boxes are already on the shelf. Some are
@@ -13,8 +13,8 @@ still need a human to push the final publish button.
 
 | Surface | Status | Truthful claim |
 | --- | --- | --- |
-| GitHub repository | Published | `xiaojiou176-open/OpenUIStudio` is the canonical public source and collaboration surface. |
-| GitHub Pages front door | Published | `https://xiaojiou176-open.github.io/OpenUIStudio/` is the current public front door. |
+| GitHub repository | Published | `xiaojiou176-open/shadcn-brief` is the canonical public source and collaboration surface. |
+| GitHub Pages front door | Published | `https://xiaojiou176-open.github.io/shadcn-brief/` is the current public front door. |
 | GitHub Releases | Published | GitHub Releases is the public release trail with the current 8-asset bundle. |
 | Proof and discovery docs | Published | Repo-owned proof, discovery, and install docs are already public in this repository. |
 
@@ -44,7 +44,7 @@ This means:
 
 - the repo can explain the image name, build contract, proof route, and
   operator-only publish steps
-- `ghcr.io/xiaojiou176-open/openuistudio` remains `not_published`
+- `ghcr.io/xiaojiou176-open/shadcn-brief` remains `not_published`
 - the repo does **not** claim a Docker-first front door
 
 ## Current Reading Order

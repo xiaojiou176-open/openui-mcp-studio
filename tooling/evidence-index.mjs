@@ -168,7 +168,7 @@ async function buildEvidenceIndex(options) {
 		classification: buildClassification(summary),
 		stageResults: buildStageResults(summary),
 		toolchainFingerprint: `${process.platform}-${process.arch}-node-${process.version}`,
-		upstreamSnapshotIds: ["gemini-api", "openui-upstream-reference", "ghcr-ci-image"],
+		upstreamSnapshotIds: ["gemini-api", "shadcn-brief-upstream-reference", "ghcr-ci-image"],
 	};
 }
 

@@ -4,11 +4,11 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const ENV_KEYS = [
-	"OPENUISTUDIO_WORKSPACE_ROOT",
-	"OPENUISTUDIO_LOG_OUTPUT",
-	"OPENUISTUDIO_LOG_DIR",
-	"OPENUISTUDIO_CACHE_DIR",
-	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"SHADCN_BRIEF_WORKSPACE_ROOT",
+	"SHADCN_BRIEF_LOG_OUTPUT",
+	"SHADCN_BRIEF_LOG_DIR",
+	"SHADCN_BRIEF_CACHE_DIR",
+	"SHADCN_BRIEF_LOG_ROTATE_ON_START",
 	"OPENUI_RUNTIME_RUN_ID",
 ] as const;
 
@@ -37,36 +37,36 @@ describe("constants log/cache path branches", () => {
 	it("validates log output enum and defaults", async () => {
 		const constants = await import("../services/mcp-server/src/constants.js");
 
-		delete process.env.OPENUISTUDIO_LOG_OUTPUT;
+		delete process.env.SHADCN_BRIEF_LOG_OUTPUT;
 		expect(constants.getOpenuiMcpLogOutput()).toBe("both");
 
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "both";
 		expect(constants.getOpenuiMcpLogOutput()).toBe("both");
 
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "stdout";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "stdout";
 		expect(() => constants.getOpenuiMcpLogOutput()).toThrow(
-			/OPENUISTUDIO_LOG_OUTPUT must be one of/,
+			/SHADCN_BRIEF_LOG_OUTPUT must be one of/,
 		);
 	});
 
 	it("resolves log and cache directories from workspace-relative and absolute values", async () => {
 		const workspaceRoot = fs.mkdtempSync(
-			path.join(os.tmpdir(), "openui-constants-"),
+			path.join(os.tmpdir(), "shadcn-brief-constants-"),
 		);
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
-		const absoluteLogDir = path.join(os.tmpdir(), "openui-absolute-log-dir");
+		const absoluteLogDir = path.join(os.tmpdir(), "shadcn-brief-absolute-log-dir");
 		const absoluteCacheDir = path.join(
 			os.tmpdir(),
-			"openui-absolute-cache-dir",
+			"shadcn-brief-absolute-cache-dir",
 		);
 		fs.mkdirSync(workspaceRoot, { recursive: true });
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = "constants-log-paths";
 
 		const constants = await import("../services/mcp-server/src/constants.js");
 
-		delete process.env.OPENUISTUDIO_LOG_DIR;
-		delete process.env.OPENUISTUDIO_CACHE_DIR;
+		delete process.env.SHADCN_BRIEF_LOG_DIR;
+		delete process.env.SHADCN_BRIEF_CACHE_DIR;
 		expect(constants.getOpenuiMcpLogDir()).toBe(
 			path.resolve(
 				canonicalWorkspaceRoot,
@@ -80,8 +80,8 @@ describe("constants log/cache path branches", () => {
 			path.resolve(canonicalWorkspaceRoot, ".runtime-cache/cache"),
 		);
 
-		process.env.OPENUISTUDIO_LOG_DIR = ".runtime-cache/logs/custom";
-		process.env.OPENUISTUDIO_CACHE_DIR = "cache/custom";
+		process.env.SHADCN_BRIEF_LOG_DIR = ".runtime-cache/logs/custom";
+		process.env.SHADCN_BRIEF_CACHE_DIR = "cache/custom";
 		expect(constants.getOpenuiMcpLogDir()).toBe(
 			path.resolve(
 				canonicalWorkspaceRoot,
@@ -95,8 +95,8 @@ describe("constants log/cache path branches", () => {
 			path.resolve(canonicalWorkspaceRoot, "cache/custom"),
 		);
 
-		process.env.OPENUISTUDIO_LOG_DIR = absoluteLogDir;
-		process.env.OPENUISTUDIO_CACHE_DIR = absoluteCacheDir;
+		process.env.SHADCN_BRIEF_LOG_DIR = absoluteLogDir;
+		process.env.SHADCN_BRIEF_CACHE_DIR = absoluteCacheDir;
 		expect(constants.getOpenuiMcpLogDir()).toBe(
 			path.resolve(
 				canonicalWorkspaceRoot,

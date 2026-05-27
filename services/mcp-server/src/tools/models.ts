@@ -4,7 +4,7 @@ import { listOpenuiModels, textResult } from "./shared.js";
 
 export function registerModelsTool(server: McpServer): void {
 	server.registerTool(
-		"openui_list_models",
+		"shadcn_brief_list_models",
 		{
 			description: "List available models from the Gemini runtime provider.",
 			inputSchema: z.object({}),

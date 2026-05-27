@@ -27,7 +27,7 @@ afterEach(async () => {
 
 describe("proof pack freshness", () => {
 	it("passes when minimal proof-route docs and scripts exist", async () => {
-		const root = await mkTempRoot("openui-proof-pass-");
+		const root = await mkTempRoot("shadcn-brief-proof-pass-");
 		await writeFile(
 			path.join(root, "package.json"),
 			JSON.stringify(
@@ -68,14 +68,14 @@ describe("proof pack freshness", () => {
 			"npm run security:history:audit\nnpm run security:oss:audit\nnpm run security:pii:audit\nnpm run security:github:public:audit\n",
 		);
 		for (const asset of [
-			"OpenUIStudio-workbench.png",
-			"OpenUIStudio-demo.gif",
-			"OpenUIStudio-social-preview.png",
-			"OpenUIStudio-workflow-overview.png",
-			"OpenUIStudio-comparison.png",
-			"OpenUIStudio-trust-stack.png",
-			"OpenUIStudio-use-cases.png",
-			"OpenUIStudio-visitor-paths.png",
+			"ShadcnBrief-workbench.png",
+			"ShadcnBrief-demo.gif",
+			"ShadcnBrief-social-preview.png",
+			"ShadcnBrief-workflow-overview.png",
+			"ShadcnBrief-comparison.png",
+			"ShadcnBrief-trust-stack.png",
+			"ShadcnBrief-use-cases.png",
+			"ShadcnBrief-visitor-paths.png",
 		]) {
 			await writeFile(path.join(root, "docs/assets", asset), "placeholder");
 		}

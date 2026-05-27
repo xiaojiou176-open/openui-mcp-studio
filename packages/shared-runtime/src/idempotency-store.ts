@@ -41,22 +41,22 @@ const DEFAULT_EXECUTION_HEARTBEAT_MS = 1_000;
 const LOCK_HEARTBEAT_MS = 1_000;
 
 function resolveWorkspaceRoot(): string {
-	const fallback = String(resolveEnvDefaultValue("OPENUISTUDIO_WORKSPACE_ROOT"));
-	const raw = process.env.OPENUISTUDIO_WORKSPACE_ROOT?.trim();
+	const fallback = String(resolveEnvDefaultValue("SHADCN_BRIEF_WORKSPACE_ROOT"));
+	const raw = process.env.SHADCN_BRIEF_WORKSPACE_ROOT?.trim();
 	return path.resolve(raw || fallback);
 }
 
 function resolveCacheDirWithinWorkspace(): string {
 	const workspaceRoot = resolveWorkspaceRoot();
-	const fallback = String(resolveEnvDefaultValue("OPENUISTUDIO_CACHE_DIR"));
-	const raw = process.env.OPENUISTUDIO_CACHE_DIR?.trim();
+	const fallback = String(resolveEnvDefaultValue("SHADCN_BRIEF_CACHE_DIR"));
+	const raw = process.env.SHADCN_BRIEF_CACHE_DIR?.trim();
 	const candidate = raw || fallback;
 	const resolved = path.isAbsolute(candidate)
 		? path.resolve(candidate)
 		: path.resolve(workspaceRoot, candidate);
 	if (!isPathInsideRootWithRealpath(workspaceRoot, resolved)) {
 		throw new Error(
-			`OPENUISTUDIO_CACHE_DIR must resolve inside OPENUISTUDIO_WORKSPACE_ROOT (${workspaceRoot}).`,
+			`SHADCN_BRIEF_CACHE_DIR must resolve inside SHADCN_BRIEF_WORKSPACE_ROOT (${workspaceRoot}).`,
 		);
 	}
 	return resolved;
@@ -448,7 +448,7 @@ export class IdempotencyStore {
 			.createHash("sha256")
 			.update(idempotencyKey)
 			.digest("hex");
-		return path.join(this.cacheDir, `openui-ship-${hash}.lock`);
+		return path.join(this.cacheDir, `shadcn-brief-ship-${hash}.lock`);
 	}
 
 	private resolveExecutionLeasePath(idempotencyKey: string): string {
@@ -456,7 +456,7 @@ export class IdempotencyStore {
 			.createHash("sha256")
 			.update(idempotencyKey)
 			.digest("hex");
-		return path.join(this.cacheDir, `openui-ship-${hash}.lease.json`);
+		return path.join(this.cacheDir, `shadcn-brief-ship-${hash}.lease.json`);
 	}
 
 	private resolvePath(idempotencyKey: string): string {
@@ -464,7 +464,7 @@ export class IdempotencyStore {
 			.createHash("sha256")
 			.update(idempotencyKey)
 			.digest("hex");
-		return path.join(this.cacheDir, `openui-ship-${hash}.json`);
+		return path.join(this.cacheDir, `shadcn-brief-ship-${hash}.json`);
 	}
 
 	private async readExecutionLease(

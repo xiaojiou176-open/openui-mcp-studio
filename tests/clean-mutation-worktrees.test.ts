@@ -33,7 +33,7 @@ async function initGitRepo(cwd: string): Promise<void> {
 describe("clean mutation worktrees script", () => {
 	it("removes managed mutation worktrees and residual directories", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-worktree-cleanup-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-worktree-cleanup-"),
 		);
 		const managedWorktreeDir = path.join(
 			tempRoot,
@@ -93,7 +93,7 @@ describe("clean mutation worktrees script", () => {
 
 	it("does not remove worktrees outside managed root boundary", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-worktree-boundary-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-worktree-boundary-"),
 		);
 		const worktreeRoot = path.join(
 			tempRoot,
@@ -148,7 +148,7 @@ describe("clean mutation worktrees script", () => {
 
 	it("keeps residual files under managed root and removes only directories", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-worktree-residual-file-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-worktree-residual-file-"),
 		);
 		const worktreeRoot = path.join(
 			tempRoot,
@@ -181,7 +181,7 @@ describe("clean mutation worktrees script", () => {
 
 	it("removes locked managed worktrees by escalating to double force", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-worktree-locked-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-worktree-locked-"),
 		);
 		const managedWorktreeDir = path.join(
 			tempRoot,
@@ -230,10 +230,10 @@ describe("clean mutation worktrees script", () => {
 
 	it("fails when managed worktree root resolves outside workspace via symlink", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-worktree-symlink-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-worktree-symlink-root-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-worktree-symlink-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-worktree-symlink-outside-"),
 		);
 		const markerFile = path.join(outsideRoot, "outside-keep.txt");
 		const runtimeCacheDir = path.join(tempRoot, ".runtime-cache");
@@ -275,7 +275,7 @@ describe("clean mutation worktrees script", () => {
 		const nonGitTmpRoot =
 			process.platform === "linux" ? "/dev/shm" : os.tmpdir();
 		const tempRoot = await fs.mkdtemp(
-			path.join(nonGitTmpRoot, "openui-mutation-worktree-git-fail-"),
+			path.join(nonGitTmpRoot, "shadcn-brief-mutation-worktree-git-fail-"),
 		);
 		try {
 			const result = await execFileAsync(

@@ -34,7 +34,7 @@ export function createServer(): McpServer {
 	validateOpenuiRuntimeConfig();
 
 	const server = new McpServer({
-		name: "OpenUIStudio",
+		name: "ShadcnBrief",
 		version: MCP_SERVER_VERSION,
 	});
 
@@ -59,7 +59,7 @@ export function createServer(): McpServer {
 	registerShipFeatureFlowTool(server);
 
 	server.registerResource(
-		"openui_styleguide_default",
+		"shadcn_brief_styleguide_default",
 		"openui://styleguide/default",
 		{
 			title: "Default React + Tailwind + shadcn Style Guide",

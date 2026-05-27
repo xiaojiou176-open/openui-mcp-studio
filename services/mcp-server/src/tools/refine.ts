@@ -1,6 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { openuiChatComplete } from "../openui-client.js";
+import { openuiChatComplete } from "../shadcn-brief-client.js";
 import {
 	FunctionResponsesSchema,
 	newRequestId,
@@ -23,7 +23,7 @@ const InputPartSchema = z.discriminatedUnion("type", [
 
 export function registerRefineTool(server: McpServer): void {
 	server.registerTool(
-		"openui_refine_ui",
+		"shadcn_brief_refine_ui",
 		{
 			description:
 				"Refine existing HTML UI using a natural language instruction. Returns full updated HTML.",

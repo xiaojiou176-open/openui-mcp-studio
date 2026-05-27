@@ -1,4 +1,4 @@
-# OpenUI Builder Surface Formalization Ledger
+# ShadcnBrief Builder Surface Formalization Ledger
 
 > Current Wave 3 + 4 ledger for builder-surface formalization.
 > This document builds on the landed Round 2 foundation.
@@ -47,7 +47,7 @@ The repo-side builder layer is now easier to read:
 
 The compatibility contract is now thicker and still honest:
 
-- `docs/contracts/openui-mcp.openapi.json`
+- `docs/contracts/shadcn-brief-mcp.openapi.json`
   - now mirrors builder audience, read order, and boundary metadata
 - the file still speaks as a compatibility bridge
 - it still does not claim a hosted API or SDK product
@@ -56,7 +56,7 @@ The compatibility contract is now thicker and still honest:
 
 The root CLI is now more formally useful for builders:
 
-- `OpenUIStudio surface-guide`
+- `ShadcnBrief surface-guide`
   - gives a repo-local reading order for the current surfaces
 - the CLI remains a dispatcher and inspection helper
 - it still does not replace MCP as the primary runtime surface
@@ -85,7 +85,7 @@ The following remain later lanes:
 When you need the current builder truth, read these together:
 
 - [`docs/index.md`](../index.md)
-- [`docs/contracts/openui-mcp.openapi.json`](../contracts/openui-mcp.openapi.json)
+- [`docs/contracts/shadcn-brief-mcp.openapi.json`](../contracts/shadcn-brief-mcp.openapi.json)
 - `services/mcp-server/src/public/builder-surface.ts`
 - `services/mcp-server/src/public/index.ts`
 - `tooling/cli/openui.mjs`

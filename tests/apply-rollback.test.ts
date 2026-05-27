@@ -39,7 +39,7 @@ async function expectApplyRollbackError(
 
 describe("applyGeneratedFiles rollback", () => {
 	it("fails fast when files list is empty", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		await expect(
 			applyGeneratedFiles({
 				targetRoot: root,
@@ -49,7 +49,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("fails fast when files input contains duplicate paths", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		await expect(
 			applyGeneratedFiles({
 				targetRoot: root,
@@ -67,7 +67,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("returns plan only in dry-run mode without writing files", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		const result = await applyGeneratedFiles({
 			targetRoot: root,
 			dryRun: true,
@@ -84,7 +84,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("restores pre-existing file content and returns structured rollback details", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 
 		await fs.mkdir(path.join(root, "app"), { recursive: true });
 		await fs.writeFile(path.join(root, "app/page.tsx"), "old-content");
@@ -115,7 +115,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("deletes newly created files when rollback is triggered", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 
 		await fs.writeFile(path.join(root, "components"), "not_a_dir");
 
@@ -146,7 +146,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("marks created files as removed when they already disappeared before rollback cleanup", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		const createdFilePath = path.join(root, "app/new-file.tsx");
 		await fs.writeFile(path.join(root, "components"), "not_a_dir");
 
@@ -196,7 +196,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("does not rollback when rollbackOnError is false", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 
 		await fs.writeFile(path.join(root, "components"), "not_a_dir");
 
@@ -220,8 +220,8 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("rejects writing through symlinked file targets", async () => {
-		const root = await mkTempDir("openui-apply-");
-		const outsideDir = await mkTempDir("openui-apply-outside-");
+		const root = await mkTempDir("shadcn-brief-apply-");
+		const outsideDir = await mkTempDir("shadcn-brief-apply-outside-");
 		const outsideFile = path.join(outsideDir, "outside.txt");
 		await fs.mkdir(path.join(root, "app"), { recursive: true });
 		await fs.writeFile(outsideFile, "outside-original", "utf8");
@@ -240,7 +240,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("rejects protected workspace files", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 
 		await expect(
 			applyGeneratedFiles({
@@ -251,7 +251,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("skips rollback deletion when file content was changed by another writer", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		const conflictingFilePath = path.join(root, "app/new-file.tsx");
 		await fs.writeFile(path.join(root, "components"), "not_a_dir");
 
@@ -305,7 +305,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("skips rollback restore when existing file content was changed by another writer", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		const conflictingFilePath = path.join(root, "app/page.tsx");
 		await fs.mkdir(path.dirname(conflictingFilePath), { recursive: true });
 		await fs.writeFile(conflictingFilePath, "old-content", "utf8");
@@ -362,7 +362,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("captures rollback failure details when remove rollback throws non-Error values", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		const failingRollbackTarget = path.join(root, "app/new-file.tsx");
 		await fs.writeFile(path.join(root, "components"), "not_a_dir");
 
@@ -405,7 +405,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("captures rollback failure details when restore rollback throws", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		const targetFile = path.join(root, "app/page.tsx");
 		await fs.mkdir(path.dirname(targetFile), { recursive: true });
 		await fs.writeFile(targetFile, "old-content", "utf8");
@@ -453,7 +453,7 @@ describe("applyGeneratedFiles rollback", () => {
 	});
 
 	it("captures rollback failure details when remove rollback throws Error objects", async () => {
-		const root = await mkTempDir("openui-apply-");
+		const root = await mkTempDir("shadcn-brief-apply-");
 		const failingRollbackTarget = path.join(root, "app/new-file.tsx");
 		await fs.writeFile(path.join(root, "components"), "not_a_dir");
 

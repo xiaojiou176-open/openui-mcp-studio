@@ -29,13 +29,13 @@ afterEach(async () => {
 
 describe("ship artifact writer guards", () => {
 	it("returns undefined for writes when the resolved run root escapes the workspace", async () => {
-		const workspaceRoot = await mkTempDir("openui-ship-artifacts-guard-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-artifacts-guard-");
 		process.env.OPENUI_RUNTIME_RUN_ID = "guarded-run";
 
 		vi.doMock("../packages/runtime-observability/src/run-context.js", () => ({
 			resolveRuntimeRunId: () => "guarded-run",
 			resolveRuntimeRunRoot: () =>
-				path.join(os.tmpdir(), "openui-outside-run-root"),
+				path.join(os.tmpdir(), "shadcn-brief-outside-run-root"),
 		}));
 
 		const { readRunArtifactText, writeRunArtifactJson, writeRunArtifactText } =

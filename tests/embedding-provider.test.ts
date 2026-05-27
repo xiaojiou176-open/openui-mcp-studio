@@ -76,7 +76,7 @@ describe("embedding provider", () => {
 		const harness = createToolHarness();
 		registerEmbedTool(harness.server);
 
-		const result = await harness.getHandler("openui_embed_content")({
+		const result = await harness.getHandler("shadcn_brief_embed_content")({
 			contents: "Accessibility matters.",
 		});
 
@@ -110,7 +110,7 @@ describe("embedding provider", () => {
 
 		const harness = createToolHarness();
 		registerEmbedTool(harness.server);
-		const result = await harness.getHandler("openui_embed_content")({
+		const result = await harness.getHandler("shadcn_brief_embed_content")({
 			contents: "single",
 			model: "   ",
 		});

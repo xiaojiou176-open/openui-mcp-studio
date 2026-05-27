@@ -1,4 +1,4 @@
-import { OPENUI_BUILDER_SURFACE_MANIFEST } from "OpenUIStudio";
+import { OPENUI_BUILDER_SURFACE_MANIFEST } from "ShadcnBrief";
 
 const summary = {
 	publicEntrypoint: OPENUI_BUILDER_SURFACE_MANIFEST.publicEntrypoint,

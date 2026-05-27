@@ -541,7 +541,7 @@ describe("uiux ai audit strict gate", () => {
 
 		expect(frame.scope).toBe("workspace");
 		expect(frame.target).toBe("apps/web");
-		expect(frame.stylePack.id).toBe("openui-studio");
+		expect(frame.stylePack.id).toBe("shadcn-brief-studio");
 		expect(frame.stylePack.contract).toEqual(
 			expect.objectContaining({
 				tokenMode: "semantic-css-variables",
@@ -594,7 +594,7 @@ describe("uiux ai audit strict gate", () => {
 		const frame = buildWorkspaceAuditFrame({
 			targetRoot: "apps/web",
 			auditableFileCount: 2,
-			stylePackId: "openui-operator-desk",
+			stylePackId: "shadcn-brief-operator-desk",
 			issues: [
 				{
 					file: "apps/web/app/workbench/page.tsx",
@@ -612,7 +612,7 @@ describe("uiux ai audit strict gate", () => {
 
 		expect(frame.stylePack).toEqual(
 			expect.objectContaining({
-				id: "openui-operator-desk",
+				id: "shadcn-brief-operator-desk",
 				emphasis: "operator_dense",
 				contract: expect.objectContaining({
 					tokenMode: "semantic-css-variables",

@@ -28,9 +28,9 @@ registry listing.
 - `services/mcp-server/src/public/` is the allowlisted export layer for repository tooling and operational scripts.
 - `services/mcp-server/src/public/index.ts` is the aggregate public entrypoint and mirrors the curated allowlist instead of mirroring every internal module.
 - `tooling/` must not import private implementation paths such as `src/providers/*`, `src/tools/*`, or `src/next-smoke/*` directly. It must go through `src/public/*` or `packages/*` public surfaces.
-- The root package bin `OpenUIStudio` is the repo-local CLI alias for inspecting the same builder-surface order; it does not create a hosted API or SDK lane.
+- The root package bin `ShadcnBrief` is the repo-local CLI alias for inspecting the same builder-surface order; it does not create a hosted API or SDK lane.
 - The root package export map is build-backed on purpose. Plain Node consumers should resolve the compiled `.runtime-cache/build/...` JavaScript surface instead of depending on raw `.ts` source files.
-- The default package import is intentionally narrower than `./public/*`: it resolves to the builder-surface manifest, while deeper runtime helpers stay on explicit `OpenUIStudio/public/*` subpaths.
+- The default package import is intentionally narrower than `./public/*`: it resolves to the builder-surface manifest, while deeper runtime helpers stay on explicit `ShadcnBrief/public/*` subpaths.
 
 Current allowlisted modules:
 
@@ -42,7 +42,7 @@ Current allowlisted modules:
 | `server.ts` | `createServer`, `runStdioServer`, `MCP_SERVER_VERSION` | Local stdio MCP runtime only |
 | `workflow-summary.ts` | `buildRepoWorkflowSummary`, `registerRepoWorkflowSummaryTool`, `RepoWorkflowSummary` | Read-only maintainer/workflow bridge only |
 | `ship.ts` | `registerShipTool`, `registerShipFeatureFlowTool` | Delivery registration surface, not a hosted API endpoint |
-| `openui-client.ts` | `openuiChatComplete`, `openuiListModels` | Repo-local model helper surface |
+| `shadcn-brief-client.ts` | `openuiChatComplete`, `openuiListModels` | Repo-local model helper surface |
 | `next-smoke.ts` | `runNextSmoke` | Repo-local proof/readiness helper |
 | `computer-use.ts` | `registerComputerUseTool` | Real advanced surface, but not the primary product story |
 | `provider-testing.ts`, `tool-shared.ts`, `visual-diff.ts` | Provider reset/sidecar helpers, request-id helper, visual diff helper | Allowlisted ops/testing helpers only |
@@ -59,14 +59,14 @@ runtime entrypoint does not blur the product priority.
 
 These tools define the primary repository promise:
 
-- `openui_detect_shadcn_paths`
-- `openui_generate_ui`
-- `openui_convert_react_shadcn`
-- `openui_make_react_page`
-- `openui_apply_files`
-- `openui_quality_gate`
-- `openui_next_smoke`
-- `openui_ship_react_page`
+- `shadcn_brief_detect_shadcn_paths`
+- `shadcn_brief_generate_ui`
+- `shadcn_brief_convert_react_shadcn`
+- `shadcn_brief_make_react_page`
+- `shadcn_brief_apply_files`
+- `shadcn_brief_quality_gate`
+- `shadcn_brief_next_smoke`
+- `shadcn_brief_ship_react_page`
 
 If an external consumer asks what this server is primarily for, start here.
 
@@ -74,36 +74,36 @@ If an external consumer asks what this server is primarily for, start here.
 
 These tools make the workflow more spec-driven:
 
-- `openui_scan_workspace_profile`
-- `openui_plan_change`
-- `openui_build_acceptance_pack`
-- `openui_build_review_bundle`
-- `openui_ship_feature_flow`
+- `shadcn_brief_scan_workspace_profile`
+- `shadcn_brief_plan_change`
+- `shadcn_brief_build_acceptance_pack`
+- `shadcn_brief_build_review_bundle`
+- `shadcn_brief_ship_feature_flow`
 
 ### Supporting tools
 
 These tools support review, iteration, or provider visibility around the core
 workflow:
 
-- `openui_refine_ui`
-- `openui_review_uiux`
-- `openui_list_models`
-- `openui_embed_content`
+- `shadcn_brief_refine_ui`
+- `shadcn_brief_review_uiux`
+- `shadcn_brief_list_models`
+- `shadcn_brief_embed_content`
 
 ### Advanced or non-primary tools
 
 These tools are still part of the live server, but they should not overshadow
 the governed UI shipping path:
 
-- `openui_rag_upsert`
-- `openui_rag_search`
-- `openui_observe_screen`
-- `openui_execute_ui_action`
-- `openui_computer_use_loop`
+- `shadcn_brief_rag_upsert`
+- `shadcn_brief_rag_search`
+- `shadcn_brief_observe_screen`
+- `shadcn_brief_execute_ui_action`
+- `shadcn_brief_computer_use_loop`
 
 Operational boundary notes:
 
-- `openui_rag_upsert` and `openui_rag_search` use a local in-memory index owned
+- `shadcn_brief_rag_upsert` and `shadcn_brief_rag_search` use a local in-memory index owned
   by the current server process. They are not a durable datastore contract.
 - The computer-use tools provide observation and guarded action-loop semantics
   with confirmation controls. They are not a claim that this module already

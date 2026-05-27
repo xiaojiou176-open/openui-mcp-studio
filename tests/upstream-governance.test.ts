@@ -27,7 +27,7 @@ async function writeAdoptionBacklog(rootDir: string, entries: unknown[]) {
 describe("upstream governance", () => {
 	it("fails when required upstream inventory items are missing", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-upstream-"),
+			path.join(os.tmpdir(), "shadcn-brief-upstream-"),
 		);
 		try {
 			await writeJson(path.join(rootDir, "package.json"), {
@@ -70,9 +70,9 @@ describe("upstream governance", () => {
 			);
 			await writeAdoptionBacklog(rootDir, [
 				{
-					id: "openui-upstream-monthly-review",
-					inventoryId: "openui-upstream-reference",
-					title: "Review upstream OpenUI changes for selective port candidates",
+					id: "shadcn-brief-upstream-monthly-review",
+					inventoryId: "shadcn-brief-upstream-reference",
+					title: "Review upstream ShadcnBrief changes for selective port candidates",
 					priority: "P1",
 					status: "planned",
 					adoptionShape: "selective-port",
@@ -103,7 +103,7 @@ describe("upstream governance", () => {
 
 	it("fails when adoption backlog is missing the upstream reference surface", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-upstream-backlog-"),
+			path.join(os.tmpdir(), "shadcn-brief-upstream-backlog-"),
 		);
 		try {
 			await writeJson(path.join(rootDir, "package.json"), {
@@ -176,8 +176,8 @@ describe("upstream governance", () => {
 							rollbackPath: "restore remote",
 						},
 						{
-							id: "openui-upstream-reference",
-							glueSurfaceId: "openui-upstream-reference",
+							id: "shadcn-brief-upstream-reference",
+							glueSurfaceId: "shadcn-brief-upstream-reference",
 							sourceLocator: "https://github.com/wandb/openui.git",
 							publicContractSurface: "upstream repository",
 							supportedVersionWindow: "reviewed commit",
@@ -212,7 +212,7 @@ describe("upstream governance", () => {
 						{ id: "python-sidecar-runtime" },
 						{ id: "patch-replay-layer" },
 						{ id: "upstream-sync-git-remote" },
-						{ id: "openui-upstream-reference" },
+						{ id: "shadcn-brief-upstream-reference" },
 					],
 				},
 			);
@@ -242,7 +242,7 @@ describe("upstream governance", () => {
 					localSurfaces: ["services/gemini-sidecar/requirements.txt"],
 					validationCommands: ["npm run repo:upstream:check"],
 					rollbackPath: "revert fixture",
-					owner: "openui-platform",
+					owner: "shadcn-brief-platform",
 				},
 			]);
 
@@ -252,7 +252,7 @@ describe("upstream governance", () => {
 			expect(result.errors).toEqual(
 				expect.arrayContaining([
 					expect.stringContaining(
-						'adoption backlog must include at least one entry for "openui-upstream-reference"',
+						'adoption backlog must include at least one entry for "shadcn-brief-upstream-reference"',
 					),
 				]),
 			);
@@ -263,7 +263,7 @@ describe("upstream governance", () => {
 
 	it("fails when a done backlog entry is missing required receipt fields", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-upstream-done-receipt-"),
+			path.join(os.tmpdir(), "shadcn-brief-upstream-done-receipt-"),
 		);
 		try {
 			await writeJson(path.join(rootDir, "package.json"), {
@@ -336,8 +336,8 @@ describe("upstream governance", () => {
 							rollbackPath: "restore remote",
 						},
 						{
-							id: "openui-upstream-reference",
-							glueSurfaceId: "openui-upstream-reference",
+							id: "shadcn-brief-upstream-reference",
+							glueSurfaceId: "shadcn-brief-upstream-reference",
 							sourceLocator: "https://github.com/wandb/openui.git",
 							publicContractSurface: "upstream repository",
 							supportedVersionWindow: "reviewed commit",
@@ -372,7 +372,7 @@ describe("upstream governance", () => {
 						{ id: "python-sidecar-runtime" },
 						{ id: "patch-replay-layer" },
 						{ id: "upstream-sync-git-remote" },
-						{ id: "openui-upstream-reference" },
+						{ id: "shadcn-brief-upstream-reference" },
 					],
 				},
 			);
@@ -391,9 +391,9 @@ describe("upstream governance", () => {
 			);
 			await writeAdoptionBacklog(rootDir, [
 				{
-					id: "openui-upstream-monthly-review",
-					inventoryId: "openui-upstream-reference",
-					title: "Review upstream OpenUI changes for selective port candidates",
+					id: "shadcn-brief-upstream-monthly-review",
+					inventoryId: "shadcn-brief-upstream-reference",
+					title: "Review upstream ShadcnBrief changes for selective port candidates",
 					priority: "P1",
 					status: "done",
 					adoptionShape: "selective-port",

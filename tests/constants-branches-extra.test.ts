@@ -8,11 +8,11 @@ const RUNTIME_ENV_KEYS = [
 	"GEMINI_MODEL_FAST",
 	"GEMINI_MODEL_STRONG",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUISTUDIO_LOG_DIR",
-	"OPENUISTUDIO_CACHE_DIR",
-	"OPENUISTUDIO_LOG_ROTATE_ON_START",
+	"SHADCN_BRIEF_LOG_DIR",
+	"SHADCN_BRIEF_CACHE_DIR",
+	"SHADCN_BRIEF_LOG_ROTATE_ON_START",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUISTUDIO_WORKSPACE_ROOT",
+	"SHADCN_BRIEF_WORKSPACE_ROOT",
 	"OPENUI_QUEUE_MAX_PENDING",
 	"OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES",
 ] as const;
@@ -147,33 +147,33 @@ describe("constants branch coverage extras", () => {
 	it("supports default log rotate and rejects invalid rotate mode", async () => {
 		const { getOpenuiMcpLogRotateOnStart } = await loadConstantsModule();
 
-		delete process.env.OPENUISTUDIO_LOG_ROTATE_ON_START;
+		delete process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START;
 		expect(getOpenuiMcpLogRotateOnStart()).toBe("on");
 
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "invalid";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "invalid";
 		expect(() => getOpenuiMcpLogRotateOnStart()).toThrow(
-			'OPENUISTUDIO_LOG_ROTATE_ON_START must be "on" or "off"',
+			'SHADCN_BRIEF_LOG_ROTATE_ON_START must be "on" or "off"',
 		);
 	});
 
 	it("rejects workspace root that does not exist or is not a directory", async () => {
 		const missingPath = path.join(
 			os.tmpdir(),
-			`openui-missing-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+			`shadcn-brief-missing-${Date.now()}-${Math.random().toString(16).slice(2)}`,
 		);
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = missingPath;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = missingPath;
 		const moduleForMissing = await loadConstantsModule();
 		expect(() => moduleForMissing.getWorkspaceRoot()).toThrow(
 			"must point to an existing directory",
 		);
 
 		const tempDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-file-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-file-root-"),
 		);
 		tempDirs.push(tempDir);
 		const tempFile = path.join(tempDir, "root-file.txt");
 		await fs.writeFile(tempFile, "not a dir", "utf8");
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = tempFile;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = tempFile;
 		const moduleForFile = await loadConstantsModule();
 		expect(() => moduleForFile.getWorkspaceRoot()).toThrow(
 			"must point to a directory",
@@ -182,18 +182,18 @@ describe("constants branch coverage extras", () => {
 
 	it("keeps runtime logs governed and rejects cache dirs outside workspace root", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workspace-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-workspace-root-"),
 		);
 		tempDirs.push(workspaceRoot);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-outside-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-outside-root-"),
 		);
 		tempDirs.push(outsideRoot);
 
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = "constants-run";
-		process.env.OPENUISTUDIO_LOG_DIR = path.join(outsideRoot, "logs");
-		process.env.OPENUISTUDIO_CACHE_DIR = path.join(outsideRoot, "cache");
+		process.env.SHADCN_BRIEF_LOG_DIR = path.join(outsideRoot, "logs");
+		process.env.SHADCN_BRIEF_CACHE_DIR = path.join(outsideRoot, "cache");
 
 		const constants = await loadConstantsModule();
 		const canonicalWorkspaceRoot = await fs.realpath(workspaceRoot);
@@ -207,20 +207,20 @@ describe("constants branch coverage extras", () => {
 			),
 		);
 		expect(() => constants.getOpenuiMcpCacheDirWithinWorkspace()).toThrow(
-			/OPENUISTUDIO_CACHE_DIR must resolve inside OPENUISTUDIO_WORKSPACE_ROOT/,
+			/SHADCN_BRIEF_CACHE_DIR must resolve inside SHADCN_BRIEF_WORKSPACE_ROOT/,
 		);
 	});
 
 	it("resolves default runtime log/cache dirs under workspace root", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-runtime-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-runtime-root-"),
 		);
 		tempDirs.push(workspaceRoot);
 
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = "constants-default-run";
-		delete process.env.OPENUISTUDIO_LOG_DIR;
-		delete process.env.OPENUISTUDIO_CACHE_DIR;
+		delete process.env.SHADCN_BRIEF_LOG_DIR;
+		delete process.env.SHADCN_BRIEF_CACHE_DIR;
 
 		const constants = await loadConstantsModule();
 		const canonicalWorkspaceRoot = await fs.realpath(workspaceRoot);

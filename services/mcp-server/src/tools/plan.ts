@@ -8,7 +8,7 @@ import { textResult } from "./shared.js";
 
 export function registerPlanTool(server: McpServer): void {
 	server.registerTool(
-		"openui_plan_change",
+		"shadcn_brief_plan_change",
 		{
 			description:
 				"Produce a preflight change plan before writing files, using a semantic workspace profile plus prompt-derived risk hints.",

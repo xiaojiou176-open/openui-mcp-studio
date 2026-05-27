@@ -15,7 +15,7 @@
 			"inventoryIds": ["gemini-api", "python-sidecar-dependencies"],
 			"blockingScope": "main-and-release",
 			"executionCadence": "live-gate",
-			"owner": "openui-platform",
+			"owner": "shadcn-brief-platform",
 			"validatedBy": ["test:live", "py:smoke", "tests/gemini-sidecar-contract.test.ts"],
 			"notes": "Gemini runtime integration requires env contract, sidecar package set, and live gate alignment."
 		},

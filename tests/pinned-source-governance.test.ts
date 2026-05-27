@@ -15,7 +15,7 @@ async function writeJson(filePath: string, value: unknown) {
 
 describe("pinned source governance", () => {
 	it("fails on floating :latest references", async () => {
-		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openui-pinned-"));
+		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "shadcn-brief-pinned-"));
 		try {
 			await writeJson(path.join(rootDir, ".github", "ci-image.lock.json"), {
 				version: 1,

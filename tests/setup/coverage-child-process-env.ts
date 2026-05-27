@@ -11,7 +11,7 @@ if (process.env.NODE_V8_COVERAGE) {
 }
 
 const originalTmpdir = os.tmpdir();
-const managedVitestTmpRoot = path.join(originalTmpdir, "openui-vitest-tmp");
+const managedVitestTmpRoot = path.join(originalTmpdir, "shadcn-brief-vitest-tmp");
 
 function ensureManagedVitestTmpRoot(): string {
 	fs.mkdirSync(managedVitestTmpRoot, { recursive: true });

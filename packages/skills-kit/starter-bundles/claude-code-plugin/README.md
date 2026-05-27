@@ -5,7 +5,7 @@ surface:
 
 - `.claude-plugin/plugin.json`
 - `.mcp.json`
-- `skills/openui-ui-delivery/SKILL.md`
+- `skills/shadcn-brief-ui-delivery/SKILL.md`
 
 What it honestly means:
 

@@ -1,10 +1,10 @@
-# OpenUI local install
+# ShadcnBrief local install
 
-You are using the repo-owned OpenUI install helper bundle.
+You are using the repo-owned ShadcnBrief install helper bundle.
 
 ## Goal
 
-Help the operator wire OpenUIStudio into a local Claude Code or OpenClaw
+Help the operator wire ShadcnBrief into a local Claude Code or OpenClaw
 flow without overclaiming a hosted runtime or official listing.
 
 ## Read first
@@ -19,8 +19,8 @@ flow without overclaiming a hosted runtime or official listing.
 1. Confirm the repo build output exists.
 2. Copy the starter bundle JSON and replace the absolute repo path.
 3. Run the proof loop:
-   - `OpenUIStudio surface-guide --json`
-   - `OpenUIStudio ecosystem-guide --json`
+   - `ShadcnBrief surface-guide --json`
+   - `ShadcnBrief ecosystem-guide --json`
    - `npm run repo:doctor`
 4. Escalate only if the runtime path or host attach still fails after the
    troubleshooting note has been followed.

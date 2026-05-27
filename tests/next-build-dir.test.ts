@@ -11,7 +11,7 @@ const tempDirs: string[] = [];
 
 async function createSandbox(): Promise<string> {
 	const dir = await fs.mkdtemp(
-		path.join(os.tmpdir(), "openui-next-build-dir-"),
+		path.join(os.tmpdir(), "shadcn-brief-next-build-dir-"),
 	);
 	tempDirs.push(dir);
 	return dir;
@@ -170,7 +170,7 @@ describe("next build dir resolution", () => {
 	});
 
 	it("falls back to .next when distDir resolves to the project root itself", () => {
-		const root = path.resolve("/tmp", "openui-next-root");
+		const root = path.resolve("/tmp", "shadcn-brief-next-root");
 
 		expect(resolveSafeBuildOutputDir(root, ".")).toBe(
 			path.resolve(root, ".next"),
@@ -241,7 +241,7 @@ describe("next build dir resolution", () => {
 	});
 
 	it("falls back to .next when distDir is an absolute path outside the project root", () => {
-		const root = path.resolve("/tmp", "openui-next-root");
+		const root = path.resolve("/tmp", "shadcn-brief-next-root");
 
 		expect(
 			resolveSafeBuildOutputDir(root, path.resolve("/tmp", "absolute-escape")),

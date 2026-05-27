@@ -23,7 +23,7 @@ describe("runProcess", () => {
 
 	it("reports spawn errors when command cannot be launched", async () => {
 		const result = await runProcess({
-			command: "/__openui_non_existent_command__",
+			command: "/__shadcn_brief_non_existent_command__",
 			args: [],
 			timeoutMs: 500,
 		});

@@ -30,9 +30,9 @@ These surfaces were already real before this slice:
 | Area | Existing truth |
 | --- | --- |
 | Primary builder surface | local `stdio` MCP remains the real runtime surface |
-| Bridge layer | `docs/contracts/openui-mcp.openapi.json` already exists as a compatibility bridge |
-| Maintainer packet | `openui_repo_workflow_summary` plus `npm run repo:workflow:ready` already expose a repo-local workflow bridge |
-| Builder-surface wording | `README.md`, `docs/strategy/openui-uiux-truth-ledger.md`, `docs/proof-and-faq.md`, and `docs/architecture.md` already freeze current-vs-later boundaries |
+| Bridge layer | `docs/contracts/shadcn-brief-mcp.openapi.json` already exists as a compatibility bridge |
+| Maintainer packet | `shadcn_brief_repo_workflow_summary` plus `npm run repo:workflow:ready` already expose a repo-local workflow bridge |
+| Builder-surface wording | `README.md`, `docs/strategy/shadcn-brief-uiux-truth-ledger.md`, `docs/proof-and-faq.md`, and `docs/architecture.md` already freeze current-vs-later boundaries |
 | Internal-only pattern assets | `.agents/skills/*` already exists for repo-internal collaboration, but not as an external product claim |
 
 ## Filled In This Round

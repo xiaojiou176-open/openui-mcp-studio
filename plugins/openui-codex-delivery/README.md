@@ -1,6 +1,6 @@
-# OpenUI Codex Delivery
+# ShadcnBrief Codex Delivery
 
-This bundle is the repo-owned Codex plugin-grade package for OpenUIStudio.
+This bundle is the repo-owned Codex plugin-grade package for ShadcnBrief.
 
 Use it with a repo or personal marketplace file so Codex can discover the
 bundle, then follow the local MCP starter JSON under `samples/`.

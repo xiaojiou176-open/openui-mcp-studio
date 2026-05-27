@@ -1,7 +1,7 @@
 {
-  "name": "openui-workspace-delivery",
+  "name": "shadcn-brief-workspace-delivery",
   "version": "0.1.0",
-  "description": "Claude Code and OpenClaw-compatible bundle for installing OpenUIStudio from a local repo checkout and proving the workflow honestly.",
+  "description": "Claude Code and OpenClaw-compatible bundle for installing ShadcnBrief from a local repo checkout and proving the workflow honestly.",
   "commands": "./commands/",
   "skills": "./skills/"
 }

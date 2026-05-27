@@ -1,4 +1,4 @@
-# OpenUI SDK / Hosted API Ledger
+# ShadcnBrief SDK / Hosted API Ledger
 
 > Current ledger for the supporting / parked SDK and self-hosted API lanes.
 
@@ -6,11 +6,11 @@
 
 - SDK:
   - `@openui/sdk`
-  - thin client for the self-hosted OpenUI Hosted API
+  - thin client for the self-hosted ShadcnBrief Hosted API
   - supporting / parked lane, not a front-stage public distribution surface
 - Hosted API:
   - self-hosted HTTP runtime
-  - surfaced through `OpenUIStudio hosted info|openapi|serve`
+  - surfaced through `ShadcnBrief hosted info|openapi|serve`
   - supporting / parked lane, not a front-stage public distribution surface
 
 ## 2. Package / Runtime Shape
@@ -34,7 +34,7 @@
 ### Hosted API Shape
 
 - implementation root: `packages/hosted-api/src`
-- contract: `docs/contracts/openui-hosted-api.openapi.json`
+- contract: `docs/contracts/shadcn-brief-hosted-api.openapi.json`
 - runtime routes:
   - `/healthz`
   - `/v1/info`
@@ -51,7 +51,7 @@
 ### SDK Install
 
 - local install:
-  - `npm install /ABS/PATH/OpenUIStudio/packages/sdk`
+  - `npm install /ABS/PATH/ShadcnBrief/packages/sdk`
 - pack/install proof:
   - `npm pack packages/sdk`
   - `node --import tsx tooling/sdk-install-proof.ts`
@@ -61,10 +61,10 @@
 ### Hosted API Install
 
 - inspect:
-  - `OpenUIStudio hosted info`
-  - `OpenUIStudio hosted openapi`
+  - `ShadcnBrief hosted info`
+  - `ShadcnBrief hosted openapi`
 - run:
-  - `OPENUI_HOSTED_API_BEARER_TOKEN=... OpenUIStudio hosted serve`
+  - `OPENUI_HOSTED_API_BEARER_TOKEN=... ShadcnBrief hosted serve`
 - smoke:
   - `node --import tsx tooling/hosted-api-smoke.ts`
 
@@ -86,7 +86,7 @@
 
 ## 5. Proof Path
 
-- `tests/openui-sdk-package.test.ts`
+- `tests/shadcn-brief-sdk-package.test.ts`
 - `tests/hosted-api-service.test.ts`
 - `node --import tsx tooling/sdk-install-proof.ts`
 - `node --import tsx tooling/hosted-api-smoke.ts`

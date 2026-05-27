@@ -4,7 +4,7 @@ This bundle is the repo-owned OpenClaw public-ready artifact.
 
 It is shaped for the official OpenClaw / ClawHub skills lane:
 
-- `openui-ui-delivery/SKILL.md`
+- `shadcn-brief-ui-delivery/SKILL.md`
 - `mcp-config.example.json`
 
 What it honestly means:

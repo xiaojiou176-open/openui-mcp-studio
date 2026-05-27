@@ -60,7 +60,7 @@ describe("computer use safety confirmation", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const result = await harness.getHandler("openui_computer_use_loop")({
+		const result = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			input: { text: "Delete temporary file if present." },
 			plannedActions: [{ type: "file_delete", target: "/tmp/example.txt" }],
 		});
@@ -79,7 +79,7 @@ describe("computer use safety confirmation", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const result = await harness.getHandler("openui_execute_ui_action")({
+		const result = await harness.getHandler("shadcn_brief_execute_ui_action")({
 			action: { type: "execute_shell", target: "rm -rf /tmp/demo" },
 			requireConfirmation: false,
 			confirmed: false,

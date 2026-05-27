@@ -231,7 +231,7 @@ async function observeWithGemini(input: {
 
 export function registerComputerUseTool(server: McpServer): void {
 	server.registerTool(
-		"openui_observe_screen",
+		"shadcn_brief_observe_screen",
 		{
 			description:
 				"Analyze current screen inputs and return Gemini observation without executing actions.",
@@ -278,7 +278,7 @@ export function registerComputerUseTool(server: McpServer): void {
 	);
 
 	server.registerTool(
-		"openui_execute_ui_action",
+		"shadcn_brief_execute_ui_action",
 		{
 			description:
 				"Validate and acknowledge a single UI action with safety confirmation. This tool does not drive a browser by itself.",
@@ -359,7 +359,7 @@ export function registerComputerUseTool(server: McpServer): void {
 	);
 
 	server.registerTool(
-		"openui_computer_use_loop",
+		"shadcn_brief_computer_use_loop",
 		{
 			description:
 				"Run an observe-plan-act loop with safety confirmation guard and structured execution records. This tool is not a standalone browser driver.",

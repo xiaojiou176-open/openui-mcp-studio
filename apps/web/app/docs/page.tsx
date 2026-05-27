@@ -28,10 +28,10 @@ import { buildPageMetadata, getResolvedSiteUrl } from "@/lib/site-metadata";
 export const metadata = buildPageMetadata({
   title: "Discovery docs hub",
   description:
-    "One readable route through the README storefront, proof FAQ, evaluator checklist, release shelf, and ecosystem ledgers for OpenUIStudio.",
+    "One readable route through the README storefront, proof FAQ, evaluator checklist, release shelf, and ecosystem ledgers for ShadcnBrief.",
   path: "/docs",
   keywords: [
-    "OpenUIStudio docs",
+    "ShadcnBrief docs",
     "discovery route",
     "proof FAQ",
     "evaluator checklist",
@@ -44,7 +44,7 @@ const docsStructuredData = buildStructuredDiscoveryJsonLd({
   path: "/docs",
   title: "Discovery docs hub",
   description:
-    "One readable route through the README storefront, proof FAQ, evaluator checklist, release shelf, and ecosystem ledgers for OpenUIStudio.",
+    "One readable route through the README storefront, proof FAQ, evaluator checklist, release shelf, and ecosystem ledgers for ShadcnBrief.",
   type: "CollectionPage",
   breadcrumbLabel: "Docs",
   about: [

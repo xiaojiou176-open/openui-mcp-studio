@@ -5,7 +5,7 @@ import { textResult } from "./shared.js";
 
 export function registerDetectTool(server: McpServer): void {
 	server.registerTool(
-		"openui_detect_shadcn_paths",
+		"shadcn_brief_detect_shadcn_paths",
 		{
 			description:
 				"Detect shadcn import/path config. Priority: components.json aliases.ui -> folder scan -> default.",

@@ -43,9 +43,9 @@ type ShipToolOutput = {
 };
 
 const tempDirs: string[] = [];
-const ORIGINAL_OPENUISTUDIO_CACHE_DIR = process.env.OPENUISTUDIO_CACHE_DIR;
-const ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT =
-	process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+const ORIGINAL_SHADCN_BRIEF_CACHE_DIR = process.env.SHADCN_BRIEF_CACHE_DIR;
+const ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT =
+	process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 
 async function mkTempDir(prefix: string): Promise<string> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
@@ -94,15 +94,15 @@ afterEach(async () => {
 			.splice(0)
 			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
-	if (ORIGINAL_OPENUISTUDIO_CACHE_DIR === undefined) {
-		delete process.env.OPENUISTUDIO_CACHE_DIR;
+	if (ORIGINAL_SHADCN_BRIEF_CACHE_DIR === undefined) {
+		delete process.env.SHADCN_BRIEF_CACHE_DIR;
 	} else {
-		process.env.OPENUISTUDIO_CACHE_DIR = ORIGINAL_OPENUISTUDIO_CACHE_DIR;
+		process.env.SHADCN_BRIEF_CACHE_DIR = ORIGINAL_SHADCN_BRIEF_CACHE_DIR;
 	}
-	if (ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT === undefined) {
-		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	if (ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT === undefined) {
+		delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 	} else {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT;
 	}
 	vi.restoreAllMocks();
 	vi.resetModules();
@@ -142,17 +142,17 @@ describe("ship telemetry", () => {
 	});
 
 	it("returns steps and summary with stable shape", async () => {
-		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
-			"openui-ship-telemetry-cache-",
+		process.env.SHADCN_BRIEF_CACHE_DIR = await mkTempDir(
+			"shadcn-brief-ship-telemetry-cache-",
 		);
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
 		const quality = await import("../services/mcp-server/src/quality-gate.js");
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -182,7 +182,7 @@ describe("ship telemetry", () => {
 			},
 		});
 		vi.spyOn(fileOps, "applyGeneratedFiles").mockResolvedValue({
-			targetRoot: "/tmp/openui-workspace",
+			targetRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			rollbackOnError: true,
 			plan: [{ path: "app/page.tsx", status: "create" as const }],
@@ -202,9 +202,9 @@ describe("ship telemetry", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship telemetry",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			runCommands: false,
 		});
@@ -244,10 +244,10 @@ describe("ship telemetry", () => {
 	}, 20_000);
 
 	it("does not reuse implicit idempotency cache when uiImportBase changes", async () => {
-		const cacheDir = await mkTempDir("openui-ship-telemetry-cache-");
-		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-ship-telemetry-cache-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-telemetry-workspace-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
@@ -314,14 +314,14 @@ describe("ship telemetry", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const firstResult = await harness.getHandler("openui_ship_react_page")({
+		const firstResult = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship telemetry uiImportBase",
 			workspaceRoot,
 			uiImportBase: "@/components/ui",
 			dryRun: true,
 			runCommands: false,
 		});
-		const secondResult = await harness.getHandler("openui_ship_react_page")({
+		const secondResult = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship telemetry uiImportBase",
 			workspaceRoot,
 			uiImportBase: "@/lib/ui",
@@ -338,10 +338,10 @@ describe("ship telemetry", () => {
 	}, 20_000);
 
 	it("rolls back written files when quality gate fails", async () => {
-		const cacheDir = await mkTempDir("openui-ship-telemetry-cache-");
-		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-ship-telemetry-cache-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-telemetry-workspace-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const originalFilePath = path.join(workspaceRoot, "app/page.tsx");
 		await fs.mkdir(path.dirname(originalFilePath), { recursive: true });
@@ -398,7 +398,7 @@ describe("ship telemetry", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship telemetry quality fail",
 			workspaceRoot,
 			dryRun: false,
@@ -426,11 +426,11 @@ describe("ship telemetry", () => {
 	});
 
 	it("fails rollback when written file is swapped to a symlink before rollback", async () => {
-		const cacheDir = await mkTempDir("openui-ship-telemetry-cache-");
-		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
-		const outsideRoot = await mkTempDir("openui-ship-telemetry-outside-");
-		process.env.OPENUISTUDIO_CACHE_DIR = cacheDir;
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		const cacheDir = await mkTempDir("shadcn-brief-ship-telemetry-cache-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-telemetry-workspace-");
+		const outsideRoot = await mkTempDir("shadcn-brief-ship-telemetry-outside-");
+		process.env.SHADCN_BRIEF_CACHE_DIR = cacheDir;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const originalFilePath = path.join(workspaceRoot, "app/page.tsx");
 		const outsideFilePath = path.join(outsideRoot, "outside.tsx");
@@ -498,7 +498,7 @@ describe("ship telemetry", () => {
 		registerShipTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_ship_react_page")({
+			harness.getHandler("shadcn_brief_ship_react_page")({
 				prompt: "Ship telemetry quality fail symlink rollback",
 				workspaceRoot,
 				dryRun: false,
@@ -515,11 +515,11 @@ describe("ship telemetry", () => {
 	});
 
 	it("fails fast when apply_files step throws", async () => {
-		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
-			"openui-ship-telemetry-cache-",
+		process.env.SHADCN_BRIEF_CACHE_DIR = await mkTempDir(
+			"shadcn-brief-ship-telemetry-cache-",
 		);
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
-		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-telemetry-workspace-");
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
@@ -568,7 +568,7 @@ describe("ship telemetry", () => {
 		registerShipTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_ship_react_page")({
+			harness.getHandler("shadcn_brief_ship_react_page")({
 				prompt: "Ship telemetry apply fail",
 				workspaceRoot,
 				dryRun: false,
@@ -579,11 +579,11 @@ describe("ship telemetry", () => {
 	});
 
 	it("fails when quality_gate step throws", async () => {
-		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
-			"openui-ship-telemetry-cache-",
+		process.env.SHADCN_BRIEF_CACHE_DIR = await mkTempDir(
+			"shadcn-brief-ship-telemetry-cache-",
 		);
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
-		const workspaceRoot = await mkTempDir("openui-ship-telemetry-workspace-");
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-telemetry-workspace-");
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
@@ -639,7 +639,7 @@ describe("ship telemetry", () => {
 		registerShipTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_ship_react_page")({
+			harness.getHandler("shadcn_brief_ship_react_page")({
 				prompt: "Ship telemetry quality throws",
 				workspaceRoot,
 				dryRun: false,
@@ -660,7 +660,7 @@ describe("ship telemetry", () => {
 	});
 
 	it("supports concurrent idempotency writes for the same key", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-concurrent-cache-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-concurrent-cache-");
 		const { IdempotencyStore } = await import(
 			"../packages/shared-runtime/src/idempotency-store.js"
 		);
@@ -687,7 +687,7 @@ describe("ship telemetry", () => {
 	}, 30_000);
 
 	it("marks waitFor timeout as inflight when execution lease is still active", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-concurrent-cache-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-concurrent-cache-");
 		const { IdempotencyStore } = await import(
 			"../packages/shared-runtime/src/idempotency-store.js"
 		);
@@ -717,7 +717,7 @@ describe("ship telemetry", () => {
 	});
 
 	it("allows a single execution leader and replays result to followers", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-concurrent-cache-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-concurrent-cache-");
 		const { IdempotencyStore } = await import(
 			"../packages/shared-runtime/src/idempotency-store.js"
 		);

@@ -66,7 +66,7 @@ describe("quality tool", () => {
 		const harness = createToolHarness();
 		registerQualityTool(harness.server);
 
-		const result = await harness.getHandler("openui_quality_gate")({
+		const result = await harness.getHandler("shadcn_brief_quality_gate")({
 			files: [
 				{
 					path: "app/page.tsx",
@@ -123,7 +123,7 @@ describe("quality tool", () => {
 		const harness = createToolHarness();
 		registerQualityTool(harness.server);
 
-		await harness.getHandler("openui_quality_gate")({
+		await harness.getHandler("shadcn_brief_quality_gate")({
 			files: [
 				{ path: "app/page.tsx", content: "export default function Page(){}" },
 			],
@@ -173,7 +173,7 @@ describe("quality tool", () => {
 		const harness = createToolHarness();
 		registerQualityTool(harness.server);
 
-		await harness.getHandler("openui_quality_gate")({
+		await harness.getHandler("shadcn_brief_quality_gate")({
 			files: [
 				{ path: "app/page.tsx", content: "export default function Page(){}" },
 			],

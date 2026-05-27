@@ -9,7 +9,7 @@ import {
 describe("@openui/sdk", () => {
 	it("exposes a hosted-client SDK manifest", () => {
 		expect(OPENUI_SDK_MANIFEST.packageName).toBe("@openui/sdk");
-		expect(OPENUI_SDK_MANIFEST.role).toContain("self-hosted OpenUI Hosted API");
+		expect(OPENUI_SDK_MANIFEST.role).toContain("self-hosted ShadcnBrief Hosted API");
 		expect(OPENUI_SDK_MANIFEST.nonGoals).toContain(
 			"plugin marketplace packaging",
 		);
@@ -46,7 +46,7 @@ describe("@openui/sdk", () => {
 					return new Response(
 						JSON.stringify({
 							ok: true,
-							data: { service: "openui-hosted-api" },
+							data: { service: "shadcn-brief-hosted-api" },
 						}),
 						{ status: 200 },
 					);
@@ -56,7 +56,7 @@ describe("@openui/sdk", () => {
 					return new Response(
 						JSON.stringify({
 							ok: true,
-							data: { service: "openui-hosted-api" },
+							data: { service: "shadcn-brief-hosted-api" },
 						}),
 						{ status: 200 },
 					);
@@ -64,7 +64,7 @@ describe("@openui/sdk", () => {
 
 				if (url.endsWith("/v1/frontdoor")) {
 					return new Response(
-						JSON.stringify({ product: { technicalName: "OpenUIStudio" } }),
+						JSON.stringify({ product: { technicalName: "ShadcnBrief" } }),
 						{ status: 200 },
 					);
 				}
@@ -99,7 +99,7 @@ describe("@openui/sdk", () => {
 					return new Response(
 						JSON.stringify({
 							ok: true,
-							data: { tools: [{ name: "openui_ship_react_page" }] },
+							data: { tools: [{ name: "shadcn_brief_ship_react_page" }] },
 						}),
 						{ status: 200 },
 					);
@@ -128,7 +128,7 @@ describe("@openui/sdk", () => {
 		await expect(client.frontdoor()).resolves.toEqual(
 			expect.objectContaining({
 				product: expect.objectContaining({
-					technicalName: "OpenUIStudio",
+					technicalName: "ShadcnBrief",
 				}),
 			}),
 		);
@@ -160,7 +160,7 @@ describe("@openui/sdk", () => {
 			}),
 		);
 		await expect(
-			client.callTool("openui_ship_react_page", {
+			client.callTool("shadcn_brief_ship_react_page", {
 				prompt: "demo",
 				dryRun: true,
 			}),

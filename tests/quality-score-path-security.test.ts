@@ -7,7 +7,7 @@ import { writeQualityScoreFile } from "../tooling/quality-score.mjs";
 describe("quality-score output path security", () => {
 	it("rejects output paths outside .runtime-cache/runs", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-quality-score-path-"),
+			path.join(os.tmpdir(), "shadcn-brief-quality-score-path-"),
 		);
 		try {
 			await expect(
@@ -24,10 +24,10 @@ describe("quality-score output path security", () => {
 
 	it("rejects output root symlink that resolves outside workspace", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-quality-score-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-quality-score-root-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-quality-score-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-quality-score-outside-"),
 		);
 		try {
 			await fs.mkdir(path.join(workspaceRoot, ".runtime-cache"), {
@@ -58,10 +58,10 @@ describe("quality-score output path security", () => {
 
 	it("rejects symlink output target that points outside runtime root", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-quality-score-target-"),
+			path.join(os.tmpdir(), "shadcn-brief-quality-score-target-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-quality-score-target-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-quality-score-target-outside-"),
 		);
 		const targetPath = path.join(
 			workspaceRoot,

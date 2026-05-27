@@ -1,4 +1,4 @@
-# OpenUIStudio Troubleshooting
+# ShadcnBrief Troubleshooting
 
 Use these checks before escalating.
 
@@ -16,8 +16,8 @@ Use these checks before escalating.
 
 ## 3. You only need the shortest proof loop
 
-- run `openuistudio surface-guide --json`
-- run `openuistudio ecosystem-guide --json`
+- run `shadcn-brief surface-guide --json`
+- run `shadcn-brief ecosystem-guide --json`
 - run `npm run repo:doctor`
 
 ## 4. The claim sounds bigger than reality

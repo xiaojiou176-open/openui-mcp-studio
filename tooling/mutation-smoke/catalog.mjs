@@ -145,8 +145,8 @@ const STRATEGY_CATALOG = Object.freeze([
 		id: "generate-tool-name-stability",
 		module: "services/mcp-server/src/tools/generate.ts",
 		operator: "identifier-substitution",
-		before: '"openui_generate_ui"',
-		after: '"openui_generate"',
+		before: '"shadcn_brief_generate_ui"',
+		after: '"shadcn_brief_generate"',
 		reason:
 			"generate tool registration name should remain stable for MCP routing",
 	},
@@ -263,8 +263,8 @@ const STRATEGY_CATALOG = Object.freeze([
 		id: "refine-tool-name-stability",
 		module: "services/mcp-server/src/tools/refine.ts",
 		operator: "identifier-substitution",
-		before: '"openui_refine_ui"',
-		after: '"openui_refine"',
+		before: '"shadcn_brief_refine_ui"',
+		after: '"shadcn_brief_refine"',
 		reason:
 			"refine tool registration name should remain stable for MCP routing",
 	},

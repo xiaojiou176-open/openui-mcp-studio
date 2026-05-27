@@ -70,13 +70,13 @@ describe("release readiness contract check", () => {
 	it("fails in strict mode when no authoritative run evidence is present", async () => {
 		delete process.env.OPENUI_RUNTIME_RUN_ID;
 		delete process.env.OPENUI_CI_GATE_RUN_KEY;
-		const rootDir = await mkTempRoot("openui-release-readiness-strict-");
+		const rootDir = await mkTempRoot("shadcn-brief-release-readiness-strict-");
 		for (const relativePath of [
 			"tooling/contracts/release-readiness.contract.json",
 			"contracts/governance/evidence-schema.json",
 			"contracts/runtime/run-layout.json",
 			".github/ci-image.lock.json",
-			"docs/contracts/openui-mcp.openapi.json",
+			"docs/contracts/shadcn-brief-mcp.openapi.json",
 			"docs/contracts/performance-budget.json",
 			"docs/contracts/rum-slo.json",
 			"docs/contracts/feature-flags.json",

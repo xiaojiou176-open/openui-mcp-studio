@@ -2,17 +2,17 @@
   "host": "Claude Code",
   "status": "plugin-grade-public-package",
   "transport": "stdio",
-  "displayName": "OpenUIStudio",
+  "displayName": "ShadcnBrief",
   "command": "node",
   "args": [
-    "/ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+    "/ABS/PATH/ShadcnBrief/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
   ],
   "env": {
     "GEMINI_API_KEY": "your_key"
   },
   "proofLoop": [
-    "claude mcp add --transport stdio --env GEMINI_API_KEY=your_key openui -- node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
-    "OpenUIStudio surface-guide --json",
+    "claude mcp add --transport stdio --env GEMINI_API_KEY=your_key openui -- node /ABS/PATH/ShadcnBrief/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
+    "ShadcnBrief surface-guide --json",
     "npm run repo:doctor"
   ],
   "notFor": [

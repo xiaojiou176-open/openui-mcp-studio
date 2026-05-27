@@ -11,7 +11,7 @@ Official OpenClaw surfaces now prove two things:
 
 That changes the honest repo-owned claim.
 
-OpenUI is no longer just "bridge materials only" for OpenClaw.
+ShadcnBrief is no longer just "bridge materials only" for OpenClaw.
 It is now more honest to say:
 
 - OpenClaw bundle = **public-ready**
@@ -25,11 +25,11 @@ Start from these repo-owned artifacts:
 - `examples/skills/public-starter.manifest.json`
 - `examples/public-distribution/openclaw-public-ready.manifest.json`
 - `examples/openclaw/public-ready.manifest.json`
-- `plugins/openui-workspace-delivery/.claude-plugin/plugin.json`
+- `plugins/shadcn-brief-workspace-delivery/.claude-plugin/plugin.json`
 
 Use them together like this:
 
-1. generic MCP config = how OpenUI launches
+1. generic MCP config = how ShadcnBrief launches
 2. skills starter manifest = what skill-shaped artifacts exist today
 3. public-ready manifest = what the repo can honestly hand to a registry or
    listing workflow right now
@@ -39,7 +39,7 @@ Use them together like this:
 ## Proof Loop
 
 ```bash
-openclaw plugins install ./plugins/openui-workspace-delivery
+openclaw plugins install ./plugins/shadcn-brief-workspace-delivery
 node tooling/public-distribution-proof.mjs
 node tooling/cli/openui.mjs skills starter --json
 node tooling/skills-install-proof.mjs

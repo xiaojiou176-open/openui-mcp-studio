@@ -1,18 +1,18 @@
 export const SITE_BRAND = {
-  technicalName: "OpenUIStudio",
+  technicalName: "ShadcnBrief",
   frontdoorName: "OneClickUI.ai",
   frontdoorLabel: "OneClickUI.ai front door",
-  poweredBy: "Powered by OpenUIStudio",
-  repoUrl: "https://github.com/xiaojiou176-open/OpenUIStudio",
+  poweredBy: "Powered by ShadcnBrief",
+  repoUrl: "https://github.com/xiaojiou176-open/shadcn-brief",
   docs: {
-    readme: "https://github.com/xiaojiou176-open/OpenUIStudio#readme",
+    readme: "https://github.com/xiaojiou176-open/shadcn-brief#readme",
     docsHub: "/docs",
     proofFaq: "/docs#proof-faq",
     walkthrough: "/docs#first-minute-walkthrough",
     apiContract:
-      "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/contracts/openui-mcp.openapi.json",
+      "https://github.com/xiaojiou176-open/shadcn-brief/blob/main/docs/contracts/shadcn-brief-mcp.openapi.json",
     ecosystemContract:
-      "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/contracts/openui-ecosystem-productization.json",
+      "https://github.com/xiaojiou176-open/shadcn-brief/blob/main/docs/contracts/shadcn-brief-ecosystem-productization.json",
     docsIndex: "/docs#docs-index",
     discoveryGuide: "/docs#discovery-chain",
     evaluatorChecklist: "/docs#evaluator-checklist",
@@ -23,14 +23,14 @@ export const SITE_BRAND = {
     publicSkillsLedger: "/docs#public-skills-ledger",
     sdkHostedLedger: "/docs#sdk-hosted-ledger",
     publicDistributionBundle:
-      "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/examples/public-distribution/README.md",
+      "https://github.com/xiaojiou176-open/shadcn-brief/blob/main/examples/public-distribution/README.md",
   },
 } as const;
 
 export const BRAND_SPLIT = {
   frontdoorLabel: "OneClickUI.ai is the front door label.",
   technicalTruth:
-    "OpenUIStudio remains the technical product, runtime, and release truth.",
+    "ShadcnBrief remains the technical product, runtime, and release truth.",
   canonicalRuntime: "local stdio MCP",
   notTruth:
     "Do not treat OneClickUI.ai as an already-verified live canonical deployment unless remote evidence says so.",
@@ -356,7 +356,7 @@ export const BUILDER_ENTRY_POINTS = [
     bestFor:
       "the shortest honest path from prompt to workspace writes, proof desks, and reviewable React delivery",
     readWhen:
-      "Open this when your first question is how to add OpenUI to Codex or Claude Code through the current MCP-native runtime path.",
+      "Open this when your first question is how to add ShadcnBrief to Codex or Claude Code through the current MCP-native runtime path.",
     notFor: "a hosted builder setup story or a generic agent marketplace pitch",
     body: "The current integration story starts with the stdio MCP server plus the repo-owned starter bundles, not a hosted API claim. Use the MCP client setup path when you want real prompt-to-workspace delivery.",
     cta: "Open MCP install guide",
@@ -509,7 +509,7 @@ export const FRONTDOOR_ROUTE_CONTRACTS = [
     label: "Alternatives and compare",
     role: "decision surface",
     audience:
-      "teams comparing OpenUI against hosted builders and broader coding-agent traffic",
+      "teams comparing ShadcnBrief against hosted builders and broader coding-agent traffic",
     bestFor:
       "deciding whether repo-aware UI delivery with proof and review is the right job to optimize for",
     notFor:
@@ -594,7 +594,7 @@ export const DISCOVERY_CHAIN = [
     title: "Compare",
     href: "/compare",
     role: "decision surface",
-    body: "Explain why OpenUI fits repo-aware UI shipping better than hosted builders or generic coding-agent traffic when category fit is still the open question.",
+    body: "Explain why ShadcnBrief fits repo-aware UI shipping better than hosted builders or generic coding-agent traffic when category fit is still the open question.",
   },
   {
     step: "Step 8",
@@ -623,13 +623,13 @@ export const PUBLIC_BUNDLE = [
   {
     title: "Visual proof assets",
     items: [
-      "OpenUIStudio-demo.gif",
-      "OpenUIStudio-workbench.png",
-      "OpenUIStudio-comparison.png",
-      "OpenUIStudio-trust-stack.png",
-      "OpenUIStudio-use-cases.png",
-      "OpenUIStudio-visitor-paths.png",
-      "OpenUIStudio-social-preview.png",
+      "ShadcnBrief-demo.gif",
+      "ShadcnBrief-workbench.png",
+      "ShadcnBrief-comparison.png",
+      "ShadcnBrief-trust-stack.png",
+      "ShadcnBrief-use-cases.png",
+      "ShadcnBrief-visitor-paths.png",
+      "ShadcnBrief-social-preview.png",
     ],
   },
   {
@@ -649,8 +649,8 @@ export const PUBLIC_BUNDLE = [
     items: [
       ".claude-plugin/marketplace.json",
       "examples/codex/marketplace.sample.json",
-      "plugins/openui-workspace-delivery/.claude-plugin/plugin.json",
-      "plugins/openui-codex-delivery/.codex-plugin/plugin.json",
+      "plugins/shadcn-brief-workspace-delivery/.claude-plugin/plugin.json",
+      "plugins/shadcn-brief-codex-delivery/.codex-plugin/plugin.json",
     ],
   },
   {
@@ -732,7 +732,7 @@ export const ECOSYSTEM_PRODUCTIZATION_STATUS = [
     bestFor:
       "configuration snippets, starter bundles, proof loop, and discovery metadata that make local MCP installation feel productized",
     readWhen:
-      "Open this when the next question is how to add OpenUI to Codex or Claude Code without inventing an official plugin marketplace story.",
+      "Open this when the next question is how to add ShadcnBrief to Codex or Claude Code without inventing an official plugin marketplace story.",
     notFor:
       "claiming a Codex marketplace item or a published Claude Code plugin before those artifacts exist",
     body: "The strongest current packaging is a repo-owned official-surface-ready package; official directory or marketplace publication is still a separate claim.",
@@ -746,7 +746,7 @@ export const ECOSYSTEM_PRODUCTIZATION_STATUS = [
     bestFor:
       "starter config, proof loop, and machine-readable discovery artifacts while the live ClawHub page stays visible but still under moderation warning",
     readWhen:
-      "Open this when the next question is how to present OpenUI honestly to OpenClaw-side users without pretending the listed-live page is trust-cleared approval.",
+      "Open this when the next question is how to present ShadcnBrief honestly to OpenClaw-side users without pretending the listed-live page is trust-cleared approval.",
     notFor:
       "claiming an official OpenClaw runtime, trust-cleared ClawHub approval, or vendor approval",
     body: "The repo now ships a ClawHub-facing bundle at the artifact layer, and the page is listed live, but the current moderation label still reads suspicious.llm_suspicious.",
@@ -757,7 +757,7 @@ export const ECOSYSTEM_PRODUCTIZATION_STATUS = [
     status: "supporting-parked",
     audience: "developers evaluating future thin-client or package surfaces",
     bestFor:
-      "installing a thin HTTP client for the self-hosted OpenUI Hosted API with explicit auth and boundary semantics",
+      "installing a thin HTTP client for the self-hosted ShadcnBrief Hosted API with explicit auth and boundary semantics",
     readWhen:
       "Open this when the question becomes how to call the self-hosted HTTP surface from code.",
     notFor:
@@ -766,7 +766,7 @@ export const ECOSYSTEM_PRODUCTIZATION_STATUS = [
   },
   {
     id: "hosted-api",
-    title: "Self-hosted OpenUI Hosted API",
+    title: "Self-hosted ShadcnBrief Hosted API",
     status: "supporting-parked",
     audience: "adapter authors and future hosted-surface planners",
     bestFor:
@@ -775,6 +775,6 @@ export const ECOSYSTEM_PRODUCTIZATION_STATUS = [
       "Open this after the compatibility bridge semantics are clear and you need a real self-hosted service/runtime surface.",
     notFor:
       "claiming a managed SaaS deployment, front-door primary status, control plane, or remote write surface",
-    body: "Current truth still includes a self-hosted OpenUI Hosted API runtime with auth, rate limiting, observability, and proof paths, but it is now a supporting or parked lane.",
+    body: "Current truth still includes a self-hosted ShadcnBrief Hosted API runtime with auth, rate limiting, observability, and proof paths, but it is now a supporting or parked lane.",
   },
 ] as const;

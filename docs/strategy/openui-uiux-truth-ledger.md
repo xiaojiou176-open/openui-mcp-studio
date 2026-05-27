@@ -1,4 +1,4 @@
-# OpenUI UI/UX Truth Ledger
+# ShadcnBrief UI/UX Truth Ledger
 
 > Canonical shared truth ledger for Round 2 convergence.
 > This document reconciles the current dirty worktree with the completed
@@ -8,10 +8,10 @@
 
 Current wave follow-through now lives in:
 
-- [`docs/strategy/openui-uiux-vertical-gap-ledger.md`](./openui-uiux-vertical-gap-ledger.md)
-- [`docs/strategy/openui-builder-surface-formalization-ledger.md`](./openui-builder-surface-formalization-ledger.md)
-- [`docs/strategy/openui-external-activation-ledger.md`](./openui-external-activation-ledger.md)
-- [`docs/strategy/openui-ecosystem-productization-ledger.md`](./openui-ecosystem-productization-ledger.md)
+- [`docs/strategy/shadcn-brief-uiux-vertical-gap-ledger.md`](./shadcn-brief-uiux-vertical-gap-ledger.md)
+- [`docs/strategy/shadcn-brief-builder-surface-formalization-ledger.md`](./shadcn-brief-builder-surface-formalization-ledger.md)
+- [`docs/strategy/shadcn-brief-external-activation-ledger.md`](./shadcn-brief-external-activation-ledger.md)
+- [`docs/strategy/shadcn-brief-ecosystem-productization-ledger.md`](./shadcn-brief-ecosystem-productization-ledger.md)
 
 ## 1. Why This Exists
 
@@ -40,7 +40,7 @@ Use this split before reading any claim:
 
 The shortest honest product sentence is still:
 
-> OpenUIStudio is a local MCP-first UI delivery and review workbench for
+> ShadcnBrief is a local MCP-first UI delivery and review workbench for
 > turning UI briefs into React and shadcn changes, then keeping proof, review,
 > and acceptance visible before a human decides to land them.
 
@@ -130,7 +130,7 @@ What is current in the dirty worktree:
 - local stdio MCP remains the primary builder surface
 - the compatibility OpenAPI bridge remains current
 - the repo-local workflow packet remains current through
-  `openui_repo_workflow_summary` and `npm run repo:workflow:ready`
+  `shadcn_brief_repo_workflow_summary` and `npm run repo:workflow:ready`
 - the dirty slice also contains:
   - a root repo-local CLI entrypoint
   - a curated public export layer under `services/mcp-server/src/public/`

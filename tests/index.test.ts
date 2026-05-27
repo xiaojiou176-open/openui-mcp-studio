@@ -167,7 +167,7 @@ describe("index server bootstrap", () => {
 
 		expect(validateOpenuiRuntimeConfig).toHaveBeenCalledTimes(1);
 		expect(server.options).toEqual({
-			name: "OpenUIStudio",
+			name: "ShadcnBrief",
 			version: "9.9.9-test",
 		});
 
@@ -198,7 +198,7 @@ describe("index server bootstrap", () => {
 
 		expect(server.resourceRegistrations).toHaveLength(1);
 		const resource = server.resourceRegistrations[0];
-		expect(resource.id).toBe("openui_styleguide_default");
+		expect(resource.id).toBe("shadcn_brief_styleguide_default");
 		expect(resource.uri).toBe("openui://styleguide/default");
 
 		const resolved = await resource.handler();

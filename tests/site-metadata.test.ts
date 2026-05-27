@@ -24,7 +24,7 @@ describe("site metadata", () => {
 			keywords: ["Codex MCP UI workflow", "Codex MCP UI workflow"],
 		});
 
-		expect(metadata.applicationName).toBe("OpenUIStudio");
+		expect(metadata.applicationName).toBe("ShadcnBrief");
 		expect(metadata.category).toBe("developer tools");
 		expect(metadata.alternates).toEqual({
 			canonical: "https://oneclickui.ai/workbench",

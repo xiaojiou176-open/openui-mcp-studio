@@ -16,7 +16,7 @@ async function writeJson(filePath: string, value: unknown) {
 describe("dependency boundary governance", () => {
 	it("fails when shared code back-references business layers", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-boundaries-"),
+			path.join(os.tmpdir(), "shadcn-brief-boundaries-"),
 		);
 		try {
 			await writeJson(
@@ -77,7 +77,7 @@ describe("dependency boundary governance", () => {
 
 	it("fails when tooling imports a private service path instead of the public surface", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-boundaries-tooling-"),
+			path.join(os.tmpdir(), "shadcn-brief-boundaries-tooling-"),
 		);
 		try {
 			await writeJson(

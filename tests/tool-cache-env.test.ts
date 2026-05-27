@@ -26,7 +26,7 @@ afterEach(async () => {
 
 describe("tool cache env", () => {
 	it("keeps the current Node version string in the runtime marker", async () => {
-		const rootDir = await mkTempDir("openui-tool-cache-env-");
+		const rootDir = await mkTempDir("shadcn-brief-tool-cache-env-");
 		await fs.writeFile(
 			path.join(rootDir, "package-lock.json"),
 			JSON.stringify({ name: "demo", lockfileVersion: 3 }, null, 2),
@@ -39,9 +39,9 @@ describe("tool cache env", () => {
 	});
 
 	it("surfaces repo-specific external cache metadata with workspace token paths", async () => {
-		const rootDir = await mkTempDir("openui-tool-cache-meta-root-");
+		const rootDir = await mkTempDir("shadcn-brief-tool-cache-meta-root-");
 		const toolCacheBaseRoot = path.join(
-			await mkTempDir("openui-tool-cache-meta-base-"),
+			await mkTempDir("shadcn-brief-tool-cache-meta-base-"),
 			"tooling",
 		);
 		await fs.writeFile(
@@ -107,9 +107,9 @@ describe("tool cache env", () => {
 	});
 
 	it("applies TTL-first and capacity-prune janitor cleanup inside the configured tool-cache root", async () => {
-		const rootDir = await mkTempDir("openui-tool-cache-janitor-root-");
+		const rootDir = await mkTempDir("shadcn-brief-tool-cache-janitor-root-");
 		const toolCacheBaseRoot = path.join(
-			await mkTempDir("openui-tool-cache-janitor-base-"),
+			await mkTempDir("shadcn-brief-tool-cache-janitor-base-"),
 			"tooling",
 		);
 		const env = {

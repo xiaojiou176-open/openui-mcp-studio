@@ -4,7 +4,7 @@ This bundle is shaped for the official Codex plugin surface:
 
 - `.codex-plugin/plugin.json`
 - `.mcp.json`
-- `skills/openui-ui-delivery/SKILL.md`
+- `skills/shadcn-brief-ui-delivery/SKILL.md`
 
 What it honestly means:
 

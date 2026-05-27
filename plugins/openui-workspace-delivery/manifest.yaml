@@ -2,8 +2,8 @@ schema_version: 1
 artifact: public-skill-listing-manifest
 
 skill:
-  name: openui-workspace-delivery
-  display_name: OpenUI Workspace Delivery
+  name: shadcn-brief-workspace-delivery
+  display_name: ShadcnBrief Workspace Delivery
   version: 1.0.0
   entrypoint: SKILL.md
   package_shape: skill-folder
@@ -18,10 +18,10 @@ registry_targets:
     status: folder-ready-not-submitted
     package_shape: skill-folder
     channel_role: host-native extensions registry
-    submit_via: submit this folder as skills/openui-workspace-delivery/ after Wave 2 verification
+    submit_via: submit this folder as skills/shadcn-brief-workspace-delivery/ after Wave 2 verification
 
 boundaries:
-  product_identity: Local MCP-first UI generation and review workspace for OpenUIStudio.
+  product_identity: Local MCP-first UI generation and review workspace for ShadcnBrief.
   canonical_packet_role: Canonical pure-skills packet for the repo; repo root remains the canonical public root.
   canonical_repo_version: 0.1.0
   official_listing_state: no live registry or marketplace listing is claimed

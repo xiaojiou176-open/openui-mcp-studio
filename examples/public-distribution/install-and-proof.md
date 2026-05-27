@@ -20,7 +20,7 @@ Use the official MCP add pattern:
 
 ```bash
 codex mcp add openui --env GEMINI_API_KEY=your_key -- \
-  node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
+  node /ABS/PATH/ShadcnBrief/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
 ```
 
 If you prefer to start from a machine-readable example first, open:
@@ -35,14 +35,14 @@ Use the official MCP add pattern:
 
 ```bash
 claude mcp add --transport stdio --env GEMINI_API_KEY=your_key openui -- \
-  node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
+  node /ABS/PATH/ShadcnBrief/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
 ```
 
 If you prefer a machine-readable example first, open:
 
 - `examples/public-distribution/claude-code.mcp.json`
 - `.claude-plugin/marketplace.json` if you want the marketplace-compatible
-  Claude bundle entry that points at `plugins/openui-workspace-delivery`
+  Claude bundle entry that points at `plugins/shadcn-brief-workspace-delivery`
 
 ## 4. Install Into Another Local-First MCP Host
 

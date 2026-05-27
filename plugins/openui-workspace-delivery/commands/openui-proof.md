@@ -1,9 +1,9 @@
-# OpenUI first proof
+# ShadcnBrief first proof
 
 Run the repo-owned proof loop after you wire the local MCP config:
 
-1. `OpenUIStudio surface-guide --json`
-2. `OpenUIStudio ecosystem-guide --json`
+1. `ShadcnBrief surface-guide --json`
+2. `ShadcnBrief ecosystem-guide --json`
 3. `npm run repo:doctor`
 4. Open `/proof` or `docs/proof-and-faq.md`
 

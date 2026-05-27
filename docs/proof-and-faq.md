@@ -2,7 +2,7 @@
 
 This page gives the shortest public answer to a practical question:
 
-> Does OpenUIStudio actually do more than produce a pretty screenshot?
+> Does ShadcnBrief actually do more than produce a pretty screenshot?
 
 The short answer is yes. The repository is built around a workflow that can
 generate UI, apply files, and validate the result through repository-owned
@@ -66,7 +66,7 @@ screenshots, run:
 npm run demo:ship
 ```
 
-That command executes the real `openui_ship_react_page` tool with a built-in
+That command executes the real `shadcn_brief_ship_react_page` tool with a built-in
 pricing-page prompt and prints the generated file payload as JSON. It stays in
 `dryRun` mode by default so you can inspect the result before writing files.
 It also prefers `GEMINI_MODEL_FAST` when available and supports
@@ -81,8 +81,8 @@ first. This page explains proof semantics; it does not replace first-time setup.
 | --- | --- | --- |
 | `npm run demo:ship` | one rerunnable ship-tool payload from the current repo | not a replacement for smoke, UI/UX, or release checks |
 | `npm run repo:doctor` | front-door repository health across governance, runtime, evidence, upstream, and release-readiness inputs | not a full CI substitute and not a hosted-platform uptime guarantee |
-| `OpenUIStudio skills starter --json` | machine-readable view of the repo-owned skill product line and its bundle truth | not proof of an official marketplace or catalog listing |
-| `OpenUIStudio ecosystem-guide --json` | current repo distribution story, supporting install bundles, skill product line, and parked lanes in one CLI packet | not proof of vendor approval or registry publication |
+| `ShadcnBrief skills starter --json` | machine-readable view of the repo-owned skill product line and its bundle truth | not proof of an official marketplace or catalog listing |
+| `ShadcnBrief ecosystem-guide --json` | current repo distribution story, supporting install bundles, skill product line, and parked lanes in one CLI packet | not proof of vendor approval or registry publication |
 | `npm run smoke:e2e` | the default proof target still boots and behaves like a real app | not proof that every generated UI is production-ready |
 | `npm run release:public-safe:check` | the strict repo-side public-safe verdict across docs, release-readiness, remote evidence, and history hygiene | not legal sign-off, product judgment, or rollout approval |
 
@@ -102,15 +102,15 @@ looking at?"
 
 ## Demo Proof
 
-![OpenUIStudio front door summary showing the product sentence, first route, and proof-to-workbench handoff](./assets/OpenUIStudio-workbench.png)
+![ShadcnBrief front door summary showing the product sentence, first route, and proof-to-workbench handoff](./assets/ShadcnBrief-workbench.png)
 
-![Animated OpenUIStudio demo showing brief, review, and ship stages](./assets/OpenUIStudio-demo.gif)
+![Animated ShadcnBrief demo showing brief, review, and ship stages](./assets/ShadcnBrief-demo.gif)
 
-![Workflow overview showing brief, generate, apply, and verify stages](./assets/OpenUIStudio-workflow-overview.png)
+![Workflow overview showing brief, generate, apply, and verify stages](./assets/ShadcnBrief-workflow-overview.png)
 
-![Comparison showing how OpenUIStudio differs from a pure code generator and a generic UI demo repo](./assets/OpenUIStudio-comparison.png)
+![Comparison showing how ShadcnBrief differs from a pure code generator and a generic UI demo repo](./assets/ShadcnBrief-comparison.png)
 
-![Trust stack showing proof surface, quality gates, public routing, and governance evidence](./assets/OpenUIStudio-trust-stack.png)
+![Trust stack showing proof surface, quality gates, public routing, and governance evidence](./assets/ShadcnBrief-trust-stack.png)
 
 ## Generated, Applied, And Verified
 
@@ -280,14 +280,14 @@ than a plain generator, it comes down to four visible layers:
 
 That is the short version of the product claim:
 
-> OpenUIStudio is for teams who want UI generation to end in inspectable
+> ShadcnBrief is for teams who want UI generation to end in inspectable
 > project state, not just model output.
 
 ## FAQ
 
-### What is the relationship to OpenUI?
+### What is the relationship to ShadcnBrief?
 
-This repository is a long-lived productized fork. It keeps upstream OpenUI
+This repository is a long-lived productized fork. It keeps upstream ShadcnBrief
 visible for selective adoption, but its day-to-day identity is a governed MCP
 studio for UI shipping.
 
@@ -317,7 +317,7 @@ Yes, but it is stronger in a narrow way.
 
 The honest upgraded claim is:
 
-> OpenUIStudio is a UI/UX delivery and review companion
+> ShadcnBrief is a UI/UX delivery and review companion
 
 That sentence is supported by real proof, review, acceptance, and UI/UX audit
 surfaces. It is **not** the same as claiming:
@@ -345,7 +345,7 @@ Current repo-owned package/runtime lines now include:
 Supporting or parked lines that remain real:
 
 - repo-owned SDK package surface via `@openui/sdk`
-- self-hosted OpenUI Hosted API command surface through `OpenUIStudio hosted ...`
+- self-hosted ShadcnBrief Hosted API command surface through `ShadcnBrief hosted ...`
 
 What still remains later/operator-owned:
 

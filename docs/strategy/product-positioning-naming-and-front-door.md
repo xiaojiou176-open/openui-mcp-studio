@@ -6,7 +6,7 @@
 > strategy source of truth.
 
 This document defines the current product-positioning and naming strategy for
-`OpenUIStudio`.
+`ShadcnBrief`.
 
 English is the canonical source of truth for repository governance and
 maintenance guidance, so this strategy artifact stays in English as the
@@ -16,7 +16,7 @@ maintainer-facing reference.
 
 ### One-sentence product line
 
-OpenUIStudio is a Gemini-only local MCP UI shipping workbench that turns
+ShadcnBrief is a Gemini-only local MCP UI shipping workbench that turns
 prompts into React + shadcn changes, can apply them into a real workspace, and
 keeps proof, review, and quality gates in the loop.
 
@@ -32,7 +32,7 @@ keeps proof, review, and quality gates in the loop.
 
 | Layer | Recommended name | Why it exists |
 | :--- | :--- | :--- |
-| Technical core name | `OpenUIStudio` | Keeps the strongest truth anchors: `OpenUI`, `MCP`, and a workflow-oriented `Studio` identity |
+| Technical core name | `ShadcnBrief` | Keeps the strongest truth anchors: `ShadcnBrief`, `MCP`, and a workflow-oriented `Studio` identity |
 | Marketing front door | `OneClickUI.ai` (candidate domain / landing only) | Stronger click-through and memory for non-technical audiences |
 | Category sentence | `AI UI shipping for React + shadcn, with proof and review.` | Short, explicit, high-intent positioning |
 | Technical category sentence | `A local MCP UI shipping workbench.` | More accurate for technical evaluators and integrators |
@@ -41,7 +41,7 @@ keeps proof, review, and quality gates in the loop.
 
 ### Recommended decision
 
-Keep the technical product name as `OpenUIStudio`.
+Keep the technical product name as `ShadcnBrief`.
 
 Do **not** rename the repository, package, MCP server identity, or tool prefix
 to `oneclickUI.ai` in the current phase.
@@ -69,12 +69,12 @@ technical and narrative drift wave.
 
 The repo already exposes:
 
-- `openui_ship_react_page`
-- `openui_scan_workspace_profile`
-- `openui_plan_change`
-- `openui_build_acceptance_pack`
-- `openui_build_review_bundle`
-- `openui_ship_feature_flow`
+- `shadcn_brief_ship_react_page`
+- `shadcn_brief_scan_workspace_profile`
+- `shadcn_brief_plan_change`
+- `shadcn_brief_build_acceptance_pack`
+- `shadcn_brief_build_review_bundle`
+- `shadcn_brief_ship_feature_flow`
 
 That is a stronger and more workflow-heavy identity than a pure
 “one-click UI generator” promise.
@@ -108,17 +108,17 @@ technical name.
 
 | Use case | Recommended label |
 | :--- | :--- |
-| GitHub repo, package, MCP server, technical docs | `OpenUIStudio` |
+| GitHub repo, package, MCP server, technical docs | `ShadcnBrief` |
 | Landing page / campaign / domain | `OneClickUI.ai` |
 | Short campaign subtitle | `Turn prompts into shippable React UI, with review and proof.` |
 | Technical short subtitle | `A local MCP UI shipping workbench for React + shadcn.` |
 
 ### Acceptable variants
 
-- `OpenUIStudio`
-- `OpenUI Studio` as a shorter public-tech label in selective contexts
+- `ShadcnBrief`
+- `ShadcnBrief Studio` as a shorter public-tech label in selective contexts
 - `OneClickUI.ai`
-- `OpenUIStudio by OneClickUI` if a dual-brand transition page is ever needed
+- `ShadcnBrief by OneClickUI` if a dual-brand transition page is ever needed
 
 ### Not recommended right now
 

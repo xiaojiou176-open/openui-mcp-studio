@@ -1,6 +1,6 @@
 {
-  "name": "openui-codex-delivery",
+  "name": "shadcn-brief-codex-delivery",
   "version": "0.1.0",
-  "description": "Codex bundle for installing OpenUIStudio from a local repo checkout and running the proof loop honestly.",
+  "description": "Codex bundle for installing ShadcnBrief from a local repo checkout and running the proof loop honestly.",
   "skills": "./skills/"
 }

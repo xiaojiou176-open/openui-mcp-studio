@@ -32,7 +32,7 @@ afterEach(async () => {
 
 describe("sensitive surface audit", () => {
 	it("passes allowlisted example identities and placeholder host paths", async () => {
-		const root = await mkTempRoot("openui-sensitive-surface-pass-");
+		const root = await mkTempRoot("shadcn-brief-sensitive-surface-pass-");
 		const placeholderChromeRoot = `${MACOS_USER_PREFIX}.../Library/Application Support/Google/Chrome`;
 		await writeJson(
 			path.join(
@@ -72,7 +72,7 @@ describe("sensitive surface audit", () => {
 	});
 
 	it("flags personal email, phone-like contact field, and host path leaks", async () => {
-		const root = await mkTempRoot("openui-sensitive-surface-fail-");
+		const root = await mkTempRoot("shadcn-brief-sensitive-surface-fail-");
 		const personalEmail = ["real.user", "personal.dev"].join("@");
 		const personalPhone = ["+1", "(206)", "444", "0188"].join(" ");
 		const personalChromeRoot = `${MACOS_USER_PREFIX}real-user/Library/Application Support/Google/Chrome`;

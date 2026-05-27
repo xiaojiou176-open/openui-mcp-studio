@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { runQualityGate } from "../services/mcp-server/src/quality-gate.js";
 
 const tempDirs: string[] = [];
-const ORIGINAL_CHILD_ALLOWLIST = process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
+const ORIGINAL_CHILD_ALLOWLIST = process.env.SHADCN_BRIEF_CHILD_ENV_ALLOWLIST;
 const ORIGINAL_TEST_ONLY_ALLOWED = process.env.TEST_ONLY_ALLOWED;
 const ORIGINAL_TEST_ONLY_UNRELATED_SECRET =
 	process.env.TEST_ONLY_UNRELATED_SECRET;
@@ -27,9 +27,9 @@ function makeEnvDumpScript(outputFile: string): string {
 
 afterEach(async () => {
 	if (ORIGINAL_CHILD_ALLOWLIST === undefined) {
-		delete process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
+		delete process.env.SHADCN_BRIEF_CHILD_ENV_ALLOWLIST;
 	} else {
-		process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = ORIGINAL_CHILD_ALLOWLIST;
+		process.env.SHADCN_BRIEF_CHILD_ENV_ALLOWLIST = ORIGINAL_CHILD_ALLOWLIST;
 	}
 	if (ORIGINAL_TEST_ONLY_ALLOWED === undefined) {
 		delete process.env.TEST_ONLY_ALLOWED;
@@ -68,8 +68,8 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("rejects absolute filePaths outside targetRoot", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
-		const outsideDir = await mkTempDir("openui-quality-gate-outside-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
+		const outsideDir = await mkTempDir("shadcn-brief-quality-gate-outside-");
 		const outsideFile = path.join(outsideDir, "outside.tsx");
 		await fs.writeFile(
 			outsideFile,
@@ -86,7 +86,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("rejects traversal filePaths that escape targetRoot", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		await expect(
 			runQualityGate({
@@ -97,7 +97,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("rejects filePaths that point to directories instead of files", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 		await fs.mkdir(path.join(root, "app"), { recursive: true });
 
 		await expect(
@@ -109,8 +109,8 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("rejects symlink filePaths even if lexical path is inside targetRoot", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
-		const outsideDir = await mkTempDir("openui-quality-gate-outside-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
+		const outsideDir = await mkTempDir("shadcn-brief-quality-gate-outside-");
 		const outsideFile = path.join(outsideDir, "outside.tsx");
 		await fs.writeFile(
 			outsideFile,
@@ -128,7 +128,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("rejects shell-metacharacter command injection via deprecated fields in strict mode", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		await expect(
 			runQualityGate({
@@ -149,13 +149,13 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("executes ci_gate preset through whitelist npm scripts", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		await fs.writeFile(
 			path.join(root, "package.json"),
 			JSON.stringify(
 				{
-					name: "openui-quality-gate-test",
+					name: "shadcn-brief-quality-gate-test",
 					version: "1.0.0",
 					private: true,
 					scripts: {
@@ -210,13 +210,13 @@ describe("runQualityGate preset execution", () => {
 	}, 15_000);
 
 	it("passes allowlisted env to npm script commands", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 		const envDumpFile = "env-dump.json";
-		const originalAllowlist = process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
+		const originalAllowlist = process.env.SHADCN_BRIEF_CHILD_ENV_ALLOWLIST;
 		const originalAllowed = process.env.TEST_ONLY_ALLOWED;
 		const originalBlocked = process.env.TEST_ONLY_UNRELATED_SECRET;
 
-		process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = "TEST_ONLY_ALLOWED";
+		process.env.SHADCN_BRIEF_CHILD_ENV_ALLOWLIST = "TEST_ONLY_ALLOWED";
 		process.env.TEST_ONLY_ALLOWED = "allowed";
 		process.env.TEST_ONLY_UNRELATED_SECRET = "blocked";
 
@@ -225,7 +225,7 @@ describe("runQualityGate preset execution", () => {
 				path.join(root, "package.json"),
 				JSON.stringify(
 					{
-						name: "openui-quality-gate-env-test",
+						name: "shadcn-brief-quality-gate-env-test",
 						version: "1.0.0",
 						private: true,
 						scripts: {
@@ -270,9 +270,9 @@ describe("runQualityGate preset execution", () => {
 			expect(envDump.blocked).toBeNull();
 		} finally {
 			if (originalAllowlist === undefined) {
-				delete process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST;
+				delete process.env.SHADCN_BRIEF_CHILD_ENV_ALLOWLIST;
 			} else {
-				process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = originalAllowlist;
+				process.env.SHADCN_BRIEF_CHILD_ENV_ALLOWLIST = originalAllowlist;
 			}
 			if (originalAllowed === undefined) {
 				delete process.env.TEST_ONLY_ALLOWED;
@@ -288,13 +288,13 @@ describe("runQualityGate preset execution", () => {
 	}, 30_000);
 
 	it("fails in strict mode when preset scripts are missing", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		await fs.writeFile(
 			path.join(root, "package.json"),
 			JSON.stringify(
 				{
-					name: "openui-quality-gate-missing-scripts",
+					name: "shadcn-brief-quality-gate-missing-scripts",
 					version: "1.0.0",
 					private: true,
 					scripts: {
@@ -345,13 +345,13 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("keeps command failure severity when script exists but execution fails", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		await fs.writeFile(
 			path.join(root, "package.json"),
 			JSON.stringify(
 				{
-					name: "openui-quality-gate-command-failure",
+					name: "shadcn-brief-quality-gate-command-failure",
 					version: "1.0.0",
 					private: true,
 					scripts: {
@@ -391,7 +391,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("fails in strict mode when package command matrix is degraded", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		const result = await runQualityGate({
 			targetRoot: root,
@@ -418,13 +418,13 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("downgrades missing script issues to warnings in advisory mode", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		await fs.writeFile(
 			path.join(root, "package.json"),
 			JSON.stringify(
 				{
-					name: "openui-quality-gate-advisory",
+					name: "shadcn-brief-quality-gate-advisory",
 					version: "1.0.0",
 					private: true,
 					scripts: {
@@ -470,13 +470,13 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("records timeout issue when command exceeds timeout", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		await fs.writeFile(
 			path.join(root, "package.json"),
 			JSON.stringify(
 				{
-					name: "openui-quality-gate-timeout",
+					name: "shadcn-brief-quality-gate-timeout",
 					version: "1.0.0",
 					private: true,
 					scripts: {
@@ -517,7 +517,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("loads valid filePaths and reports lint style warnings", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 		const filePath = path.join(root, "app/page.tsx");
 		await fs.mkdir(path.dirname(filePath), { recursive: true });
 		const largeBody = new Array(451).fill("line").join("\n");
@@ -548,7 +548,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("requires cva for shadcn primitive files", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 		const filePath = path.join(root, "components/ui/button.tsx");
 		await fs.mkdir(path.dirname(filePath), { recursive: true });
 		await fs.writeFile(
@@ -572,7 +572,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("handles unreadable package json and advisory preset defaults", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 		await fs.writeFile(path.join(root, "package.json"), "{", "utf8");
 
 		const result = await runQualityGate({
@@ -593,7 +593,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("validates uiux score/threshold range and timeout values", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 		const files = [{ path: "app/page.tsx", content: "<main className='x'/>" }];
 
 		const zeroBoundary = await runQualityGate({
@@ -676,8 +676,8 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("rejects filePaths that resolve outside root via symlinked parent directory", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
-		const outside = await mkTempDir("openui-quality-gate-outside-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
+		const outside = await mkTempDir("shadcn-brief-quality-gate-outside-");
 		await fs.writeFile(
 			path.join(outside, "outside.tsx"),
 			"export default 1;",
@@ -694,7 +694,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("reads filePaths from validated realpath when traversing a symlinked parent directory", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 		const realDir = path.join(root, "real");
 		const linkedDir = path.join(root, "linked");
 		const linkedFile = path.join(linkedDir, "page.tsx");
@@ -731,12 +731,12 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("ignores non-string and empty scripts in package.json script matrix", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 		await fs.writeFile(
 			path.join(root, "package.json"),
 			JSON.stringify(
 				{
-					name: "openui-quality-gate-script-matrix",
+					name: "shadcn-brief-quality-gate-script-matrix",
 					version: "1.0.0",
 					private: true,
 					scripts: {
@@ -766,7 +766,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("accepts deprecated commands without metacharacters and records warn issue", async () => {
-		const root = await mkTempDir("openui-quality-gate-");
+		const root = await mkTempDir("shadcn-brief-quality-gate-");
 
 		const result = await runQualityGate({
 			targetRoot: root,
@@ -785,7 +785,7 @@ describe("runQualityGate preset execution", () => {
 	});
 
 	it("builds and evaluates acceptance pack when acceptance criteria are provided", async () => {
-		const root = await mkTempDir("openui-quality-acceptance-");
+		const root = await mkTempDir("shadcn-brief-quality-acceptance-");
 		await fs.mkdir(path.join(root, "components", "ui"), { recursive: true });
 		await fs.writeFile(
 			path.join(root, "components.json"),

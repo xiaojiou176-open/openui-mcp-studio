@@ -8,7 +8,7 @@ type TextResult = {
 type ToolHandler = (args: Record<string, unknown>) => Promise<TextResult>;
 
 const DETECTION_FIXTURE = {
-	workspaceRoot: "/tmp/openui-workspace",
+	workspaceRoot: "/tmp/shadcn-brief-workspace",
 	source: "default" as const,
 	uiImportBase: "@/components/ui",
 	uiDir: "components/ui",
@@ -50,8 +50,8 @@ afterEach(() => {
 });
 
 describe("advanced feature strategy contract", () => {
-	it("openui_generate_ui forwards advanced controls to provider call", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+	it("shadcn_brief_generate_ui forwards advanced controls to provider call", async () => {
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
@@ -70,9 +70,9 @@ describe("advanced feature strategy contract", () => {
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 
-		await harness.getHandler("openui_generate_ui")({
+		await harness.getHandler("shadcn_brief_generate_ui")({
 			prompt: "Build dashboard",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			thinkingLevel: "high",
 			includeThoughts: true,
 			responseMimeType: "application/json",
@@ -116,8 +116,8 @@ describe("advanced feature strategy contract", () => {
 		expect(Object.hasOwn(request, "useFast")).toBe(false);
 	}, 20_000);
 
-	it("openui_make_react_page keeps strong route while forwarding advanced controls", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+	it("shadcn_brief_make_react_page keeps strong route while forwarding advanced controls", async () => {
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
@@ -151,11 +151,11 @@ describe("advanced feature strategy contract", () => {
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
 
-		await harness.getHandler("openui_make_react_page")({
+		await harness.getHandler("shadcn_brief_make_react_page")({
 			prompt: "Create marketing page",
 			pagePath: "app/page.tsx",
 			componentsDir: "components/generated",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			thinkingLevel: "high",
 			includeThoughts: true,
 			responseMimeType: "application/json",

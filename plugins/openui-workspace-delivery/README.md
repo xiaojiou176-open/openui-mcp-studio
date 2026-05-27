@@ -1,6 +1,6 @@
-# OpenUI Workspace Delivery
+# ShadcnBrief Workspace Delivery
 
-This folder is the canonical pure-skills packet for OpenUIStudio.
+This folder is the canonical pure-skills packet for ShadcnBrief.
 
 The canonical public root for the product still lives at the repo root:
 `../../README.md` plus `../../manifest.yaml`.

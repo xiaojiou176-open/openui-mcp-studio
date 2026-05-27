@@ -41,7 +41,7 @@ async function loadNextSmokeRunner(): Promise<NextSmokeRunner> {
 
 export function registerSmokeTool(server: McpServer): void {
 	server.registerTool(
-		"openui_next_smoke",
+		"shadcn_brief_next_smoke",
 		{
 			description:
 				"Run Next.js smoke checks via the services/mcp-server next-smoke module when available.",
@@ -65,7 +65,7 @@ export function registerSmokeTool(server: McpServer): void {
 				);
 			} catch (error) {
 				throw new Error(
-					`openui_next_smoke unavailable: ${
+					`shadcn_brief_next_smoke unavailable: ${
 						error instanceof Error ? error.message : String(error)
 					}`,
 					{ cause: error },

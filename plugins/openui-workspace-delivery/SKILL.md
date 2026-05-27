@@ -1,18 +1,18 @@
 ---
-name: openui-workspace-delivery
-description: Teach an agent how to install OpenUIStudio, connect it to a host, and use the core UI generation and review workflow without overclaiming a live marketplace listing.
+name: shadcn-brief-workspace-delivery
+description: Teach an agent how to install ShadcnBrief, connect it to a host, and use the core UI generation and review workflow without overclaiming a live marketplace listing.
 version: 1.0.0
 triggers:
   - openui
-  - openuistudio
+  - shadcn-brief
   - openui workspace delivery
   - shadcn generation
   - UI shipping
 ---
 
-# OpenUI Workspace Delivery
+# ShadcnBrief Workspace Delivery
 
-Teach the agent how to install, connect, and use OpenUIStudio as a local
+Teach the agent how to install, connect, and use ShadcnBrief as a local
 MCP-first UI generation and review workspace.
 
 ## Use this skill when
@@ -23,8 +23,8 @@ MCP-first UI generation and review workspace.
 
 ## What this packet teaches
 
-- how to wire the local OpenUI MCP server into OpenHands or OpenClaw
-- which OpenUI MCP tools are safe and useful first
+- how to wire the local ShadcnBrief MCP server into OpenHands or OpenClaw
+- which ShadcnBrief MCP tools are safe and useful first
 - how to move from installation to a first proof loop
 - how to keep claims grounded in local MCP and repo-owned proof instead of
   marketplace hype
@@ -42,30 +42,30 @@ MCP-first UI generation and review workspace.
 
 ## Recommended workflow
 
-1. `openui_scan_workspace_profile`
-2. `openui_plan_change`
-3. `openui_generate_ui`
-4. `openui_quality_gate`
-5. `openui_build_review_bundle`
+1. `shadcn_brief_scan_workspace_profile`
+2. `shadcn_brief_plan_change`
+3. `shadcn_brief_generate_ui`
+4. `shadcn_brief_quality_gate`
+5. `shadcn_brief_build_review_bundle`
 
 ## Suggested first prompt
 
-Use OpenUIStudio to inspect this workspace and prepare one safe-first UI
-delivery step. Start with `openui_scan_workspace_profile` and
-`openui_plan_change`. If the workspace looks healthy, run `openui_generate_ui`
-for one small component or page change, then run `openui_quality_gate` and
+Use ShadcnBrief to inspect this workspace and prepare one safe-first UI
+delivery step. Start with `shadcn_brief_scan_workspace_profile` and
+`shadcn_brief_plan_change`. If the workspace looks healthy, run `shadcn_brief_generate_ui`
+for one small component or page change, then run `shadcn_brief_quality_gate` and
 summarize what a reviewer should inspect next.
 
 ## Success checks
 
-- the host can launch the OpenUI MCP server from the provided config
+- the host can launch the ShadcnBrief MCP server from the provided config
 - the workspace scan returns a real profile instead of placeholder text
 - the plan/generate flow yields a concrete UI output or change plan
 - the proof loop stays inside local MCP and repo-owned evidence
 
 ## Boundaries
 
-- OpenUIStudio stays a local MCP and repo-owned proof workflow
+- ShadcnBrief stays a local MCP and repo-owned proof workflow
 - this packet does not claim a live ClawHub listing or a vendor marketplace
   listing
 - this packet does not claim a hosted runtime or hosted API publication

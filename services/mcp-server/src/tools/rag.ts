@@ -54,7 +54,7 @@ export function resetRagStateForTests(): void {
 
 export function registerRagTool(server: McpServer): void {
 	server.registerTool(
-		"openui_rag_upsert",
+		"shadcn_brief_rag_upsert",
 		{
 			description:
 				"Upsert documents into the session-local in-memory RAG index using Gemini embeddings.",
@@ -102,7 +102,7 @@ export function registerRagTool(server: McpServer): void {
 	);
 
 	server.registerTool(
-		"openui_rag_search",
+		"shadcn_brief_rag_search",
 		{
 			description:
 				"Search the session-local in-memory RAG index using Gemini embeddings.",

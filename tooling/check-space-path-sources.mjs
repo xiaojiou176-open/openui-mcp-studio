@@ -105,7 +105,7 @@ async function runSpacePathSourcesCheck(options = {}) {
 	}
 
 	const rawRuntimeCacheDir = String(
-		(options.env ?? process.env).OPENUISTUDIO_CACHE_DIR ?? ".runtime-cache/cache",
+		(options.env ?? process.env).SHADCN_BRIEF_CACHE_DIR ?? ".runtime-cache/cache",
 	).trim();
 	const resolvedRuntimeCacheDir = resolveWorkspaceRelative(
 		rawRuntimeCacheDir,
@@ -115,7 +115,7 @@ async function runSpacePathSourcesCheck(options = {}) {
 	const normalizedRuntimeCacheDir = relativeRuntimeCacheDir.split(path.sep).join("/");
 	if (!isCanonicalRuntimePath(normalizedRuntimeCacheDir, context.registry)) {
 		errors.push(
-			`OPENUISTUDIO_CACHE_DIR must resolve to a canonical runtime path, received: ${normalizedRuntimeCacheDir}`,
+			`SHADCN_BRIEF_CACHE_DIR must resolve to a canonical runtime path, received: ${normalizedRuntimeCacheDir}`,
 		);
 	}
 

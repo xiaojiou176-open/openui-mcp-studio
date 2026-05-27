@@ -12,15 +12,15 @@ const ENV_KEYS = [
 	"GEMINI_DEFAULT_THINKING_LEVEL",
 	"GEMINI_DEFAULT_TEMPERATURE",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUISTUDIO_CHILD_ENV_ALLOWLIST",
-	"OPENUISTUDIO_WORKSPACE_ROOT",
-	"OPENUISTUDIO_LOG_LEVEL",
-	"OPENUISTUDIO_LOG_OUTPUT",
-	"OPENUISTUDIO_LOG_ROTATE_ON_START",
-	"OPENUISTUDIO_LOG_DIR",
-	"OPENUISTUDIO_CACHE_DIR",
-	"OPENUISTUDIO_LOG_RETENTION_DAYS",
-	"OPENUISTUDIO_LOG_MAX_FILE_MB",
+	"SHADCN_BRIEF_CHILD_ENV_ALLOWLIST",
+	"SHADCN_BRIEF_WORKSPACE_ROOT",
+	"SHADCN_BRIEF_LOG_LEVEL",
+	"SHADCN_BRIEF_LOG_OUTPUT",
+	"SHADCN_BRIEF_LOG_ROTATE_ON_START",
+	"SHADCN_BRIEF_LOG_DIR",
+	"SHADCN_BRIEF_CACHE_DIR",
+	"SHADCN_BRIEF_LOG_RETENTION_DAYS",
+	"SHADCN_BRIEF_LOG_MAX_FILE_MB",
 	"OPENUI_TIMEOUT_MS",
 	"OPENUI_MAX_RETRIES",
 	"OPENUI_RETRY_BASE_MS",
@@ -30,9 +30,9 @@ const ENV_KEYS = [
 	"OPENUI_GEMINI_PYTHON_BIN",
 	"OPENUI_GEMINI_SIDECAR_PATH",
 	"OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES",
-	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
-	"OPENUISTUDIO_CACHE_MAX_BYTES",
-	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
+	"SHADCN_BRIEF_CACHE_RETENTION_DAYS",
+	"SHADCN_BRIEF_CACHE_MAX_BYTES",
+	"SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES",
 	"OPENUI_TOOL_CACHE_ROOT",
 	"OPENUI_TOOL_CACHE_RETENTION_DAYS",
 	"OPENUI_TOOL_CACHE_MAX_BYTES",
@@ -82,7 +82,7 @@ afterEach(() => {
 
 describe("constants low-core coverage", () => {
 	it("covers runtime getters and validates full runtime config", async () => {
-		const workspaceRoot = makeTempWorkspace("openui-constants-low-core-");
+		const workspaceRoot = makeTempWorkspace("shadcn-brief-constants-low-core-");
 		process.env.GEMINI_API_KEY = "test-key"; // pragma: allowlist secret
 		process.env.GEMINI_MODEL = "gemini-primary";
 		process.env.GEMINI_MODEL_FAST = "gemini-fast";
@@ -91,15 +91,15 @@ describe("constants low-core coverage", () => {
 		process.env.GEMINI_DEFAULT_THINKING_LEVEL = "high";
 		process.env.GEMINI_DEFAULT_TEMPERATURE = "0.8";
 		process.env.OPENUI_MODEL_ROUTING = "on";
-		process.env.OPENUISTUDIO_CHILD_ENV_ALLOWLIST = "PATH, HOME";
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUISTUDIO_LOG_LEVEL = "info";
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
-		process.env.OPENUISTUDIO_LOG_DIR = ".runtime-cache/logs/runtime";
-		process.env.OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
-		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "9";
-		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "5";
+		process.env.SHADCN_BRIEF_CHILD_ENV_ALLOWLIST = "PATH, HOME";
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "info";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "both";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "off";
+		process.env.SHADCN_BRIEF_LOG_DIR = ".runtime-cache/logs/runtime";
+		process.env.SHADCN_BRIEF_CACHE_DIR = ".runtime-cache/cache";
+		process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "9";
+		process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "5";
 		process.env.OPENUI_TIMEOUT_MS = "32100";
 		process.env.OPENUI_MAX_RETRIES = "3";
 		process.env.OPENUI_RETRY_BASE_MS = "350";
@@ -110,9 +110,9 @@ describe("constants low-core coverage", () => {
 		process.env.OPENUI_GEMINI_SIDECAR_PATH =
 			"services/gemini-sidecar/bridge.py";
 		process.env.OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES = "131072";
-		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "6";
-		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "2048";
-		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "15";
+		process.env.SHADCN_BRIEF_CACHE_RETENTION_DAYS = "6";
+		process.env.SHADCN_BRIEF_CACHE_MAX_BYTES = "2048";
+		process.env.SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES = "15";
 
 		const constants = await loadConstants();
 		expect(constants.getGeminiApiKey()).toBe("test-key");
@@ -190,55 +190,55 @@ describe("constants low-core coverage", () => {
 			/OPENUI_MODEL_ROUTING must be "on" or "off"/,
 		);
 
-		delete process.env.OPENUISTUDIO_LOG_LEVEL;
+		delete process.env.SHADCN_BRIEF_LOG_LEVEL;
 		expect(constants.getOpenuiMcpLogLevel()).toBe(
-			constants.DEFAULT_OPENUISTUDIO_LOG_LEVEL,
+			constants.DEFAULT_SHADCN_BRIEF_LOG_LEVEL,
 		);
 
-		process.env.OPENUISTUDIO_LOG_LEVEL = "verbose";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "verbose";
 		expect(() => constants.getOpenuiMcpLogLevel()).toThrow(
-			/OPENUISTUDIO_LOG_LEVEL must be one of/,
+			/SHADCN_BRIEF_LOG_LEVEL must be one of/,
 		);
 
-		delete process.env.OPENUISTUDIO_LOG_OUTPUT;
+		delete process.env.SHADCN_BRIEF_LOG_OUTPUT;
 		expect(constants.getOpenuiMcpLogOutput()).toBe("both");
 
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "printer";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "printer";
 		expect(() => constants.getOpenuiMcpLogOutput()).toThrow(
-			/OPENUISTUDIO_LOG_OUTPUT must be one of/,
+			/SHADCN_BRIEF_LOG_OUTPUT must be one of/,
 		);
 
-		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "-5";
+		process.env.SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES = "-5";
 		expect(() => constants.getOpenuiMcpCacheCleanIntervalMinutes()).toThrow(
 			/positive integer/,
 		);
 	});
 
 	it("resolves tool-cache roots and chrome profile getters across default, relative, home, and absolute branches", async () => {
-		const workspaceRoot = makeTempWorkspace("openui-tool-cache-constants-");
-		const chromeDataRoot = makeTempWorkspace("openui-chrome-data-");
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		const workspaceRoot = makeTempWorkspace("shadcn-brief-tool-cache-constants-");
+		const chromeDataRoot = makeTempWorkspace("shadcn-brief-chrome-data-");
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
 
 		const constants = await loadConstants();
 
 		delete process.env.OPENUI_TOOL_CACHE_ROOT;
 		expect(constants.getOpenuiToolCacheRoot()).toContain(
-			path.join(".cache", "OpenUIStudio", "tooling"),
+			path.join(".cache", "ShadcnBrief", "tooling"),
 		);
 
-		process.env.OPENUI_TOOL_CACHE_ROOT = ".cache/openui-local-tooling";
+		process.env.OPENUI_TOOL_CACHE_ROOT = ".cache/shadcn-brief-local-tooling";
 		expect(constants.getOpenuiToolCacheRoot()).toBe(
-			path.join(constants.getWorkspaceRoot(), ".cache/openui-local-tooling"),
+			path.join(constants.getWorkspaceRoot(), ".cache/shadcn-brief-local-tooling"),
 		);
 
-		process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/openui-home-tooling";
+		process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/shadcn-brief-home-tooling";
 		expect(constants.getOpenuiToolCacheRoot()).toBe(
-			path.join(os.homedir(), ".cache/openui-home-tooling"),
+			path.join(os.homedir(), ".cache/shadcn-brief-home-tooling"),
 		);
 
-		process.env.OPENUI_TOOL_CACHE_ROOT = "/tmp/openui-absolute-tooling";
+		process.env.OPENUI_TOOL_CACHE_ROOT = "/tmp/shadcn-brief-absolute-tooling";
 		expect(constants.getOpenuiToolCacheRoot()).toBe(
-			path.resolve("/tmp/openui-absolute-tooling"),
+			path.resolve("/tmp/shadcn-brief-absolute-tooling"),
 		);
 
 		delete process.env.OPENUI_CHROME_USER_DATA_DIR;
@@ -270,7 +270,7 @@ describe("constants low-core coverage", () => {
 	});
 
 	it("validates tool-cache numeric overrides through runtime config", async () => {
-		const workspaceRoot = makeTempWorkspace("openui-tool-cache-runtime-");
+		const workspaceRoot = makeTempWorkspace("shadcn-brief-tool-cache-runtime-");
 		process.env.GEMINI_API_KEY = "test-key";
 		process.env.GEMINI_MODEL = "gemini-primary";
 		process.env.GEMINI_MODEL_FAST = "gemini-fast";
@@ -279,15 +279,15 @@ describe("constants low-core coverage", () => {
 		process.env.GEMINI_DEFAULT_THINKING_LEVEL = "high";
 		process.env.GEMINI_DEFAULT_TEMPERATURE = "1";
 		process.env.OPENUI_MODEL_ROUTING = "on";
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUISTUDIO_LOG_LEVEL = "info";
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
-		process.env.OPENUISTUDIO_LOG_DIR =
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "info";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "both";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "on";
+		process.env.SHADCN_BRIEF_LOG_DIR =
 			".runtime-cache/runs/<run_id>/logs/runtime.jsonl";
-		process.env.OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
-		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
+		process.env.SHADCN_BRIEF_CACHE_DIR = ".runtime-cache/cache";
+		process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "10";
 		process.env.OPENUI_TIMEOUT_MS = "45000";
 		process.env.OPENUI_MAX_RETRIES = "2";
 		process.env.OPENUI_RETRY_BASE_MS = "450";
@@ -298,10 +298,10 @@ describe("constants low-core coverage", () => {
 		process.env.OPENUI_GEMINI_SIDECAR_PATH =
 			"services/gemini-sidecar/server.py";
 		process.env.OPENUI_GEMINI_SIDECAR_STDOUT_BUFFER_MAX_BYTES = "262144";
-		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
-		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-		process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/OpenUIStudio/tooling";
+		process.env.SHADCN_BRIEF_CACHE_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_CACHE_MAX_BYTES = "104857600";
+		process.env.SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+		process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/ShadcnBrief/tooling";
 		process.env.OPENUI_TOOL_CACHE_RETENTION_DAYS = "3";
 		process.env.OPENUI_TOOL_CACHE_MAX_BYTES = "5368709120";
 		process.env.OPENUI_TOOL_CACHE_CLEAN_INTERVAL_MINUTES = "60";

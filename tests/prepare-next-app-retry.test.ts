@@ -12,7 +12,7 @@ const tempDirs: string[] = [];
 
 async function createTempBuildDir(): Promise<string> {
 	const dir = await fs.mkdtemp(
-		path.join(os.tmpdir(), "openui-prepare-next-app-"),
+		path.join(os.tmpdir(), "shadcn-brief-prepare-next-app-"),
 	);
 	tempDirs.push(dir);
 	return dir;

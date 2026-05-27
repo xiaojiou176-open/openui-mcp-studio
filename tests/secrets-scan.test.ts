@@ -64,7 +64,7 @@ async function runCommandOrThrow(
 describe("secrets_scan staged mode", () => {
 	it("scans git index content instead of workspace content", async () => {
 		const workspace = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-"),
 		);
 		const targetFile = path.join(workspace, "src.ts");
 		const stagedSecret = `const apiKey = '${["sk", "AAAAAAAAAAAAAAAAAAAAAA"].join("-")}';\n`;
@@ -100,7 +100,7 @@ describe("secrets_scan staged mode", () => {
 
 	it("scans renamed files in staged index", async () => {
 		const workspace = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-renamed-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-renamed-"),
 		);
 		const originalPath = path.join(workspace, "safe.ts");
 		const renamedPath = path.join(workspace, "renamed.ts");
@@ -150,7 +150,7 @@ describe("secrets_scan staged mode", () => {
 		const nonGitTmpRoot =
 			process.platform === "linux" ? "/dev/shm" : os.tmpdir();
 		const workspace = await fs.mkdtemp(
-			path.join(nonGitTmpRoot, "openui-secrets-scan-no-git-"),
+			path.join(nonGitTmpRoot, "shadcn-brief-secrets-scan-no-git-"),
 		);
 
 		try {
@@ -172,7 +172,7 @@ describe("secrets_scan staged mode", () => {
 describe("secrets_scan workspace mode", () => {
 	it("scans real file content when using --path outside cwd", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-path-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-path-"),
 		);
 		const workspace = path.join(tempRoot, "workspace");
 		const externalScanPath = path.join(tempRoot, "external");
@@ -205,7 +205,7 @@ describe("secrets_scan workspace mode", () => {
 
 	it("detects GitHub app token prefixes (e.g. ghs_)", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-github-prefix-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-github-prefix-"),
 		);
 		const targetFile = path.join(tempRoot, "gh-token.ts");
 
@@ -230,7 +230,7 @@ describe("secrets_scan workspace mode", () => {
 
 	it("detects OpenAI project key prefix sk-proj and redacts output", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-sk-proj-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-sk-proj-"),
 		);
 		const targetFile = path.join(tempRoot, "openai-project-key.ts");
 
@@ -268,7 +268,7 @@ describe("secrets_scan workspace mode", () => {
 
 	it("returns success when workspace files do not contain known secret patterns", async () => {
 		const workspace = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-clean-workspace-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-clean-workspace-"),
 		);
 		const safePath = path.join(workspace, "safe.ts");
 
@@ -298,7 +298,7 @@ describe("secrets_scan workspace mode", () => {
 describe("secrets_scan staged clean mode", () => {
 	it("returns success when staged content is clean", async () => {
 		const workspace = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-clean-staged-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-clean-staged-"),
 		);
 		const targetFile = path.join(workspace, "safe.ts");
 
@@ -324,7 +324,7 @@ describe("secrets_scan staged clean mode", () => {
 
 	it("does not fail when secret exists only in unstaged workspace content", async () => {
 		const workspace = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-unstaged-only-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-unstaged-only-"),
 		);
 		const targetFile = path.join(workspace, "safe.ts");
 
@@ -359,7 +359,7 @@ describe("secrets_scan staged clean mode", () => {
 describe("secrets_scan argument validation", () => {
 	it("returns usage error when --path has no value", async () => {
 		const workspace = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-args-path-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-args-path-"),
 		);
 
 		try {
@@ -377,7 +377,7 @@ describe("secrets_scan argument validation", () => {
 
 	it("returns usage error on unknown option", async () => {
 		const workspace = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-secrets-scan-args-unknown-"),
+			path.join(os.tmpdir(), "shadcn-brief-secrets-scan-args-unknown-"),
 		);
 
 		try {

@@ -20,7 +20,7 @@ import { ensureDependenciesInstalled } from "../services/mcp-server/src/next-smo
 const tempDirs: string[] = [];
 
 async function mkTempDir(prefix: string): Promise<string> {
-	const runtimeRoot = path.join(os.tmpdir(), "openui-next-smoke-tests");
+	const runtimeRoot = path.join(os.tmpdir(), "shadcn-brief-next-smoke-tests");
 	await fs.mkdir(runtimeRoot, { recursive: true });
 	const dir = await fs.mkdtemp(path.join(runtimeRoot, prefix));
 	tempDirs.push(dir);

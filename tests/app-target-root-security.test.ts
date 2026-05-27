@@ -35,10 +35,10 @@ async function runScript(
 describe("fixture target-root workspace security", () => {
 	it("prepare-next-app rejects target roots outside workspace", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-prepare-target-workspace-"),
+			path.join(os.tmpdir(), "shadcn-brief-prepare-target-workspace-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-prepare-target-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-prepare-target-outside-"),
 		);
 
 		try {
@@ -60,10 +60,10 @@ describe("fixture target-root workspace security", () => {
 
 	it("prepare-next-app rejects symlink target roots", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-prepare-target-symlink-workspace-"),
+			path.join(os.tmpdir(), "shadcn-brief-prepare-target-symlink-workspace-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-prepare-target-symlink-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-prepare-target-symlink-outside-"),
 		);
 		const symlinkTarget = path.join(workspaceRoot, "fixture-link");
 
@@ -85,10 +85,10 @@ describe("fixture target-root workspace security", () => {
 
 	it("visual-qa rejects target roots outside workspace", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-visual-target-workspace-"),
+			path.join(os.tmpdir(), "shadcn-brief-visual-target-workspace-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-visual-target-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-visual-target-outside-"),
 		);
 
 		try {
@@ -110,10 +110,10 @@ describe("fixture target-root workspace security", () => {
 
 	it("visual-qa rejects symlink target roots", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-visual-target-symlink-workspace-"),
+			path.join(os.tmpdir(), "shadcn-brief-visual-target-symlink-workspace-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-visual-target-symlink-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-visual-target-symlink-outside-"),
 		);
 		const symlinkTarget = path.join(workspaceRoot, "fixture-link");
 

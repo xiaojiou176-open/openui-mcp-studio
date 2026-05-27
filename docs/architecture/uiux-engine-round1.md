@@ -17,7 +17,7 @@ Its job is narrower:
 
 ### Already existed before this round
 
-- `openui_review_uiux` already provided page/snippet-level HTML review with
+- `shadcn_brief_review_uiux` already provided page/snippet-level HTML review with
   heuristic and model-assisted findings
 - `tooling/uiux-ai-audit.ts` already provided repo-local frontend audit with
   Gemini-backed issue extraction and strict-gate semantics
@@ -35,7 +35,7 @@ Its job is narrower:
   rubric categories, audit frame summaries, and next-step output
 - style packs are no longer implied only through `globals.css`; they are now
   explicit review inputs with reusable contract fields
-- `openui_review_uiux` now returns a structured `audit` frame in addition to
+- `shadcn_brief_review_uiux` now returns a structured `audit` frame in addition to
   the legacy `review` payload
 - repo/workspace audit now produces structured category rollups, file hotspots,
   and next-step recommendations instead of only issue counts plus free-form log
@@ -86,9 +86,9 @@ Each style pack now defines:
 
 ### Current packs
 
-- `openui-studio`
+- `shadcn-brief-studio`
   - balanced, proof-first default for frontdoor / proof / workbench review
-- `openui-operator-desk`
+- `shadcn-brief-operator-desk`
   - denser preset for operator/reviewer-heavy surfaces where next-step clarity
     needs stronger emphasis
 

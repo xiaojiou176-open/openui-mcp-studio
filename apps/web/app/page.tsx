@@ -27,7 +27,7 @@ import { buildPageMetadata, getResolvedSiteUrl } from "@/lib/site-metadata";
 export const metadata = buildPageMetadata({
   title: "Ship React UI into your workspace, with proof and review",
   description:
-    "OneClickUI.ai is the front door for OpenUIStudio: an MCP-native UI/UX delivery and review workflow for React and shadcn teams with workspace writes, review bundles, acceptance, proof, and plugin-grade package surfaces for Codex, Claude Code, and OpenClaw-side packaging work.",
+    "OneClickUI.ai is the front door for ShadcnBrief: an MCP-native UI/UX delivery and review workflow for React and shadcn teams with workspace writes, review bundles, acceptance, proof, and plugin-grade package surfaces for Codex, Claude Code, and OpenClaw-side packaging work.",
   path: "/",
   keywords: [
     "AI UI shipping",

@@ -46,7 +46,7 @@ const REQUIRED_FILE_SNIPPETS = {
 describe("runtime layout governance", () => {
 	it("reports a missing required source file as a structured error", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-runtime-layout-"),
+			path.join(os.tmpdir(), "shadcn-brief-runtime-layout-"),
 		);
 		try {
 			await writeJson(

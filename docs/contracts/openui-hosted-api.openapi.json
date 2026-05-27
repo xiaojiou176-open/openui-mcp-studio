@@ -1,10 +1,10 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenUI Hosted API",
+    "title": "ShadcnBrief Hosted API",
     "version": "0.3.1",
     "summary": "Self-hosted HTTP surface for discovery, workflow summary, and authenticated tool execution.",
-    "description": "This contract describes the current self-hosted API surface shipped from the repository. It serves public discovery routes plus authenticated workflow and tool endpoints over HTTP while delegating execution to the existing repo-owned OpenUI runtime. It is a real service/runtime surface, but it is not evidence of a managed SaaS deployment, marketplace listing, or remote write-capable control plane."
+    "description": "This contract describes the current self-hosted API surface shipped from the repository. It serves public discovery routes plus authenticated workflow and tool endpoints over HTTP while delegating execution to the existing repo-owned ShadcnBrief runtime. It is a real service/runtime surface, but it is not evidence of a managed SaaS deployment, marketplace listing, or remote write-capable control plane."
   },
   "servers": [
     {

@@ -12,7 +12,7 @@ async function writeJson(filePath: string, value: unknown) {
 describe("root pristine governance", () => {
 	it("allows machine-managed install surfaces declared by the root contract", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-root-pristine-allow-"),
+			path.join(os.tmpdir(), "shadcn-brief-root-pristine-allow-"),
 		);
 		try {
 			await writeJson(
@@ -46,7 +46,7 @@ describe("root pristine governance", () => {
 
 	it("still fails on node_modules when the install surface is not declared", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-root-pristine-block-"),
+			path.join(os.tmpdir(), "shadcn-brief-root-pristine-block-"),
 		);
 		try {
 			await writeJson(
@@ -82,7 +82,7 @@ describe("root pristine governance", () => {
 
 	it("allows node_modules in containers only when container install surface is declared", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-root-pristine-container-allow-"),
+			path.join(os.tmpdir(), "shadcn-brief-root-pristine-container-allow-"),
 		);
 		try {
 			await writeJson(

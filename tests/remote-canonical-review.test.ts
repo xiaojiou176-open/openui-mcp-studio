@@ -22,7 +22,7 @@ afterEach(async () => {
 
 describe("remote canonical review", () => {
 	it("degrades gracefully when privileged GitHub surfaces are unavailable", async () => {
-		const rootDir = await mkTempDir("openui-remote-review-");
+		const rootDir = await mkTempDir("shadcn-brief-remote-review-");
 		await fs.mkdir(
 			path.join(rootDir, ".runtime-cache", "reports", "release-readiness"),
 			{

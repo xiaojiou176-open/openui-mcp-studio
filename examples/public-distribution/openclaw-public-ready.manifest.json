@@ -1,10 +1,10 @@
 {
   "version": 1,
   "id": "openui.openclaw-public-ready",
-  "technicalName": "OpenUIStudio",
+  "technicalName": "ShadcnBrief",
   "frontdoorLabel": "OneClickUI.ai",
   "status": "public-ready",
-  "summary": "Official repo-owned OpenClaw skill line for OpenUIStudio. It includes install/proof notes and supporting artifacts without claiming that a ClawHub listing is already live.",
+  "summary": "Official repo-owned OpenClaw skill line for ShadcnBrief. It includes install/proof notes and supporting artifacts without claiming that a ClawHub listing is already live.",
   "officialSurfaceEvidence": [
     "https://github.com/openclaw/openclaw",
     "https://github.com/openclaw/clawhub",

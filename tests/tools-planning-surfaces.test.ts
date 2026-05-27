@@ -91,7 +91,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerWorkspaceScanTool(harness.server);
 
-		const result = await harness.getHandler("openui_scan_workspace_profile")({
+		const result = await harness.getHandler("shadcn_brief_scan_workspace_profile")({
 			workspaceRoot: "/repo",
 		});
 
@@ -143,7 +143,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerWorkspaceScanTool(harness.server);
 
-		const result = await harness.getHandler("openui_scan_workspace_profile")({
+		const result = await harness.getHandler("shadcn_brief_scan_workspace_profile")({
 			workspaceRoot: "/repo",
 			targetRoot: "apps/docs",
 			writeArtifact: false,
@@ -212,7 +212,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerWorkspaceScanTool(harness.server);
 
-		await harness.getHandler("openui_scan_workspace_profile")({});
+		await harness.getHandler("shadcn_brief_scan_workspace_profile")({});
 
 		expect(scanWorkspaceProfile).toHaveBeenCalledWith({
 			workspaceRoot: "/default-workspace",
@@ -275,7 +275,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerPlanTool(harness.server);
 
-		const result = await harness.getHandler("openui_plan_change")({
+		const result = await harness.getHandler("shadcn_brief_plan_change")({
 			prompt: "Create a dashboard",
 			workspaceRoot: "/repo",
 		});
@@ -341,7 +341,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerPlanTool(harness.server);
 
-		const result = await harness.getHandler("openui_plan_change")({
+		const result = await harness.getHandler("shadcn_brief_plan_change")({
 			prompt: "Create a docs shell",
 			workspaceRoot: "/repo",
 			targetRoot: "apps/docs",
@@ -424,7 +424,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerPlanTool(harness.server);
 
-		await harness.getHandler("openui_plan_change")({
+		await harness.getHandler("shadcn_brief_plan_change")({
 			prompt: "Create a dashboard",
 		});
 
@@ -442,7 +442,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerAcceptanceTool(harness.server);
 
-		const result = await harness.getHandler("openui_build_acceptance_pack")({
+		const result = await harness.getHandler("shadcn_brief_build_acceptance_pack")({
 			prompt: "Create an accessible pricing hero",
 			acceptanceCriteria: ["Headline should mention pricing."],
 			qualityPassed: true,
@@ -471,7 +471,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerAcceptanceTool(harness.server);
 
-		const result = await harness.getHandler("openui_build_acceptance_pack")({
+		const result = await harness.getHandler("shadcn_brief_build_acceptance_pack")({
 			prompt: "Create a calm settings screen",
 			writeArtifact: false,
 		});
@@ -511,7 +511,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerAcceptanceTool(harness.server);
 
-		const result = await harness.getHandler("openui_build_acceptance_pack")({
+		const result = await harness.getHandler("shadcn_brief_build_acceptance_pack")({
 			prompt: "Create an accessible pricing hero",
 			qualityPassed: false,
 			smokePassed: false,
@@ -553,7 +553,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerAcceptanceTool(harness.server);
 
-		const result = await harness.getHandler("openui_build_acceptance_pack")({
+		const result = await harness.getHandler("shadcn_brief_build_acceptance_pack")({
 			prompt: "Create a settings shell",
 			writeArtifact: true,
 		});
@@ -629,7 +629,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerReviewBundleTool(harness.server);
 
-		const result = await harness.getHandler("openui_build_review_bundle")({
+		const result = await harness.getHandler("shadcn_brief_build_review_bundle")({
 			prompt: "Create a hero",
 			workspaceRoot: "/repo",
 		});
@@ -704,7 +704,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerReviewBundleTool(harness.server);
 
-		const result = await harness.getHandler("openui_build_review_bundle")({
+		const result = await harness.getHandler("shadcn_brief_build_review_bundle")({
 			prompt: "Create a hero",
 			workspaceRoot: "/repo",
 			writeArtifact: false,
@@ -783,7 +783,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerReviewBundleTool(harness.server);
 
-		await harness.getHandler("openui_build_review_bundle")({
+		await harness.getHandler("shadcn_brief_build_review_bundle")({
 			prompt: "Create a hero",
 			workspaceRoot: "/repo",
 			qualityPassed: true,
@@ -862,7 +862,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerReviewBundleTool(harness.server);
 
-		await harness.getHandler("openui_build_review_bundle")({
+		await harness.getHandler("shadcn_brief_build_review_bundle")({
 			prompt: "Create a hero",
 			writeArtifact: false,
 		});
@@ -890,7 +890,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerShipFeatureFlowTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_feature_flow")({
+		const result = await harness.getHandler("shadcn_brief_ship_feature_flow")({
 			name: "Checkout Flow",
 			workspaceRoot: "/repo",
 			layoutPath: "apps/web/app/checkout/layout.tsx",
@@ -942,7 +942,7 @@ describe("planning and review surfaces", () => {
 		const harness = createToolHarness();
 		registerShipFeatureFlowTool(harness.server);
 
-		await harness.getHandler("openui_ship_feature_flow")({
+		await harness.getHandler("shadcn_brief_ship_feature_flow")({
 			name: "Settings Flow",
 			routes: [
 				{

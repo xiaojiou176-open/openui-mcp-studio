@@ -44,8 +44,8 @@ describe("path utils", () => {
 	});
 
 	it("rejects symlink-based escapes with realpath-aware check", () => {
-		const root = fs.mkdtempSync(path.join(os.tmpdir(), "openui-path-root-"));
-		const outside = fs.mkdtempSync(path.join(os.tmpdir(), "openui-path-out-"));
+		const root = fs.mkdtempSync(path.join(os.tmpdir(), "shadcn-brief-path-root-"));
+		const outside = fs.mkdtempSync(path.join(os.tmpdir(), "shadcn-brief-path-out-"));
 		try {
 			fs.mkdirSync(path.join(root, "safe"), { recursive: true });
 			fs.symlinkSync(outside, path.join(root, "safe", "jump"));

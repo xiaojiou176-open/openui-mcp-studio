@@ -4,7 +4,7 @@ import {
 	type OpenuiModelRouteKey,
 } from "../constants.js";
 import { extractJsonObject, tryParseJson } from "../json-utils.js";
-import { openuiChatComplete, openuiListModels } from "../openui-client.js";
+import { openuiChatComplete, openuiListModels } from "../shadcn-brief-client.js";
 import { detectShadcnPaths } from "../path-detection.js";
 import type {
 	AiPolicyConfig,

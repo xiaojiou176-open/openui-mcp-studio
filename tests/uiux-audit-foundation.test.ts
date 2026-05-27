@@ -11,19 +11,19 @@ describe("uiux audit foundation", () => {
 	it("lists supported style packs, resolves defaults, and rejects unknown ids", () => {
 		const packs = listUiuxStylePacks();
 		expect(packs.map((pack) => pack.id)).toEqual([
-			"openui-studio",
-			"openui-operator-desk",
+			"shadcn-brief-studio",
+			"shadcn-brief-operator-desk",
 		]);
 
-		expect(resolveUiuxStylePack().id).toBe("openui-studio");
-		expect(resolveUiuxStylePack("openui-operator-desk").emphasis).toBe(
+		expect(resolveUiuxStylePack().id).toBe("shadcn-brief-studio");
+		expect(resolveUiuxStylePack("shadcn-brief-operator-desk").emphasis).toBe(
 			"operator_dense",
 		);
 
 		const promptContext = buildUiuxStylePromptContext(
-			resolveUiuxStylePack("openui-operator-desk"),
+			resolveUiuxStylePack("shadcn-brief-operator-desk"),
 		);
-		expect(promptContext).toContain("Style pack: openui-operator-desk");
+		expect(promptContext).toContain("Style pack: shadcn-brief-operator-desk");
 		expect(promptContext).toContain("Theme modes: light, dark");
 		expect(promptContext).toContain("Rubric:");
 		expect(promptContext).toContain("1) Hierarchy:");
@@ -80,7 +80,7 @@ describe("uiux audit foundation", () => {
 			"page audit for /proof matches the current",
 		);
 		expect(frame.summary).not.toContain("audited file(s)");
-		expect(frame.stylePack.id).toBe("openui-studio");
+		expect(frame.stylePack.id).toBe("shadcn-brief-studio");
 		expect(frame.stylePack.contract).toEqual(
 			expect.objectContaining({
 				tokenMode: "semantic-css-variables",
@@ -115,7 +115,7 @@ describe("uiux audit foundation", () => {
 		const frame = buildUiuxAuditFrame({
 			scope: "workspace",
 			target: "apps/web",
-			stylePackId: "openui-operator-desk",
+			stylePackId: "shadcn-brief-operator-desk",
 			auditableFileCount: 9,
 			fileHotspots: [
 				{
@@ -182,7 +182,7 @@ describe("uiux audit foundation", () => {
 		});
 
 		expect(frame.summary).toContain(
-			"workspace audit for apps/web across 9 audited file(s) is failing 1 OpenUI Operator Desk rubric area(s) and watching 3 more.",
+			"workspace audit for apps/web across 9 audited file(s) is failing 1 ShadcnBrief Operator Desk rubric area(s) and watching 3 more.",
 		);
 		expect(frame.categories.map((category) => category.id)).toEqual([
 			"interaction_clarity",

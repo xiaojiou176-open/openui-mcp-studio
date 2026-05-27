@@ -2,7 +2,7 @@
 
 Status: `submission-ready-unlisted`
 
-This note is the operator-facing Docker lane for OpenUIStudio.
+This note is the operator-facing Docker lane for ShadcnBrief.
 
 It answers one narrow question:
 
@@ -11,7 +11,7 @@ It answers one narrow question:
 
 ## Current Truth
 
-- the canonical image name is `ghcr.io/xiaojiou176-open/OpenUIStudio`
+- the canonical image name is `ghcr.io/xiaojiou176-open/ShadcnBrief`
 - the repo already ships the runtime/build contract under
   `ops/ci-container/run-in-container.sh`
 - the repo can prove its local/front-door/readiness surfaces without claiming a
@@ -33,7 +33,7 @@ It answers one narrow question:
 
 ## What This Packet Does Not Claim
 
-- it does not claim that `ghcr.io/xiaojiou176-open/OpenUIStudio` is
+- it does not claim that `ghcr.io/xiaojiou176-open/ShadcnBrief` is
   already published
 - it does not claim that Docker is the main product front door
 - it does not replace the repo-first install and proof story

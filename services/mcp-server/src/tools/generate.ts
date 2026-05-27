@@ -1,6 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { openuiChatComplete } from "../openui-client.js";
+import { openuiChatComplete } from "../shadcn-brief-client.js";
 import {
 	FunctionResponsesSchema,
 	newRequestId,
@@ -10,7 +10,7 @@ import {
 
 export function registerGenerateTool(server: McpServer): void {
 	server.registerTool(
-		"openui_generate_ui",
+		"shadcn_brief_generate_ui",
 		{
 			description: "Generate modern HTML UI from a prompt.",
 			inputSchema: z.object({

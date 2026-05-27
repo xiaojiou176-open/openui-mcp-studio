@@ -10,7 +10,7 @@
 			"runbook": "docs/environment-governance.md"
 		},
 		{
-			"id": "openui-upstream-reference",
+			"id": "shadcn-brief-upstream-reference",
 			"owner": "tooling-root",
 			"entryFile": "tooling/sync-upstream-check.mjs",
 			"testFiles": ["tests/upstream-governance.test.ts"],

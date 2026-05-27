@@ -7,7 +7,7 @@ afterEach(() => {
 
 describe("convert structured output policy", () => {
 	it("forces JSON schema + mime type for convert pipeline", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		const completeSpy = vi
@@ -40,7 +40,7 @@ describe("convert structured output policy", () => {
 	});
 
 	it("rejects bare text drift when convert output is not valid JSON", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(
@@ -66,7 +66,7 @@ describe("convert structured output policy", () => {
 	});
 
 	it("rejects model output that writes into shadcn primitive directory", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(

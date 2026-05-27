@@ -23,7 +23,7 @@ afterEach(async () => {
 
 describe("ship rollback extra branches", () => {
 	it("removes generated files when rollback snapshot marks them as newly created", async () => {
-		const root = await mkTempDir("openui-ship-rollback-extra-");
+		const root = await mkTempDir("shadcn-brief-ship-rollback-extra-");
 		const relativePath = "app/new-file.tsx";
 		const absolutePath = path.join(root, relativePath);
 		await fs.mkdir(path.dirname(absolutePath), { recursive: true });
@@ -74,7 +74,7 @@ describe("ship rollback extra branches", () => {
 		const ship = await import("../services/mcp-server/src/tools/ship.js");
 		const relativePath = "app/page.tsx";
 		const result = await ship.__test__.rollbackWrittenFiles(
-			"/tmp/openui-ship-rollback-extra",
+			"/tmp/shadcn-brief-ship-rollback-extra",
 			[relativePath],
 			new Map([
 				[
@@ -124,7 +124,7 @@ describe("ship rollback extra branches", () => {
 
 		const ship = await import("../services/mcp-server/src/tools/ship.js");
 		const conflict = await ship.__test__.rollbackWrittenFiles(
-			"/tmp/openui-ship-rollback-extra",
+			"/tmp/shadcn-brief-ship-rollback-extra",
 			[relativePath],
 			new Map([
 				[
@@ -146,7 +146,7 @@ describe("ship rollback extra branches", () => {
 		]);
 
 		const removeFailure = await ship.__test__.rollbackWrittenFiles(
-			"/tmp/openui-ship-rollback-extra",
+			"/tmp/shadcn-brief-ship-rollback-extra",
 			[relativePath],
 			new Map([
 				[
@@ -186,7 +186,7 @@ describe("ship rollback extra branches", () => {
 		const ship = await import("../services/mcp-server/src/tools/ship.js");
 		const relativePath = "app/existing-page.tsx";
 		const result = await ship.__test__.rollbackWrittenFiles(
-			"/tmp/openui-ship-rollback-extra",
+			"/tmp/shadcn-brief-ship-rollback-extra",
 			[relativePath],
 			new Map([
 				[

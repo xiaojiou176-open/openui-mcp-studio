@@ -1,10 +1,10 @@
 version: 1
-id: OpenUIStudio
-technical_name: OpenUIStudio
+id: ShadcnBrief
+technical_name: ShadcnBrief
 frontdoor_label: OneClickUI.ai
 status: mixed-live-and-review-boundary
-canonical_repo: xiaojiou176-open/openuistudio
-homepage: https://xiaojiou176-open.github.io/openuistudio/
+canonical_repo: xiaojiou176-open/shadcn-brief
+homepage: https://xiaojiou176-open.github.io/shadcn-brief/
 published_surfaces:
   - github-repo
   - github-pages-front-door
@@ -34,7 +34,7 @@ truth_routes:
   distribution: DISTRIBUTION.md
   integrations: INTEGRATIONS.md
   mcp_registry_descriptor: server.json
-  canonical_skill_packet: plugins/openui-workspace-delivery/README.md
+  canonical_skill_packet: plugins/shadcn-brief-workspace-delivery/README.md
   mcp_runtime: services/mcp-server/README.md
   public_distribution_mirror: examples/public-distribution/README.md
   skills_mirror: examples/skills/README.md

@@ -13,7 +13,7 @@ English is the canonical source of truth for testing and quality-gate guidance.
   - `.env`
   - `zsh` global environment
 - Example env files must keep the run-scoped log path:
-  - `OPENUISTUDIO_LOG_DIR=.runtime-cache/runs/<run_id>/logs/runtime.jsonl`
+  - `SHADCN_BRIEF_LOG_DIR=.runtime-cache/runs/<run_id>/logs/runtime.jsonl`
 
 ## Default Validation Sets
 
@@ -76,7 +76,7 @@ Delivery-plane semantics to keep honest:
   - route-scoped artifact retention
   - feature-level quality / acceptance / review aggregation
 
-When changing `openui_ship_feature_flow`, add targeted evidence on top of the
+When changing `shadcn_brief_ship_feature_flow`, add targeted evidence on top of the
 default baseline:
 
 - feature-flow specific tests

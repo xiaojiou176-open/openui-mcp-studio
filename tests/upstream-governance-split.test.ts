@@ -17,7 +17,7 @@ async function writeJson(filePath: string, value: unknown) {
 
 describe("split upstream governance gates", () => {
 	it("fails compat matrix when entry references unknown upstream", async () => {
-		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openui-compat-"));
+		const rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "shadcn-brief-compat-"));
 		try {
 			await writeJson(
 				path.join(rootDir, "contracts", "upstream", "inventory.json"),
@@ -56,7 +56,7 @@ describe("split upstream governance gates", () => {
 
 	it("fails patch registry when patch file is not registered", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-patch-registry-"),
+			path.join(os.tmpdir(), "shadcn-brief-patch-registry-"),
 		);
 		try {
 			await writeJson(
@@ -96,7 +96,7 @@ describe("split upstream governance gates", () => {
 
 	it("fails patch registry when patchDirectory is missing on disk", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-patch-registry-missing-dir-"),
+			path.join(os.tmpdir(), "shadcn-brief-patch-registry-missing-dir-"),
 		);
 		try {
 			await writeJson(
@@ -122,7 +122,7 @@ describe("split upstream governance gates", () => {
 
 	it("fails failure-classification gate when required categories are missing", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-upstream-failure-"),
+			path.join(os.tmpdir(), "shadcn-brief-upstream-failure-"),
 		);
 		try {
 			await writeJson(

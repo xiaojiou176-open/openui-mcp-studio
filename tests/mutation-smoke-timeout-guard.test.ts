@@ -41,10 +41,10 @@ describe("run-mutation-smoke timeout guard", () => {
 
 	it("rejects summary root symlink that resolves outside workspace", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-summary-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-summary-root-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-summary-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-summary-outside-"),
 		);
 
 		try {
@@ -73,10 +73,10 @@ describe("run-mutation-smoke timeout guard", () => {
 
 	it("rejects summary target symlink that points outside runtime root", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-summary-target-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-summary-target-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-summary-target-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-summary-target-outside-"),
 		);
 		const summaryPath = path.join(
 			workspaceRoot,

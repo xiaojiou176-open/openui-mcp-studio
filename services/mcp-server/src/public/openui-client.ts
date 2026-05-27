@@ -1,1 +1,1 @@
-export { openuiChatComplete, openuiListModels } from "../openui-client.js";
+export { openuiChatComplete, openuiListModels } from "../shadcn-brief-client.js";

@@ -31,7 +31,7 @@ afterEach(async () => {
 
 describe("pii audit", () => {
 	it("passes when tracked files only contain allowlisted example addresses", async () => {
-		const root = await mkTempRoot("openui-pii-pass-");
+		const root = await mkTempRoot("shadcn-brief-pii-pass-");
 		await writeJson(
 			path.join(root, "tooling", "contracts", "pii-audit.contract.json"),
 			{
@@ -58,7 +58,7 @@ describe("pii audit", () => {
 	});
 
 	it("flags non-allowlisted email addresses in tracked files", async () => {
-		const root = await mkTempRoot("openui-pii-email-");
+		const root = await mkTempRoot("shadcn-brief-pii-email-");
 		const address = ["terry", "real-company.dev"].join("@");
 		await writeJson(
 			path.join(root, "tooling", "contracts", "pii-audit.contract.json"),
@@ -93,7 +93,7 @@ describe("pii audit", () => {
 	});
 
 	it("flags phone-like contact fields but ignores unrelated numeric config", async () => {
-		const root = await mkTempRoot("openui-pii-phone-");
+		const root = await mkTempRoot("shadcn-brief-pii-phone-");
 		const contactKey = ["pho", "ne"].join("");
 		const valueParts = ["+", "1", " ", "(206)", " ", "555", "-", "0188"];
 		const contactValue = valueParts.join("");
@@ -130,7 +130,7 @@ describe("pii audit", () => {
 	});
 
 	it("ignores dedicated security-audit self-tests listed in the contract", async () => {
-		const root = await mkTempRoot("openui-pii-ignored-self-tests-");
+		const root = await mkTempRoot("shadcn-brief-pii-ignored-self-tests-");
 		await writeJson(
 			path.join(root, "tooling", "contracts", "pii-audit.contract.json"),
 			{

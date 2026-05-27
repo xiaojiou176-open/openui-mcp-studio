@@ -1,15 +1,15 @@
 {
   "version": 1,
   "id": "openui.public-skills-starter",
-  "label": "OpenUI Public Skills Starter",
+  "label": "ShadcnBrief Public Skills Starter",
   "status": "public-starter",
   "distributionTier": "plugin-grade-public-distribution-package",
-  "technicalName": "OpenUIStudio",
+  "technicalName": "ShadcnBrief",
   "summary": "Official repo-owned skill product line for plugin-grade MCP distribution. This surface packages current contract templates, sample host configs, proof loops, and install/use guidance without claiming a marketplace listing or a managed runtime.",
   "officialPublicSurfaces": {
     "codex": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
     "claudeCode": "Official MCP install docs exist; this starter manifest only claims the repo-owned public package shelf.",
-    "openclaw": "ClawHub exists as the official public surface, but this manifest does not claim a live OpenUI listing there."
+    "openclaw": "ClawHub exists as the official public surface, but this manifest does not claim a live ShadcnBrief listing there."
   },
   "audience": [
     "maintainers designing skill-shaped integrations",
@@ -59,11 +59,11 @@
     "Only mention the OpenAPI contract as a compatibility bridge",
     "Only mention repo-local workflow packets as maintainer-facing read-only surfaces",
     "Use proof anchors from repo-owned files instead of future-product promises",
-    "Pair the starter bundle with OpenUIStudio ecosystem-guide --json and npm run repo:doctor when you need the shortest proof loop"
+    "Pair the starter bundle with ShadcnBrief ecosystem-guide --json and npm run repo:doctor when you need the shortest proof loop"
   ],
   "proofLoop": [
-    "OpenUIStudio skills starter --json",
-    "OpenUIStudio ecosystem-guide --json",
+    "ShadcnBrief skills starter --json",
+    "ShadcnBrief ecosystem-guide --json",
     "npm run repo:doctor",
     "npm run demo:ship",
     "node tooling/skills-install-proof.mjs"
@@ -78,7 +78,7 @@
       "why": "Repeats the builder-order boundary and non-goals."
     },
     {
-      "path": "docs/contracts/openui-mcp.openapi.json",
+      "path": "docs/contracts/shadcn-brief-mcp.openapi.json",
       "why": "Defines the compatibility-bridge boundary without turning it into a hosted API claim."
     },
     {
@@ -94,7 +94,7 @@
     "claiming a shipped formal Skills runtime",
     "claiming marketplace or plugin listing support",
     "claiming SDK or hosted API maturity",
-    "reframing OpenUIStudio as a generic external integration platform",
+    "reframing ShadcnBrief as a generic external integration platform",
     "claiming an official OpenClaw runtime or ClawHub listing"
   ],
   "troubleshootingPath": [

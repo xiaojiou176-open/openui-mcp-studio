@@ -15,7 +15,7 @@ async function mkTempDir(prefix: string): Promise<string> {
 
 function leasePath(cacheDir: string, key: string): string {
 	const hash = crypto.createHash("sha256").update(key).digest("hex");
-	return path.join(cacheDir, `openui-ship-${hash}.lease.json`);
+	return path.join(cacheDir, `shadcn-brief-ship-${hash}.lease.json`);
 }
 
 afterEach(async () => {
@@ -29,7 +29,7 @@ afterEach(async () => {
 
 describe("idempotency store recovery branches", () => {
 	it("cleans up temp files when setIfAbsent rename fails", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-set-if-absent-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-set-if-absent-");
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const renameSpy = vi
 			.spyOn(fs, "rename")
@@ -45,7 +45,7 @@ describe("idempotency store recovery branches", () => {
 	});
 
 	it("drops malformed and invalid execution lease files", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-recovery-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-recovery-");
 		const store = new IdempotencyStore({
 			cacheDir,
 			ttlMinutes: 5,
@@ -69,7 +69,7 @@ describe("idempotency store recovery branches", () => {
 	});
 
 	it("rethrows non-ENOENT readExecutionLease failures", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-read-lease-error-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-read-lease-error-");
 		const store = new IdempotencyStore({
 			cacheDir,
 			ttlMinutes: 5,
@@ -97,7 +97,7 @@ describe("idempotency store recovery branches", () => {
 	});
 
 	it("cleans up temp lease file when rename fails", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-write-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-write-");
 		const store = new IdempotencyStore({
 			cacheDir,
 			ttlMinutes: 5,

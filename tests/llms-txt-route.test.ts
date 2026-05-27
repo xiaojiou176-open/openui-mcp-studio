@@ -8,10 +8,10 @@ describe("llms.txt route", () => {
 		const text = await response.text();
 
 		expect(response.headers.get("content-type")).toContain("text/plain");
-		expect(text).toContain("# OpenUIStudio");
+		expect(text).toContain("# ShadcnBrief");
 		expect(text).toContain("> OneClickUI.ai is the front door");
 		expect(text).toContain("frontdoor_label: OneClickUI.ai");
-		expect(text).toContain("technical_product: OpenUIStudio");
+		expect(text).toContain("technical_product: ShadcnBrief");
 		expect(text).toContain("canonical_runtime: local stdio MCP");
 		expect(text).toContain("primary_bindings: MCP, Codex, Claude Code");
 		expect(text).toContain(
@@ -23,7 +23,7 @@ describe("llms.txt route", () => {
 		expect(text).toContain("public_surface_language: en-US");
 		expect(text).toContain("default_locale: en-US");
 		expect(text).toContain("supported_locales: en-US, zh-CN");
-		expect(text).toContain("locale_cookie: openui_locale");
+		expect(text).toContain("locale_cookie: shadcn_brief_locale");
 		expect(text).toContain(
 			"ui_switch_scope: apps/web frontdoor routes and shared shell",
 		);

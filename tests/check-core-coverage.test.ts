@@ -56,7 +56,7 @@ function entry(pct: number): CoverageEntry {
 async function writeSummaryFile(
 	summary: Record<string, CoverageEntry>,
 ): Promise<string> {
-	const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openui-coverage-gate-"));
+	const dir = await fs.mkdtemp(path.join(os.tmpdir(), "shadcn-brief-coverage-gate-"));
 	tempDirs.push(dir);
 	const summaryPath = path.join(dir, "coverage-summary.json");
 	await fs.writeFile(summaryPath, JSON.stringify(summary, null, 2), "utf8");
@@ -218,7 +218,7 @@ describe("check-core-coverage gate", () => {
 			"/repo/services/mcp-server/src/tools/refine.ts": entry(100),
 		});
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -412,7 +412,7 @@ describe("check-core-coverage gate", () => {
 
 	it("fails mutation-only mode when mutation score is lower than minimum threshold", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -438,7 +438,7 @@ describe("check-core-coverage gate", () => {
 
 	it("passes mutation-only mode when score meets threshold", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -464,7 +464,7 @@ describe("check-core-coverage gate", () => {
 
 	it("fails mutation-only mode when module min-samples fail under default enforcement", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -505,7 +505,7 @@ describe("check-core-coverage gate", () => {
 
 	it("keeps mutation-only mode report-only when downgrade switch is explicitly enabled", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -546,7 +546,7 @@ describe("check-core-coverage gate", () => {
 
 	it("keeps mutation-only mode blocking when enforcement switch is explicitly set to 1", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -587,7 +587,7 @@ describe("check-core-coverage gate", () => {
 
 	it("fails mutation-only mode when mutation summary is missing by default", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const missingSummaryPath = path.join(mutationDir, "missing-summary.json");
@@ -603,7 +603,7 @@ describe("check-core-coverage gate", () => {
 
 	it("allows local mutation-only bypass when summary is missing and explicit skip switch is set", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const missingSummaryPath = path.join(mutationDir, "missing-summary.json");
@@ -621,7 +621,7 @@ describe("check-core-coverage gate", () => {
 
 	it("keeps mutation summary mandatory in CI even when skip switch is set", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const missingSummaryPath = path.join(mutationDir, "missing-summary.json");
@@ -639,7 +639,7 @@ describe("check-core-coverage gate", () => {
 
 	it("fails mutation-only mode when module kill ratio for key modules is below threshold", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -677,7 +677,7 @@ describe("check-core-coverage gate", () => {
 
 	it("fails mutation-only mode when operator sampling fails under default enforcement", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -712,7 +712,7 @@ describe("check-core-coverage gate", () => {
 
 	it("fails mutation-only mode when total mutation sample size is below floor", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -739,7 +739,7 @@ describe("check-core-coverage gate", () => {
 
 	it("fails mutation-only mode when quick mutation sample size is below quick floor", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");
@@ -767,7 +767,7 @@ describe("check-core-coverage gate", () => {
 
 	it("passes mutation-only mode when quick mutation sample size meets quick floor", async () => {
 		const mutationDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-mutation-gate-"),
+			path.join(os.tmpdir(), "shadcn-brief-mutation-gate-"),
 		);
 		tempDirs.push(mutationDir);
 		const mutationSummaryPath = path.join(mutationDir, "mutation-summary.json");

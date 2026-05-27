@@ -488,7 +488,7 @@ jobs:
 
 	it("supports scanning .yaml workflow files in governance checks", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workflow-governance-yaml-"),
+			path.join(os.tmpdir(), "shadcn-brief-workflow-governance-yaml-"),
 		);
 		const workflowsDir = path.join(tempRoot, ".github", "workflows");
 		const workflowPath = path.join(workflowsDir, "sample.yaml");
@@ -527,7 +527,7 @@ jobs:
 
 	it("rejects workflow files that set high-risk permissions write-all", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workflow-governance-permissions-"),
+			path.join(os.tmpdir(), "shadcn-brief-workflow-governance-permissions-"),
 		);
 		const workflowsDir = path.join(tempRoot, ".github", "workflows");
 		const workflowPath = path.join(workflowsDir, "sample.yml");
@@ -566,7 +566,7 @@ jobs:
 
 	it("rejects expression-based continue-on-error values", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workflow-governance-expression-"),
+			path.join(os.tmpdir(), "shadcn-brief-workflow-governance-expression-"),
 		);
 		const workflowsDir = path.join(tempRoot, ".github", "workflows");
 		const workflowPath = path.join(workflowsDir, "sample.yml");
@@ -635,7 +635,7 @@ jobs:
 
 	it("rejects clean false outside the narrow checkout allowlist", async () => {
 		await withTempWorkflow(
-			"openui-workflow-governance-clean-false-",
+			"shadcn-brief-workflow-governance-clean-false-",
 			[
 				"name: governance-clean-false",
 				"on: [push]",
@@ -665,7 +665,7 @@ jobs:
 
 	it("rejects workflows that wire caches directly into ~/.cache", async () => {
 		await withTempWorkflow(
-			"openui-workflow-governance-home-cache-",
+			"shadcn-brief-workflow-governance-home-cache-",
 			[
 				"name: governance-home-cache",
 				"on: [push]",
@@ -696,7 +696,7 @@ jobs:
 
 	it("rejects global pip installs inside governed workflows", async () => {
 		await withTempWorkflow(
-			"openui-workflow-governance-hosted-pip-",
+			"shadcn-brief-workflow-governance-hosted-pip-",
 			[
 				"name: governance-hosted-pip",
 				"on: [push]",
@@ -724,7 +724,7 @@ jobs:
 
 	it("rejects playwright install with deps inside governed workflows", async () => {
 		await withTempWorkflow(
-			"openui-workflow-governance-hosted-playwright-",
+			"shadcn-brief-workflow-governance-hosted-playwright-",
 			[
 				"name: governance-hosted-playwright",
 				"on: [push]",
@@ -752,7 +752,7 @@ jobs:
 
 	it("allows governed workflows to use runner temp cache indirection and venv installs", async () => {
 		await withTempWorkflow(
-			"openui-workflow-governance-hosted-safe-",
+			"shadcn-brief-workflow-governance-hosted-safe-",
 			[
 				"name: governance-hosted-safe",
 				"on: [push]",
@@ -792,7 +792,7 @@ jobs:
 
 	it("rejects shell failure suppression patterns in workflow run steps", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workflow-governance-shell-"),
+			path.join(os.tmpdir(), "shadcn-brief-workflow-governance-shell-"),
 		);
 		const workflowsDir = path.join(tempRoot, ".github", "workflows");
 		const workflowPath = path.join(workflowsDir, "sample.yml");

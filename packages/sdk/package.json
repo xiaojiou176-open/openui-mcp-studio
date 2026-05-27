@@ -2,7 +2,7 @@
 	"name": "@openui/sdk",
 	"version": "0.3.1",
 	"type": "module",
-	"description": "Public SDK client for the self-hosted OpenUI Hosted API surface.",
+	"description": "Public SDK client for the self-hosted ShadcnBrief Hosted API surface.",
 	"main": "./index.mjs",
 	"types": "./index.d.ts",
 	"exports": {

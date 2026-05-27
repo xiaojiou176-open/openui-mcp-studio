@@ -13,7 +13,7 @@ const FeatureFlowRouteSchema = z.object({
 
 export function registerShipFeatureFlowTool(server: McpServer): void {
 	server.registerTool(
-		"openui_ship_feature_flow",
+		"shadcn_brief_ship_feature_flow",
 		{
 			description:
 				"Ship a multi-route feature flow by executing the page-level ship pipeline for each declared route and aggregating the results into one bundle.",

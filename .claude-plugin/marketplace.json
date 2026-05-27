@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "name": "OpenUIStudio-distribution-starter",
+  "name": "ShadcnBrief-distribution-starter",
   "owner": {
     "name": "xiaojiou176-open"
   },
   "metadata": {
-    "description": "Marketplace-ready Claude Code install surface for the public OpenUI repo. It is current and versioned, but it does not claim a live listing."
+    "description": "Marketplace-ready Claude Code install surface for the public ShadcnBrief repo. It is current and versioned, but it does not claim a live listing."
   },
   "plugins": [
     {
-      "name": "openui-workspace-delivery",
-      "source": "./plugins/openui-workspace-delivery"
+      "name": "shadcn-brief-workspace-delivery",
+      "source": "./plugins/shadcn-brief-workspace-delivery"
     }
   ]
 }

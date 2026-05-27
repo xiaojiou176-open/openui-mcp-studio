@@ -37,13 +37,13 @@ npm run security:github:public:audit
   - does not imply upstream repositories are also history-clean
 - `npm run repo:workflow:summary`
   - returns the raw read-only repo-local + GitHub-connected workflow snapshot
-  - is the CLI form of the MCP tool `openui_repo_workflow_summary`
+  - is the CLI form of the MCP tool `shadcn_brief_repo_workflow_summary`
 - `npm run repo:workflow:ready`
   - writes a non-mutating PR/checks-ready packet that combines repo-local state
     with live GitHub branch-protection / checks / alert truth
   - does not push a branch, create a PR, or mutate remote settings
   - uses the same underlying read-only GitHub summary surface that powers the
-    MCP tool `openui_repo_workflow_summary`, then formats it into a
+    MCP tool `shadcn_brief_repo_workflow_summary`, then formats it into a
     maintainer-facing packet
 
 ## Remote Governance Boundary
@@ -95,7 +95,7 @@ It prepares the packet for a maintainer without pretending to perform the third.
 
 The layering is intentional:
 
-- `openui_repo_workflow_summary` / `npm run repo:workflow:summary`
+- `shadcn_brief_repo_workflow_summary` / `npm run repo:workflow:summary`
   - raw MCP/CLI surface for agent or maintainer consumers that need structured
     repo-local plus GitHub-connected truth
 - `npm run repo:workflow:ready`
@@ -131,13 +131,13 @@ Release-readiness and public-safe checks should now preserve these truths:
 - plugin-grade public distribution package for Codex and Claude Code is a
   current repo-owned product line
 - OpenClaw public-ready repo-owned bundle is a current repo-owned product line
-- `@openui/skills-kit`, `@openui/sdk`, and the self-hosted OpenUI Hosted API
+- `@openui/skills-kit`, `@openui/sdk`, and the self-hosted ShadcnBrief Hosted API
   remain real, but SDK / hosted are supporting rather than front-stage
 - official listing, registry publication, managed deployment, and
   write-capable remote MCP remain later/operator-owned lanes
 - `docs/discovery-surfaces.md`,
-  `docs/strategy/openui-external-activation-ledger.md`, and
-  `docs/strategy/openui-ecosystem-productization-ledger.md` are the current
+  `docs/strategy/shadcn-brief-external-activation-ledger.md`, and
+  `docs/strategy/shadcn-brief-ecosystem-productization-ledger.md` are the current
   human-readable follow-through artifacts for the endgame external-activation
   and ecosystem surfaces
 
@@ -215,7 +215,7 @@ not erase:
   the diagnosis
 
 The raw lower-level snapshot remains available through the MCP tool
-`openui_repo_workflow_summary`.
+`shadcn_brief_repo_workflow_summary`.
 
 ## External Blocker Patterns
 
@@ -246,7 +246,7 @@ Current-tree checks are not a substitute for full-history scanning.
 
 These machine-consumed inputs stay under `docs/contracts/`:
 
-- `openui-mcp.openapi.json`
+- `shadcn-brief-mcp.openapi.json`
 - `performance-budget.json`
 - `rum-slo.json`
 - `feature-flags.json`

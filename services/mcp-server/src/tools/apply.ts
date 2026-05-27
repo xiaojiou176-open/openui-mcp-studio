@@ -5,7 +5,7 @@ import { GeneratedFileSchema, textResult } from "./shared.js";
 
 export function registerApplyTool(server: McpServer): void {
 	server.registerTool(
-		"openui_apply_files",
+		"shadcn_brief_apply_files",
 		{
 			description:
 				"Apply generated files to target workspace with transactional rollback on write failure.",

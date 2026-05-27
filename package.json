@@ -1,6 +1,6 @@
 {
 	"bin": {
-		"OpenUIStudio": "./tooling/cli/openui.mjs"
+		"ShadcnBrief": "./tooling/cli/openui.mjs"
 	},
 	"dependencies": {
 		"@modelcontextprotocol/sdk": "^1.27.1",
@@ -41,7 +41,7 @@
 		"./public/compat-api": "./.runtime-cache/build/mcp-server/services/mcp-server/src/public/compat-api.js",
 		"./public/ecosystem-surface": "./.runtime-cache/build/mcp-server/services/mcp-server/src/public/ecosystem-surface.js",
 		"./public/next-smoke": "./.runtime-cache/build/mcp-server/services/mcp-server/src/public/next-smoke.js",
-		"./public/openui-client": "./.runtime-cache/build/mcp-server/services/mcp-server/src/public/openui-client.js",
+		"./public/shadcn-brief-client": "./.runtime-cache/build/mcp-server/services/mcp-server/src/public/shadcn-brief-client.js",
 		"./public/provider-testing": "./.runtime-cache/build/mcp-server/services/mcp-server/src/public/provider-testing.js",
 		"./public/server": "./.runtime-cache/build/mcp-server/services/mcp-server/src/public/server.js",
 		"./public/ship": "./.runtime-cache/build/mcp-server/services/mcp-server/src/public/ship.js",
@@ -72,7 +72,7 @@
 	],
 	"license": "MIT",
 	"main": ".runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
-	"name": "openuistudio",
+	"name": "shadcn-brief",
 	"packageManager": "npm@11.6.0",
 	"workspaces": [
 		"apps/*",
@@ -255,7 +255,7 @@
 		"test:e2e:external": "RUN_EXTERNAL_E2E=1 playwright test --config=playwright.config.ts tests/e2e/external-site-readonly.spec.ts --project=chromium",
 		"test:e2e:resilience": "playwright test --config=playwright.config.ts tests/e2e/network-resilience.spec.ts --project=chromium",
 		"test:fast:gate": "npm run -s test:unit:gate && npm run -s test:integration:gate && npm run -s test:acceptance:gate",
-		"test:integration:gate": "node --env-file-if-exists=.env ./node_modules/vitest/vitest.mjs run tests/openui-client.test.ts tests/retriever.test.ts tests/rag-upsert-search.test.ts tests/mcp-integration.test.ts tests/apply-rollback.test.ts tests/runtime-config.test.ts tests/e2e-no-hard-wait.test.ts",
+		"test:integration:gate": "node --env-file-if-exists=.env ./node_modules/vitest/vitest.mjs run tests/shadcn-brief-client.test.ts tests/retriever.test.ts tests/rag-upsert-search.test.ts tests/mcp-integration.test.ts tests/apply-rollback.test.ts tests/runtime-config.test.ts tests/e2e-no-hard-wait.test.ts",
 		"test:live": "node tooling/run-live-tests.mjs",
 		"test:unit:gate": "node --env-file-if-exists=.env ./node_modules/vitest/vitest.mjs run tests/path-utils.test.ts tests/json-utils.test.ts tests/process-utils.test.ts tests/child-env.test.ts",
 		"typecheck": "tsc --noEmit -p tsconfig.json",

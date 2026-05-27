@@ -110,10 +110,10 @@ async function writeContracts(rootDir: string) {
 describe("space governance report", () => {
 	it("captures runtime canonical split, anomalies, and baseline targets", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-governance-report-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-governance-report-"),
 		);
 		const toolCacheRootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-governance-external-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-governance-external-"),
 		);
 		const toolCacheBaseRoot = path.join(toolCacheRootDir, "tooling");
 		try {
@@ -279,10 +279,10 @@ describe("space governance report", () => {
 
 	it("ignores an empty legacy .runtime-cache/temp directory when collecting drift", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-governance-empty-temp-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-governance-empty-temp-"),
 		);
 		const toolCacheRootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-governance-empty-temp-external-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-governance-empty-temp-external-"),
 		);
 		const toolCacheBaseRoot = path.join(toolCacheRootDir, "tooling");
 		try {

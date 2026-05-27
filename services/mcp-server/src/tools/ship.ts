@@ -6,7 +6,7 @@ import { FunctionResponsesSchema, textResult } from "./shared.js";
 
 export function registerShipTool(server: McpServer): void {
 	server.registerTool(
-		"openui_ship_react_page",
+		"shadcn_brief_ship_react_page",
 		{
 			description:
 				"End-to-end ship tool: prompt -> generate -> convert -> apply -> quality gate, with optional planning, acceptance, and review artifacts.",

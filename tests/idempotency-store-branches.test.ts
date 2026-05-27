@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { IdempotencyStore } from "../packages/shared-runtime/src/idempotency-store.js";
 
 const tempDirs: string[] = [];
-const ENV_KEYS = ["OPENUISTUDIO_WORKSPACE_ROOT", "OPENUISTUDIO_CACHE_DIR"] as const;
+const ENV_KEYS = ["SHADCN_BRIEF_WORKSPACE_ROOT", "SHADCN_BRIEF_CACHE_DIR"] as const;
 const originalEnv = new Map<string, string | undefined>(
 	ENV_KEYS.map((key) => [key, process.env[key]]),
 );
@@ -19,12 +19,12 @@ async function createTempDir(prefix: string): Promise<string> {
 
 function leasePath(cacheDir: string, key: string): string {
 	const hash = crypto.createHash("sha256").update(key).digest("hex");
-	return path.join(cacheDir, `openui-ship-${hash}.lease.json`);
+	return path.join(cacheDir, `shadcn-brief-ship-${hash}.lease.json`);
 }
 
 function lockPath(cacheDir: string, key: string): string {
 	const hash = crypto.createHash("sha256").update(key).digest("hex");
-	return path.join(cacheDir, `openui-ship-${hash}.lock`);
+	return path.join(cacheDir, `shadcn-brief-ship-${hash}.lock`);
 }
 
 afterEach(async () => {
@@ -45,39 +45,39 @@ afterEach(async () => {
 });
 
 describe("idempotency store branch coverage", () => {
-	it("rejects default cache dir when OPENUISTUDIO_CACHE_DIR escapes workspace root", async () => {
+	it("rejects default cache dir when SHADCN_BRIEF_CACHE_DIR escapes workspace root", async () => {
 		const workspaceRoot = await createTempDir(
-			"openui-idempotency-store-workspace-",
+			"shadcn-brief-idempotency-store-workspace-",
 		);
 		const outsideRoot = await createTempDir(
-			"openui-idempotency-store-outside-",
+			"shadcn-brief-idempotency-store-outside-",
 		);
-		const previousWorkspaceRoot = process.env.OPENUISTUDIO_WORKSPACE_ROOT;
-		const previousCacheDir = process.env.OPENUISTUDIO_CACHE_DIR;
+		const previousWorkspaceRoot = process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
+		const previousCacheDir = process.env.SHADCN_BRIEF_CACHE_DIR;
 
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
-		process.env.OPENUISTUDIO_CACHE_DIR = path.join(outsideRoot, "cache");
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
+		process.env.SHADCN_BRIEF_CACHE_DIR = path.join(outsideRoot, "cache");
 
 		try {
 			expect(() => new IdempotencyStore()).toThrow(
-				/OPENUISTUDIO_CACHE_DIR must resolve inside OPENUISTUDIO_WORKSPACE_ROOT/,
+				/SHADCN_BRIEF_CACHE_DIR must resolve inside SHADCN_BRIEF_WORKSPACE_ROOT/,
 			);
 		} finally {
 			if (previousWorkspaceRoot === undefined) {
-				delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+				delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 			} else {
-				process.env.OPENUISTUDIO_WORKSPACE_ROOT = previousWorkspaceRoot;
+				process.env.SHADCN_BRIEF_WORKSPACE_ROOT = previousWorkspaceRoot;
 			}
 			if (previousCacheDir === undefined) {
-				delete process.env.OPENUISTUDIO_CACHE_DIR;
+				delete process.env.SHADCN_BRIEF_CACHE_DIR;
 			} else {
-				process.env.OPENUISTUDIO_CACHE_DIR = previousCacheDir;
+				process.env.SHADCN_BRIEF_CACHE_DIR = previousCacheDir;
 			}
 		}
 	});
 
 	it("returns timeout_missing when no value or active lease exists", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		let now = 0;
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -97,7 +97,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("replaces malformed lease records when acquiring execution ownership", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "malformed-lease";
 		await fs.writeFile(leasePath(cacheDir, key), "{broken-json", "utf8");
 
@@ -121,7 +121,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("rejects completion if lease has already expired", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		let now = 1_000;
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -149,7 +149,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("cleans temporary payload file when completion write fails", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const key = "rename-failure";
 
@@ -182,7 +182,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("does not delete a lock on release when ownership has changed", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "release-owner-check";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const targetLockPath = lockPath(cacheDir, key);
@@ -203,7 +203,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("skips stale lock deletion when observed owner no longer matches", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "stale-owner-mismatch";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const targetLockPath = lockPath(cacheDir, key);
@@ -234,7 +234,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("does not clear stale lock when owner process is still alive", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "stale-owner-alive";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const targetLockPath = lockPath(cacheDir, key);
@@ -254,7 +254,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("keeps foreign lease files untouched and reports failed renew for wrong owner", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "owner-check";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 
@@ -288,7 +288,7 @@ describe("idempotency store branch coverage", () => {
 	}, 15_000);
 
 	it("keeps completion successful when value is persisted but lease cleanup fails", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "lease-cleanup-failure";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 
@@ -326,7 +326,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("returns true when stale lock disappears after compare-and-delete race", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "stale-lock-disappeared";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const targetLockPath = lockPath(cacheDir, key);
@@ -355,7 +355,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("propagates non-ENOENT errors while reading execution lease", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "lease-read-eacces";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -382,7 +382,7 @@ describe("idempotency store branch coverage", () => {
 	});
 
 	it("removes the lease file when abandon is called by the owner", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-store-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-store-");
 		const key = "abandon-owner-removes-lease";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const started = await store.beginExecution(key, { leaseMs: 5_000 });

@@ -6,7 +6,7 @@ import { GeneratedFileSchema, textResult } from "./shared.js";
 
 export function registerQualityTool(server: McpServer): void {
 	server.registerTool(
-		"openui_quality_gate",
+		"shadcn_brief_quality_gate",
 		{
 			description:
 				"Run UI quality checks and optional preset-based workspace checks (lint/typecheck/test/ci_gate).",

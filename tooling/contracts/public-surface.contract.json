@@ -2,11 +2,11 @@
   "version": 1,
   "repository": {
     "owner": "xiaojiou176-open",
-    "name": "OpenUIStudio"
+    "name": "ShadcnBrief"
   },
   "about": {
     "description": "Public repo for MCP-native UI delivery and review across Codex, Claude Code, OpenCode, and OpenClaw.",
-    "homepageUrl": "https://xiaojiou176-open.github.io/OpenUIStudio/",
+    "homepageUrl": "https://xiaojiou176-open.github.io/shadcn-brief/",
     "discussionsEnabled": true
   },
   "topics": [
@@ -38,23 +38,23 @@
     "Show and tell"
   ],
   "requiredDiscussionTitles": [
-    "Start here: OpenUIStudio public surface refresh",
+    "Start here: ShadcnBrief public surface refresh",
     "General: what are you trying to evaluate or build?",
-    "Ideas backlog: what should OpenUIStudio prove next?",
+    "Ideas backlog: what should ShadcnBrief prove next?",
     "Poll: what should matter most on the public surface?",
     "Q&A kickoff: ask setup or evaluation questions here",
     "Show and tell: share what you built or evaluated"
   ],
   "release": {
     "requiredAssets": [
-      "OpenUIStudio-demo.gif",
-      "OpenUIStudio-social-preview.png",
-      "OpenUIStudio-workbench.png",
-      "OpenUIStudio-workflow-overview.png",
-      "OpenUIStudio-comparison.png",
-      "OpenUIStudio-trust-stack.png",
-      "OpenUIStudio-use-cases.png",
-      "OpenUIStudio-visitor-paths.png"
+      "ShadcnBrief-demo.gif",
+      "ShadcnBrief-social-preview.png",
+      "ShadcnBrief-workbench.png",
+      "ShadcnBrief-workflow-overview.png",
+      "ShadcnBrief-comparison.png",
+      "ShadcnBrief-trust-stack.png",
+      "ShadcnBrief-use-cases.png",
+      "ShadcnBrief-visitor-paths.png"
     ]
   }
 }

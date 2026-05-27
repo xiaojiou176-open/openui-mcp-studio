@@ -38,8 +38,8 @@ type HostedApiConfig = Required<
 	Pick<HostedApiServerOptions, "logger" | "publicBaseUrl">;
 
 type HostedApiInfo = {
-	service: "openui-hosted-api";
-	technicalName: "OpenUI Hosted API";
+	service: "shadcn-brief-hosted-api";
+	technicalName: "ShadcnBrief Hosted API";
 	version: string;
 	mcpServerVersion: string;
 	runtime: "self-hosted-http";
@@ -94,7 +94,7 @@ export function parseHostedApiBaseConfig(
 ): Omit<HostedApiServerOptions, "authToken"> {
 	return {
 		workspaceRoot:
-			env.OPENUISTUDIO_WORKSPACE_ROOT?.trim() || process.cwd(),
+			env.SHADCN_BRIEF_WORKSPACE_ROOT?.trim() || process.cwd(),
 		host:
 			env.OPENUI_HOSTED_API_HOST?.trim() ||
 			DEFAULT_OPENUI_HOSTED_API_HOST,
@@ -122,7 +122,7 @@ function createJsonHeaders(
 		headers.set(key, value);
 	});
 	headers.set("content-type", "application/json; charset=utf-8");
-	headers.set("x-openui-request-id", requestId);
+	headers.set("x-shadcn-brief-request-id", requestId);
 	return headers;
 }
 
@@ -164,8 +164,8 @@ function toNodeResponse(response: Response, res: http.ServerResponse): void {
 
 function buildInfoPayload(config: HostedApiConfig): HostedApiInfo {
 	return {
-		service: "openui-hosted-api",
-		technicalName: "OpenUI Hosted API",
+		service: "shadcn-brief-hosted-api",
+		technicalName: "ShadcnBrief Hosted API",
 		version: HOSTED_API_VERSION,
 		mcpServerVersion: MCP_SERVER_VERSION,
 		runtime: "self-hosted-http",
@@ -216,7 +216,7 @@ function logEvent(
 	const meta = {
 		traceId: requestId,
 		requestId,
-		service: "openui-hosted-api",
+		service: "shadcn-brief-hosted-api",
 		component: "hosted-api",
 		stage: "runtime",
 		context,
@@ -324,7 +324,7 @@ async function readHostedOpenapi(
 ): Promise<Record<string, unknown>> {
 	const document = await readJsonFile(
 		workspaceRoot,
-		"docs/contracts/openui-hosted-api.openapi.json",
+		"docs/contracts/shadcn-brief-hosted-api.openapi.json",
 	);
 	return {
 		...document,
@@ -332,7 +332,7 @@ async function readHostedOpenapi(
 			{
 				url: serverUrl,
 				description:
-					"Current self-hosted runtime address for this OpenUI Hosted API instance.",
+					"Current self-hosted runtime address for this ShadcnBrief Hosted API instance.",
 			},
 		],
 	};
@@ -413,7 +413,7 @@ export function createHostedApiServer(
 			if (request.method === "OPTIONS") {
 				response.writeHead(204, {
 					...DEFAULT_CORS_HEADERS,
-					"x-openui-request-id": requestId,
+					"x-shadcn-brief-request-id": requestId,
 				});
 				response.end();
 				finish(204);
@@ -482,7 +482,7 @@ export function createHostedApiServer(
 						ok: true,
 						requestId,
 						data: {
-							service: "openui-hosted-api",
+							service: "shadcn-brief-hosted-api",
 							version: HOSTED_API_VERSION,
 							authMode: "bearer",
 							rateLimit: {
@@ -536,7 +536,7 @@ export function createHostedApiServer(
 			if (method === "GET" && pathname === "/v1/ecosystem") {
 				const ecosystem = await readJsonFile(
 					config.workspaceRoot,
-					"docs/contracts/openui-ecosystem-productization.json",
+					"docs/contracts/shadcn-brief-ecosystem-productization.json",
 				);
 				toNodeResponse(jsonResponse(requestId, ecosystem), response);
 				finish(200, { public: true });

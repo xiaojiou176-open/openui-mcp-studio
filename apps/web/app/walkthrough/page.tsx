@@ -19,10 +19,10 @@ import { buildPageMetadata, getResolvedSiteUrl } from "@/lib/site-metadata";
 export const metadata = buildPageMetadata({
   title: "First-minute walkthrough",
   description:
-    "A fast route through the front door, proof surface, workbench, and docs for OpenUIStudio.",
+    "A fast route through the front door, proof surface, workbench, and docs for ShadcnBrief.",
   path: "/walkthrough",
   keywords: [
-    "OpenUIStudio walkthrough",
+    "ShadcnBrief walkthrough",
     "first-minute proof path",
     "AI UI shipping walkthrough",
   ],
@@ -33,7 +33,7 @@ const walkthroughStructuredData = buildStructuredDiscoveryJsonLd({
   path: "/walkthrough",
   title: "First-minute walkthrough",
   description:
-    "A fast route through the front door, proof surface, workbench, and docs for OpenUIStudio.",
+    "A fast route through the front door, proof surface, workbench, and docs for ShadcnBrief.",
   type: "HowTo",
   breadcrumbLabel: "Walkthrough",
   about: ["front door", "proof desk", "operator desk", "repo-owned commands"],

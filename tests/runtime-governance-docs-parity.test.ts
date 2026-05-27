@@ -20,7 +20,7 @@ describe("runtime governance docs parity", () => {
 		for (const file of files) {
 			const content = await read(file);
 			expect(content).toContain(
-				"OPENUISTUDIO_LOG_DIR=.runtime-cache/runs/<run_id>/logs/runtime.jsonl",
+				"SHADCN_BRIEF_LOG_DIR=.runtime-cache/runs/<run_id>/logs/runtime.jsonl",
 			);
 		}
 	});
