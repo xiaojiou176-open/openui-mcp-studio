@@ -1,0 +1,32 @@
+[tool.ruff]
+line-length = 140
+target-version = "py310"
+cache-dir = ".runtime-cache/cache/ruff"
+extend-exclude = [
+  "node_modules",
+  "dist",
+  "build",
+  ".runtime-cache",
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["ANN", "D", "COM812", "ISC001"]
+
+[tool.ruff.lint.per-file-ignores]
+"services/gemini-sidecar/protocol.py" = ["INP001", "UP035"]
+"services/gemini-sidecar/server.py" = ["INP001", "BLE001", "PLW0603", "PLR0911", "RET504", "C901", "PLR0912", "PERF401", "FBT001"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+exclude = ["services/gemini-sidecar/server.py"]
+
+[tool.pytest.ini_options]
+addopts = "--reruns 2 --reruns-delay 1"
+
+[tool.mutmut]
+paths_to_mutate = ["services/gemini-sidecar"]
+tests_dir = ["tests"]
+runner = "python3 -m pytest -q"

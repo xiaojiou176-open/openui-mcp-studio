@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "flags": [
+    {
+      "key": "ship_quality_gate_enforced",
+      "defaultState": "on",
+      "owner": "platform",
+      "expiresOn": "2026-12-31",
+      "description": "Keep quality-gate rollback behavior enforced for ship pipeline."
+    },
+    {
+      "key": "model_routing_enabled",
+      "defaultState": "on",
+      "owner": "platform",
+      "expiresOn": "2026-12-31",
+      "description": "Enable fast/strong routing policy for Gemini model selection."
+    },
+    {
+      "key": "external_readonly_gate_enforced",
+      "defaultState": "off",
+      "owner": "release",
+      "expiresOn": "2026-12-31",
+      "description": "Promote external readonly E2E from advisory to blocking in release mode."
+    }
+  ]
+}

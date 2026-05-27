@@ -1,0 +1,229 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenUI Hosted API",
+    "version": "0.3.1",
+    "summary": "Self-hosted HTTP surface for discovery, workflow summary, and authenticated tool execution.",
+    "description": "This contract describes the current self-hosted API surface shipped from the repository. It serves public discovery routes plus authenticated workflow and tool endpoints over HTTP while delegating execution to the existing repo-owned OpenUI runtime. It is a real service/runtime surface, but it is not evidence of a managed SaaS deployment, marketplace listing, or remote write-capable control plane."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8787",
+      "description": "Default local self-hosted runtime. External deployment remains operator-owned."
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "ToolCallRequest": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "arguments": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkflowSummaryRequest": {
+        "type": "object",
+        "properties": {
+          "workspaceRoot": { "type": "string" },
+          "failedRunsLimit": { "type": "integer", "minimum": 1, "maximum": 50 }
+        },
+        "additionalProperties": false
+      },
+      "HostedApiError": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean", "const": false },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string" },
+              "message": { "type": "string" },
+              "requestId": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "required": ["ok", "error"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "paths": {
+    "/healthz": {
+      "get": {
+        "summary": "Health probe for the hosted runtime",
+        "responses": {
+          "200": {
+            "description": "Health payload"
+          }
+        }
+      }
+    },
+    "/v1/info": {
+      "get": {
+        "summary": "Hosted API runtime metadata",
+        "responses": {
+          "200": {
+            "description": "Runtime metadata payload"
+          }
+        }
+      }
+    },
+    "/v1/openapi": {
+      "get": {
+        "summary": "Hosted API contract",
+        "responses": {
+          "200": {
+            "description": "Hosted API contract payload"
+          }
+        }
+      }
+    },
+    "/v1/frontdoor": {
+      "get": {
+        "summary": "Frontdoor discovery payload",
+        "responses": {
+          "200": {
+            "description": "Frontdoor discovery payload"
+          }
+        }
+      }
+    },
+    "/v1/ecosystem": {
+      "get": {
+        "summary": "Ecosystem productization payload",
+        "responses": {
+          "200": {
+            "description": "Ecosystem productization contract payload"
+          }
+        }
+      }
+    },
+    "/v1/skills/manifest": {
+      "get": {
+        "summary": "Public skills-kit manifest",
+        "responses": {
+          "200": {
+            "description": "Skills-kit manifest payload"
+          }
+        }
+      }
+    },
+    "/v1/workflow/summary": {
+      "post": {
+        "summary": "Authenticated workflow summary",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WorkflowSummaryRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Workflow summary payload"
+          },
+          "401": {
+            "description": "Missing or invalid bearer token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HostedApiError" }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HostedApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools": {
+      "get": {
+        "summary": "List allowlisted hosted API tools",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Hosted tool list payload"
+          },
+          "401": {
+            "description": "Missing or invalid bearer token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HostedApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools/call": {
+      "post": {
+        "summary": "Call one allowlisted tool through the hosted API",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ToolCallRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Hosted tool call response"
+          },
+          "400": {
+            "description": "Invalid request payload",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HostedApiError" }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid bearer token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HostedApiError" }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HostedApiError" }
+              }
+            }
+          },
+          "500": {
+            "description": "Runtime or execution failure",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HostedApiError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
