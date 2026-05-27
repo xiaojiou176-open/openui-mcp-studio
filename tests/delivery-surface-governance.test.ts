@@ -24,11 +24,11 @@ const REQUIRED_INDEX_TEXT = [
 	"registerAcceptanceTool(server);",
 	"registerReviewBundleTool(server);",
 	"registerShipFeatureFlowTool(server);",
-	"// openui_scan_workspace_profile",
-	"// openui_plan_change",
-	"// openui_build_acceptance_pack",
-	"// openui_build_review_bundle",
-	"// openui_ship_feature_flow",
+	"// shadcn_brief_scan_workspace_profile",
+	"// shadcn_brief_plan_change",
+	"// shadcn_brief_build_acceptance_pack",
+	"// shadcn_brief_build_review_bundle",
+	"// shadcn_brief_ship_feature_flow",
 ].join("\n");
 
 afterEach(async () => {
@@ -41,7 +41,7 @@ afterEach(async () => {
 
 describe("delivery surface governance", () => {
 	it("passes when the delivery plane is registered through the thin ship facade", async () => {
-		const rootDir = await mkTempDir("openui-delivery-surface-");
+		const rootDir = await mkTempDir("shadcn-brief-delivery-surface-");
 		await writeFile(
 			rootDir,
 			"services/mcp-server/src/index.ts",
@@ -69,7 +69,7 @@ describe("delivery surface governance", () => {
 	});
 
 	it("fails when ship.ts still embeds core helper bodies", async () => {
-		const rootDir = await mkTempDir("openui-delivery-surface-");
+		const rootDir = await mkTempDir("shadcn-brief-delivery-surface-");
 		await writeFile(
 			rootDir,
 			"services/mcp-server/src/index.ts",

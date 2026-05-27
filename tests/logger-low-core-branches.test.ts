@@ -9,14 +9,14 @@ import {
 } from "../services/mcp-server/src/logger.js";
 
 const ENV_KEYS = [
-	"OPENUISTUDIO_LOG_LEVEL",
-	"OPENUISTUDIO_LOG_OUTPUT",
-	"OPENUISTUDIO_LOG_ROTATE_ON_START",
-	"OPENUISTUDIO_LOG_RETENTION_DAYS",
-	"OPENUISTUDIO_LOG_MAX_FILE_MB",
-	"OPENUISTUDIO_WORKSPACE_ROOT",
+	"SHADCN_BRIEF_LOG_LEVEL",
+	"SHADCN_BRIEF_LOG_OUTPUT",
+	"SHADCN_BRIEF_LOG_ROTATE_ON_START",
+	"SHADCN_BRIEF_LOG_RETENTION_DAYS",
+	"SHADCN_BRIEF_LOG_MAX_FILE_MB",
+	"SHADCN_BRIEF_WORKSPACE_ROOT",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUISTUDIO_CACHE_DIR",
+	"SHADCN_BRIEF_CACHE_DIR",
 ] as const;
 const originalEnv = new Map<string, string | undefined>(
 	ENV_KEYS.map((key) => [key, process.env[key]]),
@@ -55,7 +55,7 @@ describe("logger low-core branches", () => {
 	});
 
 	it("skips entries with matching prefix but non-jsonl suffix during prune", () => {
-		const logDir = mkTempDir("openui-logger-suffix-");
+		const logDir = mkTempDir("shadcn-brief-logger-suffix-");
 		const activeFilePath = path.join(logDir, "runtime.jsonl");
 		const wrongSuffix = path.join(
 			logDir,
@@ -86,15 +86,15 @@ describe("logger low-core branches", () => {
 	});
 
 	it("logs internal error payload when initialization fails with non-Error input", async () => {
-		const workspaceRoot = mkTempDir("openui-logger-non-error-");
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+		const workspaceRoot = mkTempDir("shadcn-brief-logger-non-error-");
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = "logger-low-core-run";
-		process.env.OPENUISTUDIO_CACHE_DIR = mkTempDir("openui-cache-dir-");
-		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
-		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
+		process.env.SHADCN_BRIEF_CACHE_DIR = mkTempDir("shadcn-brief-cache-dir-");
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "debug";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "file";
+		process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "10";
+		process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "off";
 
 		const mkdirSpy = vi.spyOn(fs, "mkdirSync").mockImplementationOnce(() => {
 			throw "mkdir-failed";

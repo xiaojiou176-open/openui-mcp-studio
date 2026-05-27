@@ -457,7 +457,7 @@ describe("delivery plane branch coverage", () => {
 	});
 
 	it("covers workspace helper branches for routes, component categories, pattern hints, and token hints", async () => {
-		const root = await mkTempDir("openui-workspace-helper-");
+		const root = await mkTempDir("shadcn-brief-workspace-helper-");
 		await fs.mkdir(path.join(root, "components", "ui"), { recursive: true });
 		await fs.mkdir(path.join(root, "components", "generated"), {
 			recursive: true,

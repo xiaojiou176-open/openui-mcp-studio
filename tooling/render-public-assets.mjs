@@ -19,73 +19,73 @@ const COPY_TARGETS = [];
 
 const STATIC_PAGES = [
 	{
-		input: "docs/assets/OpenUIStudio-workbench-source.html",
-		output: "docs/assets/OpenUIStudio-workbench.png",
+		input: "docs/assets/ShadcnBrief-workbench-source.html",
+		output: "docs/assets/ShadcnBrief-workbench.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/OpenUIStudio-social-preview-source.html",
-		output: "docs/assets/OpenUIStudio-social-preview.png",
+		input: "docs/assets/ShadcnBrief-social-preview-source.html",
+		output: "docs/assets/ShadcnBrief-social-preview.png",
 		viewport: { width: 1280, height: 640 },
 	},
 	{
-		input: "docs/assets/OpenUIStudio-workflow-overview-source.html",
-		output: "docs/assets/OpenUIStudio-workflow-overview.png",
+		input: "docs/assets/ShadcnBrief-workflow-overview-source.html",
+		output: "docs/assets/ShadcnBrief-workflow-overview.png",
 		viewport: { width: 1440, height: 760 },
 	},
 	{
-		input: "docs/assets/OpenUIStudio-comparison-source.html",
-		output: "docs/assets/OpenUIStudio-comparison.png",
+		input: "docs/assets/ShadcnBrief-comparison-source.html",
+		output: "docs/assets/ShadcnBrief-comparison.png",
 		viewport: { width: 1440, height: 1300 },
 	},
 	{
-		input: "docs/assets/OpenUIStudio-trust-stack-source.html",
-		output: "docs/assets/OpenUIStudio-trust-stack.png",
+		input: "docs/assets/ShadcnBrief-trust-stack-source.html",
+		output: "docs/assets/ShadcnBrief-trust-stack.png",
 		viewport: { width: 1440, height: 900 },
 	},
 	{
-		input: "docs/assets/OpenUIStudio-use-cases-source.html",
-		output: "docs/assets/OpenUIStudio-use-cases.png",
+		input: "docs/assets/ShadcnBrief-use-cases-source.html",
+		output: "docs/assets/ShadcnBrief-use-cases.png",
 		viewport: { width: 1440, height: 840 },
 	},
 	{
-		input: "docs/assets/OpenUIStudio-visitor-paths-source.html",
-		output: "docs/assets/OpenUIStudio-visitor-paths.png",
+		input: "docs/assets/ShadcnBrief-visitor-paths-source.html",
+		output: "docs/assets/ShadcnBrief-visitor-paths.png",
 		viewport: { width: 1440, height: 820 },
 	},
 ];
 
 const DEMO_FRAMES = [
 	{
-		input: "docs/assets/OpenUIStudio-demo-source-brief.html",
+		input: "docs/assets/ShadcnBrief-demo-source-brief.html",
 		output: ".runtime-cache/tmp/public-assets/frame-1.png",
-		publicOutput: "docs/assets/OpenUIStudio-demo-brief.png",
+		publicOutput: "docs/assets/ShadcnBrief-demo-brief.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/OpenUIStudio-demo-source-review.html",
+		input: "docs/assets/ShadcnBrief-demo-source-review.html",
 		output: ".runtime-cache/tmp/public-assets/frame-2.png",
-		publicOutput: "docs/assets/OpenUIStudio-demo-review.png",
+		publicOutput: "docs/assets/ShadcnBrief-demo-review.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/OpenUIStudio-demo-source-ship.html",
+		input: "docs/assets/ShadcnBrief-demo-source-ship.html",
 		output: ".runtime-cache/tmp/public-assets/frame-3.png",
-		publicOutput: "docs/assets/OpenUIStudio-demo-ship.png",
+		publicOutput: "docs/assets/ShadcnBrief-demo-ship.png",
 		viewport: { width: 1280, height: 720 },
 	},
 ];
 
-const GIF_OUTPUT = path.resolve(DOCS_ASSETS_DIR, "OpenUIStudio-demo.gif");
+const GIF_OUTPUT = path.resolve(DOCS_ASSETS_DIR, "ShadcnBrief-demo.gif");
 const RELEASE_ASSET_NAMES = [
-	"OpenUIStudio-demo.gif",
-	"OpenUIStudio-social-preview.png",
-	"OpenUIStudio-workbench.png",
-	"OpenUIStudio-workflow-overview.png",
-	"OpenUIStudio-comparison.png",
-	"OpenUIStudio-trust-stack.png",
-	"OpenUIStudio-use-cases.png",
-	"OpenUIStudio-visitor-paths.png",
+	"ShadcnBrief-demo.gif",
+	"ShadcnBrief-social-preview.png",
+	"ShadcnBrief-workbench.png",
+	"ShadcnBrief-workflow-overview.png",
+	"ShadcnBrief-comparison.png",
+	"ShadcnBrief-trust-stack.png",
+	"ShadcnBrief-use-cases.png",
+	"ShadcnBrief-visitor-paths.png",
 ];
 
 function parseArgs(argv) {

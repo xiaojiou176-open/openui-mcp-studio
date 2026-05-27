@@ -138,7 +138,7 @@ describe("space verify and clean", () => {
 
 	it("verifies candidates and cleans verified repo-local pollution end-to-end", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-verify-clean-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-verify-clean-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -240,7 +240,7 @@ describe("space verify and clean", () => {
 
 	it("refuses verified apply when any existing candidate is still ineligible", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-verify-ineligible-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-verify-ineligible-"),
 		);
 		try {
 			await writeContracts(rootDir, {
@@ -279,7 +279,7 @@ describe("space verify and clean", () => {
 
 	it("marks candidates ineligible when active ref detection is unknown", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-verify-unknown-active-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-verify-unknown-active-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -328,7 +328,7 @@ describe("space verify and clean", () => {
 
 	it("keeps CLI stdout compact while still writing the full verification report", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-verify-cli-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-verify-cli-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -394,7 +394,7 @@ describe("space verify and clean", () => {
 
 	it("rejects protected repo targets even if contract drifts", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-protected-target-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-protected-target-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -431,7 +431,7 @@ describe("space verify and clean", () => {
 
 	it("writes a post-apply snapshot even when deletion fails partway through", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-post-apply-failure-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-post-apply-failure-"),
 		);
 		try {
 			await writeContracts(rootDir);

@@ -64,7 +64,7 @@ async function withManagedInstallSurfaceMoved(rootDir, action) {
 	});
 	await fs.mkdir(roots.managedInstallRoot, { recursive: true });
 	await fs.writeFile(
-		path.join(roots.managedInstallRoot, ".openui-platform"),
+		path.join(roots.managedInstallRoot, ".shadcn-brief-platform"),
 		`${roots.runtimeMarker}\n`,
 		"utf8",
 	);

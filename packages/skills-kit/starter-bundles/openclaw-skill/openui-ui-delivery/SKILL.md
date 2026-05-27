@@ -1,7 +1,7 @@
-# OpenUI UI Delivery
+# ShadcnBrief UI Delivery
 
 This bundle is the repo-owned **public-ready** OpenClaw / ClawHub-facing skill
-surface for `OpenUIStudio`.
+surface for `ShadcnBrief`.
 
 It is intentionally stronger than "bridge materials only" because the repo now
 ships:

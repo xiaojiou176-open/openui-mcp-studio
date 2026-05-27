@@ -35,9 +35,9 @@ export type CacheRetentionResult = {
 
 function resolveWorkspaceRootFromEnv(): string {
 	const defaultWorkspaceRoot = String(
-		resolveEnvDefaultValue("OPENUISTUDIO_WORKSPACE_ROOT"),
+		resolveEnvDefaultValue("SHADCN_BRIEF_WORKSPACE_ROOT"),
 	);
-	const raw = process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	const raw = process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 	const trimmed = raw?.trim();
 	const resolved = path.resolve(trimmed || defaultWorkspaceRoot);
 	let stat: fs.Stats;
@@ -45,14 +45,14 @@ function resolveWorkspaceRootFromEnv(): string {
 		stat = fs.statSync(resolved);
 	} catch {
 		throw new Error(
-			`OPENUISTUDIO_WORKSPACE_ROOT must point to an existing directory, received: ${JSON.stringify(
+			`SHADCN_BRIEF_WORKSPACE_ROOT must point to an existing directory, received: ${JSON.stringify(
 				raw,
 			)}.`,
 		);
 	}
 	if (!stat.isDirectory()) {
 		throw new Error(
-			`OPENUISTUDIO_WORKSPACE_ROOT must point to a directory, received: ${JSON.stringify(raw)}.`,
+			`SHADCN_BRIEF_WORKSPACE_ROOT must point to a directory, received: ${JSON.stringify(raw)}.`,
 		);
 	}
 	return fs.realpathSync(resolved);
@@ -170,17 +170,17 @@ export function resolveCacheRetentionConfigFromEnv(
 ): CacheRetentionConfig {
 	const workspaceRoot = resolveWorkspaceRootFromEnv();
 	const defaultCacheDir = String(
-		resolveEnvDefaultValue("OPENUISTUDIO_CACHE_DIR"),
+		resolveEnvDefaultValue("SHADCN_BRIEF_CACHE_DIR"),
 	);
-	const rawCacheDir = process.env.OPENUISTUDIO_CACHE_DIR?.trim();
+	const rawCacheDir = process.env.SHADCN_BRIEF_CACHE_DIR?.trim();
 	const cacheDirCandidate = rawCacheDir || defaultCacheDir;
 	const cacheDir = path.isAbsolute(cacheDirCandidate)
 		? path.resolve(cacheDirCandidate)
 		: path.resolve(workspaceRoot, cacheDirCandidate);
 	if (!isPathInsideRootWithRealpath(workspaceRoot, cacheDir)) {
 		throw new Error(
-			`OPENUISTUDIO_CACHE_DIR must resolve inside OPENUISTUDIO_WORKSPACE_ROOT (${workspaceRoot}), received: ${JSON.stringify(
-				process.env.OPENUISTUDIO_CACHE_DIR,
+			`SHADCN_BRIEF_CACHE_DIR must resolve inside SHADCN_BRIEF_WORKSPACE_ROOT (${workspaceRoot}), received: ${JSON.stringify(
+				process.env.SHADCN_BRIEF_CACHE_DIR,
 			)}.`,
 		);
 	}
@@ -188,16 +188,16 @@ export function resolveCacheRetentionConfigFromEnv(
 	return {
 		cacheDir,
 		retentionDays: requirePositiveIntegerFromEnv(
-			"OPENUISTUDIO_CACHE_RETENTION_DAYS",
-			Number(resolveEnvDefaultValue("OPENUISTUDIO_CACHE_RETENTION_DAYS")),
+			"SHADCN_BRIEF_CACHE_RETENTION_DAYS",
+			Number(resolveEnvDefaultValue("SHADCN_BRIEF_CACHE_RETENTION_DAYS")),
 		),
 		maxBytes: requirePositiveIntegerFromEnv(
-			"OPENUISTUDIO_CACHE_MAX_BYTES",
-			Number(resolveEnvDefaultValue("OPENUISTUDIO_CACHE_MAX_BYTES")),
+			"SHADCN_BRIEF_CACHE_MAX_BYTES",
+			Number(resolveEnvDefaultValue("SHADCN_BRIEF_CACHE_MAX_BYTES")),
 		),
 		cleanIntervalMinutes: requirePositiveIntegerFromEnv(
-			"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
-			Number(resolveEnvDefaultValue("OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES")),
+			"SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES",
+			Number(resolveEnvDefaultValue("SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES")),
 		),
 		nowMs,
 	};

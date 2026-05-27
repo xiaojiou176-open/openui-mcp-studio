@@ -51,7 +51,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<div><img src='a.png' /></div>",
 			threshold: 70,
 			invokeModel: false,
@@ -74,7 +74,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Checkout</h1>
@@ -109,8 +109,8 @@ describe("uiux review tool", () => {
 		expect(payload.audit.target).toBe("/checkout");
 		expect(payload.audit.stylePack).toEqual(
 			expect.objectContaining({
-				id: "openui-studio",
-				label: "OpenUI Studio",
+				id: "shadcn-brief-studio",
+				label: "ShadcnBrief Studio",
 				contract: expect.objectContaining({
 					tokenMode: "semantic-css-variables",
 				}),
@@ -139,10 +139,10 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<main><h1>Workbench</h1><button type='button'>Run</button></main>",
 			invokeModel: false,
-			stylePackId: "openui-operator-desk",
+			stylePackId: "shadcn-brief-operator-desk",
 			auditScope: "workspace",
 			auditTarget: "apps/web",
 		});
@@ -163,7 +163,7 @@ describe("uiux review tool", () => {
 		expect(payload.audit.scope).toBe("workspace");
 		expect(payload.audit.stylePack).toEqual(
 			expect.objectContaining({
-				id: "openui-operator-desk",
+				id: "shadcn-brief-operator-desk",
 				emphasis: "operator_dense",
 				contract: expect.objectContaining({
 					primaryActionRule: expect.any(String),
@@ -178,7 +178,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Demo</h1>
@@ -210,7 +210,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Primary</h1>
@@ -235,7 +235,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Profile</h1>
@@ -266,7 +266,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Settings</h1>
@@ -292,7 +292,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Profile</h1>
@@ -316,7 +316,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Toolbar</h1>
@@ -342,7 +342,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Profile</h1>
@@ -369,7 +369,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Profile</h1>
@@ -395,7 +395,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<main><h1>Page</h1><button>Action</button></main>",
 			threshold: 95,
 			invokeModel: false,
@@ -413,7 +413,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Actions</h1>
@@ -436,7 +436,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Actions</h1>
@@ -459,7 +459,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Actions</h1>
@@ -482,7 +482,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Actions</h1>
@@ -506,7 +506,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Actions</h1>
@@ -529,7 +529,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Actions</h1>
@@ -552,7 +552,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Actions</h1>
@@ -575,7 +575,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Contrast</h1>
@@ -598,7 +598,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Contrast</h1>
@@ -621,7 +621,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Contrast</h1>
@@ -644,7 +644,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Controls</h1>
@@ -667,7 +667,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Controls</h1>
@@ -690,7 +690,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<header class="sticky top-0">Top nav</header>
 				<main>
@@ -717,7 +717,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<header class="sticky top-0">Top nav</header>
 				<main>
@@ -744,7 +744,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<nav>
 					<a href="/home">Home</a>
@@ -770,7 +770,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<header>
 					<a href="/home">Home</a>
@@ -798,7 +798,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<a class="sr-only focus:not-sr-only">Skip to main content</a>
 				<nav>
@@ -824,7 +824,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<a href="#main-content" class="sr-only focus:not-sr-only">Skip to main content</a>
 				<nav>
@@ -851,7 +851,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Demo</h1>
@@ -881,7 +881,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Demo</h1>
@@ -907,7 +907,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main inert>
 					<h1>Demo</h1>
@@ -943,7 +943,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Native dialog demo</h1>
@@ -971,7 +971,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Checkout</h1>
@@ -995,7 +995,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Checkout</h1>
@@ -1019,7 +1019,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Checkout</h1>
@@ -1043,7 +1043,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Docs</h1>
@@ -1067,7 +1067,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Theme</h1>
@@ -1090,7 +1090,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Spacing</h1>
@@ -1113,7 +1113,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Spacing</h1>
@@ -1136,7 +1136,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Spacing</h1>
@@ -1159,7 +1159,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Spacing</h1>
@@ -1182,7 +1182,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<div><img src='a.png' /></div>",
 			invokeModel: false,
 		});
@@ -1228,12 +1228,12 @@ describe("uiux review tool", () => {
 			</main>
 		`;
 
-		const normalResult = await harness.getHandler("openui_review_uiux")({
+		const normalResult = await harness.getHandler("shadcn_brief_review_uiux")({
 			html,
 			invokeModel: false,
 			taskFlowCritical: false,
 		});
-		const criticalResult = await harness.getHandler("openui_review_uiux")({
+		const criticalResult = await harness.getHandler("shadcn_brief_review_uiux")({
 			html,
 			invokeModel: false,
 			taskFlowCritical: true,
@@ -1253,7 +1253,7 @@ describe("uiux review tool", () => {
 
 	it("requests model critique when invokeModel=true", async () => {
 		const openuiClient = await import(
-			"../services/mcp-server/src/openui-client.js"
+			"../services/mcp-server/src/shadcn-brief-client.js"
 		);
 		const chatSpy = vi
 			.spyOn(openuiClient, "openuiChatComplete")
@@ -1264,7 +1264,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<main><h1>Checkout</h1></main>",
 			threshold: 75,
 			invokeModel: true,
@@ -1294,7 +1294,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Orders</h1>
@@ -1321,7 +1321,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: `
 				<main>
 					<h1>Orders</h1>
@@ -1350,7 +1350,7 @@ describe("uiux review tool", () => {
 
 	it("passes screenshot input as multimodal part when invokeModel=true", async () => {
 		const openuiClient = await import(
-			"../services/mcp-server/src/openui-client.js"
+			"../services/mcp-server/src/shadcn-brief-client.js"
 		);
 		const chatSpy = vi
 			.spyOn(openuiClient, "openuiChatComplete")
@@ -1359,7 +1359,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		await harness.getHandler("openui_review_uiux")({
+		await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<main><h1>Dashboard</h1></main>",
 			invokeModel: true,
 			screenshotBase64: "ZmFrZS1pbWFnZS1ieXRlcw==",
@@ -1384,7 +1384,7 @@ describe("uiux review tool", () => {
 
 	it("parses fenced JSON model review payloads and preserves task-flow prompt context", async () => {
 		const openuiClient = await import(
-			"../services/mcp-server/src/openui-client.js"
+			"../services/mcp-server/src/shadcn-brief-client.js"
 		);
 		const chatSpy = vi
 			.spyOn(openuiClient, "openuiChatComplete")
@@ -1403,7 +1403,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<main><h1>Checkout</h1><button type='button'>Pay</button></main>",
 			invokeModel: true,
 			taskFlowCritical: true,
@@ -1427,14 +1427,14 @@ describe("uiux review tool", () => {
 
 	it("falls back to default model summary when structured parsing fails on blank output", async () => {
 		const openuiClient = await import(
-			"../services/mcp-server/src/openui-client.js"
+			"../services/mcp-server/src/shadcn-brief-client.js"
 		);
 		vi.spyOn(openuiClient, "openuiChatComplete").mockResolvedValue("   ");
 
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<main><h1>Blank</h1></main>",
 			invokeModel: true,
 			threshold: 80,
@@ -1454,7 +1454,7 @@ describe("uiux review tool", () => {
 
 	it("deduplicates heuristic findings when the model reports the same issue id and title", async () => {
 		const openuiClient = await import(
-			"../services/mcp-server/src/openui-client.js"
+			"../services/mcp-server/src/shadcn-brief-client.js"
 		);
 		vi.spyOn(openuiClient, "openuiChatComplete").mockResolvedValue(
 			JSON.stringify({
@@ -1482,7 +1482,7 @@ describe("uiux review tool", () => {
 		const harness = createToolHarness();
 		registerUiuxReviewTool(harness.server);
 
-		const result = await harness.getHandler("openui_review_uiux")({
+		const result = await harness.getHandler("shadcn_brief_review_uiux")({
 			html: "<div><h2>Heading only</h2></div>",
 			invokeModel: true,
 			invokeHeuristics: true,

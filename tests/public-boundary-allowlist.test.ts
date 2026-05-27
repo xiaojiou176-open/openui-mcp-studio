@@ -32,7 +32,7 @@ afterEach(async () => {
 
 describe("public boundary allowlist", () => {
 	it("allows declared workflow exceptions while still scanning the file", async () => {
-		const root = await mkTempRoot("openui-public-boundary-");
+		const root = await mkTempRoot("shadcn-brief-public-boundary-");
 		await writeJson(
 			path.join(root, "tooling", "contracts", "public-boundary-allowlist.json"),
 			{
@@ -66,7 +66,7 @@ describe("public boundary allowlist", () => {
 	});
 
 	it("fails when a deep-water english boundary file contains non-ascii content", async () => {
-		const root = await mkTempRoot("openui-language-boundary-");
+		const root = await mkTempRoot("shadcn-brief-language-boundary-");
 		await writeJson(
 			path.join(root, "tooling", "contracts", "public-boundary-allowlist.json"),
 			{

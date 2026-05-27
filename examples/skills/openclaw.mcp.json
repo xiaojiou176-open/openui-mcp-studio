@@ -1,10 +1,10 @@
 {
   "host": "OpenClaw",
   "transport": "stdio-compatible bridge",
-  "displayName": "OpenUIStudio",
+  "displayName": "ShadcnBrief",
   "command": "node",
   "args": [
-    "/ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+    "/ABS/PATH/ShadcnBrief/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
   ],
   "env": {
     "GEMINI_API_KEY": "your_key"
@@ -12,12 +12,12 @@
   "proofLoop": [
     "Open the repo-owned OpenClaw install note and starter metadata",
     "Adapt the stdio MCP launch contract to the current OpenClaw-side config surface",
-    "Run OpenUIStudio ecosystem-guide --json",
+    "Run ShadcnBrief ecosystem-guide --json",
     "Run npm run repo:doctor"
   ],
   "discoverableArtifacts": [
     "examples/skills/openclaw.mcp.json",
-    "docs/contracts/openui-ecosystem-productization.json",
+    "docs/contracts/shadcn-brief-ecosystem-productization.json",
     "docs/discovery-surfaces.md"
   ],
   "notFor": [

@@ -12,7 +12,7 @@ import {
 const tempDirs: string[] = [];
 
 function makeTempDir() {
-	const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openui-live-env-"));
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), "shadcn-brief-live-env-"));
 	tempDirs.push(dir);
 	return dir;
 }

@@ -43,14 +43,14 @@ function readText(result: TextResult): string {
 }
 
 afterEach(() => {
-	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 	vi.restoreAllMocks();
 	vi.resetModules();
 });
 
 describe("ship idempotency status branches", () => {
 	it("reuses cached beginExecution payload immediately", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -58,7 +58,7 @@ describe("ship idempotency status branches", () => {
 		);
 
 		const payload = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			detection: { source: "cached" },
 			html: "<main>cached</main>",
 			files: [
@@ -74,7 +74,7 @@ describe("ship idempotency status branches", () => {
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
 			detection: {
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				source: "default" as const,
 				uiImportBase: "@/components/ui",
 				uiDir: "components/ui",
@@ -99,9 +99,9 @@ describe("ship idempotency status branches", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Reuse cached payload",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "cached-key",
 			dryRun: false,
 			runCommands: false,
@@ -116,7 +116,7 @@ describe("ship idempotency status branches", () => {
 	}, 20_000);
 
 	it("fails when beginExecution returns an unexpected non-acquired status", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -125,7 +125,7 @@ describe("ship idempotency status branches", () => {
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
 			detection: {
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				source: "default" as const,
 				uiImportBase: "@/components/ui",
 				uiDir: "components/ui",
@@ -150,9 +150,9 @@ describe("ship idempotency status branches", () => {
 		registerShipTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_ship_react_page")({
+			harness.getHandler("shadcn_brief_ship_react_page")({
 				prompt: "Unexpected idempotency status",
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				idempotencyKey: "unexpected-key",
 				dryRun: false,
 				runCommands: false,

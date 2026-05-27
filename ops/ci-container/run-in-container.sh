@@ -167,7 +167,7 @@ if (imageRepo && digest) {
       digest,
       dockerfile,
       buildContext,
-      localBootstrapImage: `openui-local-ci:${crypto
+      localBootstrapImage: `shadcn-brief-local-ci:${crypto
         .createHash("sha256")
         .update(fs.readFileSync(lockPath, "utf8"))
         .update(fs.readFileSync(path.resolve(workspace, dockerfile), "utf8"))
@@ -193,7 +193,7 @@ if (allowLocalBootstrap) {
     JSON.stringify({
       mode: "local-bootstrap",
       lockPath,
-      imageRef: `openui-local-ci:${lockHash}`,
+      imageRef: `shadcn-brief-local-ci:${lockHash}`,
       dockerfile,
       buildContext,
     }),
@@ -210,7 +210,7 @@ image_mode="$(printf '%s' "${image_config_json}" | node --input-type=module -e '
 
 IMAGE="$(printf '%s' "${image_config_json}" | node --input-type=module -e 'let raw=""; process.stdin.on("data",(chunk)=>{raw+=chunk;}); process.stdin.on("end",()=>{const parsed=JSON.parse(raw); process.stdout.write(parsed.imageRef);});')"
 WORKSPACE_TOKEN="$(compute_workspace_token "${WORKSPACE}")"
-DOCKER_LABEL_REPO="io.openui.repo=OpenUIStudio"
+DOCKER_LABEL_REPO="io.openui.repo=ShadcnBrief"
 DOCKER_LABEL_WORKSPACE="io.openui.workspace_token=${WORKSPACE_TOKEN}"
 DOCKER_LABEL_MODE="io.openui.execution_mode=ci-local-container"
 CI_LOCAL_WORKSPACE_LOCK_ROOT="${WORKSPACE}/.runtime-cache/locks"
@@ -302,7 +302,7 @@ WORKSPACE_RUNTIME_CACHE_ROOT="$(resolve_absolute_path "${WORKSPACE}/.runtime-cac
 DEFAULT_CI_LOCAL_HOST_RUNTIME_ROOT="${WORKSPACE}/.runtime-cache/ci-local-host"
 HOST_RUNTIME_ROOT="$(resolve_absolute_path "${OPENUI_HOST_RUNTIME_ROOT:-${DEFAULT_CI_LOCAL_HOST_RUNTIME_ROOT}}")"
 PLAYWRIGHT_CACHE_HOST_PATH="${HOST_RUNTIME_ROOT}/ms-playwright"
-HOST_OPENUI_HOME="${HOST_RUNTIME_ROOT}/openui-home"
+HOST_OPENUI_HOME="${HOST_RUNTIME_ROOT}/shadcn-brief-home"
 HOST_TMPDIR="${HOST_RUNTIME_ROOT}/tmp"
 OPENUI_CI_LOCAL_HOST_TTL_DAYS="${OPENUI_CI_LOCAL_HOST_TTL_DAYS:-3}"
 
@@ -456,10 +456,10 @@ resolve_container_runtime_marker() {
     "${lock_hash}"
 }
 
-PLAYWRIGHT_BROWSERS_PATH="${OPENUI_CONTAINER_PLAYWRIGHT_BROWSERS_PATH:-/tmp/openui-ms-playwright}"
+PLAYWRIGHT_BROWSERS_PATH="${OPENUI_CONTAINER_PLAYWRIGHT_BROWSERS_PATH:-/tmp/shadcn-brief-ms-playwright}"
 export PLAYWRIGHT_BROWSERS_PATH
-CONTAINER_HOME="${OPENUI_CONTAINER_HOME:-/tmp/openui-home}"
-CONTAINER_TMPDIR="${OPENUI_CONTAINER_TMPDIR:-/tmp/openui-tmp}"
+CONTAINER_HOME="${OPENUI_CONTAINER_HOME:-/tmp/shadcn-brief-home}"
+CONTAINER_TMPDIR="${OPENUI_CONTAINER_TMPDIR:-/tmp/shadcn-brief-tmp}"
 
 if [[ -n "${REGISTRY_PASSWORD}" && -n "${REGISTRY_USERNAME}" && "${IMAGE}" == ghcr.io/* ]]; then
   printf '%s' "${REGISTRY_PASSWORD}" | docker login "${REGISTRY}" --username "${REGISTRY_USERNAME}" --password-stdin >/dev/null
@@ -482,8 +482,8 @@ mkdir -p "${HOST_NPM_CACHE_ROOT}"
 prune_ci_local_host_ttl_residue
 
 current_host_marker=""
-if [[ -f "${HOST_NODE_MODULES}/.openui-platform" ]]; then
-  current_host_marker="$(cat "${HOST_NODE_MODULES}/.openui-platform" 2>/dev/null || true)"
+if [[ -f "${HOST_NODE_MODULES}/.shadcn-brief-platform" ]]; then
+  current_host_marker="$(cat "${HOST_NODE_MODULES}/.shadcn-brief-platform" 2>/dev/null || true)"
 fi
 if [[ ! -d "${HOST_NODE_MODULES}" || "${current_host_marker}" != "${HOST_NODE_MODULES_MARKER}" ]]; then
   if [[ -e "${HOST_NODE_MODULES}" ]]; then
@@ -592,7 +592,7 @@ arch_name="$(uname -m)"
 node_version="$(node --version)"
 lock_hash="$(compute_sha256_file package-lock.json)"
 desired_marker="${os_name}-${arch_name}-${node_version}-${lock_hash}"
-marker_path="node_modules/.openui-platform"
+marker_path="node_modules/.shadcn-brief-platform"
 current_marker=""
 if [[ -f "${marker_path}" ]]; then
   current_marker="$(cat "${marker_path}" 2>/dev/null || true)"
@@ -616,7 +616,7 @@ if [[ -z "${playwright_version}" ]]; then
   exit 1
 fi
 
-asset_marker_path="${PLAYWRIGHT_BROWSERS_PATH}/.openui-playwright-version"
+asset_marker_path="${PLAYWRIGHT_BROWSERS_PATH}/.shadcn-brief-playwright-version"
 asset_marker_value=""
 if [[ -f "${asset_marker_path}" ]]; then
   asset_marker_value="$(cat "${asset_marker_path}" 2>/dev/null || true)"

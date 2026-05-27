@@ -2,8 +2,8 @@
   "host": "Codex",
   "starterBundle": "packages/skills-kit/starter-bundles/codex.mcp.json",
   "proofLoop": [
-    "OpenUIStudio surface-guide --json",
-    "OpenUIStudio ecosystem-guide --json",
+    "ShadcnBrief surface-guide --json",
+    "ShadcnBrief ecosystem-guide --json",
     "npm run repo:doctor"
   ],
   "notFor": [

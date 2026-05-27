@@ -12,7 +12,7 @@ import {
 
 async function createFixture(input = {}) {
 	const rootDir = await fs.mkdtemp(
-		path.join(os.tmpdir(), "openui-env-governance-"),
+		path.join(os.tmpdir(), "shadcn-brief-env-governance-"),
 	);
 	await fs.mkdir(path.join(rootDir, "services", "mcp-server", "src"), {
 		recursive: true,
@@ -183,7 +183,7 @@ describe("env governance gate", () => {
 	it("rejects absolute contract path outside rootDir", async () => {
 		const rootDir = await createFixture();
 		const outsideDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-env-governance-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-env-governance-outside-"),
 		);
 		const outsideContractPath = path.join(outsideDir, "env-contract.ts");
 

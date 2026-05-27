@@ -1,13 +1,13 @@
 # Codex plugin-grade starter
 
 Use this directory when you want the repo-owned Codex plugin-grade package
-surface without pretending OpenUI is already in the official Plugin Directory.
+surface without pretending ShadcnBrief is already in the official Plugin Directory.
 
 ## What is here
 
 - `marketplace.sample.json`
   - a copyable repo-scoped marketplace sample for `$REPO_ROOT/.agents/plugins/marketplace.json`
-- `../../plugins/openui-codex-delivery/`
+- `../../plugins/shadcn-brief-codex-delivery/`
   - the Codex bundle with install skill and starter sample
 - `../../packages/skills-kit/starter-bundles/codex.mcp.json`
   - the copyable local MCP starter config
@@ -15,10 +15,10 @@ surface without pretending OpenUI is already in the official Plugin Directory.
 ## Proof loop
 
 1. Copy `marketplace.sample.json` into `$REPO_ROOT/.agents/plugins/marketplace.json`
-2. Restart Codex and install the `OpenUI Workspace Delivery` bundle
+2. Restart Codex and install the `ShadcnBrief Workspace Delivery` bundle
 3. Use the starter MCP JSON, then run:
-   - `OpenUIStudio surface-guide --json`
-   - `OpenUIStudio ecosystem-guide --json`
+   - `ShadcnBrief surface-guide --json`
+   - `ShadcnBrief ecosystem-guide --json`
    - `npm run repo:doctor`
 
 ## Boundaries

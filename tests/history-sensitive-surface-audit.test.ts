@@ -39,7 +39,7 @@ afterEach(async () => {
 
 describe("history sensitive surface audit", () => {
 	it("passes when heads and tags only contain allowlisted placeholders", async () => {
-		const root = await mkTempRoot("openui-history-sensitive-pass-");
+		const root = await mkTempRoot("shadcn-brief-history-sensitive-pass-");
 		const placeholderChromeRoot = `${MACOS_USER_PREFIX}.../Library/Application Support/Google/Chrome`;
 		await git(root, ["init"]);
 		await git(root, ["config", "user.email", "ci@example.com"]);
@@ -81,7 +81,7 @@ describe("history sensitive surface audit", () => {
 	});
 
 	it("fails when local heads or tags still retain personal email or host path residue", async () => {
-		const root = await mkTempRoot("openui-history-sensitive-fail-");
+		const root = await mkTempRoot("shadcn-brief-history-sensitive-fail-");
 		const personalEmail = ["real.user", "personal.dev"].join("@");
 		const personalChromeRoot = `${MACOS_USER_PREFIX}real-user/Library/Application Support/Google/Chrome`;
 		await git(root, ["init"]);

@@ -1,6 +1,6 @@
 # Discovery Surfaces
 
-This page explains how to discover OpenUIStudio without confusing
+This page explains how to discover ShadcnBrief without confusing
 repo-owned truth with live deployment truth.
 
 Use it when you want the shortest honest map from the public GitHub repo to the
@@ -28,7 +28,7 @@ until this four-stop path already makes sense.
 
 Keep the naming split explicit:
 
-- `OpenUIStudio` is the technical product and runtime name
+- `ShadcnBrief` is the technical product and runtime name
 - `OneClickUI.ai` is the shorter front-door label
 
 The label helps with discoverability. It does not prove that a live canonical
@@ -84,8 +84,8 @@ builder metadata and distribution shelves.
 | `/manifest.webmanifest` | Browser install and route shortcuts | Not a canonical proof surface |
 | `/sitemap.xml` | Crawl map for canonical public routes | Not the product story itself |
 | `/robots.txt` | Crawl policy | Not a replacement for route-role metadata |
-| [`docs/contracts/openui-ecosystem-productization.json`](./contracts/openui-ecosystem-productization.json) | ecosystem-facing machine-readable truth | Not proof of official listing approval |
-| [`docs/contracts/openui-public-skills-starter.json`](./contracts/openui-public-skills-starter.json) | starter-bundle metadata | Not proof of a managed Skills runtime |
+| [`docs/contracts/shadcn-brief-ecosystem-productization.json`](./contracts/shadcn-brief-ecosystem-productization.json) | ecosystem-facing machine-readable truth | Not proof of official listing approval |
+| [`docs/contracts/shadcn-brief-public-skills-starter.json`](./contracts/shadcn-brief-public-skills-starter.json) | starter-bundle metadata | Not proof of a managed Skills runtime |
 
 ## Current Builder Entry Order
 
@@ -113,7 +113,7 @@ surfaces:
 3. `examples/public-distribution/`
 4. `examples/codex/marketplace.sample.json` and `.claude-plugin/marketplace.json`
 5. `examples/openclaw/public-ready.manifest.json`
-6. `docs/contracts/openui-public-skills-starter.json`
+6. `docs/contracts/shadcn-brief-public-skills-starter.json`
 
 If a surface does not help a new builder install, inspect, or verify the repo,
 it belongs in reference material, not in the front row.
@@ -146,7 +146,7 @@ These lanes still exist with proof, but they are no longer front-stage public
 distribution surfaces:
 
 - `@openui/sdk`
-- `OpenUIStudio hosted ...`
+- `ShadcnBrief hosted ...`
 
 Docker runtime distribution is also outside the current front-stage story.
 Treat it as a planned follow-through lane, not a current install promise.
@@ -159,9 +159,9 @@ They should not sit on the front door next to the plugin-grade starter bundle.
 Use these repo-owned files when the app is not running or when you need
 artifact-level references inside GitHub:
 
-- `docs/contracts/openui-mcp.openapi.json`
-- `docs/contracts/openui-ecosystem-productization.json`
-- `docs/contracts/openui-public-skills-starter.json`
+- `docs/contracts/shadcn-brief-mcp.openapi.json`
+- `docs/contracts/shadcn-brief-ecosystem-productization.json`
+- `docs/contracts/shadcn-brief-public-skills-starter.json`
 - `examples/public-distribution/README.md`
 - `examples/public-distribution/install-and-proof.md`
 - `examples/public-distribution/openclaw-public-ready.manifest.json`
@@ -174,9 +174,9 @@ artifact-level references inside GitHub:
 - `examples/skills/claude-code.mcp.json`
 - `examples/skills/openclaw.mcp.json`
 - `examples/skills/starter-troubleshooting.md`
-- `OpenUIStudio surface-guide`
-- `OpenUIStudio ecosystem-guide`
-- `OpenUIStudio skills starter --json`
+- `ShadcnBrief surface-guide`
+- `ShadcnBrief ecosystem-guide`
+- `ShadcnBrief skills starter --json`
 
 ## Operator-Only Public Surfaces
 

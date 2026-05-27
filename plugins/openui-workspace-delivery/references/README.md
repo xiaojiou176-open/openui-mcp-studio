@@ -1,4 +1,4 @@
-# OpenUI Workspace Delivery Packet References
+# ShadcnBrief Workspace Delivery Packet References
 
 This folder keeps the public packet self-contained.
 

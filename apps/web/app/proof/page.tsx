@@ -20,7 +20,7 @@ import { buildPageMetadata, getResolvedSiteUrl } from "@/lib/site-metadata";
 export const metadata = buildPageMetadata({
   title: "30-second proof for React UI delivery",
   description:
-    "See how OpenUIStudio turns a prompt into React output, changed files, review bundle, acceptance, and proof-ready evidence.",
+    "See how ShadcnBrief turns a prompt into React output, changed files, review bundle, acceptance, and proof-ready evidence.",
   path: "/proof",
   keywords: [
     "AI UI proof",
@@ -51,7 +51,7 @@ const proofStructuredData = buildStructuredDiscoveryJsonLd({
   path: "/proof",
   title: "30-second proof for React UI delivery",
   description:
-    "See how OpenUIStudio turns a prompt into React output, changed files, review bundle, acceptance, and proof-ready evidence.",
+    "See how ShadcnBrief turns a prompt into React output, changed files, review bundle, acceptance, and proof-ready evidence.",
   type: "WebPage",
   breadcrumbLabel: "Proof",
   about: [

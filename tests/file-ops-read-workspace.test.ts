@@ -27,7 +27,7 @@ afterEach(async () => {
 
 describe("readWorkspaceFileIfExistsNoFollow", () => {
 	it("returns file content when target file exists", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		const filePath = path.join(root, "app/page.tsx");
 		await fs.mkdir(path.dirname(filePath), { recursive: true });
 		await fs.writeFile(filePath, "hello-world", "utf8");
@@ -41,7 +41,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("returns null when targetRoot does not exist (ENOENT)", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		const missingRoot = path.join(root, "missing-root");
 
 		await expect(
@@ -53,7 +53,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("returns null when targetRoot resolves through a non-directory segment (ENOTDIR)", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		const notDir = path.join(root, "not-a-dir");
 		await fs.writeFile(notDir, "plain-file", "utf8");
 
@@ -66,7 +66,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("rethrows non-ENOENT/ENOTDIR errors from targetRoot realpath", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		const expectedError = Object.assign(new Error("permission denied"), {
 			code: "EACCES",
 		});
@@ -85,7 +85,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("returns null when target file is missing under an existing root", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 
 		await expect(
 			readWorkspaceFileIfExistsNoFollow({
@@ -96,7 +96,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("returns null when target file lookup hits ENOTDIR", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		await fs.writeFile(path.join(root, "not-a-dir"), "plain-file", "utf8");
 
 		await expect(
@@ -108,8 +108,8 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("rejects symlink file targets", async () => {
-		const root = await mkTempDir("openui-file-ops-");
-		const outside = await mkTempDir("openui-file-ops-outside-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
+		const outside = await mkTempDir("shadcn-brief-file-ops-outside-");
 		const outsideFile = path.join(outside, "outside.tsx");
 		await fs.mkdir(path.join(root, "app"), { recursive: true });
 		await fs.writeFile(outsideFile, "outside", "utf8");
@@ -124,7 +124,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("rejects non-file entries", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		await fs.mkdir(path.join(root, "app/dir-entry"), { recursive: true });
 
 		await expect(
@@ -136,7 +136,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("rejects absolute file paths", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		await expect(
 			readWorkspaceFileIfExistsNoFollow({
 				targetRoot: root,
@@ -146,7 +146,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("rejects path traversal segments", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		await expect(
 			readWorkspaceFileIfExistsNoFollow({
 				targetRoot: root,
@@ -156,7 +156,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 	});
 
 	it("rejects Windows drive prefixes in file paths", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		await expect(
 			readWorkspaceFileIfExistsNoFollow({
 				targetRoot: root,
@@ -168,7 +168,7 @@ describe("readWorkspaceFileIfExistsNoFollow", () => {
 
 describe("write/remove workspace file helpers", () => {
 	it("writes file content and removes it with no-follow safeguards", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 
 		await writeWorkspaceFileNoFollow({
 			targetRoot: root,
@@ -195,7 +195,7 @@ describe("write/remove workspace file helpers", () => {
 	});
 
 	it("removeWorkspaceFileIfExistsNoFollow is a no-op for missing file", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		await expect(
 			removeWorkspaceFileIfExistsNoFollow({
 				targetRoot: root,
@@ -205,7 +205,7 @@ describe("write/remove workspace file helpers", () => {
 	});
 
 	it("removeWorkspaceFileIfExistsNoFollow rethrows non-ENOENT lstat failures", async () => {
-		const root = await mkTempDir("openui-file-ops-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
 		const expectedError = Object.assign(new Error("permission denied"), {
 			code: "EACCES",
 		});
@@ -222,8 +222,8 @@ describe("write/remove workspace file helpers", () => {
 	});
 
 	it("removeWorkspaceFileIfExistsNoFollow rejects symlink file targets", async () => {
-		const root = await mkTempDir("openui-file-ops-");
-		const outside = await mkTempDir("openui-file-ops-outside-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
+		const outside = await mkTempDir("shadcn-brief-file-ops-outside-");
 		const outsideFile = path.join(outside, "outside.tsx");
 		await fs.mkdir(path.join(root, "app"), { recursive: true });
 		await fs.writeFile(outsideFile, "outside", "utf8");
@@ -238,8 +238,8 @@ describe("write/remove workspace file helpers", () => {
 	});
 
 	it("writeWorkspaceFileNoFollow rejects parent directories escaping workspace root", async () => {
-		const root = await mkTempDir("openui-file-ops-");
-		const outside = await mkTempDir("openui-file-ops-outside-");
+		const root = await mkTempDir("shadcn-brief-file-ops-");
+		const outside = await mkTempDir("shadcn-brief-file-ops-outside-");
 		await fs.mkdir(path.join(root, "safe"), { recursive: true });
 		await fs.symlink(outside, path.join(root, "safe", "jump"));
 

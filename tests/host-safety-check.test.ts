@@ -55,7 +55,7 @@ describe("host safety check", () => {
 
 	it("scans TSX files under repo roots for forbidden primitives", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-host-safety-"),
+			path.join(os.tmpdir(), "shadcn-brief-host-safety-"),
 		);
 		tempDirs.push(rootDir);
 		await fs.mkdir(path.join(rootDir, "apps", "web"), { recursive: true });

@@ -1,10 +1,10 @@
 {
   "version": 1,
   "id": "openui.public-distribution-bundle",
-  "technicalName": "OpenUIStudio",
+  "technicalName": "ShadcnBrief",
   "frontdoorLabel": "OneClickUI.ai",
   "status": "package-ready",
-  "summary": "Supporting install bundle for the public OpenUI repo across Codex, Claude Code, OpenCode-adaptable MCP hosts, and other stdio clients. It ships sample configs, install notes, proof guidance, and troubleshooting without claiming an official listing.",
+  "summary": "Supporting install bundle for the public ShadcnBrief repo across Codex, Claude Code, OpenCode-adaptable MCP hosts, and other stdio clients. It ships sample configs, install notes, proof guidance, and troubleshooting without claiming an official listing.",
   "audience": [
     "builders who want the quickest honest install path for Codex or Claude Code",
     "maintainers preparing repo-owned public distribution assets",
@@ -39,12 +39,12 @@
     {
       "id": "claude-plugin-bundle",
       "role": "repo-owned Claude Code and OpenClaw-compatible plugin bundle",
-      "path": "plugins/openui-workspace-delivery/.claude-plugin/plugin.json"
+      "path": "plugins/shadcn-brief-workspace-delivery/.claude-plugin/plugin.json"
     },
     {
       "id": "codex-plugin-bundle",
       "role": "repo-owned Codex plugin-grade bundle",
-      "path": "plugins/openui-codex-delivery/.codex-plugin/plugin.json"
+      "path": "plugins/shadcn-brief-codex-delivery/.codex-plugin/plugin.json"
     },
     {
       "id": "generic-mcp-config",

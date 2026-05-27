@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const DETECTION_FIXTURE = {
-	workspaceRoot: "/tmp/openui-workspace",
+	workspaceRoot: "/tmp/shadcn-brief-workspace",
 	source: "default" as const,
 	uiImportBase: "@/components/ui",
 	uiDir: "components/ui",
@@ -17,7 +17,7 @@ afterEach(() => {
 
 describe("structured output enforcement", () => {
 	it("fails fast when model returns non-JSON output under structured contract", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(
@@ -44,7 +44,7 @@ describe("structured output enforcement", () => {
 	}, 30_000);
 
 	it("fails when JSON shape does not match required files schema", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(

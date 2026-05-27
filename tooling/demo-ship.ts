@@ -21,7 +21,7 @@ type DemoOptions = {
 };
 
 const DEFAULT_PROMPT = [
-	"Create a polished pricing page hero for OpenUIStudio.",
+	"Create a polished pricing page hero for ShadcnBrief.",
 	"Include a short headline, a one-line value proposition, three pricing tiers,",
 	"one highlighted recommended plan, and a compact trust row for smoke, visual, and release checks.",
 ].join(" ");
@@ -29,7 +29,7 @@ const DEFAULT_PROMPT = [
 function printHelp(): void {
 	process.stdout.write(`Usage: npm run demo:ship -- [options]
 
-Runs the real openui_ship_react_page tool against a workspace and prints the JSON result.
+Runs the real shadcn_brief_ship_react_page tool against a workspace and prints the JSON result.
 
 Options:
   --prompt <text>          Custom prompt. Defaults to a built-in pricing-page demo prompt.
@@ -170,7 +170,7 @@ async function main(): Promise<void> {
 	);
 	process.stderr.write(`[demo-ship] prompt=${options.prompt}\n`);
 
-	const result = await harness.getHandler("openui_ship_react_page")({
+	const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 		prompt: options.prompt,
 		workspaceRoot: options.workspaceRoot,
 		pagePath: options.pagePath,

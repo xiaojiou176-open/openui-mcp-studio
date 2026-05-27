@@ -6,7 +6,7 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
-const CLI_NAME = "OpenUIStudio";
+const CLI_NAME = "ShadcnBrief";
 const SCRIPT_REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
@@ -41,7 +41,7 @@ async function isWorkspaceRoot(candidatePath) {
     candidatePath,
     "docs",
     "contracts",
-    "openui-mcp.openapi.json",
+    "shadcn-brief-mcp.openapi.json",
   );
   const mcpEntryPath = path.join(
     candidatePath,
@@ -61,7 +61,7 @@ async function isWorkspaceRoot(candidatePath) {
 
   try {
     const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf8"));
-    return packageJson.name === "OpenUIStudio";
+    return packageJson.name === "ShadcnBrief";
   } catch {
     return false;
   }
@@ -84,7 +84,7 @@ async function resolveWorkspaceRoot(startDir) {
 
 function buildHelpText() {
   return [
-    `OpenUIStudio repo-local CLI`,
+    `ShadcnBrief repo-local CLI`,
     "",
     "This command is a repo-side builder surface, not a hosted API, SDK, plugin, or generic builder platform.",
     "",
@@ -213,7 +213,7 @@ async function runWorkflowCommand(workspaceRoot, subcommand, args) {
 async function readOpenapiDocument(workspaceRoot) {
   const openapiPath = path.join(
     workspaceRoot,
-    "docs/contracts/openui-mcp.openapi.json",
+    "docs/contracts/shadcn-brief-mcp.openapi.json",
   );
   const openapiRaw = await fs.readFile(openapiPath, "utf8");
   return {
@@ -226,7 +226,7 @@ async function readOpenapiDocument(workspaceRoot) {
 async function readEcosystemDocument(workspaceRoot) {
   const ecosystemPath = path.join(
     workspaceRoot,
-    "docs/contracts/openui-ecosystem-productization.json",
+    "docs/contracts/shadcn-brief-ecosystem-productization.json",
   );
   const ecosystemRaw = await fs.readFile(ecosystemPath, "utf8");
   return {
@@ -238,7 +238,7 @@ async function readEcosystemDocument(workspaceRoot) {
 async function readHostedOpenapiDocument(workspaceRoot) {
   const hostedOpenapiPath = path.join(
     workspaceRoot,
-    "docs/contracts/openui-hosted-api.openapi.json",
+    "docs/contracts/shadcn-brief-hosted-api.openapi.json",
   );
   const hostedOpenapiRaw = await fs.readFile(hostedOpenapiPath, "utf8");
   return {
@@ -275,12 +275,12 @@ function buildSurfaceGuidePayload(workspaceRoot, openapiDocument) {
   return {
     file: path.relative(
       workspaceRoot,
-      path.join(workspaceRoot, "docs/contracts/openui-mcp.openapi.json"),
+      path.join(workspaceRoot, "docs/contracts/shadcn-brief-mcp.openapi.json"),
     ),
-    dispatcher: openapiDocument["x-openui-builder-dispatcher"] ?? null,
-    guide: openapiDocument["x-openui-builder-surface-guide"] ?? null,
-    currentOrder: openapiDocument["x-openui-builder-surface-order"] ?? [],
-    laterLanes: openapiDocument["x-openui-later-lanes"] ?? [],
+    dispatcher: openapiDocument["x-shadcn-brief-builder-dispatcher"] ?? null,
+    guide: openapiDocument["x-shadcn-brief-builder-surface-guide"] ?? null,
+    currentOrder: openapiDocument["x-shadcn-brief-builder-surface-order"] ?? [],
+    laterLanes: openapiDocument["x-shadcn-brief-later-lanes"] ?? [],
     note: "Use this guide to read the current builder surface order. It does not claim official catalog listing, front-stage SDK / hosted packaging, or remote-write MCP surfaces as part of that builder-order contract.",
   };
 }
@@ -291,7 +291,7 @@ function buildEcosystemGuidePayload(workspaceRoot, ecosystemDocument) {
       workspaceRoot,
       path.join(
         workspaceRoot,
-        "docs/contracts/openui-ecosystem-productization.json",
+        "docs/contracts/shadcn-brief-ecosystem-productization.json",
       ),
     ),
     technicalName: ecosystemDocument.technicalName ?? CLI_NAME,
@@ -533,7 +533,7 @@ async function runOpenapi(workspaceRoot, args) {
     file: path.relative(workspaceRoot, openapiPath),
     title: openapiDocument.info?.title ?? null,
     version: openapiDocument.info?.version ?? null,
-    transport: openapiDocument["x-openui-transport"] ?? null,
+    transport: openapiDocument["x-shadcn-brief-transport"] ?? null,
     server: openapiDocument.servers?.[0]?.url ?? null,
     boundary:
       openapiDocument.servers?.[0]?.description ??

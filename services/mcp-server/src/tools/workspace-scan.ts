@@ -7,7 +7,7 @@ import { textResult } from "./shared.js";
 
 export function registerWorkspaceScanTool(server: McpServer): void {
 	server.registerTool(
-		"openui_scan_workspace_profile",
+		"shadcn_brief_scan_workspace_profile",
 		{
 			description:
 				"Scan the target frontend workspace and return a semantic workspace profile for routes, components, tokens, and implementation hints.",

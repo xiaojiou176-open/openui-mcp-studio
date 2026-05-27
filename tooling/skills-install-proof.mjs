@@ -9,7 +9,7 @@ import { promisify } from "node:util";
 const execFileAsync = promisify(execFile);
 
 async function main() {
-  const tempRoot = await mkdtemp(path.join(os.tmpdir(), "openui-skills-proof-"));
+  const tempRoot = await mkdtemp(path.join(os.tmpdir(), "shadcn-brief-skills-proof-"));
 
   try {
     const packResult = await execFileAsync(

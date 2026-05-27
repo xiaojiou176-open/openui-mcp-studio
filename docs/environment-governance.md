@@ -100,29 +100,29 @@ The following behavior is the source of truth from `package.json`:
 | `GEMINI_DEFAULT_TEMPERATURE` | No | `1.0` | positive number |
 | `NEXT_PUBLIC_SITE_URL` | No | empty | empty disables canonical-site SEO outputs; when set, must be an absolute `http` or `https` URL |
 | `OPENUI_MODEL_ROUTING` | No | `on` | `on` or `off` |
-| `OPENUISTUDIO_WORKSPACE_ROOT` | No | current working directory | must resolve to an existing directory |
+| `SHADCN_BRIEF_WORKSPACE_ROOT` | No | current working directory | must resolve to an existing directory |
 | `OPENUI_TIMEOUT_MS` | No | `45000` | positive number |
 | `OPENUI_MAX_RETRIES` | No | `2` | non-negative integer |
 | `OPENUI_RETRY_BASE_MS` | No | `450` | positive number |
-| `OPENUISTUDIO_LOG_LEVEL` | No | `info` | `debug` \| `info` \| `warn` \| `error` |
-| `OPENUISTUDIO_LOG_OUTPUT` | No | `both` | `stderr` \| `file` \| `both` |
-| `OPENUISTUDIO_LOG_ROTATE_ON_START` | No | `on` | `on` or `off` |
-| `OPENUISTUDIO_CHILD_ENV_ALLOWLIST` | No | empty | comma-separated env keys (`^[A-Z_][A-Z0-9_]*$`) or prefix wildcard ending with `*` |
+| `SHADCN_BRIEF_LOG_LEVEL` | No | `info` | `debug` \| `info` \| `warn` \| `error` |
+| `SHADCN_BRIEF_LOG_OUTPUT` | No | `both` | `stderr` \| `file` \| `both` |
+| `SHADCN_BRIEF_LOG_ROTATE_ON_START` | No | `on` | `on` or `off` |
+| `SHADCN_BRIEF_CHILD_ENV_ALLOWLIST` | No | empty | comma-separated env keys (`^[A-Z_][A-Z0-9_]*$`) or prefix wildcard ending with `*` |
 
-Additional note: standard proxy variables `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, and `NO_PROXY` (including lowercase variants) are already included in the child-process baseline allowlist, so the sidecar and child processes inherit them by default without needing `OPENUISTUDIO_CHILD_ENV_ALLOWLIST`.
+Additional note: standard proxy variables `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`, and `NO_PROXY` (including lowercase variants) are already included in the child-process baseline allowlist, so the sidecar and child processes inherit them by default without needing `SHADCN_BRIEF_CHILD_ENV_ALLOWLIST`.
 
 Gemini sidecar runtime note:
 
 - `packages/shared-runtime/src/child-env.ts` forwards standard proxy variables to child processes and the Python sidecar by default.
 - `tooling/python-sidecar-health.py --smoke` emits a structured JSON probe result plus proxy guidance before stopping when outbound network checks fail.
-| `OPENUISTUDIO_LOG_DIR` | No | `.runtime-cache/runs/<run_id>/logs/runtime.jsonl` | governed run-scoped path; no arbitrary override semantics |
-| `OPENUISTUDIO_LOG_RETENTION_DAYS` | No | `7` | positive integer |
-| `OPENUISTUDIO_LOG_MAX_FILE_MB` | No | `10` | positive number |
-| `OPENUISTUDIO_CACHE_DIR` | No | `.runtime-cache/cache` | non-empty path string |
-| `OPENUISTUDIO_CACHE_RETENTION_DAYS` | No | `7` | positive integer |
-| `OPENUISTUDIO_CACHE_MAX_BYTES` | No | `104857600` | positive integer |
-| `OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES` | No | `60` | positive integer |
-| `OPENUI_TOOL_CACHE_ROOT` | No | `~/.cache/OpenUIStudio/tooling` | non-empty path string; per-workspace cache root is derived under this base root |
+| `SHADCN_BRIEF_LOG_DIR` | No | `.runtime-cache/runs/<run_id>/logs/runtime.jsonl` | governed run-scoped path; no arbitrary override semantics |
+| `SHADCN_BRIEF_LOG_RETENTION_DAYS` | No | `7` | positive integer |
+| `SHADCN_BRIEF_LOG_MAX_FILE_MB` | No | `10` | positive number |
+| `SHADCN_BRIEF_CACHE_DIR` | No | `.runtime-cache/cache` | non-empty path string |
+| `SHADCN_BRIEF_CACHE_RETENTION_DAYS` | No | `7` | positive integer |
+| `SHADCN_BRIEF_CACHE_MAX_BYTES` | No | `104857600` | positive integer |
+| `SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES` | No | `60` | positive integer |
+| `OPENUI_TOOL_CACHE_ROOT` | No | `~/.cache/ShadcnBrief/tooling` | non-empty path string; per-workspace cache root is derived under this base root |
 | `OPENUI_TOOL_CACHE_RETENTION_DAYS` | No | `3` | positive integer |
 | `OPENUI_TOOL_CACHE_MAX_BYTES` | No | `5368709120` | positive integer |
 | `OPENUI_TOOL_CACHE_CLEAN_INTERVAL_MINUTES` | No | `60` | positive integer |
@@ -173,12 +173,12 @@ Additional governed keysets (same registry file):
 
 ## Cache Governance (Runtime + Cleanup)
 
-- Default runtime cache directory: `.runtime-cache/cache` (`OPENUISTUDIO_CACHE_DIR`).
+- Default runtime cache directory: `.runtime-cache/cache` (`SHADCN_BRIEF_CACHE_DIR`).
 - Runtime logs default to `.runtime-cache/runs/<run_id>/logs/runtime.jsonl`; tests/ci/upstream channels live under the same run-scoped `logs/` directory.
-- `npm run clean:runtime` resets runtime logs by purging the run-scoped `.runtime-cache/runs` root from `contracts/runtime/path-registry.json`; it must not infer cleanup targets from `OPENUISTUDIO_LOG_DIR`.
-- Retention policy knobs: `OPENUISTUDIO_CACHE_RETENTION_DAYS` + `OPENUISTUDIO_CACHE_MAX_BYTES`.
+- `npm run clean:runtime` resets runtime logs by purging the run-scoped `.runtime-cache/runs` root from `contracts/runtime/path-registry.json`; it must not infer cleanup targets from `SHADCN_BRIEF_LOG_DIR`.
+- Retention policy knobs: `SHADCN_BRIEF_CACHE_RETENTION_DAYS` + `SHADCN_BRIEF_CACHE_MAX_BYTES`.
 - Repo-specific external tool-cache knobs:
-  - `OPENUI_TOOL_CACHE_ROOT` (default `~/.cache/OpenUIStudio/tooling`)
+  - `OPENUI_TOOL_CACHE_ROOT` (default `~/.cache/ShadcnBrief/tooling`)
   - `OPENUI_TOOL_CACHE_RETENTION_DAYS` (default `3`)
   - `OPENUI_TOOL_CACHE_MAX_BYTES` (default `5368709120`)
   - `OPENUI_TOOL_CACHE_CLEAN_INTERVAL_MINUTES` (default `60`)
@@ -208,26 +208,26 @@ Additional governed keysets (same registry file):
   report-only surface:
   - `.runtime-cache/ci-local-host/ms-playwright` -> disposable-generated
   - `.runtime-cache/ci-local-host/node_modules` -> disposable-generated
-  - `.runtime-cache/ci-local-host/openui-home` -> disposable-generated
+  - `.runtime-cache/ci-local-host/shadcn-brief-home` -> disposable-generated
   - `.runtime-cache/ci-local-host/tmp` -> scratch
 - The default maintenance TTL for `ci-local-host` is `3` days. Container
   parity runs now do two best-effort cleanup passes by default:
   - before runs, they TTL-prune aged `ci-local-host` subtrees such as
-    `ms-playwright`, `node_modules`, `openui-home`, and `tmp`
+    `ms-playwright`, `node_modules`, `shadcn-brief-home`, and `tmp`
   - after successful runs, they immediately reset the `tmp/` scratch subtree
 - `repo:space:maintain` remains the canonical repo-local maintenance lane for
   explicit cleanup waves, drift reconciliation, and aged residue that helper
   TTL pruning did not remove.
 - Space-governance hard rule: repo-local runtime truth remains `.runtime-cache/*`; shared layers such as Docker, `~/.npm`, `~/.cache/pre-commit`, and Playwright browser caches stay outside repo-local cleanup scope unless separately approved as machine-level maintenance.
 - Tool cache hard rule: pre-commit and Go tooling caches must resolve outside the workspace; only canonical repo-local runtime evidence remains under `.runtime-cache/*`.
-- Repo-local verification tmp roots that execute from `.runtime-cache/tmp/*` must reuse the external workspace-token tooling cache under `~/.cache/OpenUIStudio/tooling/<workspaceToken>/` for Playwright browsers, managed install surfaces, npm cache, repo-owned pre-commit/Go homes, and light overlay state.
+- Repo-local verification tmp roots that execute from `.runtime-cache/tmp/*` must reuse the external workspace-token tooling cache under `~/.cache/ShadcnBrief/tooling/<workspaceToken>/` for Playwright browsers, managed install surfaces, npm cache, repo-owned pre-commit/Go homes, and light overlay state.
 - Repo-specific external cache roots stay in the middle layer between repo-local runtime truth and machine-wide shared layers:
   - they are derived from `OPENUI_TOOL_CACHE_ROOT` plus the workspace token
   - they remain recognizable as repo-attributable cache roots
   - they are janitor-managed by default with TTL-first plus capacity-prune semantics
   - they must never include the real Chrome login profile; that profile is a local-only identity asset and stays outside cache cleanup
 - The repo-owned real Chrome lane is a separate permanent layer:
-  - recommended root: `~/.cache/OpenUIStudio/browser/chrome-user-data`
+  - recommended root: `~/.cache/ShadcnBrief/browser/chrome-user-data`
   - recommended profile directory: `Profile 1`
   - fixed local CDP port: `9343`
   - the lane is single-instance by policy; tooling must attach to the same Chrome process instead of second-launching the same root
@@ -244,7 +244,7 @@ Additional governed keysets (same registry file):
 - These env keys are for the local-only repo-owned single-instance real Chrome lane used by DOM inspection, Console inspection, network/API reverse engineering, and login-state-dependent browsing.
 - Missing `OPENUI_CHROME_USER_DATA_DIR` or `OPENUI_CHROME_PROFILE_DIRECTORY` is a configuration blocker for real-profile flows; repo tooling must fail fast instead of silently falling back to Playwright Chromium.
 - The canonical local lane is:
-  - `OPENUI_CHROME_USER_DATA_DIR=~/.cache/OpenUIStudio/browser/chrome-user-data`
+  - `OPENUI_CHROME_USER_DATA_DIR=~/.cache/ShadcnBrief/browser/chrome-user-data`
   - `OPENUI_CHROME_PROFILE_DIRECTORY=Profile 1`
   - `OPENUI_CHROME_CDP_PORT=9343`
 - Bootstrap uses the default Chrome root only as a one-time copy source. Ongoing runtime must not keep using `the user-profile Chrome root` as the live root for this repo.

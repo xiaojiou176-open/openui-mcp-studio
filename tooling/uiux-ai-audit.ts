@@ -12,7 +12,7 @@ import {
 	type UiuxAuditCategoryId,
 	type UiuxAuditFrame,
 } from "../services/mcp-server/src/public/uiux-audit-foundation.js";
-import { openuiChatComplete } from "../services/mcp-server/src/public/openui-client.js";
+import { openuiChatComplete } from "../services/mcp-server/src/public/shadcn-brief-client.js";
 import { resetGeminiProviderForTests } from "../services/mcp-server/src/public/provider-testing.js";
 import { newRequestId } from "../services/mcp-server/src/public/tool-shared.js";
 
@@ -946,10 +946,10 @@ async function maybeLoadVisionInput(input: {
 }
 
 async function run(): Promise<void> {
-	process.env.OPENUISTUDIO_LOG_LEVEL =
-		process.env.OPENUISTUDIO_LOG_LEVEL || "error";
-	process.env.OPENUISTUDIO_LOG_OUTPUT =
-		process.env.OPENUISTUDIO_LOG_OUTPUT || "stderr";
+	process.env.SHADCN_BRIEF_LOG_LEVEL =
+		process.env.SHADCN_BRIEF_LOG_LEVEL || "error";
+	process.env.SHADCN_BRIEF_LOG_OUTPUT =
+		process.env.SHADCN_BRIEF_LOG_OUTPUT || "stderr";
 
 	const options = parseArgs(process.argv.slice(2));
 	const targetRoot = resolveTargetRoot(options);

@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenUI MCP Compatibility Surface",
+    "title": "ShadcnBrief MCP Compatibility Surface",
     "version": "0.3.0",
     "summary": "Compatibility bridge for the local stdio MCP builder surface.",
     "description": "Contract-oriented HTTP projection of the local stdio MCP interface for compatibility, bridge consumers, and breaking-change review. This document mirrors the repo-side builder surface boundary exposed through services/mcp-server/src/public/index.ts. It is not the primary contract for the separate self-hosted Hosted API or public SDK product lines, and it does not imply a remote-write control plane."
@@ -18,9 +18,9 @@
       "description": "Secondary bridge for contract review and adapter compatibility. Read this after the local stdio MCP surface, not instead of it."
     }
   ],
-  "x-openui-transport": "stdio-mcp",
-  "x-openui-public-export-entrypoint": "services/mcp-server/src/public/index.ts",
-  "x-openui-builder-surface-order": [
+  "x-shadcn-brief-transport": "stdio-mcp",
+  "x-shadcn-brief-public-export-entrypoint": "services/mcp-server/src/public/index.ts",
+  "x-shadcn-brief-builder-surface-order": [
     {
       "position": 1,
       "id": "local-stdio-mcp",
@@ -28,12 +28,12 @@
       "surface": "Local stdio MCP",
       "audience": "builder",
       "bestFor": "Starting a real MCP-native prompt-to-workspace integration from the canonical local runtime.",
-      "readWhen": "Read this first when the question is how to execute OpenUI from Codex, Claude Code, or another MCP client.",
+      "readWhen": "Read this first when the question is how to execute ShadcnBrief from Codex, Claude Code, or another MCP client.",
       "notFor": "Hosted API expectations, remote mutation assumptions, or schema-only review without the MCP runtime.",
       "entrypoints": [
         "services/mcp-server/src/main.ts",
         "services/mcp-server/src/public/server.ts",
-        "OpenUIStudio mcp"
+        "ShadcnBrief mcp"
       ],
       "description": "Primary builder surface for Codex, Claude Code, and other MCP clients."
     },
@@ -47,8 +47,8 @@
       "readWhen": "Read this second when you need schema-oriented inspection instead of the primary runtime entrypoint.",
       "notFor": "Treating the compatibility bridge itself as the primary hosted API, SDK, or remote-write builder control-plane contract.",
       "entrypoints": [
-        "docs/contracts/openui-mcp.openapi.json",
-        "OpenUIStudio openapi"
+        "docs/contracts/shadcn-brief-mcp.openapi.json",
+        "ShadcnBrief openapi"
       ],
       "description": "Secondary bridge for contract review and adapter compatibility; the self-hosted Hosted API and public SDK live on separate product-line contracts."
     },
@@ -65,19 +65,19 @@
         "services/mcp-server/src/public/workflow-summary.ts",
         "npm run repo:workflow:summary",
         "npm run repo:workflow:ready",
-        "OpenUIStudio workflow summary",
-        "OpenUIStudio workflow ready"
+        "ShadcnBrief workflow summary",
+        "ShadcnBrief workflow ready"
       ],
       "description": "Maintainer-facing read-only workflow packet that stays separate from remote mutation."
     }
   ],
-  "x-openui-builder-dispatcher": {
-    "cli": "OpenUIStudio",
-    "surfaceGuideCommand": "OpenUIStudio surface-guide",
+  "x-shadcn-brief-builder-dispatcher": {
+    "cli": "ShadcnBrief",
+    "surfaceGuideCommand": "ShadcnBrief surface-guide",
     "description": "Repo-local dispatcher and formal entry helper for the current builder surface order."
   },
-  "x-openui-builder-surface-guide": {
-    "audience": "Zero-context builders evaluating or integrating OpenUIStudio from the repo itself.",
+  "x-shadcn-brief-builder-surface-guide": {
+    "audience": "Zero-context builders evaluating or integrating ShadcnBrief from the repo itself.",
     "startWith": "Begin with the local stdio MCP surface because it is the canonical runtime entrypoint and the rest of the builder layer only explains or supports that runtime.",
     "openapiWhen": "Read the OpenAPI bridge after the MCP-first flow is clear and you need compatibility review, adapter shaping, or breaking-change inspection.",
     "workflowPacketWhen": "Read the workflow packet when you are in maintainer/operator mode and need repo-local plus GitHub-connected readiness without remote mutation.",
@@ -89,7 +89,7 @@
       "Write-capable remote MCP claims"
     ]
   },
-  "x-openui-later-lanes": [
+  "x-shadcn-brief-later-lanes": [
     {
       "id": "registry-publication",
       "status": "later",

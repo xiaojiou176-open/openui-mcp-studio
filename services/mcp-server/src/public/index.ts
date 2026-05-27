@@ -27,7 +27,7 @@ export { OPENUI_PUBLIC_SKILLS_STARTER_PACK } from "./skills-surface.js";
 export type { OpenUiPublicSkillsStarterPackFile } from "./skills-surface.js";
 export { registerComputerUseTool } from "./computer-use.js";
 export { runNextSmoke } from "./next-smoke.js";
-export { openuiChatComplete, openuiListModels } from "./openui-client.js";
+export { openuiChatComplete, openuiListModels } from "./shadcn-brief-client.js";
 export {
 	GeminiPythonSidecarBridge,
 	GeminiSidecarBridgeError,

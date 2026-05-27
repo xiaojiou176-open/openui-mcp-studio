@@ -181,7 +181,7 @@ async function createTempEnvContractFixture(input?: {
 	docsTransform?: (raw: string) => string;
 }): Promise<string> {
 	const tempRoot = await fs.mkdtemp(
-		path.join(os.tmpdir(), "openui-env-contract-drift-"),
+		path.join(os.tmpdir(), "shadcn-brief-env-contract-drift-"),
 	);
 	await fs.mkdir(path.join(tempRoot, "services", "mcp-server", "src"), {
 		recursive: true,
@@ -435,7 +435,7 @@ describe("environment governance", () => {
 			"../tooling/verify-env-governance.mjs"
 		);
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-env-governance-doc-drift-"),
+			path.join(os.tmpdir(), "shadcn-brief-env-governance-doc-drift-"),
 		);
 
 		try {
@@ -539,7 +539,7 @@ OPENUI_TIMEOUT_MS=45000
 
 	it("enforces shell > .env > default precedence", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-env-priority-"),
+			path.join(os.tmpdir(), "shadcn-brief-env-priority-"),
 		);
 
 		try {
@@ -567,7 +567,7 @@ OPENUI_TIMEOUT_MS=45000
 
 	it("falls back GEMINI_MODEL_STRONG to GEMINI_MODEL when explicitly empty", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-env-strong-fallback-"),
+			path.join(os.tmpdir(), "shadcn-brief-env-strong-fallback-"),
 		);
 
 		try {
@@ -590,7 +590,7 @@ OPENUI_TIMEOUT_MS=45000
 
 	it("fails fast when numeric runtime env is NaN or <= 0", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-env-invalid-number-"),
+			path.join(os.tmpdir(), "shadcn-brief-env-invalid-number-"),
 		);
 
 		try {

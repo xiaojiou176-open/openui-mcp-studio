@@ -26,13 +26,13 @@ function createSummary() {
 		generatedAt: "2026-03-31T22:10:00.000Z",
 		workspaceRoot: "/repo",
 		repository: {
-			originUrl: "https://github.com/xiaojiou176-open/OpenUIStudio.git",
+			originUrl: "https://github.com/xiaojiou176-open/shadcn-brief.git",
 			owner: "xiaojiou176-open",
-			name: "OpenUIStudio",
+			name: "ShadcnBrief",
 			defaultBranch: "main",
 			visibility: "PUBLIC",
 			homepageUrl:
-				"https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/first-minute-walkthrough.md",
+				"https://github.com/xiaojiou176-open/shadcn-brief/blob/main/docs/first-minute-walkthrough.md",
 		},
 		local: {
 			branch: "codex/prompt-5-closeout",

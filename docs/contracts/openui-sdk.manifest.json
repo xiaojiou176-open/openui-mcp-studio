@@ -3,17 +3,17 @@
   "packageName": "@openui/sdk",
   "packageVersion": "0.3.1",
   "status": "current-package",
-  "summary": "Public SDK for the self-hosted OpenUI Hosted API surface.",
+  "summary": "Public SDK for the self-hosted ShadcnBrief Hosted API surface.",
   "installPath": [
     "npm pack packages/sdk",
-    "npm install ./openui-sdk-0.3.1.tgz"
+    "npm install ./shadcn-brief-sdk-0.3.1.tgz"
   ],
   "importPath": [
     "import { createOpenuiHostedClient } from \"@openui/sdk\";"
   ],
   "bestFor": [
     "typed access to hosted discovery endpoints",
-    "workflow summary calls against the self-hosted OpenUI Hosted API",
+    "workflow summary calls against the self-hosted ShadcnBrief Hosted API",
     "authenticated tool discovery and tool execution"
   ],
   "verificationPath": [

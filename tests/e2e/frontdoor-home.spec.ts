@@ -42,7 +42,7 @@ test("frontdoor homepage explains the product, proof path, and next actions", as
 	).toBeVisible();
 	await expect(page.getByText(/OneClickUI\.ai front door/i)).toBeVisible();
 	await expect(
-		page.getByRole("banner").getByText(/Powered by OpenUIStudio/i),
+		page.getByRole("banner").getByText(/Powered by ShadcnBrief/i),
 	).toBeVisible();
 
 	await expect(page.getByTestId("hero-cta-proof")).toBeVisible();
@@ -101,7 +101,7 @@ test("frontdoor homepage explains the product, proof path, and next actions", as
 		.click();
 	await expect(
 		page.getByRole("heading", {
-			name: /把 OpenUI 和 Bolt、Lovable、v0 放在一起看/i,
+			name: /把 ShadcnBrief 和 Bolt、Lovable、v0 放在一起看/i,
 		}),
 	).toBeVisible();
 	await expect(page.getByText(/诚实的边界线/i)).toBeVisible();

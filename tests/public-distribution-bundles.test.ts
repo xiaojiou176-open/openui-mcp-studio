@@ -20,23 +20,23 @@ describe("public distribution bundles", () => {
 		const marketplace = await readJson(".claude-plugin/marketplace.json");
 		const plugins = marketplace.plugins as Array<Record<string, unknown>>;
 		const plugin = await readJson(
-			"plugins/openui-workspace-delivery/.claude-plugin/plugin.json",
+			"plugins/shadcn-brief-workspace-delivery/.claude-plugin/plugin.json",
 		);
 		const readme = await readText(
-			"plugins/openui-workspace-delivery/README.md",
+			"plugins/shadcn-brief-workspace-delivery/README.md",
 		);
 
 		expect(marketplace.version).toBe(1);
-		expect(marketplace.name).toBe("OpenUIStudio-distribution-starter");
+		expect(marketplace.name).toBe("ShadcnBrief-distribution-starter");
 		expect(marketplace.owner).toEqual(
 			expect.objectContaining({
 				name: "xiaojiou176-open",
 			}),
 		);
 		expect(Array.isArray(plugins)).toBe(true);
-		expect(plugins[0]?.name).toBe("openui-workspace-delivery");
-		expect(plugins[0]?.source).toBe("./plugins/openui-workspace-delivery");
-		expect(plugin.name).toBe("openui-workspace-delivery");
+		expect(plugins[0]?.name).toBe("shadcn-brief-workspace-delivery");
+		expect(plugins[0]?.source).toBe("./plugins/shadcn-brief-workspace-delivery");
+		expect(plugin.name).toBe("shadcn-brief-workspace-delivery");
 		expect(plugin.skills).toBe("./skills/");
 		expect(plugin.commands).toBe("./commands/");
 		expect(readme).toContain("OpenClaw");
@@ -48,13 +48,13 @@ describe("public distribution bundles", () => {
 		);
 		const plugins = marketplace.plugins as Array<Record<string, unknown>>;
 		const plugin = await readJson(
-			"plugins/openui-codex-delivery/.codex-plugin/plugin.json",
+			"plugins/shadcn-brief-codex-delivery/.codex-plugin/plugin.json",
 		);
 		const readme = await readText("examples/codex/README.md");
 
 		expect(marketplace.version).toBe(1);
-		expect(plugins[0]?.id).toBe("openui-codex-delivery");
-		expect(plugin.name).toBe("openui-codex-delivery");
+		expect(plugins[0]?.id).toBe("shadcn-brief-codex-delivery");
+		expect(plugin.name).toBe("shadcn-brief-codex-delivery");
 		expect(plugin.skills).toBe("./skills/");
 		expect(readme).toContain("$REPO_ROOT/.agents/plugins/marketplace.json");
 	});
@@ -68,7 +68,7 @@ describe("public distribution bundles", () => {
 		expect(manifest.status).toBe("public-ready");
 		expect(manifest.installPath).toEqual(
 			expect.arrayContaining([
-				"openclaw plugins install ./plugins/openui-workspace-delivery",
+				"openclaw plugins install ./plugins/shadcn-brief-workspace-delivery",
 			]),
 		);
 		expect(manifest.discoverableArtifacts).toEqual(

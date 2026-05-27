@@ -49,7 +49,7 @@ async function writeRuntimePathRegistry(rootDir: string) {
 describe("clean runtime script", () => {
 	it("cleans runtime folders and preserves directory structure", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-"),
 		);
 		const unaffectedFile = path.join(tempRoot, "keep", "note.txt");
 		const legacyResidueFile = path.join(
@@ -110,7 +110,7 @@ describe("clean runtime script", () => {
 
 	it("supports --dry-run and only reports target directories", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-dry-run-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-dry-run-"),
 		);
 		const runtimeTargets = [
 			path.join(
@@ -164,10 +164,10 @@ describe("clean runtime script", () => {
 
 	it("rejects targets outside workspace and aborts cleaning", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-unsafe-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-unsafe-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-outside-"),
 		);
 		const cacheFile = path.join(
 			tempRoot,
@@ -185,7 +185,7 @@ describe("clean runtime script", () => {
 				cwd: tempRoot,
 				env: {
 					...process.env,
-					OPENUISTUDIO_CACHE_DIR: outsideLogDir,
+					SHADCN_BRIEF_CACHE_DIR: outsideLogDir,
 				},
 			});
 
@@ -204,10 +204,10 @@ describe("clean runtime script", () => {
 
 	it("rejects symlink ancestors that resolve cleanup targets outside workspace", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-symlink-ancestor-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-symlink-ancestor-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-symlink-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-symlink-outside-"),
 		);
 		const runtimeCacheLink = path.join(tempRoot, ".runtime-cache");
 		const outsideLogFile = path.join(outsideRoot, "logs", "outside.log");
@@ -241,7 +241,7 @@ describe("clean runtime script", () => {
 
 	it("supports cache retention-only cleanup mode", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-cache-policy-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-cache-policy-"),
 		);
 		const cacheDir = path.join(tempRoot, ".runtime-cache", "cache");
 		const expiredFile = path.join(cacheDir, "expired", "a.cache");
@@ -280,8 +280,8 @@ describe("clean runtime script", () => {
 					cwd: tempRoot,
 					env: {
 						...process.env,
-						OPENUISTUDIO_CACHE_RETENTION_DAYS: "1",
-						OPENUISTUDIO_CACHE_MAX_BYTES: "100",
+						SHADCN_BRIEF_CACHE_RETENTION_DAYS: "1",
+						SHADCN_BRIEF_CACHE_MAX_BYTES: "100",
 					},
 				},
 			);
@@ -302,7 +302,7 @@ describe("clean runtime script", () => {
 
 	it("supports --include-e2e-artifacts mode for extended cleanup targets", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-extended-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-extended-"),
 		);
 		const runtimeTargets = [
 			path.join(
@@ -376,7 +376,7 @@ describe("clean runtime script", () => {
 
 	it("removes browser tmp runtime leftovers under .runtime-cache", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-browser-tmp-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-browser-tmp-"),
 		);
 
 		try {
@@ -419,7 +419,7 @@ describe("clean runtime script", () => {
 
 	it("removes legacy .runtime-cache/temp residue without treating it as canonical runtime", async () => {
 		const tempRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-clean-runtime-legacy-temp-"),
+			path.join(os.tmpdir(), "shadcn-brief-clean-runtime-legacy-temp-"),
 		);
 
 		try {

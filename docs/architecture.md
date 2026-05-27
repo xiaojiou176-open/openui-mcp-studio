@@ -27,7 +27,7 @@ Claude Code workflows:
 
 ## Main Flow
 
-The default end-to-end flow is owned by `openui_ship_react_page`:
+The default end-to-end flow is owned by `shadcn_brief_ship_react_page`:
 
 1. receive prompt input
 2. generate HTML
@@ -55,7 +55,7 @@ questions, not one generic "extra metadata" question:
 - review bundle: what a reviewer should look at first, not only what raw
   objects exist
 
-`openui_ship_feature_flow` now sits on top of that shared plane instead of
+`shadcn_brief_ship_feature_flow` now sits on top of that shared plane instead of
 standing beside it.
 The intended layering is:
 
@@ -76,7 +76,7 @@ creating a parallel system:
 - the top-level feature bundle aggregates quality, acceptance, hotspots,
   shared-impact notes, and reviewer follow-up across the full route set
 
-When `openui_ship_feature_flow` is used, the delivery plane now adds a true
+When `shadcn_brief_ship_feature_flow` is used, the delivery plane now adds a true
 feature-level package:
 
 - route-scoped artifacts are retained under a feature-scoped artifact subtree
@@ -104,14 +104,14 @@ registered tool as equally central.
 
 This is the canonical product path:
 
-- `openui_detect_shadcn_paths`
-- `openui_generate_ui`
-- `openui_convert_react_shadcn`
-- `openui_make_react_page`
-- `openui_apply_files`
-- `openui_quality_gate`
-- `openui_next_smoke`
-- `openui_ship_react_page`
+- `shadcn_brief_detect_shadcn_paths`
+- `shadcn_brief_generate_ui`
+- `shadcn_brief_convert_react_shadcn`
+- `shadcn_brief_make_react_page`
+- `shadcn_brief_apply_files`
+- `shadcn_brief_quality_gate`
+- `shadcn_brief_next_smoke`
+- `shadcn_brief_ship_react_page`
 
 These tools define the main repository promise:
 
@@ -125,19 +125,19 @@ These tools define the main repository promise:
 
 These tools turn the workflow into a spec-driven delivery plane:
 
-- `openui_scan_workspace_profile`
-- `openui_plan_change`
-- `openui_build_acceptance_pack`
-- `openui_build_review_bundle`
-- `openui_ship_feature_flow`
-- `openui_repo_workflow_summary`
+- `shadcn_brief_scan_workspace_profile`
+- `shadcn_brief_plan_change`
+- `shadcn_brief_build_acceptance_pack`
+- `shadcn_brief_build_review_bundle`
+- `shadcn_brief_ship_feature_flow`
+- `shadcn_brief_repo_workflow_summary`
 
 ### Repo workflow bridge
 
 This is the narrow bridge from local delivery evidence to GitHub-facing review
 truth:
 
-- `openui_repo_workflow_summary`
+- `shadcn_brief_repo_workflow_summary`
 - `npm run repo:workflow:ready`
 
 The layering is intentional:
@@ -163,14 +163,14 @@ formal SDK, plugin marketplace, or write-capable remote MCP.
 The aggregate code entrypoint for that public story is
 `services/mcp-server/src/public/index.ts`.
 It is a curated allowlist, not a mirror of `services/mcp-server/src/*`.
-The root package bin `OpenUIStudio` is a repo-local CLI alias for
+The root package bin `ShadcnBrief` is a repo-local CLI alias for
 inspecting those same lanes. It does not create a fourth builder surface or a
 hosted control plane.
 The root package export map is now build-backed as well, so plain Node package
 consumers resolve compiled JavaScript under `.runtime-cache/build/...` instead
 of raw TypeScript source files. The default package import is intentionally
 builder-surface-first, while broader runtime helpers stay on explicit
-`OpenUIStudio/public/*` subpaths.
+`ShadcnBrief/public/*` subpaths.
 
 ### Allowlisted public export layer
 
@@ -181,7 +181,7 @@ builder-surface-first, while broader runtime helpers stay on explicit
 | `services/mcp-server/src/public/server.ts` | `createServer`, `runStdioServer`, `MCP_SERVER_VERSION` | Local stdio runtime entry only |
 | `services/mcp-server/src/public/workflow-summary.ts` | `buildRepoWorkflowSummary`, `registerRepoWorkflowSummaryTool`, `RepoWorkflowSummary` | Read-only workflow bridge; no remote mutation |
 | `services/mcp-server/src/public/ship.ts` | `registerShipTool`, `registerShipFeatureFlowTool` | Delivery registration surface for page and feature flows |
-| `services/mcp-server/src/public/openui-client.ts` | `openuiChatComplete`, `openuiListModels` | Repo-local model helper surface |
+| `services/mcp-server/src/public/shadcn-brief-client.ts` | `openuiChatComplete`, `openuiListModels` | Repo-local model helper surface |
 | `services/mcp-server/src/public/next-smoke.ts` | `runNextSmoke` | Local proof/readiness helper |
 | `services/mcp-server/src/public/computer-use.ts` | `registerComputerUseTool` | Advanced surface, not the front-door claim |
 | `services/mcp-server/src/public/provider-testing.ts`, `tool-shared.ts`, `visual-diff.ts` | Test/ops helpers | Allowlisted helpers, not builder-product claims |
@@ -197,15 +197,15 @@ modules that the package export map and public docs already present as current.
 These tools are part of the maintained runtime, but they support the core path
 instead of defining the repository by themselves:
 
-- `openui_refine_ui`
-- `openui_review_uiux`
-- `openui_list_models`
-- `openui_embed_content`
+- `shadcn_brief_refine_ui`
+- `shadcn_brief_review_uiux`
+- `shadcn_brief_list_models`
+- `shadcn_brief_embed_content`
 
 They help with review, iteration, or provider/runtime visibility around the
 main shipping workflow.
 
-`openui_repo_workflow_summary` is the GitHub-connected companion for this layer:
+`shadcn_brief_repo_workflow_summary` is the GitHub-connected companion for this layer:
 it reports repo-local git state plus live GitHub PR/check/alert/protection
 truth, but it deliberately stops short of any remote mutation.
 
@@ -214,11 +214,11 @@ truth, but it deliberately stops short of any remote mutation.
 These tools remain real registered server capabilities, but the repository's
 public product story does not start from them:
 
-- `openui_rag_upsert`
-- `openui_rag_search`
-- `openui_observe_screen`
-- `openui_execute_ui_action`
-- `openui_computer_use_loop`
+- `shadcn_brief_rag_upsert`
+- `shadcn_brief_rag_search`
+- `shadcn_brief_observe_screen`
+- `shadcn_brief_execute_ui_action`
+- `shadcn_brief_computer_use_loop`
 
 Treat these as advanced or exploratory surfaces unless a specific workflow
 explicitly depends on them.

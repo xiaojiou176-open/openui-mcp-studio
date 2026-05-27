@@ -11,7 +11,7 @@ const tempDirs: string[] = [];
 
 async function createSandbox(): Promise<string> {
 	const dir = await fs.mkdtemp(
-		path.join(os.tmpdir(), "openui-target-build-manifest-"),
+		path.join(os.tmpdir(), "shadcn-brief-target-build-manifest-"),
 	);
 	tempDirs.push(dir);
 	return dir;

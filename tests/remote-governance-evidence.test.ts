@@ -59,7 +59,7 @@ function makeControl(id: string, status = "verified") {
 
 describe("remote governance evidence", () => {
 	it("passes when all required remote controls are present", async () => {
-		const root = await mkTempRoot("openui-remote-gov-pass-");
+		const root = await mkTempRoot("shadcn-brief-remote-gov-pass-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
 			path.join(
@@ -97,7 +97,7 @@ describe("remote governance evidence", () => {
 	});
 
 	it("fails when a required remote control is missing", async () => {
-		const root = await mkTempRoot("openui-remote-gov-fail-");
+		const root = await mkTempRoot("shadcn-brief-remote-gov-fail-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
 			path.join(
@@ -134,7 +134,7 @@ describe("remote governance evidence", () => {
 	});
 
 	it("fails when the contract repository drifts from git remote origin identity", async () => {
-		const root = await mkTempRoot("openui-remote-gov-origin-drift-");
+		const root = await mkTempRoot("shadcn-brief-remote-gov-origin-drift-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
 			path.join(
@@ -179,7 +179,7 @@ describe("remote governance evidence", () => {
 	});
 
 	it("fails strict mode when repository is private and controls are not public-ready", async () => {
-		const root = await mkTempRoot("openui-remote-gov-strict-fail-");
+		const root = await mkTempRoot("shadcn-brief-remote-gov-strict-fail-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
 			path.join(
@@ -233,7 +233,7 @@ describe("remote governance evidence", () => {
 	});
 
 	it("passes strict mode when repository is public and remote controls have public-ready values", async () => {
-		const root = await mkTempRoot("openui-remote-gov-strict-pass-");
+		const root = await mkTempRoot("shadcn-brief-remote-gov-strict-pass-");
 		await writeFile(path.join(root, "README.md"), "# Test\n");
 		await writeJson(
 			path.join(

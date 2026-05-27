@@ -77,7 +77,7 @@ afterEach(() => {
 
 describe("context caching", () => {
 	it("requestHtmlFromPrompt forwards cachedContent and cacheTtlSeconds", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		const openuiSpy = vi

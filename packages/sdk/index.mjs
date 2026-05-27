@@ -3,11 +3,11 @@ const DEFAULT_TIMEOUT_MS = 45_000;
 export const OPENUI_SDK_MANIFEST = {
 	packageName: "@openui/sdk",
 	version: "0.3.1",
-	summary: "Public SDK for the self-hosted OpenUI Hosted API surface.",
+	summary: "Public SDK for the self-hosted ShadcnBrief Hosted API surface.",
 	audience:
-		"developers integrating with OpenUI over the self-hosted HTTP service instead of the local stdio MCP runtime",
+		"developers integrating with ShadcnBrief over the self-hosted HTTP service instead of the local stdio MCP runtime",
 	role:
-		"thin client for the self-hosted OpenUI Hosted API with discovery, workflow summary, tool discovery, and authenticated tool execution",
+		"thin client for the self-hosted ShadcnBrief Hosted API with discovery, workflow summary, tool discovery, and authenticated tool execution",
 	nonGoals: [
 		"direct MCP runtime replacement",
 		"plugin marketplace packaging",
@@ -100,13 +100,13 @@ export class OpenuiHostedClient {
 					: {};
 			throw new OpenuiHostedApiError(
 				errorPayload.message ??
-					`OpenUI Hosted API request failed with ${response.status}.`,
+					`ShadcnBrief Hosted API request failed with ${response.status}.`,
 				{
 					status: response.status,
 					code: errorPayload.code ?? null,
 					requestId:
 						errorPayload.requestId ??
-						response.headers.get("x-openui-request-id"),
+						response.headers.get("x-shadcn-brief-request-id"),
 					body: payload,
 				},
 			);

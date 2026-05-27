@@ -16,7 +16,7 @@ async function writeJson(filePath: string, value: unknown) {
 describe("log schema governance", () => {
 	it("fails when jsonl payload misses required fields", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-log-schema-"),
+			path.join(os.tmpdir(), "shadcn-brief-log-schema-"),
 		);
 		try {
 			await writeJson(

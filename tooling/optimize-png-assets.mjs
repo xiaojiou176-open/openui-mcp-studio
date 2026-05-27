@@ -157,7 +157,7 @@ async function main() {
 	if (relativeTargets.length === 0) {
 		throw new Error("no PNG files matched the requested targets");
 	}
-	const tempRoot = await mkdtemp(path.join(os.tmpdir(), "openui-oxipng-"));
+	const tempRoot = await mkdtemp(path.join(os.tmpdir(), "shadcn-brief-oxipng-"));
 	try {
 		const preCommit = await resolvePreCommitCommand(tempRoot);
 		await runOxipngHook(preCommit, relativeTargets);

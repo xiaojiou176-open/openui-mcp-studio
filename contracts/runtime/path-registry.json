@@ -19,7 +19,7 @@
 		".runtime-cache/evidence",
 		".runtime-cache/logs",
 		".runtime-cache/ms-playwright",
-		".runtime-cache/openui-home",
+		".runtime-cache/shadcn-brief-home",
 		".runtime-cache/quality-trend"
 	],
 	"categories": {
@@ -188,7 +188,7 @@
 		{
 			"path": "tooling/evidence-index.mjs",
 			"mustInclude": [".runtime-cache/runs", "evidence/index.json", "logPaths"],
-			"mustExclude": [".runtime-cache/evidence", ".runtime-cache/logs/openui-mcp.log.jsonl"]
+			"mustExclude": [".runtime-cache/evidence", ".runtime-cache/logs/shadcn-brief-mcp.log.jsonl"]
 		},
 		{
 			"path": "tooling/clean-runtime.mjs",
@@ -198,7 +198,7 @@
 			],
 			"mustExclude": [
 				".runtime-cache/ms-playwright",
-				".runtime-cache/openui-home"
+				".runtime-cache/shadcn-brief-home"
 			]
 		},
 		{
@@ -210,7 +210,7 @@
 			],
 			"mustExclude": [
 				".runtime-cache/ms-playwright",
-				".runtime-cache/openui-home"
+				".runtime-cache/shadcn-brief-home"
 			]
 		},
 		{

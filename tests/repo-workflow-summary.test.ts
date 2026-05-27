@@ -243,7 +243,7 @@ describe("repo workflow summary", () => {
 
 	it("uses local contract fallbacks for branch, visibility, and homepage when GitHub view is unavailable", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workflow-summary-"),
+			path.join(os.tmpdir(), "shadcn-brief-workflow-summary-"),
 		);
 		await fs.mkdir(path.join(rootDir, "tooling", "contracts"), {
 			recursive: true,
@@ -319,7 +319,7 @@ describe("repo workflow summary", () => {
 
 	it("ignores malformed fallback visibility contracts when GitHub view is unavailable", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workflow-summary-bad-visibility-"),
+			path.join(os.tmpdir(), "shadcn-brief-workflow-summary-bad-visibility-"),
 		);
 		await fs.mkdir(path.join(rootDir, "tooling", "contracts"), {
 			recursive: true,
@@ -382,7 +382,7 @@ describe("repo workflow summary", () => {
 
 	it("drops blank fallback visibility strings when GitHub view is unavailable", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workflow-summary-blank-visibility-"),
+			path.join(os.tmpdir(), "shadcn-brief-workflow-summary-blank-visibility-"),
 		);
 		await fs.mkdir(path.join(rootDir, "tooling", "contracts"), {
 			recursive: true,
@@ -451,7 +451,7 @@ describe("repo workflow summary", () => {
 
 	it("ignores malformed fallback homepage contracts when GitHub view is unavailable", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-workflow-summary-bad-homepage-"),
+			path.join(os.tmpdir(), "shadcn-brief-workflow-summary-bad-homepage-"),
 		);
 		await fs.mkdir(path.join(rootDir, "tooling", "contracts"), {
 			recursive: true,

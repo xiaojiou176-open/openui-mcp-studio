@@ -55,6 +55,6 @@ Support is not guaranteed for:
 
 ## Upstream Questions
 
-If the problem is clearly in the upstream OpenUI project rather than this
+If the problem is clearly in the upstream ShadcnBrief project rather than this
 repository's integration layer, maintainers may redirect you to the upstream
 project.

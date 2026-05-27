@@ -7,7 +7,7 @@ import { buildPageMetadata, getResolvedSiteUrl } from "@/lib/site-metadata";
 export const metadata: Metadata = buildPageMetadata({
   title: "Operator desk",
   description:
-    "The repo-local operator desk for OpenUIStudio. Use it to inspect packets, review lanes, readiness signals, and next actions after the proof meaning is already clear.",
+    "The repo-local operator desk for ShadcnBrief. Use it to inspect packets, review lanes, readiness signals, and next actions after the proof meaning is already clear.",
   path: "/workbench",
   keywords: ["operator desk", "repo-local operator desk", "UI delivery workbench"],
 });
@@ -17,7 +17,7 @@ const workbenchStructuredData = buildStructuredDiscoveryJsonLd({
   path: "/workbench",
   title: "Operator desk",
   description:
-    "The repo-local operator desk for OpenUIStudio. Use it to inspect packets, review lanes, readiness signals, and next actions after the proof meaning is already clear.",
+    "The repo-local operator desk for ShadcnBrief. Use it to inspect packets, review lanes, readiness signals, and next actions after the proof meaning is already clear.",
   type: "WebPage",
   breadcrumbLabel: "Workbench",
   about: ["repo-local operator desk", "readiness signals", "review lanes", "next actions"],

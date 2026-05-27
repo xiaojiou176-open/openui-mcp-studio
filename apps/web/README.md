@@ -43,7 +43,7 @@ remote MCP. Those remain later lanes.
 
 Current i18n contract:
 
-- locale source: `openui_locale` cookie
+- locale source: `shadcn_brief_locale` cookie
 - default locale: `en-US`
 - message source: `apps/web/lib/i18n/messages.ts`
 - front-door request locale helper: `apps/web/lib/i18n/server.ts`

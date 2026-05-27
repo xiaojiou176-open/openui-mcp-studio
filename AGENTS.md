@@ -8,7 +8,7 @@ Localized entry documents may exist later, but they must not override this file.
 
 ## 1. Repository Positioning
 
-- Repository type: local `stdio` MCP server that packages OpenUI capabilities
+- Repository type: local `stdio` MCP server that packages ShadcnBrief capabilities
 - Primary outcome: turn natural-language UI requests into frontend files and run quality gates on the result
 - Technology target: `Next.js App Router + React + Tailwind + shadcn`
 - Model strategy: Gemini-only (see `docs/environment-governance.md`)

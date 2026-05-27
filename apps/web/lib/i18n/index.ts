@@ -4,7 +4,7 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 export type AppLocale = SupportedLocale;
 
 export const DEFAULT_LOCALE: SupportedLocale = "en-US";
-export const LOCALE_COOKIE_NAME = "openui_locale";
+export const LOCALE_COOKIE_NAME = "shadcn_brief_locale";
 
 export function isSupportedLocale(
 	value: string | null | undefined,

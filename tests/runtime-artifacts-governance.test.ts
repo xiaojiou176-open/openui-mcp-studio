@@ -16,7 +16,7 @@ async function writeJson(filePath: string, value: unknown) {
 describe("runtime artifacts governance", () => {
 	it("fails when governed files drift away from required artifact roots", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-artifacts-"),
+			path.join(os.tmpdir(), "shadcn-brief-artifacts-"),
 		);
 		try {
 			await writeJson(
@@ -69,7 +69,7 @@ describe("runtime artifacts governance", () => {
 
 	it("accepts env governance runtime subtrees for CI inventory snapshots", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-runtime-env-inventory-"),
+			path.join(os.tmpdir(), "shadcn-brief-runtime-env-inventory-"),
 		);
 		try {
 			await writeJson(
@@ -113,7 +113,7 @@ describe("runtime artifacts governance", () => {
 
 	it("accepts repo-local lock coordination under the governed tmp runtime tier", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-runtime-locks-"),
+			path.join(os.tmpdir(), "shadcn-brief-runtime-locks-"),
 		);
 		try {
 			await writeJson(

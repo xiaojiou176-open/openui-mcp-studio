@@ -22,7 +22,7 @@ afterEach(async () => {
 
 describe("flake-metrics script", () => {
 	it("generates flake-rate output with retry stats and threshold decision", async () => {
-		const root = await mkTempDir("openui-flake-metrics-");
+		const root = await mkTempDir("shadcn-brief-flake-metrics-");
 		const summaryPath = path.join(root, "summary.json");
 		const outputPath = path.join(root, "flake-rate.json");
 		const compatPath = path.join(root, "flake-metrics.json");

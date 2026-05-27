@@ -14,7 +14,7 @@ const tempDirs = new Set<string>();
 
 async function createTempProject(): Promise<string> {
 	const root = await fs.mkdtemp(
-		path.join(os.tmpdir(), "openui-file-governance-"),
+		path.join(os.tmpdir(), "shadcn-brief-file-governance-"),
 	);
 	tempDirs.add(root);
 	return root;

@@ -1,6 +1,6 @@
 {
-  "name": "OpenUIStudio",
-  "slug": "OpenUIStudio",
+  "name": "ShadcnBrief",
+  "slug": "ShadcnBrief",
   "status": "marketplace-ready",
   "runtime": "local-stdio-mcp",
   "configPath": "../claude-code.mcp.json",

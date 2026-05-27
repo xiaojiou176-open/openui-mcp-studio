@@ -41,7 +41,7 @@ needs human judgment?"
 - [`docs/testing.md`](./testing.md)
 - [`docs/environment-governance.md`](./environment-governance.md)
 - [`docs/release-readiness.md`](./release-readiness.md)
-- `openui_repo_workflow_summary`
+- `shadcn_brief_repo_workflow_summary`
 - `npm run repo:workflow:ready`
 
 ### Builder Integrators
@@ -54,11 +54,11 @@ Start here if your question is "what builder surface is actually current?"
 - [`INTEGRATIONS.md`](../INTEGRATIONS.md)
 - [`manifest.yaml`](../manifest.yaml)
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
-- [`docs/contracts/openui-mcp.openapi.json`](./contracts/openui-mcp.openapi.json)
-- [`docs/contracts/openui-ecosystem-productization.json`](./contracts/openui-ecosystem-productization.json)
-- `OpenUIStudio surface-guide`
-- `OpenUIStudio ecosystem-guide`
-- `OpenUIStudio skills starter --json`
+- [`docs/contracts/shadcn-brief-mcp.openapi.json`](./contracts/shadcn-brief-mcp.openapi.json)
+- [`docs/contracts/shadcn-brief-ecosystem-productization.json`](./contracts/shadcn-brief-ecosystem-productization.json)
+- `ShadcnBrief surface-guide`
+- `ShadcnBrief ecosystem-guide`
+- `ShadcnBrief skills starter --json`
 
 The public repo itself is the primary distribution artifact.
 Current builder order stays:
@@ -92,8 +92,8 @@ worker-scoped note:
 - [`docs/testing.md`](./testing.md)
 - [`docs/governance-runbook.md`](./governance-runbook.md)
 - [`docs/release-readiness.md`](./release-readiness.md)
-- [`docs/contracts/openui-ecosystem-productization.json`](./contracts/openui-ecosystem-productization.json)
-- [`docs/contracts/openui-public-skills-starter.json`](./contracts/openui-public-skills-starter.json)
+- [`docs/contracts/shadcn-brief-ecosystem-productization.json`](./contracts/shadcn-brief-ecosystem-productization.json)
+- [`docs/contracts/shadcn-brief-public-skills-starter.json`](./contracts/shadcn-brief-public-skills-starter.json)
 - coordination-only task boards under `.agents/Tasks/` stay outside public docs
   routing
 - coordination-only master plans under `.agents/Plans/` stay outside public
@@ -102,7 +102,7 @@ worker-scoped note:
 Public-repo rule:
 
 - `README.md` is the storefront and the human SSOT for the public product story
-- `docs/contracts/openui-ecosystem-productization.json` is the machine-readable
+- `docs/contracts/shadcn-brief-ecosystem-productization.json` is the machine-readable
   SSOT for ecosystem/distribution truth
 - starter bundles, plugin metadata, and skill metadata are projections of that
   story, not co-equal front doors
@@ -112,13 +112,13 @@ Public-repo rule:
 Use these files when you need decision history, strategy ledgers, or narrower
 worker-scoped evidence rather than the current shared front door:
 
-- [`docs/strategy/openui-external-activation-ledger.md`](./strategy/openui-external-activation-ledger.md)
-- [`docs/strategy/openui-ecosystem-productization-ledger.md`](./strategy/openui-ecosystem-productization-ledger.md)
-- [`docs/strategy/openui-public-skills-plugin-ledger.md`](./strategy/openui-public-skills-plugin-ledger.md)
-- [`docs/strategy/openui-sdk-hosted-api-ledger.md`](./strategy/openui-sdk-hosted-api-ledger.md)
-- [`docs/strategy/openui-uiux-truth-ledger.md`](./strategy/openui-uiux-truth-ledger.md)
-- [`docs/strategy/openui-uiux-vertical-gap-ledger.md`](./strategy/openui-uiux-vertical-gap-ledger.md)
-- [`docs/strategy/openui-builder-surface-formalization-ledger.md`](./strategy/openui-builder-surface-formalization-ledger.md)
+- [`docs/strategy/shadcn-brief-external-activation-ledger.md`](./strategy/shadcn-brief-external-activation-ledger.md)
+- [`docs/strategy/shadcn-brief-ecosystem-productization-ledger.md`](./strategy/shadcn-brief-ecosystem-productization-ledger.md)
+- [`docs/strategy/shadcn-brief-public-skills-plugin-ledger.md`](./strategy/shadcn-brief-public-skills-plugin-ledger.md)
+- [`docs/strategy/shadcn-brief-sdk-hosted-api-ledger.md`](./strategy/shadcn-brief-sdk-hosted-api-ledger.md)
+- [`docs/strategy/shadcn-brief-uiux-truth-ledger.md`](./strategy/shadcn-brief-uiux-truth-ledger.md)
+- [`docs/strategy/shadcn-brief-uiux-vertical-gap-ledger.md`](./strategy/shadcn-brief-uiux-vertical-gap-ledger.md)
+- [`docs/strategy/shadcn-brief-builder-surface-formalization-ledger.md`](./strategy/shadcn-brief-builder-surface-formalization-ledger.md)
 - [`docs/architecture/uiux-engine-round1.md`](./architecture/uiux-engine-round1.md)
 - [`docs/architecture/frontdoor-surface-round1-worker-b.md`](./architecture/frontdoor-surface-round1-worker-b.md)
 - [`docs/architecture/builder-surface-round1-worker-c.md`](./architecture/builder-surface-round1-worker-c.md)

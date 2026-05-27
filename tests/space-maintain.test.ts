@@ -190,7 +190,7 @@ async function writeContracts(rootDir: string) {
 describe("space maintain", () => {
 	it("plans and applies repo-local maintenance without touching manual opt-in install surfaces", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-maintain-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-maintain-"),
 		);
 		const oldTimestamp = (Date.now() - 5 * 24 * 60 * 60 * 1000) / 1000;
 		try {

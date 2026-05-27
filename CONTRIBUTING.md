@@ -100,14 +100,14 @@ That means:
 
 This repository is responsible for:
 
-- OpenUI integration
+- ShadcnBrief integration
 - Gemini-only execution and provider orchestration
 - safe file application and quality gate orchestration
 - governed runtime, docs, and CI surfaces
 
 This repository is not responsible for:
 
-- operating the upstream OpenUI service itself
+- operating the upstream ShadcnBrief service itself
 - arbitrary shell execution as a product feature
 - long-lived parallel implementations of upstream behavior
 

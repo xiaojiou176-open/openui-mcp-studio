@@ -1,7 +1,7 @@
 # Public Distribution Bundle
 
 This directory is the supporting install bundle shelf for the public
-`OpenUIStudio` repo.
+`ShadcnBrief` repo.
 
 Think of it like the install box you can hand to a new developer after they
 already understand that the public repo is the main product surface:
@@ -39,8 +39,8 @@ Use this bundle when you want to say something stronger than
 
 This bundle is meant to make four things easy to discover:
 
-1. how to install OpenUI into Codex
-2. how to install OpenUI into Claude Code
+1. how to install ShadcnBrief into Codex
+2. how to install ShadcnBrief into Claude Code
 3. how to adapt the same local stdio launch contract for another MCP-capable
    host
 4. how to prepare an OpenClaw / ClawHub-facing public-ready bundle without

@@ -46,7 +46,7 @@ describe("public distribution bundle", () => {
 
 		expect(rootManifest).toContain("status: mixed-live-and-review-boundary");
 		expect(rootManifest).toContain(
-			"canonical_repo: xiaojiou176-open/OpenUIStudio",
+			"canonical_repo: xiaojiou176-open/ShadcnBrief",
 		);
 		expect(rootManifest).toContain("external_truth:");
 		expect(rootManifest).toContain("clawhub:");
@@ -67,7 +67,7 @@ describe("public distribution bundle", () => {
 		expect(JSON.stringify(dockerManifest)).toContain("ghcr.io");
 		expect(JSON.stringify(dockerManifest)).toContain("not yet published");
 		expect(dockerNote).toContain("submission-ready-unlisted");
-		expect(dockerNote).toContain("ghcr.io/xiaojiou176-open/OpenUIStudio");
+		expect(dockerNote).toContain("ghcr.io/xiaojiou176-open/ShadcnBrief");
 	});
 
 	it("ships a public-ready OpenClaw bundle without overclaiming a live listing", async () => {
@@ -99,24 +99,24 @@ describe("public distribution bundle", () => {
 		expect(openclawNote).toContain("public-ready");
 		expect(openclawNote).toContain("ClawHub");
 		expect(openclawNote).toContain(
-			"openclaw plugins install ./plugins/openui-workspace-delivery",
+			"openclaw plugins install ./plugins/shadcn-brief-workspace-delivery",
 		);
 	});
 
 	it("ships plugin bundle directories with host config and manifest together", async () => {
 		const claudeBundle = await readJson(
-			"plugins/openui-workspace-delivery/.claude-plugin/plugin.json",
+			"plugins/shadcn-brief-workspace-delivery/.claude-plugin/plugin.json",
 		);
 		const codexBundle = await readJson(
-			"plugins/openui-codex-delivery/.codex-plugin/plugin.json",
+			"plugins/shadcn-brief-codex-delivery/.codex-plugin/plugin.json",
 		);
 		const claudeMcp = await readJson(
-			"plugins/openui-workspace-delivery/.mcp.json",
+			"plugins/shadcn-brief-workspace-delivery/.mcp.json",
 		);
-		const codexMcp = await readJson("plugins/openui-codex-delivery/.mcp.json");
+		const codexMcp = await readJson("plugins/shadcn-brief-codex-delivery/.mcp.json");
 
-		expect(claudeBundle.name).toBe("openui-workspace-delivery");
-		expect(codexBundle.name).toBe("openui-codex-delivery");
+		expect(claudeBundle.name).toBe("shadcn-brief-workspace-delivery");
+		expect(codexBundle.name).toBe("shadcn-brief-codex-delivery");
 		expect(JSON.stringify(claudeMcp)).toContain("mcpServers");
 		expect(JSON.stringify(codexMcp)).toContain("mcpServers");
 	});

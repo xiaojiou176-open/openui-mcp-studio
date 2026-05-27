@@ -1,4 +1,4 @@
-# Install And Attach OpenUIStudio
+# Install And Attach ShadcnBrief
 
 Use the current repo-native MCP path first.
 
@@ -7,8 +7,8 @@ Use the current repo-native MCP path first.
 1. Clone the public repository:
 
 ```bash
-git clone https://github.com/xiaojiou176-open/openuistudio.git
-cd openuistudio
+git clone https://github.com/xiaojiou176-open/shadcn-brief.git
+cd shadcn-brief
 npm install
 npm run build
 ```

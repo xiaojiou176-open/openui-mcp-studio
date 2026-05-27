@@ -7,7 +7,7 @@ afterEach(() => {
 
 describe("tools/shared branch coverage extras", () => {
 	it("requestHtmlFromPrompt forwards useFast only when routeKey is not provided", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		const openuiSpy = vi
@@ -45,7 +45,7 @@ describe("tools/shared branch coverage extras", () => {
 	});
 
 	it("listOpenuiModels delegates to openuiListModels", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		const payload = { provider: "gemini", models: ["gemini-2.5-pro"] };
@@ -61,7 +61,7 @@ describe("tools/shared branch coverage extras", () => {
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -73,7 +73,7 @@ describe("tools/shared branch coverage extras", () => {
 		vi.spyOn(pathDetection, "detectShadcnPaths").mockResolvedValue(detection);
 
 		const resolved = await shared.resolveShadcnStyleGuide({
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			uiImportBase: "   ",
 			styleGuide: "   ",
 		});
@@ -90,7 +90,7 @@ describe("tools/shared branch coverage extras", () => {
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-explicit",
+			workspaceRoot: "/tmp/shadcn-brief-explicit",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -125,7 +125,7 @@ describe("tools/shared branch coverage extras", () => {
 	});
 
 	it("convertHtmlToReactShadcn rejects schema-invalid JSON payloads", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(
@@ -153,7 +153,7 @@ describe("tools/shared branch coverage extras", () => {
 	});
 
 	it("convertHtmlToReactShadcn rejects absolute output paths", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(
@@ -186,7 +186,7 @@ describe("tools/shared branch coverage extras", () => {
 	});
 
 	it("convertHtmlToReactShadcn rejects path traversal output paths", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(openui, "openuiChatComplete").mockResolvedValue(

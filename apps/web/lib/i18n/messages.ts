@@ -339,9 +339,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       },
       footerBadge: "Brand layer",
       footerTitle:
-        "OneClickUI.ai is the front door. OpenUIStudio is the technical product.",
+        "OneClickUI.ai is the front door. ShadcnBrief is the technical product.",
       footerBody:
-        "The front door is allowed to be shorter and clearer. The technical name stays visible because the repo, MCP surface, proof story, and workspace workflow still belong to OpenUIStudio.",
+        "The front door is allowed to be shorter and clearer. The technical name stays visible because the repo, MCP surface, proof story, and workspace workflow still belong to ShadcnBrief.",
       footerLinks: {
         readme: "README",
         docs: "Docs hub",
@@ -352,7 +352,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
     home: {
       heroTitle: "Ship React UI into your workspace, with proof and review.",
       heroBody:
-        "OneClickUI.ai is the front door for OpenUIStudio: an MCP-native UI/UX delivery and review workflow that plans the change, writes real files, and now carries a plugin-grade starter/config/proof package for Codex, Claude Code, and OpenClaw-side packaging work. It still stays narrower and more honest than a generic coding-agent shell.",
+        "OneClickUI.ai is the front door for ShadcnBrief: an MCP-native UI/UX delivery and review workflow that plans the change, writes real files, and now carries a plugin-grade starter/config/proof package for Codex, Claude Code, and OpenClaw-side packaging work. It still stays narrower and more honest than a generic coding-agent shell.",
       heroCtas: {
         walkthrough: "Take the first-minute walkthrough",
         proof: "See the 30-second proof",
@@ -392,7 +392,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
           badge: "Still deciding between tools",
           title:
             "Open the compare surface when you need the sharpest honest split.",
-          body: "Go to /compare if you are sorting OpenUI against hosted builders and broader coding-agent traffic without pretending they all optimize for the same job.",
+          body: "Go to /compare if you are sorting ShadcnBrief against hosted builders and broader coding-agent traffic without pretending they all optimize for the same job.",
           href: "/compare",
           cta: "Open the compare surface",
         },
@@ -430,7 +430,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       compareTitle:
         "Comparing against Bolt, Lovable, and v0 without pretending to be the same thing.",
       compareBody:
-        "If you mainly want a hosted builder, their official products may fit better. If you want workspace-integrated UI shipping with review and proof, this is where OpenUI is narrower and more honest.",
+        "If you mainly want a hosted builder, their official products may fit better. If you want workspace-integrated UI shipping with review and proof, this is where ShadcnBrief is narrower and more honest.",
       compareCta: "Open the compare surface",
       comparePoints: [...COMPARE_POINTS],
       builderBadge: "Builder entry path",
@@ -461,7 +461,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       refusalTitle: "What the front door will not pretend",
       refusalPoints: [
         "It will not call this a generic AI agent, a no-code builder, or a fully autonomous software engineer.",
-        "It will keep OpenUIStudio as the technical main name, while treating OneClickUI.ai as the shorter front-door brand expression.",
+        "It will keep ShadcnBrief as the technical main name, while treating OneClickUI.ai as the shorter front-door brand expression.",
         "It will keep docs, proof, and the interactive workbench one click away instead of hiding them behind marketing fog.",
         "It will not pretend that Homepage, Social Preview, or a published release bundle are already live unless remote settings prove it.",
       ],
@@ -469,9 +469,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
     compare: {
       heroBadge: "Honest compare",
       heroTitle:
-        "Compare OpenUI with Bolt, Lovable, and v0 without pretending they solve the same job.",
+        "Compare ShadcnBrief with Bolt, Lovable, and v0 without pretending they solve the same job.",
       heroBody:
-        "The official builder products lead with hosted speed and quick app creation. OpenUIStudio should only claim a different lane: prompt-to-workspace UI shipping with proof, review, and acceptance.",
+        "The official builder products lead with hosted speed and quick app creation. ShadcnBrief should only claim a different lane: prompt-to-workspace UI shipping with proof, review, and acceptance.",
       ecosystemTitle:
         "How Codex, Claude Code, OpenHands, and OpenCode fit this story",
       ecosystemBody:
@@ -491,9 +491,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
           cta: "See hosted-builder context",
         },
         {
-          badge: "OpenUI strength",
+          badge: "ShadcnBrief strength",
           title:
-            "Use OpenUI when repo-aware proof and review are the real job.",
+            "Use ShadcnBrief when repo-aware proof and review are the real job.",
           body: "This repo becomes clearer when the team cares about changed files, review bundles, acceptance, proof, and a workspace-integrated path instead of a generic app-builder promise.",
           href: "/proof",
           cta: "See the proof path",
@@ -501,7 +501,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
         {
           badge: "Codex / Claude Code fit",
           title:
-            "Use OpenUI when the team already lives inside Codex or Claude Code UI work.",
+            "Use ShadcnBrief when the team already lives inside Codex or Claude Code UI work.",
           body: "The MCP-native operator surface matters most when the team already thinks in repo packets, reviewer handoff, and staged UI delivery rather than one-shot generation.",
           href: "/workbench",
           cta: "Open the operator desk",
@@ -519,15 +519,15 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       cardLabels: {
         alternativeSuffix: "alternative",
         betterFitThere: "Better fit there",
-        whyOpenUiDiffers: "Why OpenUI differs",
+        whyOpenUiDiffers: "Why ShadcnBrief differs",
         notBestFitHereIf: "Not the best fit here if",
         openOfficialSite: "Open official site",
       },
       refusalTitle: "What this compare page refuses to do",
       refusalPoints: [
         "It does not invent weaknesses for other products.",
-        "It does not claim OpenUI is a better generic AI agent.",
-        "It only points to the lane where OpenUI already has real evidence: workspace integration, review bundle, acceptance, proof, and feature-level delivery packaging.",
+        "It does not claim ShadcnBrief is a better generic AI agent.",
+        "It only points to the lane where ShadcnBrief already has real evidence: workspace integration, review bundle, acceptance, proof, and feature-level delivery packaging.",
       ],
       followUpTitle: "What to open next after the compare page",
       followUpBody:
@@ -666,7 +666,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
         {
           badge: "Re-check category fit",
           title: "Open the compare page",
-          body: "Go here when you still need to decide whether OpenUI's repo-aware proof lane is the right fit compared to hosted builders or broader agent traffic.",
+          body: "Go here when you still need to decide whether ShadcnBrief's repo-aware proof lane is the right fit compared to hosted builders or broader agent traffic.",
           href: "/compare",
           cta: "Open compare",
         },
@@ -887,9 +887,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
         workbench: "工作台",
       },
       footerBadge: "品牌层次",
-      footerTitle: "OneClickUI.ai 是前门表达，OpenUIStudio 是技术主产品。",
+      footerTitle: "OneClickUI.ai 是前门表达，ShadcnBrief 是技术主产品。",
       footerBody:
-        "前门可以更短、更易传播，但技术名必须持续可见，因为仓库、MCP surface、proof 叙事和 workspace workflow 仍然属于 OpenUIStudio。",
+        "前门可以更短、更易传播，但技术名必须持续可见，因为仓库、MCP surface、proof 叙事和 workspace workflow 仍然属于 ShadcnBrief。",
       footerLinks: {
         readme: "README",
         docs: "文档总览",
@@ -900,7 +900,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
     home: {
       heroTitle: "把 React UI 写进你的工作区，并把证据与评审保留在流程里。",
       heroBody:
-        "OneClickUI.ai 是 OpenUIStudio 的前门：它不是泛化开发代理外壳，而是一条 MCP-native 的 UI/UX 交付与评审工作流，会先规划变更、再写入真实文件，并在你信任结果之前把变更文件、评审结论和验收状态摆在台面上。现在它还带着一套可直接拿来用的 starter bundle、proof loop 和故障排查入口，最适合已经在 Codex 或 Claude Code 里推进仓库工作的团队，以及需要评估 OpenClaw public-ready 包装的人。",
+        "OneClickUI.ai 是 ShadcnBrief 的前门：它不是泛化开发代理外壳，而是一条 MCP-native 的 UI/UX 交付与评审工作流，会先规划变更、再写入真实文件，并在你信任结果之前把变更文件、评审结论和验收状态摆在台面上。现在它还带着一套可直接拿来用的 starter bundle、proof loop 和故障排查入口，最适合已经在 Codex 或 Claude Code 里推进仓库工作的团队，以及需要评估 OpenClaw public-ready 包装的人。",
       heroCtas: {
         walkthrough: "按上手路径走一遍",
         proof: "查看 30 秒证据链",
@@ -943,7 +943,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
         {
           badge: "还在选型",
           title: "如果你在比较路线，而不是立刻上手，就先看对比页。",
-          body: "去 `/compare`，快速判断 OpenUI 和 hosted builder、以及更宽泛的 coding-agent 流量，到底是不是同一类东西。",
+          body: "去 `/compare`，快速判断 ShadcnBrief 和 hosted builder、以及更宽泛的 coding-agent 流量，到底是不是同一类东西。",
           href: "/compare",
           cta: "打开对比页",
         },
@@ -1087,7 +1087,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       compareTitle:
         "和 Bolt、Lovable、v0 对比，但不假装大家在解决完全同一个问题。",
       compareBody:
-        "如果你主要想要托管式 builder，它们可能更合适；如果你要的是把 UI 需求写回工作区，并让评审与证据始终留在流程里，那 OpenUI 的定位会更窄也更诚实。",
+        "如果你主要想要托管式 builder，它们可能更合适；如果你要的是把 UI 需求写回工作区，并让评审与证据始终留在流程里，那 ShadcnBrief 的定位会更窄也更诚实。",
       compareCta: "打开对比页",
       comparePoints: [
         {
@@ -1142,12 +1142,12 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
           audience: "已经通过 MCP-aware 编码客户端工作的 builder 团队",
           bestFor: "用最短路径接入 prompt-to-workspace 交付、证据台和评审面",
           readWhen:
-            "当你的第一个问题是“怎么把 OpenUI 接到 Codex 或 Claude Code 上”时，先从这里开始。",
+            "当你的第一个问题是“怎么把 ShadcnBrief 接到 Codex 或 Claude Code 上”时，先从这里开始。",
           notFor:
             "把它误解成 hosted builder 接入页，或通用 agent marketplace 入口",
           body: "当前最真实的集成故事从 stdio MCP server 开始，而不是 hosted API 承诺。想要真实 prompt-to-workspace delivery，就先走 MCP client setup。",
           cta: "打开 MCP 接入指南",
-          href: "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/discovery-surfaces.md",
+          href: "https://github.com/xiaojiou176-open/shadcn-brief/blob/main/docs/discovery-surfaces.md",
         },
         {
           step: "第 2 步",
@@ -1160,7 +1160,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
           notFor: "把 compatibility bridge 误说成正式 hosted API 或 SDK 承诺",
           body: "当你需要 read-only HTTP projection 做 review、contract check 或 bridge consumer 时，再看 OpenAPI compatibility document。",
           cta: "打开 OpenAPI 契约",
-          href: "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/contracts/openui-mcp.openapi.json",
+          href: "https://github.com/xiaojiou176-open/shadcn-brief/blob/main/docs/contracts/shadcn-brief-mcp.openapi.json",
         },
         {
           step: "第 3 步",
@@ -1173,7 +1173,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
           notFor: "假装仓库会自己改远端状态、自动落 PR，或替代 GitHub 运维动作",
           body: "当你需要本地 + GitHub readiness 的证据包，但又不想假装仓库会自行修改远端状态时，就用 raw summary 和 maintainer-ready packet。",
           cta: "打开 readiness 文档",
-          href: "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/index.md",
+          href: "https://github.com/xiaojiou176-open/shadcn-brief/blob/main/docs/index.md",
         },
       ],
       machineReadableTitle: "机读发现面与 SEO 护栏",
@@ -1262,7 +1262,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       refusalTitle: "前门不会假装自己已经是这些东西",
       refusalPoints: [
         "它不会把自己叫成 generic AI agent、no-code builder 或 fully autonomous software engineer。",
-        "它会继续把 OpenUIStudio 作为技术主名，而把 OneClickUI.ai 当作更短的前门表达。",
+        "它会继续把 ShadcnBrief 作为技术主名，而把 OneClickUI.ai 当作更短的前门表达。",
         "它会把 docs、proof 和 interactive workbench 保持在一跳可达的位置，而不是藏在营销雾里。",
         "除非 remote settings 真正证明已经 live，否则它不会假装 Homepage、Social Preview 或公开 release bundle 已经全部上线。",
       ],
@@ -1270,9 +1270,9 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
     compare: {
       heroBadge: "诚实对比",
       heroTitle:
-        "把 OpenUI 和 Bolt、Lovable、v0 放在一起看，但不假装它们在做同一份工作。",
+        "把 ShadcnBrief 和 Bolt、Lovable、v0 放在一起看，但不假装它们在做同一份工作。",
       heroBody:
-        "这些官方 builder 产品主打 hosted speed 与快速成型。OpenUIStudio 这轮只能诚实地主张另一条赛道：prompt-to-workspace UI shipping，以及 proof、review、acceptance 持续在场。",
+        "这些官方 builder 产品主打 hosted speed 与快速成型。ShadcnBrief 这轮只能诚实地主张另一条赛道：prompt-to-workspace UI shipping，以及 proof、review、acceptance 持续在场。",
       ecosystemTitle:
         "Codex、Claude Code、OpenHands、OpenCode 在这条叙事里各自扮演什么角色",
       ecosystemBody:
@@ -1322,8 +1322,8 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
           cta: "查看托管式 builder 语境",
         },
         {
-          badge: "OpenUI 强项",
-          title: "如果你在意仓库内证据链与评审链，OpenUI 才开始变得更有意义。",
+          badge: "ShadcnBrief 强项",
+          title: "如果你在意仓库内证据链与评审链，ShadcnBrief 才开始变得更有意义。",
           body: "这个仓库最清楚的价值，不是“更会生成”，而是把变更文件、评审包、验收和证据链一起保留在工作流里。",
           href: "/proof",
           cta: "查看证据路径",
@@ -1331,7 +1331,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
         {
           badge: "Codex / Claude Code 贴合点",
           title:
-            "如果团队已经在 Codex 或 Claude Code 里做 UI 交付，OpenUI 的感觉会更明显。",
+            "如果团队已经在 Codex 或 Claude Code 里做 UI 交付，ShadcnBrief 的感觉会更明显。",
           body: "MCP-native 的操作者工作台，只有在你本来就用包、评审和下一步动作来组织仓库工作时，才会显得真正有产品感。",
           href: "/workbench",
           cta: "打开工作台",
@@ -1383,15 +1383,15 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
       cardLabels: {
         alternativeSuffix: "替代方案",
         betterFitThere: "它们更适合的场景",
-        whyOpenUiDiffers: "OpenUI 的差异点",
+        whyOpenUiDiffers: "ShadcnBrief 的差异点",
         notBestFitHereIf: "如果你主要要这个，这里可能不适合",
         openOfficialSite: "打开官方站",
       },
       refusalTitle: "这个对比页拒绝做的事",
       refusalPoints: [
         "不凭空捏造别家产品的弱点。",
-        "不声称 OpenUI 是更好的 generic AI agent。",
-        "只强调 OpenUI 当前已经有真实证据的那条线：workspace integration、review bundle、acceptance、proof，以及 feature-level delivery packaging。",
+        "不声称 ShadcnBrief 是更好的 generic AI agent。",
+        "只强调 ShadcnBrief 当前已经有真实证据的那条线：workspace integration、review bundle、acceptance、proof，以及 feature-level delivery packaging。",
       ],
       followUpTitle: "看完对比页之后，下一步该去哪",
       followUpBody: "对比页不该停在观点上，而应该把你送进正确的下一层深度。",
@@ -1553,7 +1553,7 @@ const FRONTDOOR_MESSAGES: Record<AppLocale, FrontdoorMessages> = {
         {
           badge: "重新判断产品贴合度",
           title: "打开对比页",
-          body: "当你还在判断 OpenUI 的仓库内证据链路线，和 hosted builder 或更宽泛 agent 流量到底是不是同一类东西时，就去 `/compare`。",
+          body: "当你还在判断 ShadcnBrief 的仓库内证据链路线，和 hosted builder 或更宽泛 agent 流量到底是不是同一类东西时，就去 `/compare`。",
           href: "/compare",
           cta: "打开对比页",
         },

@@ -234,9 +234,9 @@ describe("repo governance entrypoints", () => {
 				workspaceRoot: "/repo",
 				repository: {
 					originUrl:
-						"https://github.com/xiaojiou176-open/OpenUIStudio.git",
+						"https://github.com/xiaojiou176-open/shadcn-brief.git",
 					owner: "xiaojiou176-open",
-					name: "OpenUIStudio",
+					name: "ShadcnBrief",
 					defaultBranch: "main",
 					visibility: "PUBLIC",
 					homepageUrl: null,

@@ -2,16 +2,16 @@
   <img src="https://em-content.zobj.net/source/apple/391/artist-palette_1f3a8.png" width="120" alt="artist palette" />
 </p>
 
-<h1 align="center">OpenUIStudio</h1>
+<h1 align="center">ShadcnBrief</h1>
 
 <p align="center">
   <strong>brief in, React + shadcn out, proof attached</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/xiaojiou176-open/OpenUIStudio/stargazers"><img src="https://img.shields.io/github/stars/xiaojiou176-open/OpenUIStudio?style=flat&color=yellow" alt="Stars"></a>
-  <a href="https://github.com/xiaojiou176-open/OpenUIStudio/commits/main"><img src="https://img.shields.io/github/last-commit/xiaojiou176-open/OpenUIStudio?style=flat" alt="Last Commit"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/xiaojiou176-open/OpenUIStudio?style=flat" alt="License"></a>
+  <a href="https://github.com/xiaojiou176-open/shadcn-brief/stargazers"><img src="https://img.shields.io/github/stars/xiaojiou176-open/shadcn-brief?style=flat&color=yellow" alt="Stars"></a>
+  <a href="https://github.com/xiaojiou176-open/shadcn-brief/commits/main"><img src="https://img.shields.io/github/last-commit/xiaojiou176-open/shadcn-brief?style=flat" alt="Last Commit"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/xiaojiou176-open/shadcn-brief?style=flat" alt="License"></a>
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 
 ---
 
-OpenUIStudio takes a one-paragraph brief and produces a styled React + shadcn surface — with screenshots, accessibility checks, and proof attached. Open-source MCP studio, batteries included.
+ShadcnBrief takes a one-paragraph brief and produces a styled React + shadcn surface — with screenshots, accessibility checks, and proof attached. Open-source MCP studio, batteries included.
 
 ```
 ┌──────────────────────────────────────┐
@@ -53,14 +53,14 @@ OpenUIStudio takes a one-paragraph brief and produces a styled React + shadcn su
 ## Install
 
 ```bash
-git clone https://github.com/xiaojiou176-open/OpenUIStudio.git
-cd OpenUIStudio
+git clone https://github.com/xiaojiou176-open/shadcn-brief.git
+cd ShadcnBrief
 # follow the per-stack quickstart in INSTALL.md or docs/
 ```
 
 Three commands. No `curl | sh`. No login. Read what you run.
 
-Install break? Open your favorite agent and say *"Read AGENTS.md and bootstrap OpenUIStudio for me."* Agent fix own brain. Long version: [`docs/`](./docs/).
+Install break? Open your favorite agent and say *"Read AGENTS.md and bootstrap ShadcnBrief for me."* Agent fix own brain. Long version: [`docs/`](./docs/).
 
 ## How It Work
 
@@ -69,7 +69,7 @@ The repo is seven layers — exactly the seven commits in `git log`. New work go
 | Layer | What |
 |---|---|
 | `chore: scaffold` | License, governance, hygiene gates, CI scaffolding. |
-| `feat(core)` | The primary engine. The reason OpenUIStudio exists. |
+| `feat(core)` | The primary engine. The reason ShadcnBrief exists. |
 | `feat(modules)` | Packages, adapters, services, plugins. The second floor. |
 | `feat(contracts)` | Schemas, configs, public boundaries. Other code talks here. |
 | `test:` | Receipts. Everything in this layer must run. |
@@ -80,13 +80,13 @@ The repo is seven layers — exactly the seven commits in `git log`. New work go
 
 ## Ecosystem
 
-OpenUIStudio lives in the **open family**: three open platforms. local-first, source-first, builder-first.
+ShadcnBrief lives in the **open family**: three open platforms. local-first, source-first, builder-first.
 
 | Repo | What |
 |---|---|
 | [**OpenCampus**](https://github.com/xiaojiou176-open/OpenCampus) | Canvas + Gradescope + EdStem on one calm desk |
 | [**OpenVibeCoding**](https://github.com/xiaojiou176-open/OpenVibeCoding) | AI codes overnight, you ship in the morning |
-| [**OpenUIStudio**](https://github.com/xiaojiou176-open/OpenUIStudio) *(you here)* | brief in, React + shadcn out, proof attached |
+| [**ShadcnBrief**](https://github.com/xiaojiou176-open/shadcn-brief) *(you here)* | brief in, React + shadcn out, proof attached |
 
 Cross-family taste:
 [**BeamMe**](https://github.com/xiaojiou176-open/BeamMe) ·
@@ -96,9 +96,9 @@ Cross-family taste:
 
 ## Star This Repo
 
-If OpenUIStudio saves you a click, an hour, or a headache — star costs zero. Fair trade. ⭐
+If ShadcnBrief saves you a click, an hour, or a headache — star costs zero. Fair trade. ⭐
 
-[![Star History Chart](https://api.star-history.com/svg?repos=xiaojiou176-open/OpenUIStudio&type=Date)](https://star-history.com/#xiaojiou176-open/OpenUIStudio&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=xiaojiou176-open/shadcn-brief&type=Date)](https://star-history.com/#xiaojiou176-open/shadcn-brief&Date)
 
 ## Also by Yifeng[Terry] Yu
 

@@ -146,7 +146,7 @@ type BuildUiuxAuditFrameOptions = {
 	auditableFileCount?: number;
 };
 
-const DEFAULT_UIUX_STYLE_PACK_ID = "openui-studio";
+const DEFAULT_UIUX_STYLE_PACK_ID = "shadcn-brief-studio";
 
 const CATEGORY_LABELS: Record<UiuxAuditCategoryId, string> = {
 	hierarchy: "Hierarchy",
@@ -180,11 +180,11 @@ const HIGH_SEVERITY_TOKENS = new Set(["high", "error"]);
 const MEDIUM_SEVERITY_TOKENS = new Set(["medium", "warning"]);
 
 const OPENUI_STYLE_PACKS = Object.freeze({
-	"openui-studio": UiuxStylePackSchema.parse({
-		id: "openui-studio",
-		label: "OpenUI Studio",
+	"shadcn-brief-studio": UiuxStylePackSchema.parse({
+		id: "shadcn-brief-studio",
+		label: "ShadcnBrief Studio",
 		summary:
-			"Proof-first, token-led review pack for OpenUI frontdoor, proof desk, and workbench surfaces.",
+			"Proof-first, token-led review pack for ShadcnBrief frontdoor, proof desk, and workbench surfaces.",
 		emphasis: "balanced",
 		tokenMode: "semantic-css-variables",
 		themeModes: ["light", "dark"],
@@ -264,9 +264,9 @@ const OPENUI_STYLE_PACKS = Object.freeze({
 			},
 		],
 	}),
-	"openui-operator-desk": UiuxStylePackSchema.parse({
-		id: "openui-operator-desk",
-		label: "OpenUI Operator Desk",
+	"shadcn-brief-operator-desk": UiuxStylePackSchema.parse({
+		id: "shadcn-brief-operator-desk",
+		label: "ShadcnBrief Operator Desk",
 		summary:
 			"Denser operator/reviewer preset that biases toward next-step clarity, state visibility, and supportable audit surfaces.",
 		emphasis: "operator_dense",

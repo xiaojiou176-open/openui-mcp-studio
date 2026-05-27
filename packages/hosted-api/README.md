@@ -1,14 +1,14 @@
 # @openui/hosted-api
 
-Internal source package for the self-hosted OpenUIStudio HTTP runtime.
+Internal source package for the self-hosted ShadcnBrief HTTP runtime.
 
 This directory is the implementation home for the hosted product line, but the
 public entrypoint stays the root repo CLI:
 
 ```bash
-OpenUIStudio hosted info
-OpenUIStudio hosted openapi
-OpenUIStudio hosted serve
+ShadcnBrief hosted info
+ShadcnBrief hosted openapi
+ShadcnBrief hosted serve
 ```
 
 Current scope:

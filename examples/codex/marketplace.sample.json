@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "name": "OpenUI repo-scoped Codex marketplace",
+  "name": "ShadcnBrief repo-scoped Codex marketplace",
   "plugins": [
     {
-      "id": "openui-codex-delivery",
+      "id": "shadcn-brief-codex-delivery",
       "source": {
-        "path": "./../../plugins/openui-codex-delivery"
+        "path": "./../../plugins/shadcn-brief-codex-delivery"
       },
       "interface": {
-        "displayName": "OpenUI Workspace Delivery",
-        "description": "Repo-owned Codex bundle for local OpenUI MCP install, proof, and review."
+        "displayName": "ShadcnBrief Workspace Delivery",
+        "description": "Repo-owned Codex bundle for local ShadcnBrief MCP install, proof, and review."
       }
     }
   ]

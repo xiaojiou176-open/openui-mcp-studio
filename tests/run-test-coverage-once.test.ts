@@ -149,7 +149,7 @@ afterEach(async () => {
 
 describe("run-test-coverage-once", () => {
 	it("propagates non-zero exit code in required mode", async () => {
-		const cwd = await mkTempDir("openui-run-test-coverage-required-");
+		const cwd = await mkTempDir("shadcn-brief-run-test-coverage-required-");
 		const binDir = path.join(cwd, "bin");
 		await fs.mkdir(binDir, { recursive: true });
 		await createFakeNpmBin(binDir);
@@ -170,7 +170,7 @@ describe("run-test-coverage-once", () => {
 	});
 
 	it("returns zero in advisory mode when coverage command fails", async () => {
-		const cwd = await mkTempDir("openui-run-test-coverage-advisory-");
+		const cwd = await mkTempDir("shadcn-brief-run-test-coverage-advisory-");
 		const binDir = path.join(cwd, "bin");
 		await fs.mkdir(binDir, { recursive: true });
 		await createFakeNpmBin(binDir);
@@ -193,7 +193,7 @@ describe("run-test-coverage-once", () => {
 	}, 20_000);
 
 	it("runs test:coverage only once across parallel invocations sharing the same run key", async () => {
-		const cwd = await mkTempDir("openui-run-test-coverage-shared-");
+		const cwd = await mkTempDir("shadcn-brief-run-test-coverage-shared-");
 		const binDir = path.join(cwd, "bin");
 		await fs.mkdir(binDir, { recursive: true });
 		await createFakeNpmBin(binDir);
@@ -241,7 +241,7 @@ describe("run-test-coverage-once", () => {
 	}, 20_000);
 
 	it("reuses cached coverage result for sequential required/advisory calls", async () => {
-		const cwd = await mkTempDir("openui-run-test-coverage-sequential-");
+		const cwd = await mkTempDir("shadcn-brief-run-test-coverage-sequential-");
 		const binDir = path.join(cwd, "bin");
 		await fs.mkdir(binDir, { recursive: true });
 		await createFakeNpmBin(binDir);
@@ -268,7 +268,7 @@ describe("run-test-coverage-once", () => {
 	});
 
 	it("forces single-worker coverage collection to keep vitest temp artifacts stable", async () => {
-		const cwd = await mkTempDir("openui-run-test-coverage-args-");
+		const cwd = await mkTempDir("shadcn-brief-run-test-coverage-args-");
 		const binDir = path.join(cwd, "bin");
 		await fs.mkdir(binDir, { recursive: true });
 		await createFakeNpmBin(binDir);
@@ -290,7 +290,7 @@ describe("run-test-coverage-once", () => {
 	});
 
 	it("batches large suites and merges batch coverage into the canonical root", async () => {
-		const cwd = await mkTempDir("openui-run-test-coverage-batches-");
+		const cwd = await mkTempDir("shadcn-brief-run-test-coverage-batches-");
 		const binDir = path.join(cwd, "bin");
 		const testsDir = path.join(cwd, "tests");
 		await fs.mkdir(binDir, { recursive: true });

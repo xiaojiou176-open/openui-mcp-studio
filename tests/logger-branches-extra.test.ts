@@ -4,17 +4,17 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const ENV_KEYS = [
-	"OPENUISTUDIO_LOG_LEVEL",
-	"OPENUISTUDIO_LOG_OUTPUT",
-	"OPENUISTUDIO_LOG_ROTATE_ON_START",
-	"OPENUISTUDIO_LOG_RETENTION_DAYS",
-	"OPENUISTUDIO_LOG_MAX_FILE_MB",
-	"OPENUISTUDIO_WORKSPACE_ROOT",
+	"SHADCN_BRIEF_LOG_LEVEL",
+	"SHADCN_BRIEF_LOG_OUTPUT",
+	"SHADCN_BRIEF_LOG_ROTATE_ON_START",
+	"SHADCN_BRIEF_LOG_RETENTION_DAYS",
+	"SHADCN_BRIEF_LOG_MAX_FILE_MB",
+	"SHADCN_BRIEF_WORKSPACE_ROOT",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUISTUDIO_CACHE_DIR",
-	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
-	"OPENUISTUDIO_CACHE_MAX_BYTES",
-	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
+	"SHADCN_BRIEF_CACHE_DIR",
+	"SHADCN_BRIEF_CACHE_RETENTION_DAYS",
+	"SHADCN_BRIEF_CACHE_MAX_BYTES",
+	"SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES",
 ] as const;
 
 const ACTIVE_LOG_FILE = "runtime.jsonl";
@@ -63,28 +63,28 @@ afterEach(() => {
 
 describe("logger extra branch coverage", () => {
 	it("rotates active file when current bytes exceed max during append", async () => {
-		const workspaceRoot = mkTempDir("openui-logger-rotate-write-");
+		const workspaceRoot = mkTempDir("shadcn-brief-logger-rotate-write-");
 		const logDir = resolveLogDir(workspaceRoot);
 		fs.mkdirSync(logDir, { recursive: true });
 		const activePath = path.join(logDir, ACTIVE_LOG_FILE);
 		fs.writeFileSync(activePath, "x".repeat(120), "utf8");
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
 
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = canonicalWorkspaceRoot;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = canonicalWorkspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
+		process.env.SHADCN_BRIEF_CACHE_DIR = path.join(
 			canonicalWorkspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
-		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
-		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "0.0001";
-		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
+		process.env.SHADCN_BRIEF_CACHE_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_CACHE_MAX_BYTES = "104857600";
+		process.env.SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "debug";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "file";
+		process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "0.0001";
+		process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "off";
 
 		const logger = await import("../services/mcp-server/src/logger.js");
 		logger.logInfo("rotate-on-append", {
@@ -103,20 +103,20 @@ describe("logger extra branch coverage", () => {
 	});
 
 	it("emits internal error when cache retention config parsing fails", async () => {
-		const workspaceRoot = mkTempDir("openui-logger-cache-config-");
+		const workspaceRoot = mkTempDir("shadcn-brief-logger-cache-config-");
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = canonicalWorkspaceRoot;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = canonicalWorkspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
+		process.env.SHADCN_BRIEF_CACHE_DIR = path.join(
 			canonicalWorkspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
-		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "debug";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "file";
+		process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "10";
+		process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "off";
 
 		vi.doMock(
 			"../packages/runtime-observability/src/cache-retention.js",
@@ -145,20 +145,20 @@ describe("logger extra branch coverage", () => {
 	});
 
 	it("emits internal error when cache pruning throws", async () => {
-		const workspaceRoot = mkTempDir("openui-logger-cache-prune-");
+		const workspaceRoot = mkTempDir("shadcn-brief-logger-cache-prune-");
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = canonicalWorkspaceRoot;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = canonicalWorkspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
+		process.env.SHADCN_BRIEF_CACHE_DIR = path.join(
 			canonicalWorkspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
-		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "debug";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "file";
+		process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "10";
+		process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "off";
 
 		vi.doMock(
 			"../packages/runtime-observability/src/cache-retention.js",
@@ -191,23 +191,23 @@ describe("logger extra branch coverage", () => {
 	});
 
 	it("disables file sink after first write failure and short-circuits later writes", async () => {
-		const workspaceRoot = mkTempDir("openui-logger-disable-sink-");
+		const workspaceRoot = mkTempDir("shadcn-brief-logger-disable-sink-");
 		const canonicalWorkspaceRoot = fs.realpathSync(workspaceRoot);
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = canonicalWorkspaceRoot;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = canonicalWorkspaceRoot;
 		process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-		process.env.OPENUISTUDIO_CACHE_DIR = path.join(
+		process.env.SHADCN_BRIEF_CACHE_DIR = path.join(
 			canonicalWorkspaceRoot,
 			".runtime-cache",
 			"cache",
 		);
-		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
-		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
-		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "10";
-		process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
+		process.env.SHADCN_BRIEF_CACHE_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_CACHE_MAX_BYTES = "104857600";
+		process.env.SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "debug";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "file";
+		process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "10";
+		process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "7";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "off";
 
 		const openSpy = vi.spyOn(fs, "openSync").mockImplementationOnce(() => {
 			throw new Error("open-failed");

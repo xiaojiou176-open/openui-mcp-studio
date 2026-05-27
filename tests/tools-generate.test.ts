@@ -60,7 +60,7 @@ afterEach(() => {
 
 describe("generate tool", () => {
 	it("builds html generation request with style constraints", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
@@ -87,7 +87,7 @@ describe("generate tool", () => {
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 
-		const result = await harness.getHandler("openui_generate_ui")({
+		const result = await harness.getHandler("shadcn_brief_generate_ui")({
 			prompt: "Build admin dashboard",
 			model: "gemini-3-pro-preview",
 			workspaceRoot: "/tmp/workspace",
@@ -125,7 +125,7 @@ describe("generate tool", () => {
 	});
 
 	it("does not pass useFast when routeKey is fixed by tool policy", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		vi.spyOn(shared, "resolveShadcnStyleGuide").mockResolvedValue({
@@ -151,7 +151,7 @@ describe("generate tool", () => {
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 
-		await harness.getHandler("openui_generate_ui")({
+		await harness.getHandler("shadcn_brief_generate_ui")({
 			prompt: "Build admin dashboard",
 			model: "gemini-3-pro-preview",
 			workspaceRoot: "/tmp/workspace",
@@ -170,7 +170,7 @@ describe("generate tool", () => {
 		);
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
-		const schema = harness.getConfig("openui_generate_ui").inputSchema;
+		const schema = harness.getConfig("shadcn_brief_generate_ui").inputSchema;
 		expect(schema).toEqual(
 			expect.objectContaining({
 				parse: expect.any(Function),
@@ -191,7 +191,7 @@ describe("generate tool", () => {
 		);
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
-		const schema = harness.getConfig("openui_generate_ui").inputSchema;
+		const schema = harness.getConfig("shadcn_brief_generate_ui").inputSchema;
 		expect(schema).toEqual(
 			expect.objectContaining({
 				parse: expect.any(Function),
@@ -213,7 +213,7 @@ describe("generate tool", () => {
 		const harness = createToolHarness();
 		registerGenerateTool(harness.server);
 
-		const config = harness.getConfig("openui_generate_ui");
+		const config = harness.getConfig("shadcn_brief_generate_ui");
 		expect((config as { description?: string }).description).toBe(
 			"Generate modern HTML UI from a prompt.",
 		);

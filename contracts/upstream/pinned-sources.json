@@ -12,7 +12,7 @@
 			"notes": "Mainline closure requires a non-empty immutable digest. Local bootstrap images are construction-only and are not accepted as authoritative pins."
 		},
 		{
-			"id": "openui-upstream-remote",
+			"id": "shadcn-brief-upstream-remote",
 			"type": "git-remote",
 			"owner": "devinfra",
 			"sourceOfTruth": "tooling/sync-upstream-init.mjs",
@@ -32,7 +32,7 @@
 		{
 			"id": "python-sidecar-requirements",
 			"type": "requirements-file",
-			"owner": "openui-platform",
+			"owner": "shadcn-brief-platform",
 			"sourceOfTruth": "services/gemini-sidecar/requirements.txt",
 			"blocking": true,
 			"validationGate": "py:smoke"

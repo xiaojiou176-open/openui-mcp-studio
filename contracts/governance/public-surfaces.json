@@ -82,8 +82,8 @@
 			"owner": "services-mcp-server"
 		},
 		{
-			"id": "service-public-openui-client",
-			"file": "services/mcp-server/src/public/openui-client.ts",
+			"id": "service-public-shadcn-brief-client",
+			"file": "services/mcp-server/src/public/shadcn-brief-client.ts",
 			"owner": "services-mcp-server"
 		},
 		{

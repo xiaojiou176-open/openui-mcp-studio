@@ -37,7 +37,7 @@ afterEach(() => {
 describe("run correlation", () => {
 	it("treats an empty run surface as clean instead of broken", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-run-correlation-empty-"),
+			path.join(os.tmpdir(), "shadcn-brief-run-correlation-empty-"),
 		);
 		try {
 			clearRunIdEnv();
@@ -76,7 +76,7 @@ describe("run correlation", () => {
 
 	it("treats present non-authoritative runtime runs as no authoritative runs present", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-run-correlation-non-authoritative-"),
+			path.join(os.tmpdir(), "shadcn-brief-run-correlation-non-authoritative-"),
 		);
 		try {
 			clearRunIdEnv();
@@ -128,7 +128,7 @@ describe("run correlation", () => {
 		const rootDir = await fs.mkdtemp(
 			path.join(
 				os.tmpdir(),
-				"openui-run-correlation-incomplete-authoritative-",
+				"shadcn-brief-run-correlation-incomplete-authoritative-",
 			),
 		);
 		try {
@@ -183,7 +183,7 @@ describe("run correlation", () => {
 
 	it("fails in strict mode when no authoritative run is present", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-run-correlation-empty-strict-"),
+			path.join(os.tmpdir(), "shadcn-brief-run-correlation-empty-strict-"),
 		);
 		try {
 			clearRunIdEnv();

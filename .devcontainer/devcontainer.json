@@ -1,5 +1,5 @@
 {
-  "name": "openuistudio-ui-generator",
+  "name": "shadcn-brief-ui-generator",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."

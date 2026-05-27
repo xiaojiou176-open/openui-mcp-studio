@@ -20,7 +20,7 @@ These commands are the repository front desk.
 
 | Command | What it proves | What it does not prove |
 | --- | --- | --- |
-| `npm run demo:ship` | one reproducible ship result from the real `openui_ship_react_page` tool | not a replacement for smoke, UI/UX, or release gates |
+| `npm run demo:ship` | one reproducible ship result from the real `shadcn_brief_ship_react_page` tool | not a replacement for smoke, UI/UX, or release gates |
 | `npm run repo:doctor` | current repository health across identity, language, tracked-surface hygiene, runtime, repo-local space governance, evidence, upstream, and release-readiness inputs | not a replacement for the full CI gate |
 | `npm run repo:space:report` | current repo-local disk footprint, runtime canonical vs non-canonical split, and shared-layer defer map | not authorization to delete anything by itself |
 | `npm run repo:space:check` | front-door repo-local space-governance gate: no hard-fail pollution and no unknown heavy non-canonical runtime subtree above threshold | not a replacement for runtime/evidence/public-safe gates |
@@ -192,7 +192,7 @@ These commands are the repository front desk.
   the report layer. Treat the subtree with four fixed classes:
   - `ms-playwright` -> disposable-generated
   - `node_modules` -> disposable-generated
-  - `openui-home` -> disposable-generated
+  - `shadcn-brief-home` -> disposable-generated
   - `tmp` -> scratch
 - The default policy is:
   - before runs, container parity TTL-prunes disposable-generated

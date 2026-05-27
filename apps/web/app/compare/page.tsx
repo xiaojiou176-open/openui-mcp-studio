@@ -20,7 +20,7 @@ export const metadata = buildPageMetadata({
   title:
     "Bolt alternative, Lovable alternative, v0 alternative, and MCP workflow compare",
   description:
-    "An honest compare surface for teams evaluating OpenUIStudio against Bolt, Lovable, v0, and broader Codex / Claude Code / OpenHands / OpenCode traffic.",
+    "An honest compare surface for teams evaluating ShadcnBrief against Bolt, Lovable, v0, and broader Codex / Claude Code / OpenHands / OpenCode traffic.",
   path: "/compare",
   keywords: [
     "Bolt alternative",
@@ -40,7 +40,7 @@ const compareStructuredData = buildStructuredDiscoveryJsonLd({
   title:
     "Bolt alternative, Lovable alternative, v0 alternative, and MCP workflow compare",
   description:
-    "An honest compare surface for teams evaluating OpenUIStudio against Bolt, Lovable, v0, and broader Codex / Claude Code / OpenHands / OpenCode traffic.",
+    "An honest compare surface for teams evaluating ShadcnBrief against Bolt, Lovable, v0, and broader Codex / Claude Code / OpenHands / OpenCode traffic.",
   type: "CollectionPage",
   breadcrumbLabel: "Compare",
   about: [
@@ -207,7 +207,7 @@ export default async function ComparePage() {
           <SectionHeader
             badge="Head-to-head"
             title="Open the product category before you open the official site."
-            body="Each card answers one practical question: where the other tool is a stronger fit, why OpenUI is different, and when OpenUI is simply the wrong lane."
+            body="Each card answers one practical question: where the other tool is a stronger fit, why ShadcnBrief is different, and when ShadcnBrief is simply the wrong lane."
           />
           <div className="grid gap-4 lg:grid-cols-3">
             {messages.compare.comparePoints.map((item) => (

@@ -9,8 +9,8 @@ type TextResult = {
 };
 
 type ToolHandler = (args: Record<string, unknown>) => Promise<TextResult>;
-const ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT =
-	process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+const ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT =
+	process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 
 function createToolHarness(): {
 	server: McpServer;
@@ -48,10 +48,10 @@ function readText(result: TextResult): string {
 }
 
 afterEach(() => {
-	if (ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT === undefined) {
-		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	if (ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT === undefined) {
+		delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 	} else {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT;
 	}
 	vi.restoreAllMocks();
 	vi.resetModules();
@@ -72,7 +72,7 @@ describe("smoke tool", () => {
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
-		const result = await harness.getHandler("openui_next_smoke")({});
+		const result = await harness.getHandler("shadcn_brief_next_smoke")({});
 		const payload = JSON.parse(readText(result)) as {
 			passed: boolean;
 		};
@@ -93,7 +93,7 @@ describe("smoke tool", () => {
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
-		await harness.getHandler("openui_next_smoke")({
+		await harness.getHandler("shadcn_brief_next_smoke")({
 			targetRoot: "apps/web",
 		});
 
@@ -114,11 +114,11 @@ describe("smoke tool", () => {
 		registerSmokeTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_next_smoke")({
+			harness.getHandler("shadcn_brief_next_smoke")({
 				probeTimeoutMs: 1_500,
 				shellCommand: "rm -rf /",
 			}),
-		).rejects.toThrow("openui_next_smoke unavailable");
+		).rejects.toThrow("shadcn_brief_next_smoke unavailable");
 	});
 
 	it("rejects malicious non-finite timing arguments before invoking smoke runner", async () => {
@@ -136,10 +136,10 @@ describe("smoke tool", () => {
 		registerSmokeTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_next_smoke")({
+			harness.getHandler("shadcn_brief_next_smoke")({
 				probeTimeoutMs: Number.POSITIVE_INFINITY,
 			}),
-		).rejects.toThrow("openui_next_smoke unavailable");
+		).rejects.toThrow("shadcn_brief_next_smoke unavailable");
 		expect(runNextSmoke).not.toHaveBeenCalled();
 	});
 
@@ -152,8 +152,8 @@ describe("smoke tool", () => {
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
-		await expect(harness.getHandler("openui_next_smoke")({})).rejects.toThrow(
-			"openui_next_smoke unavailable",
+		await expect(harness.getHandler("shadcn_brief_next_smoke")({})).rejects.toThrow(
+			"shadcn_brief_next_smoke unavailable",
 		);
 	});
 
@@ -168,7 +168,7 @@ describe("smoke tool", () => {
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
-		await expect(harness.getHandler("openui_next_smoke")({})).rejects.toThrow(
+		await expect(harness.getHandler("shadcn_brief_next_smoke")({})).rejects.toThrow(
 			"next-smoke module does not export runNextSmoke.",
 		);
 	});
@@ -185,8 +185,8 @@ describe("smoke tool", () => {
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
-		await harness.getHandler("openui_next_smoke")({ probeTimeoutMs: 10 });
-		await harness.getHandler("openui_next_smoke")({ probeTimeoutMs: 20 });
+		await harness.getHandler("shadcn_brief_next_smoke")({ probeTimeoutMs: 10 });
+		await harness.getHandler("shadcn_brief_next_smoke")({ probeTimeoutMs: 20 });
 
 		expect(runNextSmoke).toHaveBeenCalledTimes(2);
 		expect(runNextSmoke).toHaveBeenNthCalledWith(1, {
@@ -210,7 +210,7 @@ describe("smoke tool", () => {
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
-		const result = await harness.getHandler("openui_next_smoke")({});
+		const result = await harness.getHandler("shadcn_brief_next_smoke")({});
 		expect(readText(result)).toBe("plain smoke result");
 	});
 
@@ -227,8 +227,8 @@ describe("smoke tool", () => {
 		const harness = createToolHarness();
 		registerSmokeTool(harness.server);
 
-		await expect(harness.getHandler("openui_next_smoke")({})).rejects.toThrow(
-			"openui_next_smoke unavailable: runner exploded",
+		await expect(harness.getHandler("shadcn_brief_next_smoke")({})).rejects.toThrow(
+			"shadcn_brief_next_smoke unavailable: runner exploded",
 		);
 	});
 });
@@ -251,15 +251,15 @@ async function writeNextRuntimeFixture(root: string): Promise<void> {
 describe("next smoke target root guardrails", () => {
 	it("rejects preferred roots outside workspace without falling back", async () => {
 		const workspaceRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-smoke-workspace-"),
+			path.join(os.tmpdir(), "shadcn-brief-smoke-workspace-"),
 		);
 		const outsideRoot = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-smoke-outside-"),
+			path.join(os.tmpdir(), "shadcn-brief-smoke-outside-"),
 		);
 
 		try {
 			await writeNextRuntimeFixture(outsideRoot);
-			process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+			process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
 
 			const [{ chooseRoot }, { LogTailBuffer }] = await Promise.all([
 				import("../services/mcp-server/src/next-smoke/target-root.js"),
@@ -283,7 +283,7 @@ describe("next smoke target root guardrails", () => {
 				"outside workspace boundary",
 			);
 		} finally {
-			delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+			delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 			await Promise.all([
 				fs.rm(workspaceRoot, { recursive: true, force: true }),
 				fs.rm(outsideRoot, { recursive: true, force: true }),

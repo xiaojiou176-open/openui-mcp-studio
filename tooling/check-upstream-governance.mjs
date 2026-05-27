@@ -266,8 +266,8 @@ async function runUpstreamGovernanceCheck(options = {}) {
 		}
 	}
 
-	if (!backlogInventoryCoverage.has("openui-upstream-reference")) {
-		errors.push('adoption backlog must include at least one entry for "openui-upstream-reference"');
+	if (!backlogInventoryCoverage.has("shadcn-brief-upstream-reference")) {
+		errors.push('adoption backlog must include at least one entry for "shadcn-brief-upstream-reference"');
 	}
 
 	const usesPatchPackage =

@@ -1,11 +1,11 @@
 # @openui/sdk
 
-Public SDK for the self-hosted OpenUI Hosted API surface.
+Public SDK for the self-hosted ShadcnBrief Hosted API surface.
 
 ## Install
 
 ```bash
-npm install /ABS/PATH/OpenUIStudio/packages/sdk
+npm install /ABS/PATH/ShadcnBrief/packages/sdk
 ```
 
 Registry publication remains operator-only. The current repo truth is a

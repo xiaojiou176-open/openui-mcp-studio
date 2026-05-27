@@ -20,7 +20,7 @@ It is a truth-preserving strategy memo.
 
 ### Technical main name
 
-`OpenUIStudio`
+`ShadcnBrief`
 
 ### Current shortest honest product sentence
 
@@ -81,12 +81,12 @@ Keep naming as two layers:
 
 Keep:
 
-- `OpenUIStudio`
+- `ShadcnBrief`
 
 Why:
 
 - it matches runtime reality
-- it preserves OpenUI + MCP discoverability
+- it preserves ShadcnBrief + MCP discoverability
 - it explains why this repo feels more like a workbench than a simple generator
 - it avoids a disruptive rename across repo/package/server/tool surfaces
 
@@ -99,7 +99,7 @@ Preferred shape:
 - front-door domain:
   `oneclickui.ai` only if it becomes live and intentionally owned
 - supporting brand phrase:
-  `Powered by OpenUIStudio`
+  `Powered by ShadcnBrief`
 
 Current risk:
 
@@ -119,7 +119,7 @@ Conclusion:
 - `claw` names
 - `bot` names
 - generic `agent` names that erase the UI-delivery identity
-- any rename that weakens `OpenUI` and `MCP` before a stronger hosted/product
+- any rename that weakens `ShadcnBrief` and `MCP` before a stronger hosted/product
   surface exists
 
 ## 5. Category Language
@@ -248,8 +248,8 @@ use.
 
 ## 9. Immediate No-Regret Actions
 
-- keep `OpenUIStudio` as the technical main name
-- keep `OpenUI` / `MCP` / `proof` / `review` language visible in technical docs
+- keep `ShadcnBrief` as the technical main name
+- keep `ShadcnBrief` / `MCP` / `proof` / `review` language visible in technical docs
 - treat `OneClickUI` as an experiment only for a future marketing front door
 - do not rename repo/package/server/tool prefixes yet
 - build future landing pages around proof-backed UI delivery, not generic agent

@@ -16,7 +16,7 @@ function buildEnvExample(keys: string[]) {
 describe("env keyset drift", () => {
 	it("passes when profile examples keep identical keyset with .env.example", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-env-keyset-pass-"),
+			path.join(os.tmpdir(), "shadcn-brief-env-keyset-pass-"),
 		);
 		const keys = ["GEMINI_API_KEY", "OPENUI_TIMEOUT_MS"];
 		const envRaw = buildEnvExample(keys);
@@ -57,7 +57,7 @@ describe("env keyset drift", () => {
 
 	it("reports drift when a profile example misses baseline keys", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-env-keyset-fail-"),
+			path.join(os.tmpdir(), "shadcn-brief-env-keyset-fail-"),
 		);
 		const baselineRaw = buildEnvExample([
 			"GEMINI_API_KEY",

@@ -66,7 +66,7 @@ afterEach(async () => {
 
 describe("runtime ops", () => {
 	it("returns true when a path exists and false when it does not", async () => {
-		const tempDir = await mkTempDir("openui-runtime-ops-");
+		const tempDir = await mkTempDir("shadcn-brief-runtime-ops-");
 		const filePath = path.join(tempDir, "marker.txt");
 		const missingPath = path.join(tempDir, "missing.txt");
 

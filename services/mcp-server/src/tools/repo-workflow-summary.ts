@@ -17,7 +17,7 @@ export function registerRepoWorkflowSummaryTool(
 	},
 ): void {
 	server.registerTool(
-		"openui_repo_workflow_summary",
+		"shadcn_brief_repo_workflow_summary",
 		{
 			description:
 				"Build a read-only summary of repo-local git state plus GitHub workflow readiness. This tool never mutates remote GitHub state.",

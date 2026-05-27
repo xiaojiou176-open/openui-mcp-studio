@@ -66,7 +66,7 @@ describe("hosted compatibility service", () => {
 			expect.objectContaining({
 				ok: true,
 				data: expect.objectContaining({
-					service: "openui-hosted-api",
+					service: "shadcn-brief-hosted-api",
 				}),
 			}),
 		);
@@ -77,7 +77,7 @@ describe("hosted compatibility service", () => {
 			expect.objectContaining({
 				ok: true,
 				data: expect.objectContaining({
-					technicalName: "OpenUI Hosted API",
+					technicalName: "ShadcnBrief Hosted API",
 				}),
 			}),
 		);
@@ -87,7 +87,7 @@ describe("hosted compatibility service", () => {
 		expect(await frontdoor.json()).toEqual(
 			expect.objectContaining({
 				product: expect.objectContaining({
-					technicalName: "OpenUIStudio",
+					technicalName: "ShadcnBrief",
 				}),
 			}),
 		);
@@ -108,7 +108,7 @@ describe("hosted compatibility service", () => {
 				ok: true,
 				data: expect.objectContaining({
 					tools: expect.arrayContaining([
-						expect.objectContaining({ name: "openui_detect_shadcn_paths" }),
+						expect.objectContaining({ name: "shadcn_brief_detect_shadcn_paths" }),
 					]),
 				}),
 			}),
@@ -121,7 +121,7 @@ describe("hosted compatibility service", () => {
 				"content-type": "application/json",
 			},
 			body: JSON.stringify({
-				name: "openui_detect_shadcn_paths",
+				name: "shadcn_brief_detect_shadcn_paths",
 			}),
 		});
 		expect(callResponse.status).toBe(200);

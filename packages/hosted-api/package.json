@@ -3,7 +3,7 @@
 	"version": "0.3.1",
 	"private": true,
 	"type": "module",
-	"description": "Internal source package for the self-hosted OpenUIStudio HTTP runtime surfaced through the repo CLI.",
+	"description": "Internal source package for the self-hosted ShadcnBrief HTTP runtime surfaced through the repo CLI.",
 	"exports": {
 		".": "./src/index.ts",
 		"./cli": "./src/cli.ts",

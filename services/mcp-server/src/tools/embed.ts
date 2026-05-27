@@ -34,7 +34,7 @@ export async function embedContentsWithGemini(
 
 export function registerEmbedTool(server: McpServer): void {
 	server.registerTool(
-		"openui_embed_content",
+		"shadcn_brief_embed_content",
 		{
 			description: "Create Gemini embeddings for one or more text contents.",
 			inputSchema: EmbedInputSchema,

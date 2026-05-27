@@ -9,11 +9,11 @@ import {
 
 const originalEnv = new Map<string, string | undefined>(
 	[
-		"OPENUISTUDIO_WORKSPACE_ROOT",
-		"OPENUISTUDIO_CACHE_DIR",
-		"OPENUISTUDIO_CACHE_RETENTION_DAYS",
-		"OPENUISTUDIO_CACHE_MAX_BYTES",
-		"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
+		"SHADCN_BRIEF_WORKSPACE_ROOT",
+		"SHADCN_BRIEF_CACHE_DIR",
+		"SHADCN_BRIEF_CACHE_RETENTION_DAYS",
+		"SHADCN_BRIEF_CACHE_MAX_BYTES",
+		"SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES",
 	].map((key) => [key, process.env[key]]),
 );
 const tempDirs: string[] = [];
@@ -44,25 +44,25 @@ afterEach(() => {
 
 describe("cache retention low-core branches", () => {
 	it("rejects workspace root when it resolves to a file path", () => {
-		const rootDir = mkTempDir("openui-cache-root-file-");
+		const rootDir = mkTempDir("shadcn-brief-cache-root-file-");
 		const rootFile = path.join(rootDir, "workspace.txt");
 		fs.writeFileSync(rootFile, "not-a-directory", "utf8");
 
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = rootFile;
-		process.env.OPENUISTUDIO_CACHE_DIR = ".runtime-cache/cache";
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = rootFile;
+		process.env.SHADCN_BRIEF_CACHE_DIR = ".runtime-cache/cache";
 
 		expect(() => resolveCacheRetentionConfigFromEnv()).toThrow(
-			/OPENUISTUDIO_WORKSPACE_ROOT must point to a directory/,
+			/SHADCN_BRIEF_WORKSPACE_ROOT must point to a directory/,
 		);
 	});
 
 	it("uses default numeric config when env values are unset", () => {
-		const workspaceRoot = mkTempDir("openui-cache-defaults-");
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
-		delete process.env.OPENUISTUDIO_CACHE_DIR;
-		delete process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS;
-		delete process.env.OPENUISTUDIO_CACHE_MAX_BYTES;
-		delete process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES;
+		const workspaceRoot = mkTempDir("shadcn-brief-cache-defaults-");
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
+		delete process.env.SHADCN_BRIEF_CACHE_DIR;
+		delete process.env.SHADCN_BRIEF_CACHE_RETENTION_DAYS;
+		delete process.env.SHADCN_BRIEF_CACHE_MAX_BYTES;
+		delete process.env.SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES;
 
 		const config = resolveCacheRetentionConfigFromEnv(789);
 		expect(config.cacheDir).toBe(
@@ -75,7 +75,7 @@ describe("cache retention low-core branches", () => {
 	});
 
 	it("skips non-file dir entries and treats ENOENT unlink as removed", () => {
-		const cacheDir = mkTempDir("openui-cache-enoent-");
+		const cacheDir = mkTempDir("shadcn-brief-cache-enoent-");
 		const externalTarget = path.join(cacheDir, "external-target.txt");
 		const symlinkPath = path.join(cacheDir, "symlink-entry");
 		const expiredFilePath = path.join(cacheDir, "expired.cache");

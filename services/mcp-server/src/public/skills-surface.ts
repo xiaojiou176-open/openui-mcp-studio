@@ -8,7 +8,7 @@ export const OPENUI_PUBLIC_SKILLS_STARTER_PACK = {
 	title: "Plugin-grade public starter pack",
 	status: "plugin-grade-public-package",
 	audience:
-		"maintainers and builder teams drafting skill-shaped OpenUI integrations or official-surface-ready bundles",
+		"maintainers and builder teams drafting skill-shaped ShadcnBrief integrations or official-surface-ready bundles",
 	bestFor:
 		"copyable starter contracts, manifest-driven discovery, starter bundles, and install/use guidance that stay honest about current runtime boundaries",
 	readWhen:
@@ -63,8 +63,8 @@ export const OPENUI_PUBLIC_SKILLS_STARTER_PACK = {
 		},
 	],
 	commands: [
-		"OpenUIStudio skills starter --json",
-		"OpenUIStudio ecosystem-guide --json",
+		"ShadcnBrief skills starter --json",
+		"ShadcnBrief ecosystem-guide --json",
 	],
 	boundary:
 		"Formal public starter-pack packaging is current, including plugin-grade starter bundles and the OpenClaw public-ready bundle. Marketplace listings, official catalog approval, and vendor-specific submissions remain operator-only or later.",

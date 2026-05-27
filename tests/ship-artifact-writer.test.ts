@@ -37,7 +37,7 @@ afterEach(async () => {
 
 describe("ship artifact writer", () => {
 	it("writes run-scoped JSON and markdown artifacts under the governed artifact root", async () => {
-		const workspaceRoot = await mkTempDir("openui-ship-artifacts-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-artifacts-");
 		process.env.OPENUI_RUNTIME_RUN_ID = "test-run-artifacts";
 
 		const jsonPath = await writeRunArtifactJson({
@@ -67,7 +67,7 @@ describe("ship artifact writer", () => {
 	});
 
 	it("rejects unsafe artifact names before writing governed paths", async () => {
-		const workspaceRoot = await mkTempDir("openui-ship-artifacts-invalid-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-artifacts-invalid-");
 		process.env.OPENUI_RUNTIME_RUN_ID = "test-run-artifacts";
 
 		await expect(
@@ -98,7 +98,7 @@ describe("ship artifact writer", () => {
 	});
 
 	it("writes artifacts under scoped subdirectories when requested", async () => {
-		const workspaceRoot = await mkTempDir("openui-ship-artifacts-scoped-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-artifacts-scoped-");
 		process.env.OPENUI_RUNTIME_RUN_ID = "test-run-artifacts";
 
 		const jsonPath = await writeRunArtifactJson({
@@ -130,7 +130,7 @@ describe("ship artifact writer", () => {
 	});
 
 	it("writes the full delivery artifact set including extras and markdown bundle", async () => {
-		const workspaceRoot = await mkTempDir("openui-ship-artifacts-delivery-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-artifacts-delivery-");
 		process.env.OPENUI_RUNTIME_RUN_ID = "test-run-artifacts";
 
 		const artifacts = await writeDeliveryArtifacts({
@@ -262,11 +262,11 @@ describe("ship artifact writer", () => {
 				path.join(workspaceRoot, artifacts.reviewBundleMarkdown),
 				"utf8",
 			),
-		).resolves.toContain("# OpenUI Review Bundle");
+		).resolves.toContain("# ShadcnBrief Review Bundle");
 	});
 
 	it("returns null for missing markdown artifacts and only writes explicit extras when optional payloads are absent", async () => {
-		const workspaceRoot = await mkTempDir("openui-ship-artifacts-minimal-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-artifacts-minimal-");
 		process.env.OPENUI_RUNTIME_RUN_ID = "test-run-artifacts";
 
 		await expect(
@@ -313,7 +313,7 @@ describe("ship artifact writer", () => {
 		const artifactsModule = await import(
 			"../services/mcp-server/src/ship/artifacts.js"
 		);
-		const workspaceRoot = await mkTempDir("openui-ship-artifacts-outside-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-artifacts-outside-");
 		process.env.OPENUI_RUNTIME_RUN_ID = "test-run-artifacts";
 
 		await expect(

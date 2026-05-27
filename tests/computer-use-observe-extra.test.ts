@@ -51,7 +51,7 @@ describe("computer use observe extra branches", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const result = await harness.getHandler("openui_observe_screen")({
+		const result = await harness.getHandler("shadcn_brief_observe_screen")({
 			input: {
 				text: "Inspect the screen without model invocation.",
 				images: [{ mimeType: "image/png", data: "ZmFrZQ==" }],
@@ -87,7 +87,7 @@ describe("computer use observe extra branches", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const result = await harness.getHandler("openui_observe_screen")({
+		const result = await harness.getHandler("shadcn_brief_observe_screen")({
 			input: {
 				text: "Inspect image payload.",
 				images: [
@@ -145,7 +145,7 @@ describe("computer use observe extra branches", () => {
 		registerComputerUseTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_observe_screen")({
+			harness.getHandler("shadcn_brief_observe_screen")({
 				input: { text: "Fail the observe call.", images: [] },
 				invokeModel: true,
 			}),

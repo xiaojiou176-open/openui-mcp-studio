@@ -48,19 +48,19 @@ describe("tools functionResponses schema contract", () => {
 		const targets: Array<{ name: string; baseInput: Record<string, unknown> }> =
 			[
 				{
-					name: "openui_convert_react_shadcn",
+					name: "shadcn_brief_convert_react_shadcn",
 					baseInput: { html: "<main>Hello</main>" },
 				},
 				{
-					name: "openui_generate_ui",
+					name: "shadcn_brief_generate_ui",
 					baseInput: { prompt: "Build dashboard" },
 				},
 				{
-					name: "openui_refine_ui",
+					name: "shadcn_brief_refine_ui",
 					baseInput: { html: "<main>Hello</main>", instruction: "add filters" },
 				},
 				{
-					name: "openui_ship_react_page",
+					name: "shadcn_brief_ship_react_page",
 					baseInput: { prompt: "Build dashboard" },
 				},
 			];
@@ -106,7 +106,7 @@ describe("tools functionResponses schema contract", () => {
 	it("keeps convert tool compatible by stripping removed response schema params", () => {
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
-		const schema = harness.getConfig("openui_convert_react_shadcn").inputSchema;
+		const schema = harness.getConfig("shadcn_brief_convert_react_shadcn").inputSchema;
 		expect(schema).toEqual(
 			expect.objectContaining({
 				parse: expect.any(Function),

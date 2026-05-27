@@ -8,21 +8,21 @@ export const OPENUI_ENV_KEYS = [
 	"GEMINI_DEFAULT_TEMPERATURE",
 	"NEXT_PUBLIC_SITE_URL",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUISTUDIO_WORKSPACE_ROOT",
+	"SHADCN_BRIEF_WORKSPACE_ROOT",
 	"OPENUI_TIMEOUT_MS",
 	"OPENUI_MAX_RETRIES",
 	"OPENUI_RETRY_BASE_MS",
-	"OPENUISTUDIO_LOG_LEVEL",
-	"OPENUISTUDIO_LOG_OUTPUT",
-	"OPENUISTUDIO_LOG_ROTATE_ON_START",
-	"OPENUISTUDIO_CHILD_ENV_ALLOWLIST",
-	"OPENUISTUDIO_LOG_DIR",
-	"OPENUISTUDIO_LOG_RETENTION_DAYS",
-	"OPENUISTUDIO_LOG_MAX_FILE_MB",
-	"OPENUISTUDIO_CACHE_DIR",
-	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
-	"OPENUISTUDIO_CACHE_MAX_BYTES",
-	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
+	"SHADCN_BRIEF_LOG_LEVEL",
+	"SHADCN_BRIEF_LOG_OUTPUT",
+	"SHADCN_BRIEF_LOG_ROTATE_ON_START",
+	"SHADCN_BRIEF_CHILD_ENV_ALLOWLIST",
+	"SHADCN_BRIEF_LOG_DIR",
+	"SHADCN_BRIEF_LOG_RETENTION_DAYS",
+	"SHADCN_BRIEF_LOG_MAX_FILE_MB",
+	"SHADCN_BRIEF_CACHE_DIR",
+	"SHADCN_BRIEF_CACHE_RETENTION_DAYS",
+	"SHADCN_BRIEF_CACHE_MAX_BYTES",
+	"SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES",
 	"OPENUI_TOOL_CACHE_ROOT",
 	"OPENUI_TOOL_CACHE_RETENTION_DAYS",
 	"OPENUI_TOOL_CACHE_MAX_BYTES",
@@ -117,7 +117,7 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		description: "Route switch for fast/strong model selection.",
 		validation: "Enum: on | off.",
 	},
-	OPENUISTUDIO_WORKSPACE_ROOT: {
+	SHADCN_BRIEF_WORKSPACE_ROOT: {
 		defaultValue: () => process.cwd(),
 		sensitive: false,
 		description: "Workspace root used by filesystem-sensitive MCP tools.",
@@ -141,26 +141,26 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		description: "Exponential backoff base delay in milliseconds.",
 		validation: "Positive number.",
 	},
-	OPENUISTUDIO_LOG_LEVEL: {
+	SHADCN_BRIEF_LOG_LEVEL: {
 		defaultValue: "info",
 		sensitive: false,
 		description: "Server log verbosity threshold.",
 		validation: "Enum: debug | info | warn | error.",
 	},
-	OPENUISTUDIO_LOG_OUTPUT: {
+	SHADCN_BRIEF_LOG_OUTPUT: {
 		defaultValue: "both",
 		sensitive: false,
 		description: "Selects log sink output target.",
 		validation: "Enum: stderr | file | both.",
 	},
-	OPENUISTUDIO_LOG_ROTATE_ON_START: {
+	SHADCN_BRIEF_LOG_ROTATE_ON_START: {
 		defaultValue: "on",
 		sensitive: false,
 		description:
 			"Controls startup-time rotation for oversized active log file.",
 		validation: "Enum: on | off.",
 	},
-	OPENUISTUDIO_CHILD_ENV_ALLOWLIST: {
+	SHADCN_BRIEF_CHILD_ENV_ALLOWLIST: {
 		defaultValue: "",
 		sensitive: false,
 		description:
@@ -168,7 +168,7 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		validation:
 			'Comma-separated env keys or prefix wildcards ending with "*" (for example: PATH,OPENUI_*). Empty uses baseline safe keys only.',
 	},
-	OPENUISTUDIO_LOG_DIR: {
+	SHADCN_BRIEF_LOG_DIR: {
 		defaultValue: ".runtime-cache/runs/<run_id>/logs/runtime.jsonl",
 		sensitive: false,
 		description:
@@ -176,37 +176,37 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		validation:
 			"Governed run-scoped path token; arbitrary override is not part of the supported contract.",
 	},
-	OPENUISTUDIO_LOG_RETENTION_DAYS: {
+	SHADCN_BRIEF_LOG_RETENTION_DAYS: {
 		defaultValue: 7,
 		sensitive: false,
 		description: "Number of days to retain MCP log files.",
 		validation: "Positive integer.",
 	},
-	OPENUISTUDIO_LOG_MAX_FILE_MB: {
+	SHADCN_BRIEF_LOG_MAX_FILE_MB: {
 		defaultValue: 10,
 		sensitive: false,
 		description: "Maximum size per MCP log file in megabytes.",
 		validation: "Positive number.",
 	},
-	OPENUISTUDIO_CACHE_DIR: {
+	SHADCN_BRIEF_CACHE_DIR: {
 		defaultValue: ".runtime-cache/cache",
 		sensitive: false,
 		description: "Directory for MCP runtime cache artifacts.",
 		validation: "Non-empty path string.",
 	},
-	OPENUISTUDIO_CACHE_RETENTION_DAYS: {
+	SHADCN_BRIEF_CACHE_RETENTION_DAYS: {
 		defaultValue: 7,
 		sensitive: false,
 		description: "Number of days to retain MCP cache files.",
 		validation: "Positive integer.",
 	},
-	OPENUISTUDIO_CACHE_MAX_BYTES: {
+	SHADCN_BRIEF_CACHE_MAX_BYTES: {
 		defaultValue: 104_857_600,
 		sensitive: false,
 		description: "Maximum total size for MCP cache files in bytes.",
 		validation: "Positive integer.",
 	},
-	OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES: {
+	SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES: {
 		defaultValue: 60,
 		sensitive: false,
 		description:
@@ -214,7 +214,7 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		validation: "Positive integer.",
 	},
 	OPENUI_TOOL_CACHE_ROOT: {
-		defaultValue: "~/.cache/OpenUIStudio/tooling",
+		defaultValue: "~/.cache/ShadcnBrief/tooling",
 		sensitive: false,
 		description:
 			"Base root for repo-specific external tool caches (Playwright assets, managed install surfaces, tool HOME, and repo-owned pre-commit/Go caches).",
@@ -319,20 +319,20 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 	OPENUI_HOSTED_API_HOST: {
 		defaultValue: "127.0.0.1",
 		sensitive: false,
-		description: "Bind host for the self-hosted OpenUI Hosted API runtime.",
+		description: "Bind host for the self-hosted ShadcnBrief Hosted API runtime.",
 		validation: "Trimmed non-empty string.",
 	},
 	OPENUI_HOSTED_API_PORT: {
 		defaultValue: 7878,
 		sensitive: false,
-		description: "Bind port for the self-hosted OpenUI Hosted API runtime.",
+		description: "Bind port for the self-hosted ShadcnBrief Hosted API runtime.",
 		validation: "Positive integer.",
 	},
 	OPENUI_HOSTED_API_BEARER_TOKEN: {
 		defaultValue: "",
 		sensitive: true,
 		description:
-			"Bearer token required by protected OpenUI Hosted API routes.",
+			"Bearer token required by protected ShadcnBrief Hosted API routes.",
 		validation:
 			"Trimmed non-empty string when the hosted API runtime is started.",
 	},
@@ -340,7 +340,7 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		defaultValue: 60,
 		sensitive: false,
 		description:
-			"Fixed-window request budget for the self-hosted OpenUI Hosted API runtime.",
+			"Fixed-window request budget for the self-hosted ShadcnBrief Hosted API runtime.",
 		validation: "Positive integer.",
 	},
 });

@@ -99,7 +99,7 @@ describe("repo workflow summary tool", () => {
 			getWorkspaceRoot: () => "/default-workspace",
 		});
 
-		const result = await harness.getHandler("openui_repo_workflow_summary")({
+		const result = await harness.getHandler("shadcn_brief_repo_workflow_summary")({
 			workspaceRoot: "/repo",
 			failedRunsLimit: 5,
 		});
@@ -170,7 +170,7 @@ describe("repo workflow summary tool", () => {
 			getWorkspaceRoot: () => "/default-workspace",
 		});
 
-		const result = await harness.getHandler("openui_repo_workflow_summary")({});
+		const result = await harness.getHandler("shadcn_brief_repo_workflow_summary")({});
 
 		expect(JSON.parse(readText(result))).toMatchObject({
 			github: {

@@ -11,7 +11,7 @@ import {
 
 export function registerConvertTools(server: McpServer): void {
 	server.registerTool(
-		"openui_convert_react_shadcn",
+		"shadcn_brief_convert_react_shadcn",
 		{
 			description:
 				"Convert HTML to React + Tailwind (shadcn style), outputting multi-file JSON: { files: [{path, content}], notes?: string[] }.",
@@ -86,7 +86,7 @@ export function registerConvertTools(server: McpServer): void {
 	);
 
 	server.registerTool(
-		"openui_make_react_page",
+		"shadcn_brief_make_react_page",
 		{
 			description:
 				"One-shot pipeline: prompt -> HTML draft -> React + Tailwind multi-file JSON.",

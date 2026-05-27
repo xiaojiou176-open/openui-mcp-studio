@@ -16,7 +16,7 @@ async function writeJson(filePath: string, value: unknown) {
 describe("cache tier governance", () => {
 	it("fails when legacy artifact roots still exist", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-cache-tier-"),
+			path.join(os.tmpdir(), "shadcn-brief-cache-tier-"),
 		);
 		try {
 			await writeJson(
@@ -59,7 +59,7 @@ describe("cache tier governance", () => {
 
 	it("fails when legacy quality-trend runtime root still contains files", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-quality-trend-legacy-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-quality-trend-legacy-root-"),
 		);
 		try {
 			await writeJson(

@@ -24,17 +24,17 @@ const ENV_KEYS = [
 	"GEMINI_DEFAULT_THINKING_LEVEL",
 	"GEMINI_DEFAULT_TEMPERATURE",
 	"OPENUI_MODEL_ROUTING",
-	"OPENUISTUDIO_LOG_LEVEL",
-	"OPENUISTUDIO_LOG_OUTPUT",
-	"OPENUISTUDIO_LOG_ROTATE_ON_START",
-	"OPENUISTUDIO_LOG_MAX_FILE_MB",
-	"OPENUISTUDIO_LOG_RETENTION_DAYS",
-	"OPENUISTUDIO_WORKSPACE_ROOT",
+	"SHADCN_BRIEF_LOG_LEVEL",
+	"SHADCN_BRIEF_LOG_OUTPUT",
+	"SHADCN_BRIEF_LOG_ROTATE_ON_START",
+	"SHADCN_BRIEF_LOG_MAX_FILE_MB",
+	"SHADCN_BRIEF_LOG_RETENTION_DAYS",
+	"SHADCN_BRIEF_WORKSPACE_ROOT",
 	"OPENUI_RUNTIME_RUN_ID",
-	"OPENUISTUDIO_CACHE_DIR",
-	"OPENUISTUDIO_CACHE_RETENTION_DAYS",
-	"OPENUISTUDIO_CACHE_MAX_BYTES",
-	"OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES",
+	"SHADCN_BRIEF_CACHE_DIR",
+	"SHADCN_BRIEF_CACHE_RETENTION_DAYS",
+	"SHADCN_BRIEF_CACHE_MAX_BYTES",
+	"SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES",
 	"OPENUI_MAX_RETRIES",
 	"OPENUI_GEMINI_SIDECAR_PATH",
 ] as const;
@@ -88,21 +88,21 @@ async function loadLogger() {
 }
 
 function setupLoggerEnv(workspaceRoot: string): void {
-	process.env.OPENUISTUDIO_WORKSPACE_ROOT = workspaceRoot;
+	process.env.SHADCN_BRIEF_WORKSPACE_ROOT = workspaceRoot;
 	process.env.OPENUI_RUNTIME_RUN_ID = TEST_RUN_ID;
-	process.env.OPENUISTUDIO_CACHE_DIR = path.join(
+	process.env.SHADCN_BRIEF_CACHE_DIR = path.join(
 		workspaceRoot,
 		".runtime-cache",
 		"cache",
 	);
-	process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
-	process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
-	process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-	process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
-	process.env.OPENUISTUDIO_LOG_OUTPUT = "file";
-	process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "5";
-	process.env.OPENUISTUDIO_LOG_RETENTION_DAYS = "7";
-	process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "off";
+	process.env.SHADCN_BRIEF_CACHE_RETENTION_DAYS = "7";
+	process.env.SHADCN_BRIEF_CACHE_MAX_BYTES = "104857600";
+	process.env.SHADCN_BRIEF_CACHE_CLEAN_INTERVAL_MINUTES = "60";
+	process.env.SHADCN_BRIEF_LOG_LEVEL = "debug";
+	process.env.SHADCN_BRIEF_LOG_OUTPUT = "file";
+	process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "5";
+	process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS = "7";
+	process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "off";
 }
 
 afterEach(() => {
@@ -151,7 +151,7 @@ describe("constants targeted branch coverage", () => {
 
 		delete process.env.GEMINI_DEFAULT_TEMPERATURE;
 		delete process.env.OPENUI_MAX_RETRIES;
-		delete process.env.OPENUISTUDIO_LOG_RETENTION_DAYS;
+		delete process.env.SHADCN_BRIEF_LOG_RETENTION_DAYS;
 
 		expect(constants.getGeminiDefaultTemperature()).toBe(
 			constants.DEFAULT_GEMINI_DEFAULT_TEMPERATURE,
@@ -160,7 +160,7 @@ describe("constants targeted branch coverage", () => {
 			constants.DEFAULT_OPENUI_MAX_RETRIES,
 		);
 		expect(constants.getOpenuiMcpLogRetentionDays()).toBe(
-			constants.DEFAULT_OPENUISTUDIO_LOG_RETENTION_DAYS,
+			constants.DEFAULT_SHADCN_BRIEF_LOG_RETENTION_DAYS,
 		);
 
 		process.env.OPENUI_MAX_RETRIES = "-1";
@@ -172,34 +172,34 @@ describe("constants targeted branch coverage", () => {
 	it("covers log level default/enum branches and invalid guard", async () => {
 		const constants = await loadConstants();
 
-		delete process.env.OPENUISTUDIO_LOG_LEVEL;
+		delete process.env.SHADCN_BRIEF_LOG_LEVEL;
 		expect(constants.getOpenuiMcpLogLevel()).toBe(
-			constants.DEFAULT_OPENUISTUDIO_LOG_LEVEL,
+			constants.DEFAULT_SHADCN_BRIEF_LOG_LEVEL,
 		);
 
-		process.env.OPENUISTUDIO_LOG_LEVEL = "warn";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "warn";
 		expect(constants.getOpenuiMcpLogLevel()).toBe("warn");
 
-		process.env.OPENUISTUDIO_LOG_LEVEL = "error";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "error";
 		expect(constants.getOpenuiMcpLogLevel()).toBe("error");
 
-		process.env.OPENUISTUDIO_LOG_LEVEL = "trace";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "trace";
 		expect(() => constants.getOpenuiMcpLogLevel()).toThrow(
-			/OPENUISTUDIO_LOG_LEVEL must be one of/,
+			/SHADCN_BRIEF_LOG_LEVEL must be one of/,
 		);
 	});
 
 	it("covers workspace cache-key fallback and sidecar path default branch", async () => {
 		const constants = await loadConstants();
-		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+		delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 		delete process.env.OPENUI_GEMINI_SIDECAR_PATH;
 
 		vi.spyOn(fs, "statSync").mockReturnValue({
 			isDirectory: () => true,
 		} as fs.Stats);
-		vi.spyOn(fs, "realpathSync").mockReturnValue("/tmp/openui-default-root");
+		vi.spyOn(fs, "realpathSync").mockReturnValue("/tmp/shadcn-brief-default-root");
 
-		expect(constants.getWorkspaceRoot()).toBe("/tmp/openui-default-root");
+		expect(constants.getWorkspaceRoot()).toBe("/tmp/shadcn-brief-default-root");
 		expect(constants.getGeminiSidecarPath().length).toBeGreaterThan(0);
 	});
 });
@@ -214,7 +214,7 @@ describe("logger targeted branch coverage", () => {
 
 	it("uses incremented rotated suffix when first timestamped candidate already exists", async () => {
 		const logger = await loadLogger();
-		const logDir = mkRuntimeLogDir("openui-logger-coverage-suffix-");
+		const logDir = mkRuntimeLogDir("shadcn-brief-logger-coverage-suffix-");
 		fs.mkdirSync(logDir, { recursive: true });
 		vi.useFakeTimers();
 		vi.setSystemTime(new Date("2026-01-01T00:00:00.000Z"));
@@ -233,7 +233,7 @@ describe("logger targeted branch coverage", () => {
 
 	it("covers rotateOnStart true branch when active log exceeds max size", async () => {
 		const workspaceRoot = mkRuntimeWorkspaceRoot(
-			"openui-logger-coverage-rotate-",
+			"shadcn-brief-logger-coverage-rotate-",
 		);
 		const logDir = path.join(
 			workspaceRoot,
@@ -246,8 +246,8 @@ describe("logger targeted branch coverage", () => {
 		const activePath = path.join(logDir, "runtime.jsonl");
 		fs.writeFileSync(activePath, "x".repeat(256), "utf8");
 		setupLoggerEnv(workspaceRoot);
-		process.env.OPENUISTUDIO_LOG_ROTATE_ON_START = "on";
-		process.env.OPENUISTUDIO_LOG_MAX_FILE_MB = "0.0001";
+		process.env.SHADCN_BRIEF_LOG_ROTATE_ON_START = "on";
+		process.env.SHADCN_BRIEF_LOG_MAX_FILE_MB = "0.0001";
 
 		const logger = await loadLogger();
 		logger.logInfo("rotate-on-start-branch");
@@ -260,7 +260,7 @@ describe("logger targeted branch coverage", () => {
 
 	it("covers cache cleanup short-circuit when cleanup is not due", async () => {
 		const workspaceRoot = mkRuntimeWorkspaceRoot(
-			"openui-logger-coverage-cache-not-due-",
+			"shadcn-brief-logger-coverage-cache-not-due-",
 		);
 		setupLoggerEnv(workspaceRoot);
 
@@ -295,7 +295,7 @@ describe("logger targeted branch coverage", () => {
 
 	it("covers symlink guard path in file sink writes", async () => {
 		const workspaceRoot = mkRuntimeWorkspaceRoot(
-			"openui-logger-coverage-symlink-",
+			"shadcn-brief-logger-coverage-symlink-",
 		);
 		const logDir = path.join(
 			workspaceRoot,
@@ -327,7 +327,7 @@ describe("logger targeted branch coverage", () => {
 
 	it("covers shouldLog false and stderr/both output branches", async () => {
 		const workspaceRoot = mkRuntimeWorkspaceRoot(
-			"openui-logger-coverage-output-",
+			"shadcn-brief-logger-coverage-output-",
 		);
 		const logDir = path.join(
 			workspaceRoot,
@@ -337,8 +337,8 @@ describe("logger targeted branch coverage", () => {
 			"logs",
 		);
 		setupLoggerEnv(workspaceRoot);
-		process.env.OPENUISTUDIO_LOG_LEVEL = "error";
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "stderr";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "error";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "stderr";
 
 		const stderrSpy = vi
 			.spyOn(process.stderr, "write")
@@ -348,11 +348,11 @@ describe("logger targeted branch coverage", () => {
 		logger.logInfo("below-threshold-ignored");
 		expect(stderrSpy).toHaveBeenCalledTimes(0);
 
-		process.env.OPENUISTUDIO_LOG_LEVEL = "debug";
+		process.env.SHADCN_BRIEF_LOG_LEVEL = "debug";
 		logger.logInfo("stderr-only");
 		expect(stderrSpy.mock.calls.length).toBeGreaterThanOrEqual(1);
 
-		process.env.OPENUISTUDIO_LOG_OUTPUT = "both";
+		process.env.SHADCN_BRIEF_LOG_OUTPUT = "both";
 		logger.logInfo("stderr-and-file");
 		expect(fs.existsSync(path.join(logDir, "runtime.jsonl"))).toBe(true);
 	});

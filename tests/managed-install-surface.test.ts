@@ -11,10 +11,10 @@ import { buildSafeToolCacheEnv } from "../tooling/shared/tool-cache-env.mjs";
 describe("managed install surface", () => {
 	it("creates an external node_modules symlink and manifest for tmp verification roots", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-managed-install-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-managed-install-root-"),
 		);
 		const toolCacheRootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-managed-install-cache-"),
+			path.join(os.tmpdir(), "shadcn-brief-managed-install-cache-"),
 		);
 		const toolCacheBaseRoot = path.join(toolCacheRootDir, "tooling");
 		const targetRoot = path.join(
@@ -46,7 +46,7 @@ describe("managed install surface", () => {
 			);
 
 			const manifestText = await fs.readFile(
-				path.join(targetRoot, ".openui-maintenance-manifest.json"),
+				path.join(targetRoot, ".shadcn-brief-maintenance-manifest.json"),
 				"utf8",
 			);
 			const manifest = JSON.parse(manifestText);
@@ -63,10 +63,10 @@ describe("managed install surface", () => {
 
 	it("stays inert for ordinary workspace roots", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-managed-install-non-tmp-"),
+			path.join(os.tmpdir(), "shadcn-brief-managed-install-non-tmp-"),
 		);
 		const toolCacheRootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-managed-install-cache-"),
+			path.join(os.tmpdir(), "shadcn-brief-managed-install-cache-"),
 		);
 		const toolCacheBaseRoot = path.join(toolCacheRootDir, "tooling");
 		try {
@@ -93,10 +93,10 @@ describe("managed install surface", () => {
 
 	it("does not create runtime marker directories inside the workspace root", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-tool-cache-root-"),
+			path.join(os.tmpdir(), "shadcn-brief-tool-cache-root-"),
 		);
 		const toolCacheRootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-tool-cache-root-base-"),
+			path.join(os.tmpdir(), "shadcn-brief-tool-cache-root-base-"),
 		);
 		const toolCacheBaseRoot = path.join(toolCacheRootDir, "tooling");
 		try {

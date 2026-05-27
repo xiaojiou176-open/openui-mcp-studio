@@ -11,7 +11,7 @@ type TextResult = {
 type ToolHandler = (args: Record<string, unknown>) => Promise<TextResult>;
 
 const DETECTION_FIXTURE = {
-	workspaceRoot: "/tmp/openui-workspace",
+	workspaceRoot: "/tmp/shadcn-brief-workspace",
 	source: "default" as const,
 	uiImportBase: "@/components/ui",
 	uiDir: "components/ui",
@@ -21,9 +21,9 @@ const DETECTION_FIXTURE = {
 };
 
 const tempDirs: string[] = [];
-const ORIGINAL_OPENUISTUDIO_CACHE_DIR = process.env.OPENUISTUDIO_CACHE_DIR;
-const ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT =
-	process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+const ORIGINAL_SHADCN_BRIEF_CACHE_DIR = process.env.SHADCN_BRIEF_CACHE_DIR;
+const ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT =
+	process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 
 async function mkTempDir(prefix: string): Promise<string> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
@@ -79,23 +79,23 @@ afterEach(async () => {
 			.splice(0)
 			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
-	if (ORIGINAL_OPENUISTUDIO_CACHE_DIR === undefined) {
-		delete process.env.OPENUISTUDIO_CACHE_DIR;
+	if (ORIGINAL_SHADCN_BRIEF_CACHE_DIR === undefined) {
+		delete process.env.SHADCN_BRIEF_CACHE_DIR;
 	} else {
-		process.env.OPENUISTUDIO_CACHE_DIR = ORIGINAL_OPENUISTUDIO_CACHE_DIR;
+		process.env.SHADCN_BRIEF_CACHE_DIR = ORIGINAL_SHADCN_BRIEF_CACHE_DIR;
 	}
-	if (ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT === undefined) {
-		delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	if (ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT === undefined) {
+		delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 	} else {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = ORIGINAL_OPENUISTUDIO_WORKSPACE_ROOT;
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = ORIGINAL_SHADCN_BRIEF_WORKSPACE_ROOT;
 	}
 	vi.restoreAllMocks();
 	vi.resetModules();
 });
 
 describe("prompt->html request helper wiring", () => {
-	it("openui_make_react_page keeps the previous HTML request shape", async () => {
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+	it("shadcn_brief_make_react_page keeps the previous HTML request shape", async () => {
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 
 		const openuiSpy = vi
@@ -129,12 +129,12 @@ describe("prompt->html request helper wiring", () => {
 		const harness = createToolHarness();
 		registerConvertTools(harness.server);
 
-		const result = await harness.getHandler("openui_make_react_page")({
+		const result = await harness.getHandler("shadcn_brief_make_react_page")({
 			prompt: "Build dashboard",
 			pagePath: "app/page.tsx",
 			componentsDir: "components/generated",
 			model: "gemini/gemini-test",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			useFast: true,
 		});
 
@@ -164,13 +164,13 @@ describe("prompt->html request helper wiring", () => {
 		expect(payload.html).toBe("<main>draft</main>");
 	});
 
-	it("openui_ship_react_page keeps the previous HTML request shape", async () => {
-		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
-			"openui-ship-prompt-cache-",
+	it("shadcn_brief_ship_react_page keeps the previous HTML request shape", async () => {
+		process.env.SHADCN_BRIEF_CACHE_DIR = await mkTempDir(
+			"shadcn-brief-ship-prompt-cache-",
 		);
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
-		const openui = await import("../services/mcp-server/src/openui-client.js");
+		const openui = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const fileOps = await import("../services/mcp-server/src/file-ops.js");
 		const quality = await import("../services/mcp-server/src/quality-gate.js");
@@ -201,7 +201,7 @@ describe("prompt->html request helper wiring", () => {
 		const applySpy = vi
 			.spyOn(fileOps, "applyGeneratedFiles")
 			.mockResolvedValue({
-				targetRoot: "/tmp/openui-workspace",
+				targetRoot: "/tmp/shadcn-brief-workspace",
 				dryRun: false,
 				rollbackOnError: true,
 				plan: [{ path: "app/page.tsx", status: "create" }],
@@ -222,12 +222,12 @@ describe("prompt->html request helper wiring", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship dashboard",
 			pagePath: "app/page.tsx",
 			componentsDir: "components/generated",
 			model: "gemini/gemini-test",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			dryRun: false,
 			runCommands: false,
 			useFast: true,
@@ -247,13 +247,13 @@ describe("prompt->html request helper wiring", () => {
 
 		expect(applySpy).toHaveBeenCalledWith(
 			expect.objectContaining({
-				targetRoot: "/tmp/openui-workspace",
+				targetRoot: "/tmp/shadcn-brief-workspace",
 				dryRun: false,
 			}),
 		);
 		expect(qualitySpy).toHaveBeenCalledWith(
 			expect.objectContaining({
-				targetRoot: "/tmp/openui-workspace",
+				targetRoot: "/tmp/shadcn-brief-workspace",
 				runCommands: false,
 			}),
 		);

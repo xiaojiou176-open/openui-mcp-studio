@@ -62,7 +62,7 @@ describe("computer use loop", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const result = await harness.getHandler("openui_observe_screen")({
+		const result = await harness.getHandler("shadcn_brief_observe_screen")({
 			input: { text: "Inspect the latest deployment status.", images: [] },
 			invokeModel: true,
 			model: "gemini-3.1-pro-preview",
@@ -97,7 +97,7 @@ describe("computer use loop", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const result = await harness.getHandler("openui_computer_use_loop")({
+		const result = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			input: { text: "Open dashboard and check latest build status." },
 			requireConfirmation: false,
 			invokeModel: false,
@@ -144,7 +144,7 @@ describe("computer use loop", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const result = await harness.getHandler("openui_computer_use_loop")({
+		const result = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			input: { text: "Open build tab." },
 			requireConfirmation: false,
 			invokeModel: true,
@@ -183,7 +183,7 @@ describe("computer use loop", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const blocked = await harness.getHandler("openui_computer_use_loop")({
+		const blocked = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			sessionId: "sess-1",
 			input: { text: "Delete temporary file." },
 			requireConfirmation: true,
@@ -201,7 +201,7 @@ describe("computer use loop", () => {
 		expect(typeof blockedPayload.requiredConfirmationToken).toBe("string");
 		expect((blockedPayload.requiredConfirmationToken ?? "").length).toBe(32);
 
-		const allowed = await harness.getHandler("openui_computer_use_loop")({
+		const allowed = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			sessionId: "sess-1",
 			input: { text: "Delete temporary file." },
 			requireConfirmation: true,
@@ -224,7 +224,7 @@ describe("computer use loop", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const allowed = await harness.getHandler("openui_computer_use_loop")({
+		const allowed = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			sessionId: "sess-require-false",
 			input: { text: "Delete temporary file." },
 			requireConfirmation: false,
@@ -248,7 +248,7 @@ describe("computer use loop", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const blocked = await harness.getHandler("openui_computer_use_loop")({
+		const blocked = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			sessionId: "session-a",
 			input: { text: "Delete temporary file." },
 			requireConfirmation: true,
@@ -265,7 +265,7 @@ describe("computer use loop", () => {
 		expect(blockedPayload.status).toBe("blocked_confirmation");
 		expect(typeof blockedPayload.requiredConfirmationToken).toBe("string");
 
-		const replayBlocked = await harness.getHandler("openui_computer_use_loop")({
+		const replayBlocked = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			sessionId: "session-b",
 			input: { text: "Delete temporary file." },
 			requireConfirmation: true,
@@ -286,7 +286,7 @@ describe("computer use loop", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const blocked = await harness.getHandler("openui_computer_use_loop")({
+		const blocked = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			input: { text: "Delete temporary file." },
 			requireConfirmation: true,
 			confirmed: false,
@@ -302,7 +302,7 @@ describe("computer use loop", () => {
 		expect(blockedPayload.status).toBe("blocked_confirmation");
 		expect(typeof blockedPayload.requiredConfirmationToken).toBe("string");
 
-		const replayBlocked = await harness.getHandler("openui_computer_use_loop")({
+		const replayBlocked = await harness.getHandler("shadcn_brief_computer_use_loop")({
 			sessionId: "session-a",
 			input: { text: "Delete temporary file." },
 			requireConfirmation: true,
@@ -323,7 +323,7 @@ describe("computer use loop", () => {
 		const harness = createToolHarness();
 		registerComputerUseTool(harness.server);
 
-		const blocked = await harness.getHandler("openui_execute_ui_action")({
+		const blocked = await harness.getHandler("shadcn_brief_execute_ui_action")({
 			sessionId: "single-action-session",
 			action: { type: "execute_shell", target: "rm -rf /tmp/demo" },
 			requireConfirmation: true,
@@ -338,7 +338,7 @@ describe("computer use loop", () => {
 		expect(typeof blockedPayload.requiredConfirmationToken).toBe("string");
 		expect((blockedPayload.requiredConfirmationToken ?? "").length).toBe(32);
 
-		const allowed = await harness.getHandler("openui_execute_ui_action")({
+		const allowed = await harness.getHandler("shadcn_brief_execute_ui_action")({
 			sessionId: "single-action-session",
 			action: { type: "execute_shell", target: "rm -rf /tmp/demo" },
 			requireConfirmation: true,

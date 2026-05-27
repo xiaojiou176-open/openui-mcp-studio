@@ -43,14 +43,14 @@ function readText(result: TextResult): string {
 }
 
 afterEach(() => {
-	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 	vi.restoreAllMocks();
 	vi.resetModules();
 });
 
 describe("ship idempotency extra branches", () => {
 	it("returns cached payload when inflight wait resolves to ready", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -58,7 +58,7 @@ describe("ship idempotency extra branches", () => {
 		);
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -67,7 +67,7 @@ describe("ship idempotency extra branches", () => {
 			evidence: ["fixture"],
 		};
 		const cachedPayload = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			detection,
 			html: "<main>cached-from-ready</main>",
 			files: [
@@ -106,9 +106,9 @@ describe("ship idempotency extra branches", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship inflight-ready should reuse cache",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "ready-hit-key",
 			dryRun: false,
 			runCommands: false,
@@ -123,7 +123,7 @@ describe("ship idempotency extra branches", () => {
 	});
 
 	it("continues pipeline when idempotency lookup best-effort step fails", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -131,7 +131,7 @@ describe("ship idempotency extra branches", () => {
 		);
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -140,7 +140,7 @@ describe("ship idempotency extra branches", () => {
 			evidence: ["fixture"],
 		};
 		const cachedPayload = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			detection,
 			html: "<main>cached-from-beginExecution</main>",
 			files: [
@@ -176,9 +176,9 @@ describe("ship idempotency extra branches", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship should continue after lookup failure",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "lookup-fail-key",
 			dryRun: false,
 			runCommands: false,
@@ -197,7 +197,7 @@ describe("ship idempotency extra branches", () => {
 	});
 
 	it("fails loudly when inflight idempotency wait ends with timeout_missing", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const shared = await import("../services/mcp-server/src/tools/shared.js");
 		const idempotency = await import(
@@ -205,7 +205,7 @@ describe("ship idempotency extra branches", () => {
 		);
 
 		const detection = {
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			source: "default" as const,
 			uiImportBase: "@/components/ui",
 			uiDir: "components/ui",
@@ -236,9 +236,9 @@ describe("ship idempotency extra branches", () => {
 		registerShipTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_ship_react_page")({
+			harness.getHandler("shadcn_brief_ship_react_page")({
 				prompt: "Ship timeout_missing should fail loudly",
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				idempotencyKey: "timeout-missing-key",
 				dryRun: false,
 				runCommands: false,

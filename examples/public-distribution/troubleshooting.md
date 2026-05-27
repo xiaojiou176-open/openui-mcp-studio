@@ -20,7 +20,7 @@ Then re-run the host setup command.
 
 Symptom:
 
-- the host launches OpenUI, but requests fail immediately
+- the host launches ShadcnBrief, but requests fail immediately
 
 Fix:
 

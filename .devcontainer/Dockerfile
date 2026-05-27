@@ -32,7 +32,7 @@ RUN PLAYWRIGHT_VERSION="$(node -e "const fs=require('node:fs'); const lock=JSON.
   && echo "[ci-image] installing Playwright browsers for version ${PLAYWRIGHT_VERSION}" \
   && npx --yes "playwright@${PLAYWRIGHT_VERSION}" install --with-deps chromium firefox webkit \
   && mkdir -p /ms-playwright \
-  && printf '%s\n' "${PLAYWRIGHT_VERSION}" > /ms-playwright/.openui-playwright-version \
+  && printf '%s\n' "${PLAYWRIGHT_VERSION}" > /ms-playwright/.shadcn-brief-playwright-version \
   && rm -f /tmp/package-lock.json
 
 RUN test "$(node --version)" = "v22.22.0"

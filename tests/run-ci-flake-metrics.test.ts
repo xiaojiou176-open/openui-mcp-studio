@@ -22,7 +22,7 @@ afterEach(async () => {
 
 describe("run-ci-flake-metrics", () => {
 	it("skips cleanly when no ci-gate summary exists", async () => {
-		const root = await mkTempDir("openui-run-ci-flake-metrics-empty-");
+		const root = await mkTempDir("shadcn-brief-run-ci-flake-metrics-empty-");
 		const scriptPath = path.resolve(
 			process.cwd(),
 			"tooling/run-ci-flake-metrics.mjs",
@@ -37,7 +37,7 @@ describe("run-ci-flake-metrics", () => {
 	});
 
 	it("finds the latest summary and generates flake metrics outputs", async () => {
-		const root = await mkTempDir("openui-run-ci-flake-metrics-full-");
+		const root = await mkTempDir("shadcn-brief-run-ci-flake-metrics-full-");
 		const olderRunDir = path.join(root, ".runtime-cache", "runs", "run-older");
 		const latestRunDir = path.join(
 			root,

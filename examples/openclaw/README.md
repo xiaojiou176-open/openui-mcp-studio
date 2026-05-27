@@ -3,7 +3,7 @@
 This directory records the repo-owned OpenClaw public-ready surface.
 
 OpenClaw already documents plugin bundles, ClawHub publication, and
-Claude-compatible bundle import. OpenUI does **not** claim a live ClawHub
+Claude-compatible bundle import. ShadcnBrief does **not** claim a live ClawHub
 listing today, but it now ships a repo-owned bundle and proof loop that can be
 installed and evaluated honestly.
 
@@ -13,14 +13,14 @@ installed and evaluated honestly.
    - `npm install`
    - `npm run build`
 2. Install the Claude-compatible bundle:
-   - `openclaw plugins install ./plugins/openui-workspace-delivery`
+   - `openclaw plugins install ./plugins/shadcn-brief-workspace-delivery`
 3. Review the OpenClaw starter JSON:
    - `packages/skills-kit/starter-bundles/openclaw.mcp.json`
 
 ## Proof loop
 
-1. `OpenUIStudio ecosystem-guide --json`
-2. `OpenUIStudio skills starter --json`
+1. `ShadcnBrief ecosystem-guide --json`
+2. `ShadcnBrief skills starter --json`
 3. `npm run repo:doctor`
 4. Open `docs/proof-and-faq.md`
 

@@ -15,17 +15,17 @@ async function createTempDir(prefix: string): Promise<string> {
 
 function lockPath(cacheDir: string, key: string): string {
 	const hash = crypto.createHash("sha256").update(key).digest("hex");
-	return path.join(cacheDir, `openui-ship-${hash}.lock`);
+	return path.join(cacheDir, `shadcn-brief-ship-${hash}.lock`);
 }
 
 function recordPath(cacheDir: string, key: string): string {
 	const hash = crypto.createHash("sha256").update(key).digest("hex");
-	return path.join(cacheDir, `openui-ship-${hash}.json`);
+	return path.join(cacheDir, `shadcn-brief-ship-${hash}.json`);
 }
 
 function leasePath(cacheDir: string, key: string): string {
 	const hash = crypto.createHash("sha256").update(key).digest("hex");
-	return path.join(cacheDir, `openui-ship-${hash}.lease.json`);
+	return path.join(cacheDir, `shadcn-brief-ship-${hash}.lease.json`);
 }
 
 afterEach(async () => {
@@ -40,7 +40,7 @@ afterEach(async () => {
 
 describe("idempotency store uncovered branches", () => {
 	it("throws from get when record read fails with non-ENOENT error", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "get-eacces";
 		const targetRecordPath = recordPath(cacheDir, key);
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
@@ -57,7 +57,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("removes malformed idempotency payload files during get", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "malformed-record";
 		const targetRecordPath = recordPath(cacheDir, key);
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
@@ -68,7 +68,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("returns cached status when beginExecution finds existing value", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "begin-cached";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 
@@ -82,7 +82,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("returns false from setIfAbsent when value already exists", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "set-if-absent-existing";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 
@@ -93,7 +93,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("returns ready from waitFor using default timeout and interval", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "wait-ready-defaults";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 
@@ -105,7 +105,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("returns timeout_inflight when lease remains active after wait timeout", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "wait-timeout-inflight";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const started = await store.beginExecution(key, { leaseMs: 5_000 });
@@ -121,7 +121,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("returns inflight from beginExecution when active lease already exists", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "begin-inflight";
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const started = await store.beginExecution(key, { leaseMs: 5_000 });
@@ -133,7 +133,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("removes expired lease before reacquiring execution ownership", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "stale-lease-reacquire";
 		const targetLeasePath = leasePath(cacheDir, key);
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
@@ -154,7 +154,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("falls back to undefined owner pid when stale owner id has empty pid segment", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "stale-empty-pid";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -172,7 +172,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("treats EPERM owner probe as alive and keeps stale lock", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "stale-owner-eperm";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -195,7 +195,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("clears stale lock when owner pid probe reports dead process", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "stale-owner-dead";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -216,7 +216,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("swallows lock heartbeat refresh failures while lock is held", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "lock-heartbeat-utimes-failure";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -238,7 +238,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("throws from acquireLock when lock create fails with non-EEXIST error", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "lock-open-denied";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -258,7 +258,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("throws timeout when lock remains contested and stale cleanup fails", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "lock-timeout";
 		let now = 0;
 		const store = new IdempotencyStore({
@@ -285,7 +285,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("returns false when compareAndDeleteLock target already disappeared", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "compare-missing-lock";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -304,7 +304,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("compares and deletes lock without inode guard when inode is not provided", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "compare-without-inode";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -326,7 +326,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("still clears lock when owner matches but inode guard drifts", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "compare-with-inode-drift";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -360,7 +360,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("throws from compareAndDeleteLock when stat fails with non-ENOENT error", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "compare-stat-eacces";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -389,7 +389,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("returns true when stale lock path no longer exists", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "stale-lock-missing";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -404,7 +404,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("returns false when lock is fresh and not stale yet", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "fresh-lock-not-stale";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -424,7 +424,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("throws from stale lock cleanup when initial stat fails with non-ENOENT", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "stale-stat-eacces";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -448,7 +448,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("throws from stale lock cleanup when final stat fails with non-ENOENT", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const key = "stale-final-stat-eacces";
 		const store = new IdempotencyStore({
 			cacheDir,
@@ -487,7 +487,7 @@ describe("idempotency store uncovered branches", () => {
 	});
 
 	it("swallows heartbeat renew rejections", async () => {
-		const cacheDir = await createTempDir("openui-idempotency-uncovered-");
+		const cacheDir = await createTempDir("shadcn-brief-idempotency-uncovered-");
 		const store = new IdempotencyStore({
 			cacheDir,
 			ttlMinutes: 5,

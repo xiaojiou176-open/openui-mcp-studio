@@ -50,7 +50,7 @@ async function fetchGithubRestJson(pathname) {
 	const response = await fetch(`https://api.github.com/${pathname.replace(/^\/+/u, "")}`, {
 		headers: {
 			"accept": "application/vnd.github+json",
-			"user-agent": "OpenUIStudio/remote-canonical-review",
+			"user-agent": "ShadcnBrief/remote-canonical-review",
 			"x-github-api-version": "2022-11-28",
 		},
 	});
@@ -199,9 +199,9 @@ async function runMirrorAudits(rootDir, originUrl) {
 	await ensureDirectory(reportRoot);
 
 	const mirrorRoot = await fs.mkdtemp(
-		path.join(os.tmpdir(), "openui-remote-canonical-review-"),
+		path.join(os.tmpdir(), "shadcn-brief-remote-canonical-review-"),
 	);
-	const mirrorPath = path.join(mirrorRoot, "OpenUIStudio.git");
+	const mirrorPath = path.join(mirrorRoot, "ShadcnBrief.git");
 
 	try {
 		const cloneResult = runCommand("git", ["clone", "--mirror", originUrl, mirrorPath], {

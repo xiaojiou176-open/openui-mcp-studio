@@ -62,7 +62,7 @@ describe("run-upstream-policy-ci", () => {
 	});
 
 	it("invokes sync:upstream:check for upstream-sync branches", async () => {
-		const root = await mkTempDir("openui-upstream-policy-ci-");
+		const root = await mkTempDir("shadcn-brief-upstream-policy-ci-");
 		const binDir = path.join(root, "bin");
 		const logPath = path.join(root, "npm-args.log");
 		await fs.mkdir(binDir, { recursive: true });

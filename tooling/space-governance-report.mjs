@@ -22,7 +22,7 @@ import {
 	summarizeRuntimeSubtrees,
 } from "./shared/space-governance.mjs";
 
-const OPENUI_DOCKER_REPO_LABEL = "io.openui.repo=OpenUIStudio";
+const OPENUI_DOCKER_REPO_LABEL = "io.openui.repo=ShadcnBrief";
 const OPENUI_DOCKER_WORKSPACE_LABEL_KEY = "io.openui.workspace_token";
 
 function parseCliArgs(argv = process.argv.slice(2)) {

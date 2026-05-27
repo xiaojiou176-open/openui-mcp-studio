@@ -15,7 +15,7 @@ async function mkTempDir(prefix: string): Promise<string> {
 
 function leasePath(cacheDir: string, key: string): string {
 	const hash = crypto.createHash("sha256").update(key).digest("hex");
-	return path.join(cacheDir, `openui-ship-${hash}.lease.json`);
+	return path.join(cacheDir, `shadcn-brief-ship-${hash}.lease.json`);
 }
 
 afterEach(async () => {
@@ -30,7 +30,7 @@ afterEach(async () => {
 
 describe("idempotency heartbeat and renew branches", () => {
 	it("skips heartbeat renew while lock is held and resumes after release", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-heartbeat-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-heartbeat-");
 		const store = new IdempotencyStore({
 			cacheDir,
 			ttlMinutes: 5,
@@ -73,7 +73,7 @@ describe("idempotency heartbeat and renew branches", () => {
 	});
 
 	it("waits for an in-flight heartbeat renewal before stopping", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-heartbeat-stop-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-heartbeat-stop-");
 		const store = new IdempotencyStore({
 			cacheDir,
 			ttlMinutes: 5,
@@ -125,7 +125,7 @@ describe("idempotency heartbeat and renew branches", () => {
 	});
 
 	it("renews lease when owner matches and extends expiration", async () => {
-		const cacheDir = await mkTempDir("openui-idempotency-renew-");
+		const cacheDir = await mkTempDir("shadcn-brief-idempotency-renew-");
 		const store = new IdempotencyStore({ cacheDir, ttlMinutes: 5 });
 		const key = "renew-success";
 		const started = await store.beginExecution(key, { leaseMs: 500 });

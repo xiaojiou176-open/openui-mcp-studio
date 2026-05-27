@@ -374,7 +374,7 @@ async function runComputerUseStress(
 		process.env.OPENUI_TIMEOUT_MS = String(timeoutForComputerUseMs);
 	}
 	const harness = createToolHarness();
-	const handler = harness.getHandler("openui_computer_use_loop");
+	const handler = harness.getHandler("shadcn_brief_computer_use_loop");
 	const maxAttempts = options.realModel ? 3 : 1;
 
 	const invokeWithRetry = async (payload: Record<string, unknown>) => {

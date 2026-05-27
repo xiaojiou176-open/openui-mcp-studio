@@ -28,7 +28,7 @@ It does not reopen Prompt 1-4 truth, later ecosystem lanes, or Worker A / Worker
 - No changes to `/api/frontdoor`, `/llms.txt`, `manifest`, OpenAPI, CLI, Skills, SDK, plugin, or hosted API surfaces.
 - No changes to Worker A's UI/UX review engine or style-rubric code.
 - No expansion into builder-surface productization or remote write-capable MCP promises.
-- No shared truth-doc rewrite in `README.md`, `docs/index.md`, or `docs/strategy/openui-uiux-truth-ledger.md`.
+- No shared truth-doc rewrite in `README.md`, `docs/index.md`, or `docs/strategy/shadcn-brief-uiux-truth-ledger.md`.
 
 ## Shared Change Proposals
 

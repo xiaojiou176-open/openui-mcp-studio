@@ -63,7 +63,7 @@ describe("rag upsert/search", () => {
 		const harness = createToolHarness();
 		registerRagTool(harness.server);
 
-		const upsertResult = await harness.getHandler("openui_rag_upsert")({
+		const upsertResult = await harness.getHandler("shadcn_brief_rag_upsert")({
 			namespace: "docs",
 			documents: [
 				{
@@ -82,7 +82,7 @@ describe("rag upsert/search", () => {
 		expect(upsertPayload.upserted).toBe(2);
 		expect(upsertPayload.totalDocuments).toBe(2);
 
-		const searchResult = await harness.getHandler("openui_rag_search")({
+		const searchResult = await harness.getHandler("shadcn_brief_rag_search")({
 			namespace: "docs",
 			query: "UI design tokens for button and card spacing.",
 			topK: 1,
@@ -104,14 +104,14 @@ describe("rag upsert/search", () => {
 		registerRagTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_rag_upsert")({
+			harness.getHandler("shadcn_brief_rag_upsert")({
 				namespace: "   ",
 				documents: [{ id: "doc-1", content: "UI content" }],
 			}),
 		).rejects.toThrow();
 
 		await expect(
-			harness.getHandler("openui_rag_search")({
+			harness.getHandler("shadcn_brief_rag_search")({
 				namespace: "   ",
 				query: "UI content",
 			}),
@@ -125,7 +125,7 @@ describe("rag upsert/search", () => {
 		registerRagTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_rag_upsert")({
+			harness.getHandler("shadcn_brief_rag_upsert")({
 				namespace: "docs",
 				documents: [{ id: "doc-1", content: "UI content" }],
 			}),
@@ -140,13 +140,13 @@ describe("rag upsert/search", () => {
 		const harness = createToolHarness();
 		registerRagTool(harness.server);
 
-		await harness.getHandler("openui_rag_upsert")({
+		await harness.getHandler("shadcn_brief_rag_upsert")({
 			namespace: "docs",
 			documents: [{ id: "doc-1", content: "UI content" }],
 		});
 
 		await expect(
-			harness.getHandler("openui_rag_search")({
+			harness.getHandler("shadcn_brief_rag_search")({
 				namespace: "docs",
 				query: "UI content",
 			}),
@@ -160,7 +160,7 @@ describe("rag upsert/search", () => {
 		registerRagTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_rag_upsert")({
+			harness.getHandler("shadcn_brief_rag_upsert")({
 				namespace: "docs",
 				documents: [
 					{ id: "doc-1", content: "UI content" },
@@ -178,13 +178,13 @@ describe("rag upsert/search", () => {
 		const harness = createToolHarness();
 		registerRagTool(harness.server);
 
-		await harness.getHandler("openui_rag_upsert")({
+		await harness.getHandler("shadcn_brief_rag_upsert")({
 			namespace: "docs",
 			documents: [{ id: "doc-1", content: "UI content" }],
 		});
 
 		await expect(
-			harness.getHandler("openui_rag_search")({
+			harness.getHandler("shadcn_brief_rag_search")({
 				namespace: "docs",
 				query: "UI content",
 			}),
@@ -202,13 +202,13 @@ describe("rag upsert/search", () => {
 		const harness = createToolHarness();
 		registerRagTool(harness.server);
 
-		await harness.getHandler("openui_rag_upsert")({
+		await harness.getHandler("shadcn_brief_rag_upsert")({
 			namespace: "docs",
 			documents: [{ id: "doc-1", content: "UI content" }],
 		});
 
 		await expect(
-			harness.getHandler("openui_rag_search")({
+			harness.getHandler("shadcn_brief_rag_search")({
 				namespace: "docs",
 				query: "UI content",
 			}),
@@ -224,7 +224,7 @@ describe("rag upsert/search", () => {
 		registerRagTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_rag_upsert")({
+			harness.getHandler("shadcn_brief_rag_upsert")({
 				namespace: "docs",
 				documents: [{ id: "doc-1", content: "UI sparse embedding" }],
 			}),
@@ -243,13 +243,13 @@ describe("rag upsert/search", () => {
 		const harness = createToolHarness();
 		registerRagTool(harness.server);
 
-		await harness.getHandler("openui_rag_upsert")({
+		await harness.getHandler("shadcn_brief_rag_upsert")({
 			namespace: "docs",
 			documents: [{ id: "doc-1", content: "UI content" }],
 		});
 
 		await expect(
-			harness.getHandler("openui_rag_search")({
+			harness.getHandler("shadcn_brief_rag_search")({
 				namespace: "docs",
 				query: "UI content",
 			}),

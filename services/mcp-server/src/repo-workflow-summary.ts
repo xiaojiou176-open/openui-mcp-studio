@@ -234,7 +234,7 @@ async function fetchGitHubJson(
       {
         headers: {
           accept: "application/vnd.github+json",
-          "user-agent": "OpenUIStudio/repo-workflow-summary",
+          "user-agent": "ShadcnBrief/repo-workflow-summary",
           "x-github-api-version": GITHUB_API_VERSION,
         },
       },

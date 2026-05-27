@@ -36,7 +36,7 @@ describe("workspace-profile extra branches", () => {
 	});
 
 	it("returns an empty result when the root cannot be read", async () => {
-		const missingRoot = await mkTempDir("openui-workspace-profile-missing-");
+		const missingRoot = await mkTempDir("shadcn-brief-workspace-profile-missing-");
 		await fs.rm(missingRoot, { recursive: true, force: true });
 
 		await expect(
@@ -46,7 +46,7 @@ describe("workspace-profile extra branches", () => {
 
 	it("defaults to apps/web when present and keeps low-signal heuristics empty", async () => {
 		const workspaceRoot = await mkTempDir(
-			"openui-workspace-profile-default-app-root-",
+			"shadcn-brief-workspace-profile-default-app-root-",
 		);
 		const appRoot = path.join(workspaceRoot, "apps", "web");
 		await fs.mkdir(path.join(appRoot, "app"), { recursive: true });
@@ -96,7 +96,7 @@ describe("workspace-profile extra branches", () => {
 
 	it("falls back to the workspace root when apps/web is absent", async () => {
 		const workspaceRoot = await mkTempDir(
-			"openui-workspace-profile-default-dot-root-",
+			"shadcn-brief-workspace-profile-default-dot-root-",
 		);
 		await fs.mkdir(path.join(workspaceRoot, "app", "settings"), {
 			recursive: true,
@@ -128,7 +128,7 @@ describe("workspace-profile extra branches", () => {
 	});
 
 	it("auto-detects apps/web, ignores generated internals, and infers a tailwind-only stack", async () => {
-		const workspaceRoot = await mkTempDir("openui-workspace-profile-apps-web-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-workspace-profile-apps-web-");
 		const appRoot = path.join(workspaceRoot, "apps", "web");
 		await fs.mkdir(path.join(appRoot, "app", "dashboard"), { recursive: true });
 		await fs.mkdir(path.join(appRoot, "components", "navigation"), {
@@ -235,7 +235,7 @@ describe("workspace-profile extra branches", () => {
 	});
 
 	it("captures mixed routing, unknown token authority, and the first two evidence anchors per pattern family", async () => {
-		const workspaceRoot = await mkTempDir("openui-workspace-profile-mixed-");
+		const workspaceRoot = await mkTempDir("shadcn-brief-workspace-profile-mixed-");
 		await fs.mkdir(
 			path.join(workspaceRoot, "app", "(admin)", "@drawer", "reports"),
 			{

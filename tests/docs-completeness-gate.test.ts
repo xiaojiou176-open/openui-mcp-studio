@@ -51,19 +51,19 @@ afterEach(async () => {
 
 describe("docs completeness gate", () => {
 	it("passes when every discovered tool has minimumRequest/success/failure and default/advanced scenario layers", async () => {
-		const root = await mkTempRoot("openui-doc-gate-pass-");
-		await writeToolFile(root, "generate.ts", "openui_generate_ui");
-		await writeToolFile(root, "ship.ts", "openui_ship_react_page");
+		const root = await mkTempRoot("shadcn-brief-doc-gate-pass-");
+		await writeToolFile(root, "generate.ts", "shadcn_brief_generate_ui");
+		await writeToolFile(root, "ship.ts", "shadcn_brief_ship_react_page");
 
 		const contractPath = await writeContract(root, {
 			version: 1,
 			tools: {
-				openui_generate_ui: {
+				shadcn_brief_generate_ui: {
 					minimumRequest: "prompt",
 					success: "returns html",
 					failure: "fails on provider errors",
 				},
-				openui_ship_react_page: {
+				shadcn_brief_ship_react_page: {
 					minimumRequest: "prompt",
 					success: "returns files",
 					failure: "fails on stage errors",
@@ -73,14 +73,14 @@ describe("docs completeness gate", () => {
 				default: [
 					{
 						name: "prompt to html",
-						tools: ["openui_generate_ui"],
+						tools: ["shadcn_brief_generate_ui"],
 						expected: "html",
 					},
 				],
 				advanced: [
 					{
 						name: "ship pipeline",
-						tools: ["openui_ship_react_page"],
+						tools: ["shadcn_brief_ship_react_page"],
 						expected: "stage gate",
 					},
 				],
@@ -97,13 +97,13 @@ describe("docs completeness gate", () => {
 	});
 
 	it("fails when a tool contract misses required minimum fields", async () => {
-		const root = await mkTempRoot("openui-doc-gate-missing-tool-fields-");
-		await writeToolFile(root, "generate.ts", "openui_generate_ui");
+		const root = await mkTempRoot("shadcn-brief-doc-gate-missing-tool-fields-");
+		await writeToolFile(root, "generate.ts", "shadcn_brief_generate_ui");
 
 		const contractPath = await writeContract(root, {
 			version: 1,
 			tools: {
-				openui_generate_ui: {
+				shadcn_brief_generate_ui: {
 					minimumRequest: "",
 					success: "returns html",
 				},
@@ -112,14 +112,14 @@ describe("docs completeness gate", () => {
 				default: [
 					{
 						name: "prompt to html",
-						tools: ["openui_generate_ui"],
+						tools: ["shadcn_brief_generate_ui"],
 						expected: "html",
 					},
 				],
 				advanced: [
 					{
 						name: "advanced",
-						tools: ["openui_generate_ui"],
+						tools: ["shadcn_brief_generate_ui"],
 						expected: "contract",
 					},
 				],
@@ -139,13 +139,13 @@ describe("docs completeness gate", () => {
 	});
 
 	it("fails when scenario matrix does not provide default and advanced layers", async () => {
-		const root = await mkTempRoot("openui-doc-gate-missing-layer-");
-		await writeToolFile(root, "generate.ts", "openui_generate_ui");
+		const root = await mkTempRoot("shadcn-brief-doc-gate-missing-layer-");
+		await writeToolFile(root, "generate.ts", "shadcn_brief_generate_ui");
 
 		const contractPath = await writeContract(root, {
 			version: 1,
 			tools: {
-				openui_generate_ui: {
+				shadcn_brief_generate_ui: {
 					minimumRequest: "prompt",
 					success: "returns html",
 					failure: "fails on provider errors",
@@ -155,7 +155,7 @@ describe("docs completeness gate", () => {
 				default: [
 					{
 						name: "prompt to html",
-						tools: ["openui_generate_ui"],
+						tools: ["shadcn_brief_generate_ui"],
 						expected: "html",
 					},
 				],

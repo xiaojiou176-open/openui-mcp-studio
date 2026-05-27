@@ -1,6 +1,6 @@
 # @openui/skills-kit
 
-Installable package for the official repo-owned OpenUI skill product line.
+Installable package for the official repo-owned ShadcnBrief skill product line.
 
 This package is the strongest truthful skill surface in the current repository:
 
@@ -12,7 +12,7 @@ This package is the strongest truthful skill surface in the current repository:
 ## Install
 
 ```bash
-npm install /ABS/PATH/OpenUIStudio/packages/skills-kit
+npm install /ABS/PATH/ShadcnBrief/packages/skills-kit
 ```
 
 ## Use
@@ -53,7 +53,7 @@ They do not claim publication or approval inside any official catalog.
 
 ## What it is for
 
-- drafting starter contracts for OpenUI tool or workflow integrations
+- drafting starter contracts for ShadcnBrief tool or workflow integrations
 - keeping public-facing starter assets separate from internal `.agents/skills/*`
 - giving builders one installable package instead of telling them to browse repo internals
 - packaging sample config, proof loops, and troubleshooting so the product line feels closer to a real install surface without overclaiming listing truth

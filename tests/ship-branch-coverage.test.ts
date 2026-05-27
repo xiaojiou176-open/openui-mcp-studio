@@ -58,18 +58,18 @@ afterEach(async () => {
 			.splice(0)
 			.map((dir) => fs.rm(dir, { recursive: true, force: true })),
 	);
-	delete process.env.OPENUISTUDIO_CACHE_DIR;
-	delete process.env.OPENUISTUDIO_WORKSPACE_ROOT;
+	delete process.env.SHADCN_BRIEF_CACHE_DIR;
+	delete process.env.SHADCN_BRIEF_WORKSPACE_ROOT;
 	vi.restoreAllMocks();
 	vi.resetModules();
 });
 
 describe("ship branch coverage", () => {
 	it("skips rollback_on_quality_fail when quality fails but apply writes are empty", async () => {
-		const workspaceRoot = await mkTempDir("openui-ship-branch-workspace-");
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
-		process.env.OPENUISTUDIO_CACHE_DIR = await mkTempDir(
-			"openui-ship-branch-cache-",
+		const workspaceRoot = await mkTempDir("shadcn-brief-ship-branch-workspace-");
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_CACHE_DIR = await mkTempDir(
+			"shadcn-brief-ship-branch-cache-",
 		);
 
 		const detection = {
@@ -162,7 +162,7 @@ describe("ship branch coverage", () => {
 		);
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "Ship branch quality fail without writes",
 			workspaceRoot,
 			idempotencyKey: "quality-fail-no-write-key",
@@ -189,11 +189,11 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("throws when beginExecution returns cached payload that is not reusable", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const resolveShadcnStyleGuideMock = vi.fn(async () => ({
 			detection: {
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				source: "default" as const,
 				uiImportBase: "@/components/ui",
 				uiDir: "components/ui",
@@ -212,7 +212,7 @@ describe("ship branch coverage", () => {
 			beginExecution: vi.fn(async () => ({
 				status: "cached",
 				value: {
-					workspaceRoot: "/tmp/openui-workspace",
+					workspaceRoot: "/tmp/shadcn-brief-workspace",
 					detection: { source: "cached" },
 					html: "<main>stale</main>",
 					files: [{ path: "app/page.tsx", content: "stale" }],
@@ -245,9 +245,9 @@ describe("ship branch coverage", () => {
 		registerShipTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_ship_react_page")({
+			harness.getHandler("shadcn_brief_ship_react_page")({
 				prompt: "cached but quality failed",
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				idempotencyKey: "cached-not-reusable-key",
 				dryRun: false,
 				runCommands: false,
@@ -257,11 +257,11 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("continues after idempotency_lookup best-effort failure and reuses cached beginExecution payload", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const resolveShadcnStyleGuideMock = vi.fn(async () => ({
 			detection: {
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				source: "default" as const,
 				uiImportBase: "@/components/ui",
 				uiDir: "components/ui",
@@ -282,7 +282,7 @@ describe("ship branch coverage", () => {
 			beginExecution: vi.fn(async () => ({
 				status: "cached",
 				value: {
-					workspaceRoot: "/tmp/openui-workspace",
+					workspaceRoot: "/tmp/shadcn-brief-workspace",
 					detection: { source: "cached" },
 					html: "<main>cached</main>",
 					files: [{ path: "app/page.tsx", content: "cached" }],
@@ -314,9 +314,9 @@ describe("ship branch coverage", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "lookup fail then cached payload",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "lookup-fail-then-cached-key",
 			dryRun: false,
 			runCommands: false,
@@ -338,11 +338,11 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("returns cached payload when inflight wait resolves to ready", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const resolveShadcnStyleGuideMock = vi.fn(async () => ({
 			detection: {
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				source: "default" as const,
 				uiImportBase: "@/components/ui",
 				uiDir: "components/ui",
@@ -362,7 +362,7 @@ describe("ship branch coverage", () => {
 			waitFor: vi.fn(async () => ({
 				status: "ready",
 				value: {
-					workspaceRoot: "/tmp/openui-workspace",
+					workspaceRoot: "/tmp/shadcn-brief-workspace",
 					detection: { source: "cached" },
 					html: "<main>ready</main>",
 					files: [{ path: "app/page.tsx", content: "ready" }],
@@ -393,9 +393,9 @@ describe("ship branch coverage", () => {
 		const harness = createToolHarness();
 		registerShipTool(harness.server);
 
-		const result = await harness.getHandler("openui_ship_react_page")({
+		const result = await harness.getHandler("shadcn_brief_ship_react_page")({
 			prompt: "inflight ready",
-			workspaceRoot: "/tmp/openui-workspace",
+			workspaceRoot: "/tmp/shadcn-brief-workspace",
 			idempotencyKey: "inflight-ready-key",
 			dryRun: false,
 			runCommands: false,
@@ -411,11 +411,11 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("fails loudly when inflight wait ends with timeout_missing", async () => {
-		process.env.OPENUISTUDIO_WORKSPACE_ROOT = os.tmpdir();
+		process.env.SHADCN_BRIEF_WORKSPACE_ROOT = os.tmpdir();
 
 		const resolveShadcnStyleGuideMock = vi.fn(async () => ({
 			detection: {
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				source: "default" as const,
 				uiImportBase: "@/components/ui",
 				uiDir: "components/ui",
@@ -452,9 +452,9 @@ describe("ship branch coverage", () => {
 		registerShipTool(harness.server);
 
 		await expect(
-			harness.getHandler("openui_ship_react_page")({
+			harness.getHandler("shadcn_brief_ship_react_page")({
 				prompt: "inflight timeout missing",
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				idempotencyKey: "inflight-timeout-missing-key",
 				dryRun: false,
 				runCommands: false,
@@ -463,7 +463,7 @@ describe("ship branch coverage", () => {
 	}, 15000);
 
 	it("records missing snapshot details and rollback conflict boundaries", async () => {
-		const root = await mkTempDir("openui-ship-branch-rollback-");
+		const root = await mkTempDir("shadcn-brief-ship-branch-rollback-");
 		const ship = await import("../services/mcp-server/src/tools/ship.js");
 
 		const missingSnapshot = await ship.__test__.rollbackWrittenFiles(
@@ -527,7 +527,7 @@ describe("ship branch coverage", () => {
 
 		const rolledBackSummary = ship.__test__.buildSummary(
 			{
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				detection: { source: "fixture" },
 				html: "<main>ok</main>",
 				files: [{ path: "app/page.tsx", content: "content" }],
@@ -547,7 +547,7 @@ describe("ship branch coverage", () => {
 
 		const fallbackSummary = ship.__test__.buildSummary(
 			{
-				workspaceRoot: "/tmp/openui-workspace",
+				workspaceRoot: "/tmp/shadcn-brief-workspace",
 				detection: { source: "fixture" },
 				html: "<main>failed</main>",
 				files: [

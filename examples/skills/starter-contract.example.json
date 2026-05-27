@@ -13,10 +13,10 @@
   },
   "invocation": {
     "primarySurface": "local-stdio-mcp",
-    "mcpTool": "openui_repo_workflow_summary",
+    "mcpTool": "shadcn_brief_repo_workflow_summary",
     "openApiBridge": {
       "enabled": true,
-      "path": "docs/contracts/openui-mcp.openapi.json#/paths/~1mcp~1tools~1call/post",
+      "path": "docs/contracts/shadcn-brief-mcp.openapi.json#/paths/~1mcp~1tools~1call/post",
       "note": "Compatibility bridge only. This does not claim a hosted API product."
     },
     "repoLocalPacket": {
@@ -59,7 +59,7 @@
       "why": "Freezes the builder-surface order and names the current repo-owned skill product line via @openui/skills-kit."
     },
     {
-      "path": "docs/strategy/openui-uiux-truth-ledger.md",
+      "path": "docs/strategy/shadcn-brief-uiux-truth-ledger.md",
       "why": "Locks MCP primary, OpenAPI compatibility secondary, and repo-local workflow tertiary."
     },
     {

@@ -62,7 +62,7 @@ async function writeContracts(rootDir: string) {
 describe("space path sources", () => {
 	it("rejects workspace-inside cache roots and non-canonical runtime cache dirs", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-path-sources-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-path-sources-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -72,7 +72,7 @@ describe("space path sources", () => {
 				env: {
 					...process.env,
 					PRE_COMMIT_HOME: ".runtime-cache/precommit-full-home",
-					OPENUISTUDIO_CACHE_DIR: ".runtime-cache/go-cache",
+					SHADCN_BRIEF_CACHE_DIR: ".runtime-cache/go-cache",
 				},
 			});
 
@@ -83,7 +83,7 @@ describe("space path sources", () => {
 						"PRE_COMMIT_HOME must resolve outside workspace",
 					),
 					expect.stringContaining(
-						"OPENUISTUDIO_CACHE_DIR must resolve to a canonical runtime path",
+						"SHADCN_BRIEF_CACHE_DIR must resolve to a canonical runtime path",
 					),
 				]),
 			);
@@ -94,7 +94,7 @@ describe("space path sources", () => {
 
 	it("fails when a direct Go tool invocation is introduced", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-space-path-go-"),
+			path.join(os.tmpdir(), "shadcn-brief-space-path-go-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -117,7 +117,7 @@ describe("space path sources", () => {
 
 	it("builds a safe pre-commit env and rejects ambient cache roots inside the workspace", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-precommit-env-"),
+			path.join(os.tmpdir(), "shadcn-brief-precommit-env-"),
 		);
 		try {
 			await expect(
@@ -140,7 +140,7 @@ describe("space path sources", () => {
 
 	it("accepts tilde-based external cache roots as workspace-external paths", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-precommit-tilde-env-"),
+			path.join(os.tmpdir(), "shadcn-brief-precommit-tilde-env-"),
 		);
 		try {
 			await writeContracts(rootDir);
@@ -162,7 +162,7 @@ describe("space path sources", () => {
 
 	it("refuses Go wrapper runs when cache roots are pointed into the workspace", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-go-wrapper-"),
+			path.join(os.tmpdir(), "shadcn-brief-go-wrapper-"),
 		);
 		try {
 			await expect(
@@ -185,7 +185,7 @@ describe("space path sources", () => {
 
 	it("fails closed when the wrapped Go tool is unavailable", async () => {
 		const rootDir = await fs.mkdtemp(
-			path.join(os.tmpdir(), "openui-go-wrapper-missing-tool-"),
+			path.join(os.tmpdir(), "shadcn-brief-go-wrapper-missing-tool-"),
 		);
 		try {
 			const exitCode = await runGoToolCli({

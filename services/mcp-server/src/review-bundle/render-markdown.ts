@@ -2,7 +2,7 @@ import type { ReviewBundle } from "./types.js";
 
 export function buildReviewBundleMarkdown(bundle: ReviewBundle): string {
 	const lines: string[] = [];
-	lines.push("# OpenUI Review Bundle");
+	lines.push("# ShadcnBrief Review Bundle");
 	lines.push("");
 	lines.push(`- Prompt: ${bundle.prompt}`);
 	lines.push(`- Target kind: ${bundle.targetKind}`);

@@ -10,7 +10,7 @@ import { startHostedApiServer } from "../packages/hosted-api/src/index.js";
 const execFileAsync = promisify(execFile);
 
 async function main() {
-	const tempRoot = await mkdtemp(path.join(os.tmpdir(), "openui-sdk-proof-"));
+	const tempRoot = await mkdtemp(path.join(os.tmpdir(), "shadcn-brief-sdk-proof-"));
 	const token = `sdk-${randomUUID()}`;
 	const handle = await startHostedApiServer({
 		workspaceRoot: process.cwd(),

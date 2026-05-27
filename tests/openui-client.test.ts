@@ -9,10 +9,10 @@ afterEach(() => {
 	vi.restoreAllMocks();
 });
 
-describe("openui-client", () => {
+describe("shadcn-brief-client", () => {
 	it("forwards chat completion input and returns upstream response", async () => {
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
-		const module = await import("../services/mcp-server/src/openui-client.js");
+		const module = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const completeSpy = vi
 			.mocked(aiClient.aiChatComplete)
 			.mockResolvedValue("ok");
@@ -28,7 +28,7 @@ describe("openui-client", () => {
 
 	it("uses default list-model limit and accepts custom limit", async () => {
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
-		const module = await import("../services/mcp-server/src/openui-client.js");
+		const module = await import("../services/mcp-server/src/shadcn-brief-client.js");
 		const listSpy = vi
 			.mocked(aiClient.aiListModels)
 			.mockResolvedValue([{ name: "gemini-3" }]);
@@ -46,7 +46,7 @@ describe("openui-client", () => {
 
 	it("propagates upstream list-model errors", async () => {
 		const aiClient = await import("../services/mcp-server/src/ai-client.js");
-		const module = await import("../services/mcp-server/src/openui-client.js");
+		const module = await import("../services/mcp-server/src/shadcn-brief-client.js");
 
 		vi.mocked(aiClient.aiListModels).mockRejectedValue(
 			new Error("provider unavailable"),

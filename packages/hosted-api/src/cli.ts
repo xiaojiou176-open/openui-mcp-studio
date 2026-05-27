@@ -13,7 +13,7 @@ import {
 async function readHostedOpenapi(workspaceRoot: string) {
 	const contractPath = path.join(
 		workspaceRoot,
-		"docs/contracts/openui-hosted-api.openapi.json",
+		"docs/contracts/shadcn-brief-hosted-api.openapi.json",
 	);
 	const raw = await fs.readFile(contractPath, "utf8");
 	return {
@@ -52,7 +52,7 @@ async function main(argv = process.argv.slice(2)): Promise<void> {
 			`${JSON.stringify(
 				{
 					ok: true,
-					service: "openui-hosted-api",
+					service: "shadcn-brief-hosted-api",
 					version: HOSTED_API_VERSION,
 					host: baseConfig.host,
 					port: baseConfig.port,
@@ -81,7 +81,7 @@ async function main(argv = process.argv.slice(2)): Promise<void> {
 			`${JSON.stringify(
 				{
 					ok: true,
-					service: "openui-hosted-api",
+					service: "shadcn-brief-hosted-api",
 					url: handle.url,
 					port: handle.port,
 					auth: "bearer",
@@ -101,7 +101,7 @@ async function main(argv = process.argv.slice(2)): Promise<void> {
 
 void main().catch((error) => {
 	process.stderr.write(
-		`[OpenUIStudio-hosted-api] ERROR: ${error instanceof Error ? error.message : String(error)}\n`,
+		`[ShadcnBrief-hosted-api] ERROR: ${error instanceof Error ? error.message : String(error)}\n`,
 	);
 	process.exit(1);
 });

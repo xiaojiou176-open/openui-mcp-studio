@@ -39,7 +39,7 @@ afterEach(async () => {
 
 describe("file-ops guard branch extras", () => {
 	it("rethrows non-ENOENT/ENOTDIR lstat errors while reading workspace files", async () => {
-		const root = await mkTempDir("openui-file-ops-guard-");
+		const root = await mkTempDir("shadcn-brief-file-ops-guard-");
 		const expectedError = Object.assign(new Error("read denied"), {
 			code: "EACCES",
 		});
@@ -55,7 +55,7 @@ describe("file-ops guard branch extras", () => {
 	});
 
 	it("rejects read when final no-follow check detects a workspace escape", async () => {
-		const root = await mkTempDir("openui-file-ops-guard-");
+		const root = await mkTempDir("shadcn-brief-file-ops-guard-");
 		const absolutePath = path.join(root, "app/page.tsx");
 		await fs.mkdir(path.dirname(absolutePath), { recursive: true });
 		await fs.writeFile(absolutePath, "safe", "utf8");
@@ -75,7 +75,7 @@ describe("file-ops guard branch extras", () => {
 	});
 
 	it("rejects write when post-mkdir no-follow check detects a workspace escape", async () => {
-		const root = await mkTempDir("openui-file-ops-guard-");
+		const root = await mkTempDir("shadcn-brief-file-ops-guard-");
 
 		let callCount = 0;
 		const fileOps = await importFileOpsWithPathInsideMock(() => {
@@ -93,7 +93,7 @@ describe("file-ops guard branch extras", () => {
 	});
 
 	it("rejects remove when no-follow check detects a workspace escape", async () => {
-		const root = await mkTempDir("openui-file-ops-guard-");
+		const root = await mkTempDir("shadcn-brief-file-ops-guard-");
 
 		let callCount = 0;
 		const fileOps = await importFileOpsWithPathInsideMock(() => {

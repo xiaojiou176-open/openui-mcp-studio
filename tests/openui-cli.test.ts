@@ -19,17 +19,17 @@ describe("openui repo-local cli", () => {
 
 	it("builds a builder surface guide payload from OpenAPI extensions", () => {
 		const payload = buildSurfaceGuidePayload("/repo", {
-			"x-openui-builder-dispatcher": {
-				cli: "OpenUIStudio",
-				surfaceGuideCommand: "OpenUIStudio surface-guide",
+			"x-shadcn-brief-builder-dispatcher": {
+				cli: "ShadcnBrief",
+				surfaceGuideCommand: "ShadcnBrief surface-guide",
 			},
-			"x-openui-builder-surface-guide": {
+			"x-shadcn-brief-builder-surface-guide": {
 				startWith: "Begin with local MCP.",
 				openapiWhen: "Read OpenAPI second.",
 				workflowPacketWhen: "Read workflow third.",
 				skillsStarterWhen: "Read starter last.",
 			},
-			"x-openui-builder-surface-order": [
+			"x-shadcn-brief-builder-surface-order": [
 				{
 					position: 1,
 					surface: "Local stdio MCP",
@@ -40,7 +40,7 @@ describe("openui repo-local cli", () => {
 					entrypoints: ["services/mcp-server/src/main.ts"],
 				},
 			],
-			"x-openui-later-lanes": [
+			"x-shadcn-brief-later-lanes": [
 				{
 					id: "managed-hosted-deployment",
 					description: "Managed hosted deployment remains later.",
@@ -49,7 +49,7 @@ describe("openui repo-local cli", () => {
 		});
 
 		expect(payload.dispatcher?.surfaceGuideCommand).toBe(
-			"OpenUIStudio surface-guide",
+			"ShadcnBrief surface-guide",
 		);
 		expect(payload.currentOrder[0]).toEqual(
 			expect.objectContaining({
@@ -66,7 +66,7 @@ describe("openui repo-local cli", () => {
 
 	it("treats shimmed bin paths as the same entrypoint after realpath resolution", () => {
 		const resolver = (targetPath: string) => {
-			if (targetPath.endsWith("node_modules/.bin/OpenUIStudio")) {
+			if (targetPath.endsWith("node_modules/.bin/ShadcnBrief")) {
 				return "/repo/tooling/cli/openui.mjs";
 			}
 			return targetPath;
@@ -74,7 +74,7 @@ describe("openui repo-local cli", () => {
 
 		expect(
 			isCliEntrypoint(
-				"/repo/node_modules/.bin/OpenUIStudio",
+				"/repo/node_modules/.bin/ShadcnBrief",
 				"/repo/tooling/cli/openui.mjs",
 				resolver,
 			),
@@ -83,7 +83,7 @@ describe("openui repo-local cli", () => {
 
 	it("builds an ecosystem guide payload from the ecosystem contract", () => {
 		const payload = buildEcosystemGuidePayload("/repo", {
-			technicalName: "OpenUIStudio",
+			technicalName: "ShadcnBrief",
 			frontdoorLabel: "OneClickUI.ai",
 			summary: "Current ecosystem packaging truth.",
 			currentTruth: {
@@ -116,7 +116,7 @@ describe("openui repo-local cli", () => {
 			operatorOnlyActions: ["publish release"],
 		});
 
-		expect(payload.technicalName).toBe("OpenUIStudio");
+		expect(payload.technicalName).toBe("ShadcnBrief");
 		expect(payload.frontdoorLabel).toBe("OneClickUI.ai");
 		expect(payload.clientSupportMatrix[0]).toEqual(
 			expect.objectContaining({
@@ -157,7 +157,7 @@ describe("openui repo-local cli", () => {
 				usePath: ["Start from the current local stdio MCP builder surface"],
 				distributionTier: "plugin-grade-public-distribution-package",
 				proofLoop: [
-					"OpenUIStudio skills starter --json",
+					"ShadcnBrief skills starter --json",
 					"npm run repo:doctor",
 				],
 				troubleshootingPath: ["packages/skills-kit/starter-troubleshooting.md"],
@@ -189,7 +189,7 @@ describe("openui repo-local cli", () => {
 		);
 		expect(payload.starterBundles).toEqual(["starter-bundles/codex.mcp.json"]);
 		expect(payload.proofLoop).toEqual([
-			"OpenUIStudio skills starter --json",
+			"ShadcnBrief skills starter --json",
 			"npm run repo:doctor",
 		]);
 		expect(payload.troubleshootingPath).toEqual([
