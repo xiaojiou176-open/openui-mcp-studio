@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "path": "README.md",
+      "bannedPatterns": [
+        "`runner_mode`",
+        "`spot_preferred`",
+        "`externalReadonlyE2E`",
+        "`mutationCoverageGate`"
+      ]
+    },
+    {
+      "path": "docs/governance-runbook.md",
+      "bannedPatterns": [
+        "`runner_mode`",
+        "`spot_preferred`",
+        "`externalReadonlyE2E`",
+        "`mutationCoverageGate`"
+      ]
+    },
+    {
+      "path": "docs/testing.md",
+      "bannedPatterns": [
+        "`runner_mode`",
+        "`spot_preferred`",
+        "`externalReadonlyE2E`",
+        "`mutationCoverageGate`"
+      ]
+    }
+  ]
+}

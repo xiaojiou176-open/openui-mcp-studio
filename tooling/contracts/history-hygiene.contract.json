@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "reportPath": ".runtime-cache/reports/history-audit/gitleaks-history.json",
+  "summaryExpectation": {
+    "totalFindings": 0,
+    "byRule": {}
+  },
+  "classifications": [],
+  "resolutionNotes": [
+    "The canonical repository state is zero-findings clean after removing non-canonical upstream tracking refs from the default local clone and rerunning the full-history gitleaks audit.",
+    "Upstream maintenance remains on-demand. Adding or fetching an upstream remote can repopulate local tracking refs, so rerun npm run security:history:audit before claiming the clone is still history-clean."
+  ]
+}

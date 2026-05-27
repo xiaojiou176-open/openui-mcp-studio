@@ -1,0 +1,19 @@
+{
+	"version": 1,
+	"gitTagPolicy": {
+		"releaseTagPattern": "^v\\d+\\.\\d+\\.\\d+$"
+	},
+	"strictReadiness": {
+		"requireAuthoritativeRuns": true
+	},
+	"evidence": {
+		"openapi": "docs/contracts/openui-mcp.openapi.json",
+		"performanceBudget": "docs/contracts/performance-budget.json",
+		"rumSlo": "docs/contracts/rum-slo.json",
+		"featureFlags": "docs/contracts/feature-flags.json",
+		"canaryPolicy": "docs/contracts/canary-policy.json",
+		"rollbackPolicy": "docs/contracts/rollback-policy.json",
+		"observabilityPolicy": "docs/contracts/observability-policy.json",
+		"ciImageSupplyChain": "docs/contracts/ci-image-supply-chain.json"
+	}
+}
