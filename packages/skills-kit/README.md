@@ -12,7 +12,7 @@ This package is the strongest truthful skill surface in the current repository:
 ## Install
 
 ```bash
-npm install /ABS/PATH/openui-mcp-studio/packages/skills-kit
+npm install /ABS/PATH/OpenUIStudio/packages/skills-kit
 ```
 
 ## Use

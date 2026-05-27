@@ -2,8 +2,8 @@
   "host": "Claude Code",
   "starterBundle": "packages/skills-kit/starter-bundles/claude-code.mcp.json",
   "proofLoop": [
-    "openui-mcp-studio surface-guide --json",
-    "openui-mcp-studio ecosystem-guide --json",
+    "OpenUIStudio surface-guide --json",
+    "OpenUIStudio ecosystem-guide --json",
     "npm run repo:doctor"
   ],
   "notFor": [

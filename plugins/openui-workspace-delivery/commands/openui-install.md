@@ -10,7 +10,7 @@ to a local Claude Code or OpenClaw workflow.
    - `packages/skills-kit/starter-bundles/claude-code.mcp.json`
    - `packages/skills-kit/starter-bundles/openclaw.mcp.json`
 3. Copy the starter JSON into your local host config and replace
-   `/ABS/PATH/openui-mcp-studio` with the real checkout path.
+   `/ABS/PATH/OpenUIStudio` with the real checkout path.
 4. Keep the truth boundary visible.
    - This bundle helps with install and proof.
    - It does not prove an official marketplace listing or hosted runtime.

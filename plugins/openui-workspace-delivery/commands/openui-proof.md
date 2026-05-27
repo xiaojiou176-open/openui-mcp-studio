@@ -2,8 +2,8 @@
 
 Run the repo-owned proof loop after you wire the local MCP config:
 
-1. `openui-mcp-studio surface-guide --json`
-2. `openui-mcp-studio ecosystem-guide --json`
+1. `OpenUIStudio surface-guide --json`
+2. `OpenUIStudio ecosystem-guide --json`
 3. `npm run repo:doctor`
 4. Open `/proof` or `docs/proof-and-faq.md`
 

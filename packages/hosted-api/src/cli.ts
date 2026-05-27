@@ -101,7 +101,7 @@ async function main(argv = process.argv.slice(2)): Promise<void> {
 
 void main().catch((error) => {
 	process.stderr.write(
-		`[openui-mcp-studio-hosted-api] ERROR: ${error instanceof Error ? error.message : String(error)}\n`,
+		`[OpenUIStudio-hosted-api] ERROR: ${error instanceof Error ? error.message : String(error)}\n`,
 	);
 	process.exit(1);
 });

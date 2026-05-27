@@ -19,73 +19,73 @@ const COPY_TARGETS = [];
 
 const STATIC_PAGES = [
 	{
-		input: "docs/assets/openui-mcp-studio-workbench-source.html",
-		output: "docs/assets/openui-mcp-studio-workbench.png",
+		input: "docs/assets/OpenUIStudio-workbench-source.html",
+		output: "docs/assets/OpenUIStudio-workbench.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/openui-mcp-studio-social-preview-source.html",
-		output: "docs/assets/openui-mcp-studio-social-preview.png",
+		input: "docs/assets/OpenUIStudio-social-preview-source.html",
+		output: "docs/assets/OpenUIStudio-social-preview.png",
 		viewport: { width: 1280, height: 640 },
 	},
 	{
-		input: "docs/assets/openui-mcp-studio-workflow-overview-source.html",
-		output: "docs/assets/openui-mcp-studio-workflow-overview.png",
+		input: "docs/assets/OpenUIStudio-workflow-overview-source.html",
+		output: "docs/assets/OpenUIStudio-workflow-overview.png",
 		viewport: { width: 1440, height: 760 },
 	},
 	{
-		input: "docs/assets/openui-mcp-studio-comparison-source.html",
-		output: "docs/assets/openui-mcp-studio-comparison.png",
+		input: "docs/assets/OpenUIStudio-comparison-source.html",
+		output: "docs/assets/OpenUIStudio-comparison.png",
 		viewport: { width: 1440, height: 1300 },
 	},
 	{
-		input: "docs/assets/openui-mcp-studio-trust-stack-source.html",
-		output: "docs/assets/openui-mcp-studio-trust-stack.png",
+		input: "docs/assets/OpenUIStudio-trust-stack-source.html",
+		output: "docs/assets/OpenUIStudio-trust-stack.png",
 		viewport: { width: 1440, height: 900 },
 	},
 	{
-		input: "docs/assets/openui-mcp-studio-use-cases-source.html",
-		output: "docs/assets/openui-mcp-studio-use-cases.png",
+		input: "docs/assets/OpenUIStudio-use-cases-source.html",
+		output: "docs/assets/OpenUIStudio-use-cases.png",
 		viewport: { width: 1440, height: 840 },
 	},
 	{
-		input: "docs/assets/openui-mcp-studio-visitor-paths-source.html",
-		output: "docs/assets/openui-mcp-studio-visitor-paths.png",
+		input: "docs/assets/OpenUIStudio-visitor-paths-source.html",
+		output: "docs/assets/OpenUIStudio-visitor-paths.png",
 		viewport: { width: 1440, height: 820 },
 	},
 ];
 
 const DEMO_FRAMES = [
 	{
-		input: "docs/assets/openui-mcp-studio-demo-source-brief.html",
+		input: "docs/assets/OpenUIStudio-demo-source-brief.html",
 		output: ".runtime-cache/tmp/public-assets/frame-1.png",
-		publicOutput: "docs/assets/openui-mcp-studio-demo-brief.png",
+		publicOutput: "docs/assets/OpenUIStudio-demo-brief.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/openui-mcp-studio-demo-source-review.html",
+		input: "docs/assets/OpenUIStudio-demo-source-review.html",
 		output: ".runtime-cache/tmp/public-assets/frame-2.png",
-		publicOutput: "docs/assets/openui-mcp-studio-demo-review.png",
+		publicOutput: "docs/assets/OpenUIStudio-demo-review.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/openui-mcp-studio-demo-source-ship.html",
+		input: "docs/assets/OpenUIStudio-demo-source-ship.html",
 		output: ".runtime-cache/tmp/public-assets/frame-3.png",
-		publicOutput: "docs/assets/openui-mcp-studio-demo-ship.png",
+		publicOutput: "docs/assets/OpenUIStudio-demo-ship.png",
 		viewport: { width: 1280, height: 720 },
 	},
 ];
 
-const GIF_OUTPUT = path.resolve(DOCS_ASSETS_DIR, "openui-mcp-studio-demo.gif");
+const GIF_OUTPUT = path.resolve(DOCS_ASSETS_DIR, "OpenUIStudio-demo.gif");
 const RELEASE_ASSET_NAMES = [
-	"openui-mcp-studio-demo.gif",
-	"openui-mcp-studio-social-preview.png",
-	"openui-mcp-studio-workbench.png",
-	"openui-mcp-studio-workflow-overview.png",
-	"openui-mcp-studio-comparison.png",
-	"openui-mcp-studio-trust-stack.png",
-	"openui-mcp-studio-use-cases.png",
-	"openui-mcp-studio-visitor-paths.png",
+	"OpenUIStudio-demo.gif",
+	"OpenUIStudio-social-preview.png",
+	"OpenUIStudio-workbench.png",
+	"OpenUIStudio-workflow-overview.png",
+	"OpenUIStudio-comparison.png",
+	"OpenUIStudio-trust-stack.png",
+	"OpenUIStudio-use-cases.png",
+	"OpenUIStudio-visitor-paths.png",
 ];
 
 function parseArgs(argv) {

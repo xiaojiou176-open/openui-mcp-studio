@@ -46,7 +46,7 @@ describe("public distribution bundle", () => {
 
 		expect(rootManifest).toContain("status: mixed-live-and-review-boundary");
 		expect(rootManifest).toContain(
-			"canonical_repo: xiaojiou176-open/openui-mcp-studio",
+			"canonical_repo: xiaojiou176-open/OpenUIStudio",
 		);
 		expect(rootManifest).toContain("external_truth:");
 		expect(rootManifest).toContain("clawhub:");
@@ -67,7 +67,7 @@ describe("public distribution bundle", () => {
 		expect(JSON.stringify(dockerManifest)).toContain("ghcr.io");
 		expect(JSON.stringify(dockerManifest)).toContain("not yet published");
 		expect(dockerNote).toContain("submission-ready-unlisted");
-		expect(dockerNote).toContain("ghcr.io/xiaojiou176-open/openui-mcp-studio");
+		expect(dockerNote).toContain("ghcr.io/xiaojiou176-open/OpenUIStudio");
 	});
 
 	it("ships a public-ready OpenClaw bundle without overclaiming a live listing", async () => {

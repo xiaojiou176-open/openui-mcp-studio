@@ -19,8 +19,8 @@ OpenUI MCP Studio from a local checkout.
    `packages/skills-kit/starter-bundles/codex.mcp.json` as the local MCP config.
 3. Replace the absolute repo path.
 4. Run the proof loop:
-   - `openui-mcp-studio surface-guide --json`
-   - `openui-mcp-studio ecosystem-guide --json`
+   - `OpenUIStudio surface-guide --json`
+   - `OpenUIStudio ecosystem-guide --json`
    - `npm run repo:doctor`
 
 ## Boundaries

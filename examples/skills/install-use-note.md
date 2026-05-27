@@ -47,7 +47,7 @@ Use this skill product line when you are:
    - `../public-distribution/codex.mcp.json`
    - `../public-distribution/claude-code.mcp.json`
    - `../public-distribution/openclaw-public-ready.manifest.json`
-2. Replace `/ABS/PATH/openui-mcp-studio/.../main.js` with your real local path.
+2. Replace `/ABS/PATH/OpenUIStudio/.../main.js` with your real local path.
 3. Make sure `GEMINI_API_KEY` exists in the client environment.
 4. Run `npm run repo:doctor`.
 5. Run `npm run demo:ship`.

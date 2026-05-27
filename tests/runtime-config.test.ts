@@ -73,7 +73,7 @@ function setValidRuntimeEnv() {
 	process.env.OPENUI_MCP_CACHE_RETENTION_DAYS = "7";
 	process.env.OPENUI_MCP_CACHE_MAX_BYTES = "104857600";
 	process.env.OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-	process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/openui-mcp-studio/tooling";
+	process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/OpenUIStudio/tooling";
 	process.env.OPENUI_TOOL_CACHE_RETENTION_DAYS = "3";
 	process.env.OPENUI_TOOL_CACHE_MAX_BYTES = "5368709120";
 	process.env.OPENUI_TOOL_CACHE_CLEAN_INTERVAL_MINUTES = "60";
@@ -183,7 +183,7 @@ describe("runtime config guardrails", () => {
 		} = await loadConstantsModule();
 
 		expect(getOpenuiToolCacheRoot()).toContain(
-			"/.cache/openui-mcp-studio/tooling",
+			"/.cache/OpenUIStudio/tooling",
 		);
 		expect(getOpenuiToolCacheRetentionDays()).toBe(3);
 		expect(getOpenuiToolCacheMaxBytes()).toBe(5_368_709_120);

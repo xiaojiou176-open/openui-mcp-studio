@@ -3,16 +3,16 @@ export const SITE_BRAND = {
   frontdoorName: "OneClickUI.ai",
   frontdoorLabel: "OneClickUI.ai front door",
   poweredBy: "Powered by OpenUI MCP Studio",
-  repoUrl: "https://github.com/xiaojiou176-open/openui-mcp-studio",
+  repoUrl: "https://github.com/xiaojiou176-open/OpenUIStudio",
   docs: {
-    readme: "https://github.com/xiaojiou176-open/openui-mcp-studio#readme",
+    readme: "https://github.com/xiaojiou176-open/OpenUIStudio#readme",
     docsHub: "/docs",
     proofFaq: "/docs#proof-faq",
     walkthrough: "/docs#first-minute-walkthrough",
     apiContract:
-      "https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/docs/contracts/openui-mcp.openapi.json",
+      "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/contracts/openui-mcp.openapi.json",
     ecosystemContract:
-      "https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/docs/contracts/openui-ecosystem-productization.json",
+      "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/contracts/openui-ecosystem-productization.json",
     docsIndex: "/docs#docs-index",
     discoveryGuide: "/docs#discovery-chain",
     evaluatorChecklist: "/docs#evaluator-checklist",
@@ -23,7 +23,7 @@ export const SITE_BRAND = {
     publicSkillsLedger: "/docs#public-skills-ledger",
     sdkHostedLedger: "/docs#sdk-hosted-ledger",
     publicDistributionBundle:
-      "https://github.com/xiaojiou176-open/openui-mcp-studio/blob/main/examples/public-distribution/README.md",
+      "https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/examples/public-distribution/README.md",
   },
 } as const;
 
@@ -623,13 +623,13 @@ export const PUBLIC_BUNDLE = [
   {
     title: "Visual proof assets",
     items: [
-      "openui-mcp-studio-demo.gif",
-      "openui-mcp-studio-workbench.png",
-      "openui-mcp-studio-comparison.png",
-      "openui-mcp-studio-trust-stack.png",
-      "openui-mcp-studio-use-cases.png",
-      "openui-mcp-studio-visitor-paths.png",
-      "openui-mcp-studio-social-preview.png",
+      "OpenUIStudio-demo.gif",
+      "OpenUIStudio-workbench.png",
+      "OpenUIStudio-comparison.png",
+      "OpenUIStudio-trust-stack.png",
+      "OpenUIStudio-use-cases.png",
+      "OpenUIStudio-visitor-paths.png",
+      "OpenUIStudio-social-preview.png",
     ],
   },
   {

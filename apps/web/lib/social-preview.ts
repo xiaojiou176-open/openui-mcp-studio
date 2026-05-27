@@ -5,7 +5,7 @@ export const SOCIAL_PREVIEW_ROUTE = "/api/social-preview";
 export const SOCIAL_PREVIEW_CACHE_CONTROL = "public, max-age=3600, s-maxage=3600";
 
 const SOCIAL_PREVIEW_ASSET_URL = new URL(
-	"../../../docs/assets/openui-mcp-studio-social-preview.png",
+	"../../../docs/assets/OpenUIStudio-social-preview.png",
 	import.meta.url,
 );
 

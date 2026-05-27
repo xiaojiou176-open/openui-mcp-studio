@@ -167,7 +167,7 @@ describe("index server bootstrap", () => {
 
 		expect(validateOpenuiRuntimeConfig).toHaveBeenCalledTimes(1);
 		expect(server.options).toEqual({
-			name: "openui-mcp-studio",
+			name: "OpenUIStudio",
 			version: "9.9.9-test",
 		});
 

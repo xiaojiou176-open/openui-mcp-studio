@@ -6,7 +6,7 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
-const CLI_NAME = "openui-mcp-studio";
+const CLI_NAME = "OpenUIStudio";
 const SCRIPT_REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
@@ -61,7 +61,7 @@ async function isWorkspaceRoot(candidatePath) {
 
   try {
     const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf8"));
-    return packageJson.name === "openui-mcp-studio";
+    return packageJson.name === "OpenUIStudio";
   } catch {
     return false;
   }

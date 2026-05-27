@@ -10,7 +10,7 @@
   - supporting / parked lane, not a front-stage public distribution surface
 - Hosted API:
   - self-hosted HTTP runtime
-  - surfaced through `openui-mcp-studio hosted info|openapi|serve`
+  - surfaced through `OpenUIStudio hosted info|openapi|serve`
   - supporting / parked lane, not a front-stage public distribution surface
 
 ## 2. Package / Runtime Shape
@@ -51,7 +51,7 @@
 ### SDK Install
 
 - local install:
-  - `npm install /ABS/PATH/openui-mcp-studio/packages/sdk`
+  - `npm install /ABS/PATH/OpenUIStudio/packages/sdk`
 - pack/install proof:
   - `npm pack packages/sdk`
   - `node --import tsx tooling/sdk-install-proof.ts`
@@ -61,10 +61,10 @@
 ### Hosted API Install
 
 - inspect:
-  - `openui-mcp-studio hosted info`
-  - `openui-mcp-studio hosted openapi`
+  - `OpenUIStudio hosted info`
+  - `OpenUIStudio hosted openapi`
 - run:
-  - `OPENUI_HOSTED_API_BEARER_TOKEN=... openui-mcp-studio hosted serve`
+  - `OPENUI_HOSTED_API_BEARER_TOKEN=... OpenUIStudio hosted serve`
 - smoke:
   - `node --import tsx tooling/hosted-api-smoke.ts`
 

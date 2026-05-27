@@ -1,4 +1,4 @@
-import { OPENUI_BUILDER_SURFACE_MANIFEST } from "openui-mcp-studio";
+import { OPENUI_BUILDER_SURFACE_MANIFEST } from "OpenUIStudio";
 
 const summary = {
 	publicEntrypoint: OPENUI_BUILDER_SURFACE_MANIFEST.publicEntrypoint,

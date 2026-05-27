@@ -28,7 +28,7 @@ the line at once:
 
 If you need the zero-context builder map first, start with:
 
-- `openui-mcp-studio surface-guide`
+- `OpenUIStudio surface-guide`
 
 ## Files In This Starter Kit
 

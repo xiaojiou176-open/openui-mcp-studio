@@ -1,11 +1,11 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.xiaojiou176-open/openui-mcp-studio",
+  "name": "io.github.xiaojiou176-open/OpenUIStudio",
   "title": "OpenUI MCP Studio",
   "description": "Local stdio MCP for UI briefs to React + shadcn with review, proof, and ship.",
-  "websiteUrl": "https://xiaojiou176-open.github.io/openui-mcp-studio/",
+  "websiteUrl": "https://xiaojiou176-open.github.io/OpenUIStudio/",
   "repository": {
-    "url": "https://github.com/xiaojiou176-open/openui-mcp-studio",
+    "url": "https://github.com/xiaojiou176-open/OpenUIStudio",
     "source": "github"
   },
   "version": "0.3.0"

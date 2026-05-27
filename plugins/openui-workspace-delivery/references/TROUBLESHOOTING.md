@@ -16,8 +16,8 @@ Use these checks before escalating.
 
 ## 3. You only need the shortest proof loop
 
-- run `openui-mcp-studio surface-guide --json`
-- run `openui-mcp-studio ecosystem-guide --json`
+- run `OpenUIStudio surface-guide --json`
+- run `OpenUIStudio ecosystem-guide --json`
 - run `npm run repo:doctor`
 
 ## 4. The claim sounds bigger than reality

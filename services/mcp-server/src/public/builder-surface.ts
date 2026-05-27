@@ -170,7 +170,7 @@ export const OPENUI_BUILDER_SURFACE_ORDER = [
 		entrypoints: [
 			"services/mcp-server/src/main.ts",
 			"services/mcp-server/src/public/server.ts",
-			"openui-mcp-studio mcp",
+			"OpenUIStudio mcp",
 		],
 		description:
 			"Primary builder surface for Codex, Claude Code, and other MCP clients.",
@@ -189,7 +189,7 @@ export const OPENUI_BUILDER_SURFACE_ORDER = [
 		surface: "Compatibility OpenAPI bridge",
 		entrypoints: [
 			"docs/contracts/openui-mcp.openapi.json",
-			"openui-mcp-studio openapi",
+			"OpenUIStudio openapi",
 		],
 		description:
 			"Secondary bridge for contract review and adapter compatibility; not a hosted API claim.",
@@ -210,8 +210,8 @@ export const OPENUI_BUILDER_SURFACE_ORDER = [
 			"services/mcp-server/src/public/workflow-summary.ts",
 			"npm run repo:workflow:summary",
 			"npm run repo:workflow:ready",
-			"openui-mcp-studio workflow summary",
-			"openui-mcp-studio workflow ready",
+			"OpenUIStudio workflow summary",
+			"OpenUIStudio workflow ready",
 		],
 		description:
 			"Maintainer-facing read-only workflow packet that stays separate from remote mutation.",
@@ -295,8 +295,8 @@ export const OPENUI_REPO_SIDE_SKILLS_STARTER = {
 };
 
 export const OPENUI_BUILDER_SURFACE_DISPATCHER = {
-	cli: "openui-mcp-studio",
-	surfaceGuideCommand: "openui-mcp-studio surface-guide",
+	cli: "OpenUIStudio",
+	surfaceGuideCommand: "OpenUIStudio surface-guide",
 	description:
 		"Repo-local dispatcher and formal entry helper for the current builder surface order.",
 } as const satisfies OpenuiBuilderSurfaceDispatcher;
