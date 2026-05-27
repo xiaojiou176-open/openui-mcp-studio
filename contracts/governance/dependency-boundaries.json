@@ -1,0 +1,87 @@
+{
+	"version": 1,
+	"includeRoots": ["services/mcp-server/src", "tooling", "packages"],
+	"excludePatterns": [
+		"**/node_modules/**",
+		"**/.runtime-cache/**",
+		"**/dist/**",
+		"**/build/**",
+		"**/coverage/**",
+		"**/*.test.*",
+		"**/*.spec.*"
+	],
+	"rules": [
+		{
+			"id": "shared-runtime-no-business-backflow",
+			"description": "packages/shared-runtime is the public runtime substrate and must not back-reference service business-facing layers.",
+			"from": ["packages/shared-runtime/src/**"],
+			"disallow": [
+				"services/mcp-server/src/tools/**",
+				"services/mcp-server/src/providers/**",
+				"services/mcp-server/src/retrieval/**",
+				"services/mcp-server/src/uiux/**",
+				"services/mcp-server/src/next-smoke/**"
+			]
+		},
+		{
+			"id": "runtime-observability-no-business-backflow",
+			"description": "packages/runtime-observability must not depend on service business-facing layers.",
+			"from": ["packages/runtime-observability/src/**"],
+			"disallow": [
+				"services/mcp-server/src/tools/**",
+				"services/mcp-server/src/providers/**",
+				"services/mcp-server/src/retrieval/**",
+				"services/mcp-server/src/uiux/**",
+				"services/mcp-server/src/next-smoke/**"
+			]
+		},
+		{
+			"id": "providers-no-tooling-backflow",
+			"description": "Provider implementations must stay independent from tools and UI review flows.",
+			"from": ["services/mcp-server/src/providers/**"],
+			"disallow": ["services/mcp-server/src/tools/**", "services/mcp-server/src/uiux/**", "services/mcp-server/src/next-smoke/**"]
+		},
+		{
+			"id": "retrieval-stays-domain-local",
+			"description": "Retrieval code must not depend on tools, providers, UI review, or smoke orchestration.",
+			"from": ["services/mcp-server/src/retrieval/**"],
+			"disallow": [
+				"services/mcp-server/src/tools/**",
+				"services/mcp-server/src/providers/**",
+				"services/mcp-server/src/uiux/**",
+				"services/mcp-server/src/next-smoke/**"
+			]
+		},
+		{
+			"id": "uiux-review-no-runtime-backflow",
+			"description": "UI review heuristics stay isolated from execution and provider internals.",
+			"from": ["services/mcp-server/src/uiux/**"],
+			"disallow": ["services/mcp-server/src/tools/**", "services/mcp-server/src/providers/**", "services/mcp-server/src/retrieval/**"]
+		},
+		{
+			"id": "next-smoke-no-provider-backflow",
+			"description": "Next smoke orchestration must not depend on provider or tool implementation internals.",
+			"from": ["services/mcp-server/src/next-smoke/**"],
+			"disallow": ["services/mcp-server/src/providers/**", "services/mcp-server/src/tools/**", "services/mcp-server/src/retrieval/**"]
+		},
+		{
+			"id": "scripts-public-surface-only",
+			"description": "Governance and ops tooling may only consume explicitly allowlisted public runtime surfaces from packages and services.",
+			"from": ["tooling/**/*.mjs", "tooling/**/*.ts"],
+			"disallow": [
+				"services/mcp-server/src/tools/**",
+				"services/mcp-server/src/providers/**",
+				"services/mcp-server/src/retrieval/**",
+				"services/mcp-server/src/uiux/**"
+			],
+			"allow": [
+				"services/mcp-server/src/public/**",
+				"services/mcp-server/src/constants.ts",
+				"services/mcp-server/src/logger.ts",
+				"packages/contracts/src/**",
+				"packages/shared-runtime/src/**",
+				"packages/runtime-observability/src/**"
+			]
+		}
+	]
+}

@@ -1,0 +1,58 @@
+{
+	"version": 1,
+	"requiredDoneFields": [
+		"completedAt",
+		"sourceCommit",
+		"decisionSummary",
+		"validationEvidence",
+		"rollbackVerified"
+	],
+	"entries": [
+		{
+			"id": "openui-upstream-monthly-review",
+			"inventoryId": "openui-upstream-reference",
+			"title": "Review upstream OpenUI changes for selective port candidates",
+			"priority": "P1",
+			"status": "planned",
+			"adoptionShape": "selective-port",
+			"sourceEvidence": "upstream remote https://github.com/wandb/openui.git plus reviewed upstream release notes or commit evidence",
+			"whyNow": "Convert upstream doctrine into an executable review cadence instead of leaving it as maintainer memory.",
+			"localSurfaces": [
+				"services/mcp-server",
+				"apps/web",
+				"contracts/upstream",
+				"docs/upstream-sync-sop.md"
+			],
+			"validationCommands": [
+				"npm run repo:upstream:check",
+				"npm run docs:check"
+			],
+			"rollbackPath": "Close or defer the item without code adoption when no safe selective-port candidate is found.",
+			"owner": "devinfra"
+		},
+		{
+			"id": "openui-upstream-security-intake",
+			"inventoryId": "openui-upstream-reference",
+			"title": "Intake security-relevant upstream fixes through targeted adoption",
+			"priority": "P0",
+			"status": "planned",
+			"adoptionShape": "targeted-adoption",
+			"sourceEvidence": "upstream security fix release notes, commit SHA, or defect report tied to a concrete upstream surface",
+			"whyNow": "Keep urgent upstream fixes on the same governed path instead of reverting to whole-repo merge habits.",
+			"localSurfaces": [
+				"contracts/upstream",
+				"docs/upstream-sync-sop.md",
+				"tooling/sync-upstream-dryrun.mjs"
+			],
+			"validationCommands": [
+				"npm run repo:upstream:check",
+				"npm run lint",
+				"npm run typecheck",
+				"npm run test",
+				"npm run build"
+			],
+			"rollbackPath": "Revert the selective adoption branch, restore prior upstream evidence, and rerun upstream governance gates.",
+			"owner": "openui-platform"
+		}
+	]
+}

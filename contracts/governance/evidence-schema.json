@@ -1,0 +1,33 @@
+{
+	"version": 1,
+	"requiredSummaryFields": [
+		"runId",
+		"startedAt",
+		"finishedAt",
+		"durationMs",
+		"ok",
+		"exitCode",
+		"stages"
+	],
+	"requiredEvidenceIndexFields": [
+		"runId",
+		"runRoot",
+		"generatedAt",
+		"runManifestPath",
+		"summaryPath",
+		"qualityScorePath",
+		"logPaths",
+		"artifactDirectories",
+		"classification",
+		"stageResults",
+		"toolchainFingerprint",
+		"upstreamSnapshotIds"
+	],
+	"requiredStageResultFields": ["stageId", "status", "taskCount"],
+	"requiredClassificationFields": [
+		"businessFailureCount",
+		"testFailureCount",
+		"infraFailureCount",
+		"upstreamFailureCount"
+	]
+}

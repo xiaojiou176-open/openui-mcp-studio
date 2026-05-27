@@ -1,0 +1,30 @@
+{
+	"version": 2,
+	"logRoot": ".runtime-cache/runs/<run_id>/logs",
+	"channels": {
+		"runtime": ".runtime-cache/runs/<run_id>/logs/runtime.jsonl",
+		"tests": ".runtime-cache/runs/<run_id>/logs/tests.jsonl",
+		"ci": ".runtime-cache/runs/<run_id>/logs/ci.jsonl",
+		"upstream": ".runtime-cache/runs/<run_id>/logs/upstream.jsonl"
+	},
+	"requiredCommonFields": [
+		"ts",
+		"level",
+		"event",
+		"runId",
+		"traceId",
+		"requestId",
+		"service",
+		"component",
+		"stage",
+		"context"
+	],
+	"optionalCommonFields": ["error", "errorCode", "errorType", "upstreamId"],
+	"channelSpecificFields": {
+		"tests": ["testId", "suite"],
+		"ci": ["jobId", "stageId", "taskId"],
+		"upstream": ["upstreamId"]
+	},
+	"redactionModule": "@openui/runtime-observability/redact",
+	"fileFormat": "jsonl"
+}

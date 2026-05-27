@@ -1,0 +1,41 @@
+{
+	"version": 1,
+	"sources": [
+		{
+			"id": "ghcr-ci-image-lock",
+			"type": "container-image",
+			"owner": "devinfra",
+			"sourceOfTruth": ".github/ci-image.lock.json",
+			"requiredFields": ["imageRepo", "digest"],
+			"blocking": true,
+			"validationGate": "governance:pinned-source:check",
+			"notes": "Mainline closure requires a non-empty immutable digest. Local bootstrap images are construction-only and are not accepted as authoritative pins."
+		},
+		{
+			"id": "openui-upstream-remote",
+			"type": "git-remote",
+			"owner": "devinfra",
+			"sourceOfTruth": "tooling/sync-upstream-init.mjs",
+			"requiredLocator": "https://github.com/wandb/openui.git",
+			"blocking": true,
+			"validationGate": "sync:upstream:check"
+		},
+		{
+			"id": "playwright-lockfile",
+			"type": "lockfile-package",
+			"owner": "devinfra",
+			"sourceOfTruth": "package-lock.json",
+			"requiredPackages": ["playwright", "playwright-core"],
+			"blocking": true,
+			"validationGate": "test:e2e"
+		},
+		{
+			"id": "python-sidecar-requirements",
+			"type": "requirements-file",
+			"owner": "openui-platform",
+			"sourceOfTruth": "services/gemini-sidecar/requirements.txt",
+			"blocking": true,
+			"validationGate": "py:smoke"
+		}
+	]
+}
