@@ -1,0 +1,15 @@
+{
+	"name": "@openui/shared-runtime",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./child-env": "./src/child-env.ts",
+		"./idempotency-store": "./src/idempotency-store.ts",
+		"./job-queue": "./src/job-queue.ts",
+		"./next-build-dir": "./src/next-build-dir.ts",
+		"./path-utils": "./src/path-utils.ts",
+		"./process-utils": "./src/process-utils.ts",
+		"./runtime-ops": "./src/runtime-ops.ts",
+		"./target-build-manifest": "./src/target-build-manifest.ts"
+	}
+}

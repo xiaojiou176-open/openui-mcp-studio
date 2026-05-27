@@ -1,0 +1,45 @@
+{
+  "status": "starter-draft",
+  "id": "openui.example.skill-id",
+  "label": "Starter Skill Label",
+  "summary": "Describe one builder-facing slice without claiming a shipped Skills product.",
+  "invocation": {
+    "primarySurface": "local-stdio-mcp",
+    "mcpTool": "replace_with_current_tool_name",
+    "openApiBridge": {
+      "enabled": true,
+      "note": "Compatibility bridge only. Do not treat this as a hosted API claim."
+    },
+    "repoLocalPacket": {
+      "enabled": false,
+      "command": "replace_if_needed",
+      "note": "Maintainer-facing only."
+    }
+  },
+  "inputs": [
+    {
+      "name": "workspaceRoot",
+      "required": true,
+      "description": "The repo-local workspace or target path the current tool reads from."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "description": "Describe the bounded repo-side output."
+    }
+  ],
+  "limitations": [
+    "Replace with current-scope limitations.",
+    "Do not claim plugin, marketplace, SDK, or hosted API support unless those lanes become real and verified."
+  ],
+  "proofAnchors": [
+    {
+      "path": "README.md",
+      "why": "States the current builder-surface order."
+    }
+  ],
+  "nextActivationBoundary": [
+    "Define what shared docs, contracts, or verification must be updated before this draft can move beyond starter status."
+  ]
+}

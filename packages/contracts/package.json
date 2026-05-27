@@ -1,0 +1,8 @@
+{
+	"name": "@openui/contracts",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./env-contract": "./src/env-contract.ts"
+	}
+}
