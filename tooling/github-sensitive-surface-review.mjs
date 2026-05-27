@@ -218,7 +218,7 @@ async function runDefaultMirrorAudit({
 	const mirrorRoot = await fs.mkdtemp(
 		path.join(os.tmpdir(), "openui-github-sensitive-review-"),
 	);
-	const mirrorPath = path.join(mirrorRoot, "openui-mcp-studio.git");
+	const mirrorPath = path.join(mirrorRoot, "OpenUIStudio.git");
 	const cleanup = async () => {
 		await fs.rm(mirrorRoot, { recursive: true, force: true });
 	};

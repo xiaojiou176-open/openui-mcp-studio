@@ -13,8 +13,8 @@ still need a human to push the final publish button.
 
 | Surface | Status | Truthful claim |
 | --- | --- | --- |
-| GitHub repository | Published | `xiaojiou176-open/openui-mcp-studio` is the canonical public source and collaboration surface. |
-| GitHub Pages front door | Published | `https://xiaojiou176-open.github.io/openui-mcp-studio/` is the current public front door. |
+| GitHub repository | Published | `xiaojiou176-open/OpenUIStudio` is the canonical public source and collaboration surface. |
+| GitHub Pages front door | Published | `https://xiaojiou176-open.github.io/OpenUIStudio/` is the current public front door. |
 | GitHub Releases | Published | GitHub Releases is the public release trail with the current 8-asset bundle. |
 | Proof and discovery docs | Published | Repo-owned proof, discovery, and install docs are already public in this repository. |
 
@@ -49,7 +49,7 @@ This means:
 
 - the repo can explain the image name, build contract, proof route, and
   operator-only publish steps
-- `ghcr.io/xiaojiou176-open/openui-mcp-studio` remains `not_published`
+- `ghcr.io/xiaojiou176-open/OpenUIStudio` remains `not_published`
 - the repo does **not** claim a Docker-first front door
 
 ## Current Reading Order

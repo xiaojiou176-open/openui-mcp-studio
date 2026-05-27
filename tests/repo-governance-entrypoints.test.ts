@@ -234,9 +234,9 @@ describe("repo governance entrypoints", () => {
 				workspaceRoot: "/repo",
 				repository: {
 					originUrl:
-						"https://github.com/xiaojiou176-open/openui-mcp-studio.git",
+						"https://github.com/xiaojiou176-open/OpenUIStudio.git",
 					owner: "xiaojiou176-open",
-					name: "openui-mcp-studio",
+					name: "OpenUIStudio",
 					defaultBranch: "main",
 					visibility: "PUBLIC",
 					homepageUrl: null,

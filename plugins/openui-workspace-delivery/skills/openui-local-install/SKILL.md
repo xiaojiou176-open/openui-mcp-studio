@@ -19,8 +19,8 @@ flow without overclaiming a hosted runtime or official listing.
 1. Confirm the repo build output exists.
 2. Copy the starter bundle JSON and replace the absolute repo path.
 3. Run the proof loop:
-   - `openui-mcp-studio surface-guide --json`
-   - `openui-mcp-studio ecosystem-guide --json`
+   - `OpenUIStudio surface-guide --json`
+   - `OpenUIStudio ecosystem-guide --json`
    - `npm run repo:doctor`
 4. Escalate only if the runtime path or host attach still fails after the
    troubleshooting note has been followed.

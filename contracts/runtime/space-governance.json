@@ -56,15 +56,15 @@
   "repoSpecificExternalPolicy": {
     "scope": "repo-specific-external",
     "applyMode": "managed",
-    "defaultRoot": "~/.cache/openui-mcp-studio/tooling",
+    "defaultRoot": "~/.cache/OpenUIStudio/tooling",
     "ttlDays": 3,
     "maxBytes": 5368709120,
     "cleanIntervalMinutes": 60,
-    "reason": "Repo-specific external cache roots must stay under ~/.cache/openui-mcp-studio/, use TTL-first plus capacity-prune janitor semantics, include legacy install/trivy residue under the same governance model, and keep receipts inside repo-local space-governance reports."
+    "reason": "Repo-specific external cache roots must stay under ~/.cache/OpenUIStudio/, use TTL-first plus capacity-prune janitor semantics, include legacy install/trivy residue under the same governance model, and keep receipts inside repo-local space-governance reports."
   },
   "browserLanePolicy": {
     "scope": "repo-specific-persistent-browser-asset",
-    "defaultUserDataDir": "~/.cache/openui-mcp-studio/browser/chrome-user-data",
+    "defaultUserDataDir": "~/.cache/OpenUIStudio/browser/chrome-user-data",
     "defaultProfileDirectory": "Profile 1",
     "defaultCdpPort": 9343,
     "defaultVerifyUrl": "https://myaccount.google.com/",
@@ -120,17 +120,17 @@
     {
       "id": "tool-cache-root",
       "kind": "tool-cache-root",
-      "reason": "Workspace-token external tooling cache root for repo-local heavy asset reuse under ~/.cache/openui-mcp-studio/tooling."
+      "reason": "Workspace-token external tooling cache root for repo-local heavy asset reuse under ~/.cache/OpenUIStudio/tooling."
     },
     {
       "id": "playwright",
       "kind": "tool-cache-path",
-      "reason": "Repo-specific external Playwright browser cache inside ~/.cache/openui-mcp-studio/tooling."
+      "reason": "Repo-specific external Playwright browser cache inside ~/.cache/OpenUIStudio/tooling."
     },
     {
       "id": "install",
       "kind": "tool-cache-path",
-      "reason": "Legacy top-level install surface inside ~/.cache/openui-mcp-studio/tooling/install that must stay visible to reports and janitor cleanup."
+      "reason": "Legacy top-level install surface inside ~/.cache/OpenUIStudio/tooling/install that must stay visible to reports and janitor cleanup."
     },
     {
       "id": "managed-install",
@@ -140,12 +140,12 @@
     {
       "id": "trivy",
       "kind": "tool-cache-path",
-      "reason": "Legacy Trivy cache surface inside ~/.cache/openui-mcp-studio/tooling/trivy that must stay visible to reports and janitor cleanup."
+      "reason": "Legacy Trivy cache surface inside ~/.cache/OpenUIStudio/tooling/trivy that must stay visible to reports and janitor cleanup."
     },
     {
       "id": "npm",
       "kind": "tool-cache-path",
-      "reason": "Repo-specific npm cache root inside ~/.cache/openui-mcp-studio/tooling."
+      "reason": "Repo-specific npm cache root inside ~/.cache/OpenUIStudio/tooling."
     },
     {
       "id": "home",
@@ -155,29 +155,29 @@
     {
       "id": "pre-commit",
       "kind": "tool-cache-path",
-      "reason": "Repo-specific external pre-commit cache root inside ~/.cache/openui-mcp-studio/tooling."
+      "reason": "Repo-specific external pre-commit cache root inside ~/.cache/OpenUIStudio/tooling."
     },
     {
       "id": "go-mod",
       "kind": "tool-cache-path",
-      "reason": "Repo-specific external Go module cache inside ~/.cache/openui-mcp-studio/tooling."
+      "reason": "Repo-specific external Go module cache inside ~/.cache/OpenUIStudio/tooling."
     },
     {
       "id": "go-build",
       "kind": "tool-cache-path",
-      "reason": "Repo-specific external Go build cache inside ~/.cache/openui-mcp-studio/tooling."
+      "reason": "Repo-specific external Go build cache inside ~/.cache/OpenUIStudio/tooling."
     },
     {
       "id": "go-path",
       "kind": "tool-cache-path",
-      "reason": "Repo-specific external GOPATH cache inside ~/.cache/openui-mcp-studio/tooling."
+      "reason": "Repo-specific external GOPATH cache inside ~/.cache/OpenUIStudio/tooling."
     }
   ],
   "repoSpecificPersistentAssets": [
     {
       "id": "chrome-user-data-root",
       "kind": "persistent-browser-root",
-      "path": "~/.cache/openui-mcp-studio/browser/chrome-user-data",
+      "path": "~/.cache/OpenUIStudio/browser/chrome-user-data",
       "scope": "repo-specific-persistent-browser-asset",
       "applyMode": "report-only",
       "janitorExcluded": true,

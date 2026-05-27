@@ -37,7 +37,7 @@
     "packages/skills-kit/starter-bundles/codex-plugin/",
     "packages/skills-kit/starter-bundles/claude-code-plugin/",
     "packages/skills-kit/starter-bundles/openclaw-skill/",
-    "openui-mcp-studio skills starter --json"
+    "OpenUIStudio skills starter --json"
   ],
   "verificationPath": [
     "node tooling/cli/openui.mjs skills starter --json",
@@ -48,8 +48,8 @@
   ],
   "troubleshootingPath": ["packages/skills-kit/starter-troubleshooting.md"],
   "proofLoop": [
-    "openui-mcp-studio skills starter --json",
-    "openui-mcp-studio ecosystem-guide --json",
+    "OpenUIStudio skills starter --json",
+    "OpenUIStudio ecosystem-guide --json",
     "npm run repo:doctor",
     "npm run demo:ship"
   ],

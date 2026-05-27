@@ -19,8 +19,8 @@ installed and evaluated honestly.
 
 ## Proof loop
 
-1. `openui-mcp-studio ecosystem-guide --json`
-2. `openui-mcp-studio skills starter --json`
+1. `OpenUIStudio ecosystem-guide --json`
+2. `OpenUIStudio skills starter --json`
 3. `npm run repo:doctor`
 4. Open `docs/proof-and-faq.md`
 

@@ -113,7 +113,7 @@ an empty Releases page look like a closed public surface.
   door, not a raw GitHub blob URL.
 - If no standalone landing page exists yet, leaving Homepage unset is still
   better than pointing visitors at source code that looks like a product site.
-- Do not assume that shipping `docs/assets/openui-mcp-studio-social-preview.png`
+- Do not assume that shipping `docs/assets/OpenUIStudio-social-preview.png`
   means GitHub is already using it. Treat Social Preview as a settings-level
   control that must be explicitly verified whenever the public story changes.
 - The app itself should serve one repo-owned social-preview image route so page
@@ -152,16 +152,16 @@ with Playwright screenshots.
 
 Current source files:
 
-- `docs/assets/openui-mcp-studio-workbench-source.html`
-- `docs/assets/openui-mcp-studio-social-preview-source.html`
-- `docs/assets/openui-mcp-studio-demo-source-brief.html`
-- `docs/assets/openui-mcp-studio-demo-source-review.html`
-- `docs/assets/openui-mcp-studio-demo-source-ship.html`
-- `docs/assets/openui-mcp-studio-workflow-overview-source.html`
-- `docs/assets/openui-mcp-studio-comparison-source.html`
-- `docs/assets/openui-mcp-studio-trust-stack-source.html`
-- `docs/assets/openui-mcp-studio-use-cases-source.html`
-- `docs/assets/openui-mcp-studio-visitor-paths-source.html`
+- `docs/assets/OpenUIStudio-workbench-source.html`
+- `docs/assets/OpenUIStudio-social-preview-source.html`
+- `docs/assets/OpenUIStudio-demo-source-brief.html`
+- `docs/assets/OpenUIStudio-demo-source-review.html`
+- `docs/assets/OpenUIStudio-demo-source-ship.html`
+- `docs/assets/OpenUIStudio-workflow-overview-source.html`
+- `docs/assets/OpenUIStudio-comparison-source.html`
+- `docs/assets/OpenUIStudio-trust-stack-source.html`
+- `docs/assets/OpenUIStudio-use-cases-source.html`
+- `docs/assets/OpenUIStudio-visitor-paths-source.html`
 
 Preferred regeneration pattern:
 
@@ -187,14 +187,14 @@ Visual quality floor:
 When the public story changes materially and a published GitHub release exists,
 the latest release should expose the updated public assets:
 
-- `openui-mcp-studio-demo.gif`
-- `openui-mcp-studio-workbench.png`
-- `openui-mcp-studio-workflow-overview.png`
-- `openui-mcp-studio-comparison.png`
-- `openui-mcp-studio-trust-stack.png`
-- `openui-mcp-studio-use-cases.png`
-- `openui-mcp-studio-visitor-paths.png`
-- `openui-mcp-studio-social-preview.png`
+- `OpenUIStudio-demo.gif`
+- `OpenUIStudio-workbench.png`
+- `OpenUIStudio-workflow-overview.png`
+- `OpenUIStudio-comparison.png`
+- `OpenUIStudio-trust-stack.png`
+- `OpenUIStudio-use-cases.png`
+- `OpenUIStudio-visitor-paths.png`
+- `OpenUIStudio-social-preview.png`
 
 ## Machine-Readable Discovery Chain
 

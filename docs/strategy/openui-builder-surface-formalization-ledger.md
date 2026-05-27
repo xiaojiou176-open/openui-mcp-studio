@@ -56,7 +56,7 @@ The compatibility contract is now thicker and still honest:
 
 The root CLI is now more formally useful for builders:
 
-- `openui-mcp-studio surface-guide`
+- `OpenUIStudio surface-guide`
   - gives a repo-local reading order for the current surfaces
 - the CLI remains a dispatcher and inspection helper
 - it still does not replace MCP as the primary runtime surface

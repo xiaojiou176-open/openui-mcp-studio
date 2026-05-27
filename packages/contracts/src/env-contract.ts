@@ -214,7 +214,7 @@ export const OPENUI_ENV_CONTRACT: EnvContract = Object.freeze({
 		validation: "Positive integer.",
 	},
 	OPENUI_TOOL_CACHE_ROOT: {
-		defaultValue: "~/.cache/openui-mcp-studio/tooling",
+		defaultValue: "~/.cache/OpenUIStudio/tooling",
 		sensitive: false,
 		description:
 			"Base root for repo-specific external tool caches (Playwright assets, managed install surfaces, tool HOME, and repo-owned pre-commit/Go caches).",

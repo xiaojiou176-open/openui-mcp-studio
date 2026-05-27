@@ -122,7 +122,7 @@ Gemini sidecar runtime note:
 | `OPENUI_MCP_CACHE_RETENTION_DAYS` | No | `7` | positive integer |
 | `OPENUI_MCP_CACHE_MAX_BYTES` | No | `104857600` | positive integer |
 | `OPENUI_MCP_CACHE_CLEAN_INTERVAL_MINUTES` | No | `60` | positive integer |
-| `OPENUI_TOOL_CACHE_ROOT` | No | `~/.cache/openui-mcp-studio/tooling` | non-empty path string; per-workspace cache root is derived under this base root |
+| `OPENUI_TOOL_CACHE_ROOT` | No | `~/.cache/OpenUIStudio/tooling` | non-empty path string; per-workspace cache root is derived under this base root |
 | `OPENUI_TOOL_CACHE_RETENTION_DAYS` | No | `3` | positive integer |
 | `OPENUI_TOOL_CACHE_MAX_BYTES` | No | `5368709120` | positive integer |
 | `OPENUI_TOOL_CACHE_CLEAN_INTERVAL_MINUTES` | No | `60` | positive integer |
@@ -178,7 +178,7 @@ Additional governed keysets (same registry file):
 - `npm run clean:runtime` resets runtime logs by purging the run-scoped `.runtime-cache/runs` root from `contracts/runtime/path-registry.json`; it must not infer cleanup targets from `OPENUI_MCP_LOG_DIR`.
 - Retention policy knobs: `OPENUI_MCP_CACHE_RETENTION_DAYS` + `OPENUI_MCP_CACHE_MAX_BYTES`.
 - Repo-specific external tool-cache knobs:
-  - `OPENUI_TOOL_CACHE_ROOT` (default `~/.cache/openui-mcp-studio/tooling`)
+  - `OPENUI_TOOL_CACHE_ROOT` (default `~/.cache/OpenUIStudio/tooling`)
   - `OPENUI_TOOL_CACHE_RETENTION_DAYS` (default `3`)
   - `OPENUI_TOOL_CACHE_MAX_BYTES` (default `5368709120`)
   - `OPENUI_TOOL_CACHE_CLEAN_INTERVAL_MINUTES` (default `60`)
@@ -220,14 +220,14 @@ Additional governed keysets (same registry file):
   TTL pruning did not remove.
 - Space-governance hard rule: repo-local runtime truth remains `.runtime-cache/*`; shared layers such as Docker, `~/.npm`, `~/.cache/pre-commit`, and Playwright browser caches stay outside repo-local cleanup scope unless separately approved as machine-level maintenance.
 - Tool cache hard rule: pre-commit and Go tooling caches must resolve outside the workspace; only canonical repo-local runtime evidence remains under `.runtime-cache/*`.
-- Repo-local verification tmp roots that execute from `.runtime-cache/tmp/*` must reuse the external workspace-token tooling cache under `~/.cache/openui-mcp-studio/tooling/<workspaceToken>/` for Playwright browsers, managed install surfaces, npm cache, repo-owned pre-commit/Go homes, and light overlay state.
+- Repo-local verification tmp roots that execute from `.runtime-cache/tmp/*` must reuse the external workspace-token tooling cache under `~/.cache/OpenUIStudio/tooling/<workspaceToken>/` for Playwright browsers, managed install surfaces, npm cache, repo-owned pre-commit/Go homes, and light overlay state.
 - Repo-specific external cache roots stay in the middle layer between repo-local runtime truth and machine-wide shared layers:
   - they are derived from `OPENUI_TOOL_CACHE_ROOT` plus the workspace token
   - they remain recognizable as repo-attributable cache roots
   - they are janitor-managed by default with TTL-first plus capacity-prune semantics
   - they must never include the real Chrome login profile; that profile is a local-only identity asset and stays outside cache cleanup
 - The repo-owned real Chrome lane is a separate permanent layer:
-  - recommended root: `~/.cache/openui-mcp-studio/browser/chrome-user-data`
+  - recommended root: `~/.cache/OpenUIStudio/browser/chrome-user-data`
   - recommended profile directory: `Profile 1`
   - fixed local CDP port: `9343`
   - the lane is single-instance by policy; tooling must attach to the same Chrome process instead of second-launching the same root
@@ -244,7 +244,7 @@ Additional governed keysets (same registry file):
 - These env keys are for the local-only repo-owned single-instance real Chrome lane used by DOM inspection, Console inspection, network/API reverse engineering, and login-state-dependent browsing.
 - Missing `OPENUI_CHROME_USER_DATA_DIR` or `OPENUI_CHROME_PROFILE_DIRECTORY` is a configuration blocker for real-profile flows; repo tooling must fail fast instead of silently falling back to Playwright Chromium.
 - The canonical local lane is:
-  - `OPENUI_CHROME_USER_DATA_DIR=~/.cache/openui-mcp-studio/browser/chrome-user-data`
+  - `OPENUI_CHROME_USER_DATA_DIR=~/.cache/OpenUIStudio/browser/chrome-user-data`
   - `OPENUI_CHROME_PROFILE_DIRECTORY=Profile 1`
   - `OPENUI_CHROME_CDP_PORT=9343`
 - Bootstrap uses the default Chrome root only as a one-time copy source. Ongoing runtime must not keep using `the user-profile Chrome root` as the live root for this repo.

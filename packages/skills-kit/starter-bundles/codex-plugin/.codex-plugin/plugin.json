@@ -1,6 +1,6 @@
 {
   "name": "OpenUI MCP Studio",
-  "slug": "openui-mcp-studio",
+  "slug": "OpenUIStudio",
   "status": "plugin-directory-ready",
   "runtime": "local-stdio-mcp",
   "configPath": "../codex.mcp.json",

@@ -38,9 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Re-aligned TypeScript to a `typescript-eslint`-compatible version so fresh
   `npm install` succeeds again.
 - Renamed the remaining repository identity hotspots from
-  `openui-mcp-ui-generator` to `openui-mcp-studio`.
+  `openui-mcp-ui-generator` to `OpenUIStudio`.
 - Replaced the previous remote history with a new canonical public `main`.
-- Re-created the canonical GitHub repository under `xiaojiou176-open/openui-mcp-studio`.
+- Re-created the canonical GitHub repository under `xiaojiou176-open/OpenUIStudio`.
 - Re-enabled branch protection, secret scanning, push protection, and private
   vulnerability reporting on the rebuilt remote.
 - Rebuilt `README.md` into a product-style public landing page with stronger

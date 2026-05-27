@@ -9,7 +9,7 @@ import {
 	toPosixPath,
 } from "./governance-utils.mjs";
 
-const TOOL_CACHE_PRODUCT_ROOT_NAME = "openui-mcp-studio";
+const TOOL_CACHE_PRODUCT_ROOT_NAME = "OpenUIStudio";
 const TOOL_CACHE_REPORT_ROOT = ".runtime-cache/reports/space-governance";
 const TOOL_CACHE_RECEIPT_BASENAME = "tool-cache-janitor-latest";
 const TOOL_ASSET_DIRECTORIES = Object.freeze({
@@ -27,7 +27,7 @@ const TOOL_ENV_KEYS = Object.freeze([
 	"GOCACHE",
 	"GOPATH",
 ]);
-const DEFAULT_TOOL_CACHE_ROOT = "~/.cache/openui-mcp-studio/tooling";
+const DEFAULT_TOOL_CACHE_ROOT = "~/.cache/OpenUIStudio/tooling";
 const DEFAULT_TOOL_CACHE_RETENTION_DAYS = 3;
 const DEFAULT_TOOL_CACHE_MAX_BYTES = 5 * 1024 ** 3;
 const DEFAULT_TOOL_CACHE_CLEAN_INTERVAL_MINUTES = 60;

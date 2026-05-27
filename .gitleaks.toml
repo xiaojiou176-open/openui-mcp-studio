@@ -1,4 +1,4 @@
-title = "openui-mcp-studio gitleaks config"
+title = "OpenUIStudio gitleaks config"
 
 [extend]
 useDefault = true

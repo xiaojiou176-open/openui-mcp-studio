@@ -37,7 +37,7 @@ The strongest honest ecosystem packaging today is:
 4. repo-local workflow packet
 5. public Skills starter pack via `@openui/skills-kit`
 6. supporting SDK via `@openui/sdk`
-7. supporting self-hosted OpenUI Hosted API via `openui-mcp-studio hosted ...`
+7. supporting self-hosted OpenUI Hosted API via `OpenUIStudio hosted ...`
 
 That is now materially stronger than “repo-side starter only.”
 It is still narrower than a marketplace listing or managed SaaS deployment.
@@ -56,9 +56,9 @@ It is still narrower than a marketplace listing or managed SaaS deployment.
 
 | Surface | Audience | Role | Packaging shape | Verification path |
 | --- | --- | --- | --- | --- |
-| `@openui/skills-kit` | maintainers and builders drafting skill-shaped flows | public starter pack | installable package + repo mirror under `examples/skills/` | `openui-mcp-studio skills starter --json` + `node tooling/skills-install-proof.mjs` |
-| Codex / Claude package | Codex / Claude Code users plus other MCP-capable hosts using the generic launch template | plugin-grade public distribution package | README + discovery guide + starter bundles + CLI + machine-readable front door | config snippet review + `openui-mcp-studio ecosystem-guide --json` + `npm run repo:doctor` |
-| OpenClaw bundle | OpenClaw-side builders and operators | repo-owned public-ready bundle | OpenClaw starter bundle + discovery guide + ecosystem contract | `openui-mcp-studio ecosystem-guide --json` + `npm run repo:doctor` |
+| `@openui/skills-kit` | maintainers and builders drafting skill-shaped flows | public starter pack | installable package + repo mirror under `examples/skills/` | `OpenUIStudio skills starter --json` + `node tooling/skills-install-proof.mjs` |
+| Codex / Claude package | Codex / Claude Code users plus other MCP-capable hosts using the generic launch template | plugin-grade public distribution package | README + discovery guide + starter bundles + CLI + machine-readable front door | config snippet review + `OpenUIStudio ecosystem-guide --json` + `npm run repo:doctor` |
+| OpenClaw bundle | OpenClaw-side builders and operators | repo-owned public-ready bundle | OpenClaw starter bundle + discovery guide + ecosystem contract | `OpenUIStudio ecosystem-guide --json` + `npm run repo:doctor` |
 | `@openui/sdk` | thin-client authors and integration developers | supporting SDK | installable package + import path + proof script | `node --import tsx tooling/sdk-install-proof.ts` |
 | Hosted API runtime | adapter authors and self-host operators | supporting self-hosted service | root CLI `hosted info`, `hosted openapi`, `hosted serve` + hosted contract | `node --import tsx tooling/hosted-api-smoke.ts` |
 

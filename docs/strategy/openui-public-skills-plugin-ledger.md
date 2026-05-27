@@ -25,7 +25,7 @@
   - `examples/skills/install-use-note.md`
   - `examples/skills/starter-troubleshooting.md`
 - CLI:
-  - `openui-mcp-studio skills starter --json`
+  - `OpenUIStudio skills starter --json`
 
 ### Plugin-like packaging
 

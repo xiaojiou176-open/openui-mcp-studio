@@ -1,10 +1,10 @@
 version: 1
-id: openui-mcp-studio
+id: OpenUIStudio
 technical_name: OpenUI MCP Studio
 frontdoor_label: OneClickUI.ai
 status: mixed-live-and-review-boundary
-canonical_repo: xiaojiou176-open/openui-mcp-studio
-homepage: https://xiaojiou176-open.github.io/openui-mcp-studio/
+canonical_repo: xiaojiou176-open/OpenUIStudio
+homepage: https://xiaojiou176-open.github.io/OpenUIStudio/
 published_surfaces:
   - github-repo
   - github-pages-front-door

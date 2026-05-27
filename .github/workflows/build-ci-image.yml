@@ -99,7 +99,7 @@ jobs:
             --metadata-file .runtime-cache/ci-image/build-metadata.json \
             --sbom=true \
             --attest type=provenance,mode=max \
-            --label "org.opencontainers.image.title=openui-mcp-studio-ci" \
+            --label "org.opencontainers.image.title=OpenUIStudio-ci" \
             --label "org.opencontainers.image.description=Hermetic CI runtime for OpenUI MCP repository" \
             --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
             --label "org.opencontainers.image.revision=${GITHUB_SHA}" \

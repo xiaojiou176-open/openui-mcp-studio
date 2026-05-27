@@ -45,7 +45,7 @@ jobs:
 
       - name: Build static Pages export
         env:
-          NEXT_PUBLIC_SITE_URL: https://xiaojiou176-open.github.io/openui-mcp-studio/
+          NEXT_PUBLIC_SITE_URL: https://xiaojiou176-open.github.io/OpenUIStudio/
           NEXT_TELEMETRY_DISABLED: "1"
         run: npm run pages:build
 

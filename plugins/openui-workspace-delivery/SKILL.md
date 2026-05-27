@@ -4,7 +4,7 @@ description: Teach an agent how to install OpenUI MCP Studio, connect it to a ho
 version: 1.0.0
 triggers:
   - openui
-  - openui-mcp-studio
+  - OpenUIStudio
   - openui workspace delivery
   - shadcn generation
   - UI shipping
