@@ -234,9 +234,9 @@ describe("repo governance entrypoints", () => {
 				workspaceRoot: "/repo",
 				repository: {
 					originUrl:
-						"https://github.com/xiaojiou176-open/openuistudio.git",
+						"https://github.com/xiaojiou176-open/OpenUIStudio.git",
 					owner: "xiaojiou176-open",
-					name: "openuistudio",
+					name: "OpenUIStudio",
 					defaultBranch: "main",
 					visibility: "PUBLIC",
 					homepageUrl: null,

@@ -163,14 +163,14 @@ formal SDK, plugin marketplace, or write-capable remote MCP.
 The aggregate code entrypoint for that public story is
 `services/mcp-server/src/public/index.ts`.
 It is a curated allowlist, not a mirror of `services/mcp-server/src/*`.
-The root package bin `openuistudio` is a repo-local CLI alias for
+The root package bin `OpenUIStudio` is a repo-local CLI alias for
 inspecting those same lanes. It does not create a fourth builder surface or a
 hosted control plane.
 The root package export map is now build-backed as well, so plain Node package
 consumers resolve compiled JavaScript under `.runtime-cache/build/...` instead
 of raw TypeScript source files. The default package import is intentionally
 builder-surface-first, while broader runtime helpers stay on explicit
-`openuistudio/public/*` subpaths.
+`OpenUIStudio/public/*` subpaths.
 
 ### Allowlisted public export layer
 

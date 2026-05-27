@@ -4,7 +4,7 @@
   "displayName": "OpenUIStudio",
   "command": "node",
   "args": [
-    "/ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+    "/ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
   ],
   "env": {
     "GEMINI_API_KEY": "your_key"
@@ -12,7 +12,7 @@
   "proofLoop": [
     "Open the repo-owned OpenClaw install note and starter metadata",
     "Adapt the stdio MCP launch contract to the current OpenClaw-side config surface",
-    "Run openuistudio ecosystem-guide --json",
+    "Run OpenUIStudio ecosystem-guide --json",
     "Run npm run repo:doctor"
   ],
   "discoverableArtifacts": [

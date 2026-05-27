@@ -5,7 +5,7 @@ Public SDK for the self-hosted OpenUI Hosted API surface.
 ## Install
 
 ```bash
-npm install /ABS/PATH/openuistudio/packages/sdk
+npm install /ABS/PATH/OpenUIStudio/packages/sdk
 ```
 
 Registry publication remains operator-only. The current repo truth is a

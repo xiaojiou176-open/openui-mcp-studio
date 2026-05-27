@@ -1,6 +1,6 @@
 {
   "name": "OpenUIStudio",
-  "slug": "openuistudio",
+  "slug": "OpenUIStudio",
   "status": "marketplace-ready",
   "runtime": "local-stdio-mcp",
   "configPath": "../claude-code.mcp.json",

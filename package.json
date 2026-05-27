@@ -1,6 +1,6 @@
 {
 	"bin": {
-		"openuistudio": "./tooling/cli/openui.mjs"
+		"OpenUIStudio": "./tooling/cli/openui.mjs"
 	},
 	"dependencies": {
 		"@modelcontextprotocol/sdk": "^1.27.1",

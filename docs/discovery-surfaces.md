@@ -146,7 +146,7 @@ These lanes still exist with proof, but they are no longer front-stage public
 distribution surfaces:
 
 - `@openui/sdk`
-- `openuistudio hosted ...`
+- `OpenUIStudio hosted ...`
 
 Docker runtime distribution is also outside the current front-stage story.
 Treat it as a planned follow-through lane, not a current install promise.
@@ -174,9 +174,9 @@ artifact-level references inside GitHub:
 - `examples/skills/claude-code.mcp.json`
 - `examples/skills/openclaw.mcp.json`
 - `examples/skills/starter-troubleshooting.md`
-- `openuistudio surface-guide`
-- `openuistudio ecosystem-guide`
-- `openuistudio skills starter --json`
+- `OpenUIStudio surface-guide`
+- `OpenUIStudio ecosystem-guide`
+- `OpenUIStudio skills starter --json`
 
 ## Operator-Only Public Surfaces
 

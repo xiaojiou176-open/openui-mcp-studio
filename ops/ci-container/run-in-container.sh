@@ -210,7 +210,7 @@ image_mode="$(printf '%s' "${image_config_json}" | node --input-type=module -e '
 
 IMAGE="$(printf '%s' "${image_config_json}" | node --input-type=module -e 'let raw=""; process.stdin.on("data",(chunk)=>{raw+=chunk;}); process.stdin.on("end",()=>{const parsed=JSON.parse(raw); process.stdout.write(parsed.imageRef);});')"
 WORKSPACE_TOKEN="$(compute_workspace_token "${WORKSPACE}")"
-DOCKER_LABEL_REPO="io.openui.repo=openuistudio"
+DOCKER_LABEL_REPO="io.openui.repo=OpenUIStudio"
 DOCKER_LABEL_WORKSPACE="io.openui.workspace_token=${WORKSPACE_TOKEN}"
 DOCKER_LABEL_MODE="io.openui.execution_mode=ci-local-container"
 CI_LOCAL_WORKSPACE_LOCK_ROOT="${WORKSPACE}/.runtime-cache/locks"

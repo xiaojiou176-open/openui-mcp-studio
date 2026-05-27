@@ -8,7 +8,7 @@
   "audience": "developers integrating against the self-hosted OpenUI Hosted API",
   "installPath": [
     "packages/sdk",
-    "npm install /ABS/PATH/openuistudio/packages/sdk",
+    "npm install /ABS/PATH/OpenUIStudio/packages/sdk",
     "import { createOpenuiHostedClient } from '@openui/sdk';"
   ],
   "currentSurface": {

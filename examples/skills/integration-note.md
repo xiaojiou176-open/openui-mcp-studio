@@ -20,7 +20,7 @@ It is still not a runtime or marketplace surface.
 ## How To Use This Starter Kit
 
 1. Start from the current tool or packet that already exists in the repo.
-2. If the current order is not clear yet, read `openuistudio surface-guide` first.
+2. If the current order is not clear yet, read `OpenUIStudio surface-guide` first.
 2. Copy `starter-contract.template.json`.
 3. Fill the contract with current invocation, inputs, outputs, and limitations.
 4. Add proof anchors that point to repo-owned truth, not to future ideas.

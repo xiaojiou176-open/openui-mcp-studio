@@ -5,14 +5,14 @@
   "displayName": "OpenUIStudio",
   "command": "node",
   "args": [
-    "/ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+    "/ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
   ],
   "env": {
     "GEMINI_API_KEY": "your_key"
   },
   "proofLoop": [
-    "codex mcp add openui --env GEMINI_API_KEY=your_key -- node /ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
-    "openuistudio surface-guide --json",
+    "codex mcp add openui --env GEMINI_API_KEY=your_key -- node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
+    "OpenUIStudio surface-guide --json",
     "npm run repo:doctor"
   ],
   "notFor": [

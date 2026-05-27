@@ -1,10 +1,10 @@
 version: 1
-id: openuistudio
+id: OpenUIStudio
 technical_name: OpenUIStudio
 frontdoor_label: OneClickUI.ai
 status: mixed-live-and-review-boundary
-canonical_repo: xiaojiou176-open/openuistudio
-homepage: https://xiaojiou176-open.github.io/openuistudio/
+canonical_repo: xiaojiou176-open/OpenUIStudio
+homepage: https://xiaojiou176-open.github.io/OpenUIStudio/
 published_surfaces:
   - github-repo
   - github-pages-front-door

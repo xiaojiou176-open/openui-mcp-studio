@@ -28,9 +28,9 @@ registry listing.
 - `services/mcp-server/src/public/` is the allowlisted export layer for repository tooling and operational scripts.
 - `services/mcp-server/src/public/index.ts` is the aggregate public entrypoint and mirrors the curated allowlist instead of mirroring every internal module.
 - `tooling/` must not import private implementation paths such as `src/providers/*`, `src/tools/*`, or `src/next-smoke/*` directly. It must go through `src/public/*` or `packages/*` public surfaces.
-- The root package bin `openuistudio` is the repo-local CLI alias for inspecting the same builder-surface order; it does not create a hosted API or SDK lane.
+- The root package bin `OpenUIStudio` is the repo-local CLI alias for inspecting the same builder-surface order; it does not create a hosted API or SDK lane.
 - The root package export map is build-backed on purpose. Plain Node consumers should resolve the compiled `.runtime-cache/build/...` JavaScript surface instead of depending on raw `.ts` source files.
-- The default package import is intentionally narrower than `./public/*`: it resolves to the builder-surface manifest, while deeper runtime helpers stay on explicit `openuistudio/public/*` subpaths.
+- The default package import is intentionally narrower than `./public/*`: it resolves to the builder-surface manifest, while deeper runtime helpers stay on explicit `OpenUIStudio/public/*` subpaths.
 
 Current allowlisted modules:
 

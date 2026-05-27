@@ -20,8 +20,8 @@ describe("openui repo-local cli", () => {
 	it("builds a builder surface guide payload from OpenAPI extensions", () => {
 		const payload = buildSurfaceGuidePayload("/repo", {
 			"x-openui-builder-dispatcher": {
-				cli: "openuistudio",
-				surfaceGuideCommand: "openuistudio surface-guide",
+				cli: "OpenUIStudio",
+				surfaceGuideCommand: "OpenUIStudio surface-guide",
 			},
 			"x-openui-builder-surface-guide": {
 				startWith: "Begin with local MCP.",
@@ -49,7 +49,7 @@ describe("openui repo-local cli", () => {
 		});
 
 		expect(payload.dispatcher?.surfaceGuideCommand).toBe(
-			"openuistudio surface-guide",
+			"OpenUIStudio surface-guide",
 		);
 		expect(payload.currentOrder[0]).toEqual(
 			expect.objectContaining({
@@ -66,7 +66,7 @@ describe("openui repo-local cli", () => {
 
 	it("treats shimmed bin paths as the same entrypoint after realpath resolution", () => {
 		const resolver = (targetPath: string) => {
-			if (targetPath.endsWith("node_modules/.bin/openuistudio")) {
+			if (targetPath.endsWith("node_modules/.bin/OpenUIStudio")) {
 				return "/repo/tooling/cli/openui.mjs";
 			}
 			return targetPath;
@@ -74,7 +74,7 @@ describe("openui repo-local cli", () => {
 
 		expect(
 			isCliEntrypoint(
-				"/repo/node_modules/.bin/openuistudio",
+				"/repo/node_modules/.bin/OpenUIStudio",
 				"/repo/tooling/cli/openui.mjs",
 				resolver,
 			),
@@ -157,7 +157,7 @@ describe("openui repo-local cli", () => {
 				usePath: ["Start from the current local stdio MCP builder surface"],
 				distributionTier: "plugin-grade-public-distribution-package",
 				proofLoop: [
-					"openuistudio skills starter --json",
+					"OpenUIStudio skills starter --json",
 					"npm run repo:doctor",
 				],
 				troubleshootingPath: ["packages/skills-kit/starter-troubleshooting.md"],
@@ -189,7 +189,7 @@ describe("openui repo-local cli", () => {
 		);
 		expect(payload.starterBundles).toEqual(["starter-bundles/codex.mcp.json"]);
 		expect(payload.proofLoop).toEqual([
-			"openuistudio skills starter --json",
+			"OpenUIStudio skills starter --json",
 			"npm run repo:doctor",
 		]);
 		expect(payload.troubleshootingPath).toEqual([

@@ -6,7 +6,7 @@
   "audience": "maintainers, builders, and agent teams that need an official repo-owned skill product line with sample configs, proof loops, and bounded metadata on top of the current OpenUI surfaces",
   "role": "skill contracts, skill bundles, manifest metadata, troubleshooting, and boundary-first examples for the repo-owned product line",
   "installPath": [
-    "npm install /ABS/PATH/openuistudio/packages/skills-kit",
+    "npm install /ABS/PATH/OpenUIStudio/packages/skills-kit",
     "import { OPENUI_SKILLS_KIT_MANIFEST } from '@openui/skills-kit'",
     "Inspect starter-bundles/codex.mcp.json or starter-bundles/claude-code.mcp.json for ready-to-adapt host config",
     "Inspect starter-bundles/codex-plugin/ or starter-bundles/claude-code-plugin/ for official-surface-ready bundle directories",
@@ -50,7 +50,7 @@
   },
   "supportingParkedLanes": [
     "@openui/sdk",
-    "openuistudio hosted ..."
+    "OpenUIStudio hosted ..."
   ],
   "notFor": [
     "claiming a marketplace listing",

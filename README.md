@@ -8,9 +8,9 @@ Code, OpenCode, OpenClaw, and other MCP-first clients when they want one
 practical `brief -> files -> proof -> review -> ship` workflow instead of a
 generic coding-agent platform.
 
-[![Tag](https://img.shields.io/github/v/tag/xiaojiou176-open/openuistudio?label=tag)](https://github.com/xiaojiou176-open/openuistudio/tags)
-[![Discussions](https://img.shields.io/github/discussions/xiaojiou176-open/openuistudio?label=discussions)](https://github.com/xiaojiou176-open/openuistudio/discussions)
-[![License](https://img.shields.io/github/license/xiaojiou176-open/openuistudio)](./LICENSE)
+[![Tag](https://img.shields.io/github/v/tag/xiaojiou176-open/OpenUIStudio?label=tag)](https://github.com/xiaojiou176-open/OpenUIStudio/tags)
+[![Discussions](https://img.shields.io/github/discussions/xiaojiou176-open/OpenUIStudio?label=discussions)](https://github.com/xiaojiou176-open/OpenUIStudio/discussions)
+[![License](https://img.shields.io/github/license/xiaojiou176-open/OpenUIStudio)](./LICENSE)
 [![Proof Surface](https://img.shields.io/badge/proof-apps%2Fweb-blue)](./docs/proof-and-faq.md)
 
 ## One-Screen Answer
@@ -20,7 +20,7 @@ If you only read one screen, keep these four answers in view:
 | Question | Current truthful answer |
 | --- | --- |
 | What is this? | A repo-first UI delivery workflow that turns a brief into React + shadcn files, then keeps proof, review, and acceptance visible before ship. |
-| Where should I start? | [Pages Front Door](https://xiaojiou176-open.github.io/openuistudio/) -> [Proof Desk](./docs/proof-and-faq.md) -> `npm run demo:ship` |
+| Where should I start? | [Pages Front Door](https://xiaojiou176-open.github.io/OpenUIStudio/) -> [Proof Desk](./docs/proof-and-faq.md) -> `npm run demo:ship` |
 | Why trust it? | The repo keeps one visible proof path, one real demo command, and explicit quality gates instead of stopping at a screenshot or raw text blob. |
 | What is it **not** claiming? | Not a generic coding-agent platform, not a managed hosted UI SaaS, and not an Official MCP Registry listing today. |
 
@@ -28,14 +28,14 @@ If you only read one screen, keep these four answers in view:
 
 Keep the first pass single-threaded:
 
-1. Open the [Pages Front Door](https://xiaojiou176-open.github.io/openuistudio/) to get the product sentence and guided route.
+1. Open the [Pages Front Door](https://xiaojiou176-open.github.io/OpenUIStudio/) to get the product sentence and guided route.
 2. Open the [Proof Desk](./docs/proof-and-faq.md) to see what the repo actually proves today.
 3. Run `npm run demo:ship` when you want one repo-local brief-to-ship payload.
 4. Only after those three make sense, branch into distribution, integrations, manifests, and install bundles.
 
 <p align="center">
   <img
-    src="./docs/assets/openuistudio-workflow-overview.png"
+    src="./docs/assets/OpenUIStudio-workflow-overview.png"
     alt="Workflow overview showing brief, generate, apply, and verify stages"
     width="100%"
   />
@@ -64,7 +64,7 @@ Keep the first pass single-threaded:
 
 <p align="center">
   <img
-    src="./docs/assets/openuistudio-demo.gif"
+    src="./docs/assets/OpenUIStudio-demo.gif"
     alt="Animated OpenUIStudio demo showing brief, review, and ship stages"
     width="100%"
   />
@@ -79,7 +79,7 @@ After the canonical first route is clear, use the matching second-ring shelf:
 
 | If your question is... | Start here |
 | --- | --- |
-| "What does the repo do in one screen?" | [`README.md`](./README.md) and the [Pages Front Door](https://xiaojiou176-open.github.io/openuistudio/) |
+| "What does the repo do in one screen?" | [`README.md`](./README.md) and the [Pages Front Door](https://xiaojiou176-open.github.io/OpenUIStudio/) |
 | "How do I install, submit, or package this truthfully?" | [`DISTRIBUTION.md`](./DISTRIBUTION.md) and [`manifest.yaml`](./manifest.yaml) |
 | "Where is the canonical pure-MCP descriptor?" | [`server.json`](./server.json) |
 | "Which client or host is this actually ready for?" | [`INTEGRATIONS.md`](./INTEGRATIONS.md) |
@@ -238,7 +238,7 @@ order is:
 3. repo-local workflow bridge for read-only readiness packets and maintainer
    handoff
 4. repo-local surface guide for zero-context builders:
-   `openuistudio surface-guide`
+   `OpenUIStudio surface-guide`
 
 That is the honest current builder-entry surface. On top of it, the raised-bar
 public-distribution program now adds four repo-owned package/distribution lines
@@ -249,7 +249,7 @@ without changing the frozen builder order:
   for official-surface-compatible distribution packaging
 - `examples/public-distribution/openclaw-public-ready.manifest.json`
 - `@openui/skills-kit` package surface
-- supporting / parked `@openui/sdk` and `openuistudio hosted ...` lanes
+- supporting / parked `@openui/sdk` and `OpenUIStudio hosted ...` lanes
 
 ## Current Shared Truth
 
@@ -378,7 +378,7 @@ Use the lightest path that answers your real question.
 | `npm run repo:verify:fast` | you want a stronger deterministic local check without replaying the full CI container lane | the local structural governance path still holds | not container parity and not remote GitHub governance truth by itself |
 | `npm run repo:verify:full` | you intentionally want the manual heavy local parity lane | the local container-parity verification path still holds | not remote GitHub governance truth by itself and not a routine everyday command |
 | `npm run release:public-safe:check` | you want the strict repo-side public-safe verdict | docs, remote evidence, canonical history hygiene, local heads/tags sensitive-surface history, and GitHub public-surface review agree on a strict repo-side verdict | not legal sign-off, product judgment, or rollout approval |
-| `npm run pages:build` | you want the GitHub Pages-ready static export of the current front door | `apps/web` can be exported as a project-pages artifact for `xiaojiou176-open/openuistudio` | not proof that GitHub Pages is already enabled or deployed by itself |
+| `npm run pages:build` | you want the GitHub Pages-ready static export of the current front door | `apps/web` can be exported as a project-pages artifact for `xiaojiou176-open/OpenUIStudio` | not proof that GitHub Pages is already enabled or deployed by itself |
 
 The live Gemini lane stays outside the default PR hot path:
 
@@ -439,7 +439,7 @@ end.
 
 <p align="center">
   <img
-    src="./docs/assets/openuistudio-use-cases.png"
+    src="./docs/assets/OpenUIStudio-use-cases.png"
     alt="Use cases showing why evaluators keep OpenUIStudio bookmarked"
     width="100%"
   />
@@ -484,7 +484,7 @@ This repository is closer to a shipping studio than a prompt toy.
 
 <p align="center">
   <img
-    src="./docs/assets/openuistudio-comparison.png"
+    src="./docs/assets/OpenUIStudio-comparison.png"
     alt="Comparison showing how OpenUIStudio differs from a pure code generator and a generic UI demo repo"
     width="100%"
   />
@@ -497,17 +497,17 @@ These frames are meant to be read as evidence, not as decorative thumbnails.
 **1. Brief**
 Start from a natural-language UI request.
 
-![Visual tour step 1 showing the brief stage](./docs/assets/openuistudio-demo-brief.png)
+![Visual tour step 1 showing the brief stage](./docs/assets/OpenUIStudio-demo-brief.png)
 
 **2. Review**
 Inspect the workbench before trusting the output.
 
-![Visual tour step 2 showing the review stage](./docs/assets/openuistudio-demo-review.png)
+![Visual tour step 2 showing the review stage](./docs/assets/OpenUIStudio-demo-review.png)
 
 **3. Ship**
 Keep gates in the loop before calling it done.
 
-![Visual tour step 3 showing the ship stage](./docs/assets/openuistudio-demo-ship.png)
+![Visual tour step 3 showing the ship stage](./docs/assets/OpenUIStudio-demo-ship.png)
 
 ## Quick Start
 
@@ -602,7 +602,7 @@ narrative rather than synthetic marketing art.
 
 <p align="center">
   <img
-    src="./docs/assets/openuistudio-demo.gif"
+    src="./docs/assets/OpenUIStudio-demo.gif"
     alt="Animated OpenUIStudio demo showing the brief-to-review-to-ship workflow"
     width="100%"
   />
@@ -729,7 +729,7 @@ real engineering trail.
 
 <p align="center">
   <img
-    src="./docs/assets/openuistudio-trust-stack.png"
+    src="./docs/assets/OpenUIStudio-trust-stack.png"
     alt="Trust stack showing proof surface, quality gates, public routing, and governance evidence"
     width="100%"
   />
@@ -739,7 +739,7 @@ real engineering trail.
   - quick repository health check across governance, runtime, and readiness
 - `npm run repo:space:report`
   - shows repo-local managed surfaces, repo-specific external cache roots, repo-owned persistent browser assets, and machine-wide shared layers as separate layers
-  - includes the configured `~/.cache/openuistudio/tooling` base root, workspace token, janitor TTL/cap policy, repo browser lane readout (`Profile 1` / `9343` / instance state / janitor exclusion), and repo-owned Docker residue readout
+  - includes the configured `~/.cache/OpenUIStudio/tooling` base root, workspace token, janitor TTL/cap policy, repo browser lane readout (`Profile 1` / `9343` / instance state / janitor exclusion), and repo-owned Docker residue readout
 - `npm run repo:space:check`
   - front-door repo-local space-governance gate; fails on hard-fail pollution and unknown heavy non-canonical runtime subtrees
 - `npm run repo:space:verify`
@@ -786,7 +786,7 @@ Treat those as operator-maintained machine surfaces rather than `repo:space:main
 Repo-specific external cache roots are a separate middle layer:
 
 - they are repo-attributable because the path includes the workspace token
-- they now live under `~/.cache/openuistudio/tooling/<workspaceToken>/...`
+- they now live under `~/.cache/OpenUIStudio/tooling/<workspaceToken>/...`
 - they use default janitor policy of `3 days / 5 GiB / 60 minutes`
 - `repo:space:report`, `repo:space:verify`, and `repo:space:maintain:*` surface the current janitor state and latest cleanup receipt
 
@@ -794,7 +794,7 @@ Real Chrome profile policy is separate from cache policy:
 
 - local-only real Chrome flows read `OPENUI_CHROME_USER_DATA_DIR` + `OPENUI_CHROME_PROFILE_DIRECTORY` + `OPENUI_CHROME_CDP_PORT`
 - missing env is a hard configuration blocker for real-profile flows
-- the canonical isolated root is `~/.cache/openuistudio/browser/chrome-user-data` and the canonical profile directory is `Profile 1`
+- the canonical isolated root is `~/.cache/OpenUIStudio/browser/chrome-user-data` and the canonical profile directory is `Profile 1`
 - the lane is single-instance by policy and uses CDP attach on port `9343` instead of second-launching the same root
 - real Chrome profile data is an identity/session asset, not a cache, so it is never auto-cleaned by repo janitors
 - cloud CI keeps login-dependent browser tests disabled by default
@@ -835,7 +835,7 @@ In plain language:
 - Release notes, future release-asset refreshes, and future Discussions curation
   still need operator follow-through when the public story changes again.
 - The GitHub Homepage field now points at the live GitHub Pages front door:
-  `https://xiaojiou176-open.github.io/openuistudio/`.
+  `https://xiaojiou176-open.github.io/OpenUIStudio/`.
   Social Preview still remains a settings-managed surface that needs explicit
   operator verification whenever it changes.
 - `npm run repo:workflow:ready` is the maintainer-facing PR/checks-ready packet.
@@ -848,14 +848,14 @@ In plain language:
 
 ```bash
 claude mcp add --transport stdio --env GEMINI_API_KEY=your_key openui -- \
-  node /ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
+  node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
 ```
 
 ### Codex CLI
 
 ```bash
 codex mcp add openui --env GEMINI_API_KEY=your_key -- \
-  node /ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
+  node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
 ```
 
 These are the repo-owned starter install snippets for the current plugin-grade
@@ -872,7 +872,7 @@ launch contract:
 {
   "command": "node",
   "args": [
-    "/ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+    "/ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
   ],
   "env": {
     "GEMINI_API_KEY": "your_key"
@@ -887,9 +887,9 @@ integration, or a hosted runtime.
 If you want the quickest repo-owned builder orientation after install, use:
 
 ```bash
-openuistudio surface-guide
-openuistudio ecosystem-guide --json
-openuistudio skills starter --json
+OpenUIStudio surface-guide
+OpenUIStudio ecosystem-guide --json
+OpenUIStudio skills starter --json
 node tooling/public-distribution-proof.mjs
 ```
 

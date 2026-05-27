@@ -9,8 +9,8 @@
     "examples/openclaw/README.md"
   ],
   "proofPath": [
-    "openuistudio ecosystem-guide --json",
-    "openuistudio skills starter --json",
+    "OpenUIStudio ecosystem-guide --json",
+    "OpenUIStudio skills starter --json",
     "npm run repo:doctor",
     "docs/proof-and-faq.md"
   ],

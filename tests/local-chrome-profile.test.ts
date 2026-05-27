@@ -105,7 +105,7 @@ describe("local chrome profile contract", () => {
 				info_cache: {
 					Default: { name: "Person 1" },
 					"Profile 29": {
-						name: "openuistudio",
+						name: "OpenUIStudio",
 						is_using_default_name: true,
 						user_name: "openui-profile@example.com",
 					},
@@ -114,7 +114,7 @@ describe("local chrome profile contract", () => {
 		};
 
 		expect(
-			findChromeProfileByDisplayName(sourceLocalState, "openuistudio"),
+			findChromeProfileByDisplayName(sourceLocalState, "OpenUIStudio"),
 		).toMatchObject({
 			profileDirectory: "Profile 29",
 		});
@@ -124,7 +124,7 @@ describe("local chrome profile contract", () => {
 			{
 				sourceProfileDirectory: "Profile 29",
 				profileDirectory: "Profile 1",
-				displayName: "openuistudio",
+				displayName: "OpenUIStudio",
 			},
 		);
 
@@ -133,14 +133,14 @@ describe("local chrome profile contract", () => {
 		expect(localState.profile.profiles_order).toEqual(["Profile 1"]);
 		expect(Object.keys(localState.profile.info_cache)).toEqual(["Profile 1"]);
 		expect(localState.profile.info_cache["Profile 1"]).toMatchObject({
-			name: "openuistudio",
+			name: "OpenUIStudio",
 			is_using_default_name: false,
 			user_name: "openui-profile@example.com",
 		});
 		expect(rewriteSummary).toMatchObject({
 			sourceProfileDirectory: "Profile 29",
 			targetProfileDirectory: "Profile 1",
-			displayName: "openuistudio",
+			displayName: "OpenUIStudio",
 		});
 	});
 
@@ -158,7 +158,7 @@ describe("local chrome profile contract", () => {
 				profiles_order: ["Default", "Profile 29"],
 				info_cache: {
 					"Profile 29": {
-						name: "openuistudio",
+						name: "OpenUIStudio",
 						is_using_default_name: false,
 						user_name: "openui-profile@example.com",
 					},
@@ -189,7 +189,7 @@ describe("local chrome profile contract", () => {
 		);
 		expect(localState.profile.last_used).toBe("Profile 1");
 		expect(localState.profile.info_cache["Profile 1"]).toMatchObject({
-			name: "openuistudio",
+			name: "OpenUIStudio",
 		});
 		await expect(
 			fs.readFile(
@@ -222,7 +222,7 @@ describe("local chrome profile contract", () => {
 				profiles_order: ["Profile 1"],
 				info_cache: {
 					"Profile 1": {
-						name: "openuistudio",
+						name: "OpenUIStudio",
 						is_using_default_name: false,
 						user_name: "openui-profile@example.com",
 					},

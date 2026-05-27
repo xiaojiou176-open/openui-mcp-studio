@@ -102,8 +102,8 @@
         "packages/skills-kit/manifest.json",
         "examples/skills/README.md",
         "examples/skills/public-starter.manifest.json",
-        "openuistudio skills starter --json",
-        "openuistudio ecosystem-guide --json"
+        "OpenUIStudio skills starter --json",
+        "OpenUIStudio ecosystem-guide --json"
       ],
       "verificationPath": [
         "node tooling/cli/openui.mjs skills starter --json",
@@ -126,7 +126,7 @@
         "examples/codex/marketplace.sample.json",
         ".claude-plugin/marketplace.json",
         "examples/skills/starter-troubleshooting.md",
-        "openuistudio ecosystem-guide --json"
+        "OpenUIStudio ecosystem-guide --json"
       ],
       "verificationPath": [
         "node tooling/cli/openui.mjs ecosystem-guide --json",
@@ -165,7 +165,7 @@
       "packageShape": "@openui/sdk package",
       "installPath": [
         "packages/sdk",
-        "npm install /ABS/PATH/openuistudio/packages/sdk",
+        "npm install /ABS/PATH/OpenUIStudio/packages/sdk",
         "import { createOpenuiHostedClient } from '@openui/sdk'"
       ],
       "verificationPath": [
@@ -181,9 +181,9 @@
       "role": "self-hosted HTTP runtime surfaced through the root CLI and retained as a supporting lane",
       "packageShape": "repo CLI entrypoint plus internal hosted-api source package",
       "installPath": [
-        "openuistudio hosted info",
-        "openuistudio hosted openapi",
-        "openuistudio hosted serve"
+        "OpenUIStudio hosted info",
+        "OpenUIStudio hosted openapi",
+        "OpenUIStudio hosted serve"
       ],
       "verificationPath": [
         "node --import tsx tooling/hosted-api-smoke.ts"

@@ -4,7 +4,7 @@ description: Teach an agent how to install OpenUIStudio, connect it to a host, a
 version: 1.0.0
 triggers:
   - openui
-  - openuistudio
+  - OpenUIStudio
   - openui workspace delivery
   - shadcn generation
   - UI shipping

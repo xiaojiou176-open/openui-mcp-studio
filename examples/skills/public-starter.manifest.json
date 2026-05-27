@@ -59,11 +59,11 @@
     "Only mention the OpenAPI contract as a compatibility bridge",
     "Only mention repo-local workflow packets as maintainer-facing read-only surfaces",
     "Use proof anchors from repo-owned files instead of future-product promises",
-    "Pair the starter bundle with openuistudio ecosystem-guide --json and npm run repo:doctor when you need the shortest proof loop"
+    "Pair the starter bundle with OpenUIStudio ecosystem-guide --json and npm run repo:doctor when you need the shortest proof loop"
   ],
   "proofLoop": [
-    "openuistudio skills starter --json",
-    "openuistudio ecosystem-guide --json",
+    "OpenUIStudio skills starter --json",
+    "OpenUIStudio ecosystem-guide --json",
     "npm run repo:doctor",
     "npm run demo:ship",
     "node tooling/skills-install-proof.mjs"

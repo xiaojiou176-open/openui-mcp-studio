@@ -63,8 +63,8 @@ export const OPENUI_PUBLIC_SKILLS_STARTER_PACK = {
 		},
 	],
 	commands: [
-		"openuistudio skills starter --json",
-		"openuistudio ecosystem-guide --json",
+		"OpenUIStudio skills starter --json",
+		"OpenUIStudio ecosystem-guide --json",
 	],
 	boundary:
 		"Formal public starter-pack packaging is current, including plugin-grade starter bundles and the OpenClaw public-ready bundle. Marketplace listings, official catalog approval, and vendor-specific submissions remain operator-only or later.",

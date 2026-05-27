@@ -113,7 +113,7 @@ an empty Releases page look like a closed public surface.
   door, not a raw GitHub blob URL.
 - If no standalone landing page exists yet, leaving Homepage unset is still
   better than pointing visitors at source code that looks like a product site.
-- Do not assume that shipping `docs/assets/openuistudio-social-preview.png`
+- Do not assume that shipping `docs/assets/OpenUIStudio-social-preview.png`
   means GitHub is already using it. Treat Social Preview as a settings-level
   control that must be explicitly verified whenever the public story changes.
 - The app itself should serve one repo-owned social-preview image route so page
@@ -152,16 +152,16 @@ with Playwright screenshots.
 
 Current source files:
 
-- `docs/assets/openuistudio-workbench-source.html`
-- `docs/assets/openuistudio-social-preview-source.html`
-- `docs/assets/openuistudio-demo-source-brief.html`
-- `docs/assets/openuistudio-demo-source-review.html`
-- `docs/assets/openuistudio-demo-source-ship.html`
-- `docs/assets/openuistudio-workflow-overview-source.html`
-- `docs/assets/openuistudio-comparison-source.html`
-- `docs/assets/openuistudio-trust-stack-source.html`
-- `docs/assets/openuistudio-use-cases-source.html`
-- `docs/assets/openuistudio-visitor-paths-source.html`
+- `docs/assets/OpenUIStudio-workbench-source.html`
+- `docs/assets/OpenUIStudio-social-preview-source.html`
+- `docs/assets/OpenUIStudio-demo-source-brief.html`
+- `docs/assets/OpenUIStudio-demo-source-review.html`
+- `docs/assets/OpenUIStudio-demo-source-ship.html`
+- `docs/assets/OpenUIStudio-workflow-overview-source.html`
+- `docs/assets/OpenUIStudio-comparison-source.html`
+- `docs/assets/OpenUIStudio-trust-stack-source.html`
+- `docs/assets/OpenUIStudio-use-cases-source.html`
+- `docs/assets/OpenUIStudio-visitor-paths-source.html`
 
 Preferred regeneration pattern:
 
@@ -187,14 +187,14 @@ Visual quality floor:
 When the public story changes materially and a published GitHub release exists,
 the latest release should expose the updated public assets:
 
-- `openuistudio-demo.gif`
-- `openuistudio-workbench.png`
-- `openuistudio-workflow-overview.png`
-- `openuistudio-comparison.png`
-- `openuistudio-trust-stack.png`
-- `openuistudio-use-cases.png`
-- `openuistudio-visitor-paths.png`
-- `openuistudio-social-preview.png`
+- `OpenUIStudio-demo.gif`
+- `OpenUIStudio-workbench.png`
+- `OpenUIStudio-workflow-overview.png`
+- `OpenUIStudio-comparison.png`
+- `OpenUIStudio-trust-stack.png`
+- `OpenUIStudio-use-cases.png`
+- `OpenUIStudio-visitor-paths.png`
+- `OpenUIStudio-social-preview.png`
 
 ## Machine-Readable Discovery Chain
 

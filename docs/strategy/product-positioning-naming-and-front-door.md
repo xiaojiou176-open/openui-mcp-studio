@@ -6,7 +6,7 @@
 > strategy source of truth.
 
 This document defines the current product-positioning and naming strategy for
-`openuistudio`.
+`OpenUIStudio`.
 
 English is the canonical source of truth for repository governance and
 maintenance guidance, so this strategy artifact stays in English as the

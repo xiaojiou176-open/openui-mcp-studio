@@ -68,14 +68,14 @@ describe("proof pack freshness", () => {
 			"npm run security:history:audit\nnpm run security:oss:audit\nnpm run security:pii:audit\nnpm run security:github:public:audit\n",
 		);
 		for (const asset of [
-			"openuistudio-workbench.png",
-			"openuistudio-demo.gif",
-			"openuistudio-social-preview.png",
-			"openuistudio-workflow-overview.png",
-			"openuistudio-comparison.png",
-			"openuistudio-trust-stack.png",
-			"openuistudio-use-cases.png",
-			"openuistudio-visitor-paths.png",
+			"OpenUIStudio-workbench.png",
+			"OpenUIStudio-demo.gif",
+			"OpenUIStudio-social-preview.png",
+			"OpenUIStudio-workflow-overview.png",
+			"OpenUIStudio-comparison.png",
+			"OpenUIStudio-trust-stack.png",
+			"OpenUIStudio-use-cases.png",
+			"OpenUIStudio-visitor-paths.png",
 		]) {
 			await writeFile(path.join(root, "docs/assets", asset), "placeholder");
 		}

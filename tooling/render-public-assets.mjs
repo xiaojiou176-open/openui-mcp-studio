@@ -19,73 +19,73 @@ const COPY_TARGETS = [];
 
 const STATIC_PAGES = [
 	{
-		input: "docs/assets/openuistudio-workbench-source.html",
-		output: "docs/assets/openuistudio-workbench.png",
+		input: "docs/assets/OpenUIStudio-workbench-source.html",
+		output: "docs/assets/OpenUIStudio-workbench.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/openuistudio-social-preview-source.html",
-		output: "docs/assets/openuistudio-social-preview.png",
+		input: "docs/assets/OpenUIStudio-social-preview-source.html",
+		output: "docs/assets/OpenUIStudio-social-preview.png",
 		viewport: { width: 1280, height: 640 },
 	},
 	{
-		input: "docs/assets/openuistudio-workflow-overview-source.html",
-		output: "docs/assets/openuistudio-workflow-overview.png",
+		input: "docs/assets/OpenUIStudio-workflow-overview-source.html",
+		output: "docs/assets/OpenUIStudio-workflow-overview.png",
 		viewport: { width: 1440, height: 760 },
 	},
 	{
-		input: "docs/assets/openuistudio-comparison-source.html",
-		output: "docs/assets/openuistudio-comparison.png",
+		input: "docs/assets/OpenUIStudio-comparison-source.html",
+		output: "docs/assets/OpenUIStudio-comparison.png",
 		viewport: { width: 1440, height: 1300 },
 	},
 	{
-		input: "docs/assets/openuistudio-trust-stack-source.html",
-		output: "docs/assets/openuistudio-trust-stack.png",
+		input: "docs/assets/OpenUIStudio-trust-stack-source.html",
+		output: "docs/assets/OpenUIStudio-trust-stack.png",
 		viewport: { width: 1440, height: 900 },
 	},
 	{
-		input: "docs/assets/openuistudio-use-cases-source.html",
-		output: "docs/assets/openuistudio-use-cases.png",
+		input: "docs/assets/OpenUIStudio-use-cases-source.html",
+		output: "docs/assets/OpenUIStudio-use-cases.png",
 		viewport: { width: 1440, height: 840 },
 	},
 	{
-		input: "docs/assets/openuistudio-visitor-paths-source.html",
-		output: "docs/assets/openuistudio-visitor-paths.png",
+		input: "docs/assets/OpenUIStudio-visitor-paths-source.html",
+		output: "docs/assets/OpenUIStudio-visitor-paths.png",
 		viewport: { width: 1440, height: 820 },
 	},
 ];
 
 const DEMO_FRAMES = [
 	{
-		input: "docs/assets/openuistudio-demo-source-brief.html",
+		input: "docs/assets/OpenUIStudio-demo-source-brief.html",
 		output: ".runtime-cache/tmp/public-assets/frame-1.png",
-		publicOutput: "docs/assets/openuistudio-demo-brief.png",
+		publicOutput: "docs/assets/OpenUIStudio-demo-brief.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/openuistudio-demo-source-review.html",
+		input: "docs/assets/OpenUIStudio-demo-source-review.html",
 		output: ".runtime-cache/tmp/public-assets/frame-2.png",
-		publicOutput: "docs/assets/openuistudio-demo-review.png",
+		publicOutput: "docs/assets/OpenUIStudio-demo-review.png",
 		viewport: { width: 1280, height: 720 },
 	},
 	{
-		input: "docs/assets/openuistudio-demo-source-ship.html",
+		input: "docs/assets/OpenUIStudio-demo-source-ship.html",
 		output: ".runtime-cache/tmp/public-assets/frame-3.png",
-		publicOutput: "docs/assets/openuistudio-demo-ship.png",
+		publicOutput: "docs/assets/OpenUIStudio-demo-ship.png",
 		viewport: { width: 1280, height: 720 },
 	},
 ];
 
-const GIF_OUTPUT = path.resolve(DOCS_ASSETS_DIR, "openuistudio-demo.gif");
+const GIF_OUTPUT = path.resolve(DOCS_ASSETS_DIR, "OpenUIStudio-demo.gif");
 const RELEASE_ASSET_NAMES = [
-	"openuistudio-demo.gif",
-	"openuistudio-social-preview.png",
-	"openuistudio-workbench.png",
-	"openuistudio-workflow-overview.png",
-	"openuistudio-comparison.png",
-	"openuistudio-trust-stack.png",
-	"openuistudio-use-cases.png",
-	"openuistudio-visitor-paths.png",
+	"OpenUIStudio-demo.gif",
+	"OpenUIStudio-social-preview.png",
+	"OpenUIStudio-workbench.png",
+	"OpenUIStudio-workflow-overview.png",
+	"OpenUIStudio-comparison.png",
+	"OpenUIStudio-trust-stack.png",
+	"OpenUIStudio-use-cases.png",
+	"OpenUIStudio-visitor-paths.png",
 ];
 
 function parseArgs(argv) {

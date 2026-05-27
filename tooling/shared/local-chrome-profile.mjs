@@ -8,7 +8,7 @@ import { toPosixPath } from "./governance-utils.mjs";
 
 const DEFAULT_OPENUI_CHROME_CHANNEL = "chrome";
 const DEFAULT_OPENUI_CHROME_CDP_PORT = 9343;
-const DEFAULT_OPENUI_CHROME_PROFILE_DISPLAY_NAME = "openuistudio";
+const DEFAULT_OPENUI_CHROME_PROFILE_DISPLAY_NAME = "OpenUIStudio";
 const DEFAULT_OPENUI_CHROME_PROFILE_DIRECTORY = "Profile 1";
 const DEFAULT_OPENUI_CHROME_VERIFY_URL = "https://myaccount.google.com/";
 const DEFAULT_CHROME_STARTUP_TIMEOUT_MS = 15_000;
@@ -87,7 +87,7 @@ function getDefaultIsolatedChromeUserDataDir(homeDir = os.homedir()) {
 	return path.join(
 		homeDir,
 		".cache",
-		"openuistudio",
+		"OpenUIStudio",
 		"browser",
 		"chrome-user-data",
 	);

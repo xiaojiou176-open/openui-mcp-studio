@@ -5,13 +5,13 @@
   "config": {
     "command": "node",
     "args": [
-      "/ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
+      "/ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js"
     ],
     "env": {
       "GEMINI_API_KEY": "${GEMINI_API_KEY}"
     }
   },
-  "installCommand": "codex mcp add openui --env GEMINI_API_KEY=your_key -- node /ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
+  "installCommand": "codex mcp add openui --env GEMINI_API_KEY=your_key -- node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js",
   "proofCommands": [
     "codex mcp list",
     "node tooling/cli/openui.mjs surface-guide",

@@ -29,9 +29,9 @@ You are probably in the right place if you want all four of these:
 
 ## Visual Checklist
 
-![Use cases showing why evaluators keep OpenUIStudio bookmarked](./assets/openuistudio-use-cases.png)
+![Use cases showing why evaluators keep OpenUIStudio bookmarked](./assets/OpenUIStudio-use-cases.png)
 
-![Trust stack showing proof surface, quality gates, public routing, and governance evidence](./assets/openuistudio-trust-stack.png)
+![Trust stack showing proof surface, quality gates, public routing, and governance evidence](./assets/OpenUIStudio-trust-stack.png)
 
 ## Evaluation Questions
 

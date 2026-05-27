@@ -56,9 +56,9 @@ Start here if your question is "what builder surface is actually current?"
 - [`docs/discovery-surfaces.md`](./discovery-surfaces.md)
 - [`docs/contracts/openui-mcp.openapi.json`](./contracts/openui-mcp.openapi.json)
 - [`docs/contracts/openui-ecosystem-productization.json`](./contracts/openui-ecosystem-productization.json)
-- `openuistudio surface-guide`
-- `openuistudio ecosystem-guide`
-- `openuistudio skills starter --json`
+- `OpenUIStudio surface-guide`
+- `OpenUIStudio ecosystem-guide`
+- `OpenUIStudio skills starter --json`
 
 The public repo itself is the primary distribution artifact.
 Current builder order stays:

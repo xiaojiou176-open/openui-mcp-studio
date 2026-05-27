@@ -81,8 +81,8 @@ first. This page explains proof semantics; it does not replace first-time setup.
 | --- | --- | --- |
 | `npm run demo:ship` | one rerunnable ship-tool payload from the current repo | not a replacement for smoke, UI/UX, or release checks |
 | `npm run repo:doctor` | front-door repository health across governance, runtime, evidence, upstream, and release-readiness inputs | not a full CI substitute and not a hosted-platform uptime guarantee |
-| `openuistudio skills starter --json` | machine-readable view of the repo-owned skill product line and its bundle truth | not proof of an official marketplace or catalog listing |
-| `openuistudio ecosystem-guide --json` | current repo distribution story, supporting install bundles, skill product line, and parked lanes in one CLI packet | not proof of vendor approval or registry publication |
+| `OpenUIStudio skills starter --json` | machine-readable view of the repo-owned skill product line and its bundle truth | not proof of an official marketplace or catalog listing |
+| `OpenUIStudio ecosystem-guide --json` | current repo distribution story, supporting install bundles, skill product line, and parked lanes in one CLI packet | not proof of vendor approval or registry publication |
 | `npm run smoke:e2e` | the default proof target still boots and behaves like a real app | not proof that every generated UI is production-ready |
 | `npm run release:public-safe:check` | the strict repo-side public-safe verdict across docs, release-readiness, remote evidence, and history hygiene | not legal sign-off, product judgment, or rollout approval |
 
@@ -102,15 +102,15 @@ looking at?"
 
 ## Demo Proof
 
-![OpenUIStudio front door summary showing the product sentence, first route, and proof-to-workbench handoff](./assets/openuistudio-workbench.png)
+![OpenUIStudio front door summary showing the product sentence, first route, and proof-to-workbench handoff](./assets/OpenUIStudio-workbench.png)
 
-![Animated OpenUIStudio demo showing brief, review, and ship stages](./assets/openuistudio-demo.gif)
+![Animated OpenUIStudio demo showing brief, review, and ship stages](./assets/OpenUIStudio-demo.gif)
 
-![Workflow overview showing brief, generate, apply, and verify stages](./assets/openuistudio-workflow-overview.png)
+![Workflow overview showing brief, generate, apply, and verify stages](./assets/OpenUIStudio-workflow-overview.png)
 
-![Comparison showing how OpenUIStudio differs from a pure code generator and a generic UI demo repo](./assets/openuistudio-comparison.png)
+![Comparison showing how OpenUIStudio differs from a pure code generator and a generic UI demo repo](./assets/OpenUIStudio-comparison.png)
 
-![Trust stack showing proof surface, quality gates, public routing, and governance evidence](./assets/openuistudio-trust-stack.png)
+![Trust stack showing proof surface, quality gates, public routing, and governance evidence](./assets/OpenUIStudio-trust-stack.png)
 
 ## Generated, Applied, And Verified
 
@@ -345,7 +345,7 @@ Current repo-owned package/runtime lines now include:
 Supporting or parked lines that remain real:
 
 - repo-owned SDK package surface via `@openui/sdk`
-- self-hosted OpenUI Hosted API command surface through `openuistudio hosted ...`
+- self-hosted OpenUI Hosted API command surface through `OpenUIStudio hosted ...`
 
 What still remains later/operator-owned:
 

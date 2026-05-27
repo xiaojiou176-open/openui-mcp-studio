@@ -6,9 +6,9 @@ This directory is the implementation home for the hosted product line, but the
 public entrypoint stays the root repo CLI:
 
 ```bash
-openuistudio hosted info
-openuistudio hosted openapi
-openuistudio hosted serve
+OpenUIStudio hosted info
+OpenUIStudio hosted openapi
+OpenUIStudio hosted serve
 ```
 
 Current scope:

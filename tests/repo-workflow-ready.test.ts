@@ -26,13 +26,13 @@ function createSummary() {
 		generatedAt: "2026-03-31T22:10:00.000Z",
 		workspaceRoot: "/repo",
 		repository: {
-			originUrl: "https://github.com/xiaojiou176-open/openuistudio.git",
+			originUrl: "https://github.com/xiaojiou176-open/OpenUIStudio.git",
 			owner: "xiaojiou176-open",
-			name: "openuistudio",
+			name: "OpenUIStudio",
 			defaultBranch: "main",
 			visibility: "PUBLIC",
 			homepageUrl:
-				"https://github.com/xiaojiou176-open/openuistudio/blob/main/docs/first-minute-walkthrough.md",
+				"https://github.com/xiaojiou176-open/OpenUIStudio/blob/main/docs/first-minute-walkthrough.md",
 		},
 		local: {
 			branch: "codex/prompt-5-closeout",

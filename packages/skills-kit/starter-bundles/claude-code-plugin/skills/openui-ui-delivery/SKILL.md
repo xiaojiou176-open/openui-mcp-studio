@@ -20,6 +20,6 @@ acceptance visible.
 
 1. Build the repo with `npm install && npm run build`.
 2. Point `.mcp.json` at the built `main.js` path.
-3. Run `claude plugins validate /ABS/PATH/openuistudio/packages/skills-kit/starter-bundles/claude-code-plugin`.
-4. Run `openuistudio ecosystem-guide --json`.
+3. Run `claude plugins validate /ABS/PATH/OpenUIStudio/packages/skills-kit/starter-bundles/claude-code-plugin`.
+4. Run `OpenUIStudio ecosystem-guide --json`.
 5. Run `npm run repo:doctor`.

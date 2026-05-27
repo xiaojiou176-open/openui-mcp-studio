@@ -17,8 +17,8 @@ surface without pretending OpenUI is already in the official Plugin Directory.
 1. Copy `marketplace.sample.json` into `$REPO_ROOT/.agents/plugins/marketplace.json`
 2. Restart Codex and install the `OpenUI Workspace Delivery` bundle
 3. Use the starter MCP JSON, then run:
-   - `openuistudio surface-guide --json`
-   - `openuistudio ecosystem-guide --json`
+   - `OpenUIStudio surface-guide --json`
+   - `OpenUIStudio ecosystem-guide --json`
    - `npm run repo:doctor`
 
 ## Boundaries

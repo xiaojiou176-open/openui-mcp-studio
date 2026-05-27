@@ -16,8 +16,8 @@ does not attach cleanly.
 
 ## 3. You want the shortest proof loop
 
-- Run `openuistudio surface-guide --json`
-- Run `openuistudio ecosystem-guide --json`
+- Run `OpenUIStudio surface-guide --json`
+- Run `OpenUIStudio ecosystem-guide --json`
 - Run `npm run repo:doctor`
 
 ## 4. OpenClaw wording boundary

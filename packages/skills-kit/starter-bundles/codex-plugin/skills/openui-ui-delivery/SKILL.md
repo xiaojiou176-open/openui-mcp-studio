@@ -19,6 +19,6 @@ inside a real workspace while keeping proof, review, and acceptance visible.
 
 1. Build the repo with `npm install && npm run build`.
 2. Point `.mcp.json` at the built `main.js` path.
-3. Run `openuistudio surface-guide --json`.
-4. Run `openuistudio ecosystem-guide --json`.
+3. Run `OpenUIStudio surface-guide --json`.
+4. Run `OpenUIStudio ecosystem-guide --json`.
 5. Run `npm run repo:doctor`.

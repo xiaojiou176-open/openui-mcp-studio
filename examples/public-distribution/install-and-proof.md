@@ -20,7 +20,7 @@ Use the official MCP add pattern:
 
 ```bash
 codex mcp add openui --env GEMINI_API_KEY=your_key -- \
-  node /ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
+  node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
 ```
 
 If you prefer to start from a machine-readable example first, open:
@@ -35,7 +35,7 @@ Use the official MCP add pattern:
 
 ```bash
 claude mcp add --transport stdio --env GEMINI_API_KEY=your_key openui -- \
-  node /ABS/PATH/openuistudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
+  node /ABS/PATH/OpenUIStudio/.runtime-cache/build/mcp-server/services/mcp-server/src/main.js
 ```
 
 If you prefer a machine-readable example first, open:

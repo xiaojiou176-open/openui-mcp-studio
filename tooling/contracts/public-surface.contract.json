@@ -2,11 +2,11 @@
   "version": 1,
   "repository": {
     "owner": "xiaojiou176-open",
-    "name": "openuistudio"
+    "name": "OpenUIStudio"
   },
   "about": {
     "description": "Public repo for MCP-native UI delivery and review across Codex, Claude Code, OpenCode, and OpenClaw.",
-    "homepageUrl": "https://xiaojiou176-open.github.io/openuistudio/",
+    "homepageUrl": "https://xiaojiou176-open.github.io/OpenUIStudio/",
     "discussionsEnabled": true
   },
   "topics": [
@@ -47,14 +47,14 @@
   ],
   "release": {
     "requiredAssets": [
-      "openuistudio-demo.gif",
-      "openuistudio-social-preview.png",
-      "openuistudio-workbench.png",
-      "openuistudio-workflow-overview.png",
-      "openuistudio-comparison.png",
-      "openuistudio-trust-stack.png",
-      "openuistudio-use-cases.png",
-      "openuistudio-visitor-paths.png"
+      "OpenUIStudio-demo.gif",
+      "OpenUIStudio-social-preview.png",
+      "OpenUIStudio-workbench.png",
+      "OpenUIStudio-workflow-overview.png",
+      "OpenUIStudio-comparison.png",
+      "OpenUIStudio-trust-stack.png",
+      "OpenUIStudio-use-cases.png",
+      "OpenUIStudio-visitor-paths.png"
     ]
   }
 }

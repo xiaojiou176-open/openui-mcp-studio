@@ -3,7 +3,7 @@
   "id": "openui.docker-runtime-submission",
   "status": "submission-ready-unlisted",
   "summary": "Repo-owned Docker runtime distribution packet for OpenUIStudio. It documents build, proof, and publish steps without claiming that a public image is already live or not yet published.",
-  "image": "ghcr.io/xiaojiou176-open/openuistudio",
+  "image": "ghcr.io/xiaojiou176-open/OpenUIStudio",
   "artifacts": [
     "examples/public-distribution/docker-install-and-proof.md",
     "manifest.yaml",

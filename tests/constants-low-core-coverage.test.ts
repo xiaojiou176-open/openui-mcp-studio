@@ -223,7 +223,7 @@ describe("constants low-core coverage", () => {
 
 		delete process.env.OPENUI_TOOL_CACHE_ROOT;
 		expect(constants.getOpenuiToolCacheRoot()).toContain(
-			path.join(".cache", "openuistudio", "tooling"),
+			path.join(".cache", "OpenUIStudio", "tooling"),
 		);
 
 		process.env.OPENUI_TOOL_CACHE_ROOT = ".cache/openui-local-tooling";
@@ -301,7 +301,7 @@ describe("constants low-core coverage", () => {
 		process.env.OPENUISTUDIO_CACHE_RETENTION_DAYS = "7";
 		process.env.OPENUISTUDIO_CACHE_MAX_BYTES = "104857600";
 		process.env.OPENUISTUDIO_CACHE_CLEAN_INTERVAL_MINUTES = "60";
-		process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/openuistudio/tooling";
+		process.env.OPENUI_TOOL_CACHE_ROOT = "~/.cache/OpenUIStudio/tooling";
 		process.env.OPENUI_TOOL_CACHE_RETENTION_DAYS = "3";
 		process.env.OPENUI_TOOL_CACHE_MAX_BYTES = "5368709120";
 		process.env.OPENUI_TOOL_CACHE_CLEAN_INTERVAL_MINUTES = "60";
